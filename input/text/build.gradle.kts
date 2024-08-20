@@ -73,17 +73,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-
-            api(compose.runtime)
-            api(compose.foundation)
-            api(compose.material3)
-            api(compose.materialIconsExtended)
-            api(libs.cinematic.live.compose)
-            api(kotlinx.coroutines.core)
-            api(libs.symphony.input.core)?.because("We need fields and forms")
-//            implementation(libs.krono.kotlinx)
-//            implementation(coil.compose)
-//            implementation(coil.network.ktor)
+            api(projects.majesticInputCore)
+            api(libs.symphony.input.text)?.because("We need text fields and the likes")
         }
 
         commonTest.dependencies {
