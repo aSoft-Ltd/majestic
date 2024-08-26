@@ -45,9 +45,7 @@ fun InputTextField(
         validity = field.validate()
     }
 
-    Column(
-        modifier = modifier.fillMaxWidth()
-    ) {
+    Column(modifier = modifier) {
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
             text = label
