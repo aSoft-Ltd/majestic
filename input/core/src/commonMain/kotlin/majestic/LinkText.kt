@@ -12,11 +12,11 @@ import majestic.Dimension.TextDefault
 
 @Composable
 fun LinkText(
-    modifier: Modifier = Modifier,
     label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     color: Color = Color(red = 0x00, green = 0x61, blue = 0xFF),
-    fontSize: TextUnit = TextDefault,
-    onClick: () -> Unit
+    fontSize: TextUnit = TextDefault
 ) {
     Text(
         modifier = modifier

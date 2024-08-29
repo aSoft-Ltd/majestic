@@ -28,14 +28,14 @@ import symphony.toErrors
 
 @Composable
 fun InputTextField(
-    modifier: Modifier = Modifier,
     field: BaseField<String>,
+    modifier: Modifier = Modifier,
     label: String = field.label.capitalizedWithAstrix(),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null,
-    onChange: ((String) -> Unit)? = null
+    leadingIcon: @Composable (() -> Unit)? = null
 ) = InputTextField(
     modifier = modifier,
     field = field,
@@ -54,14 +54,14 @@ fun InputTextField(
 
 @Composable
 fun InputTextField(
-    modifier: Modifier = Modifier,
     field: BaseField<String>,
+    modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    onChange: ((String) -> Unit)? = null,
     label: @Composable (() -> Unit) = {},
     trailingIcon: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null,
-    onChange: ((String) -> Unit)? = null
+    leadingIcon: @Composable (() -> Unit)? = null
 ) {
     val colorBlue = Color(red = 0x00, green = 0x61, blue = 0xFF)
     val state = field.state.watchAsState()

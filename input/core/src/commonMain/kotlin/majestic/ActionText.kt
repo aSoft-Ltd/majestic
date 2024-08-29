@@ -16,14 +16,14 @@ import majestic.Dimension.TextDefault
 
 @Composable
 fun ActionText(
+    label: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     description: String? = null,
     descriptionColor: Color = Color.Unspecified,
-    label: String,
     labelColor: Color? = null,
     fontSize: TextUnit = TextDefault,
-    enabled: Boolean = true,
-    onClick: () -> Unit
+    enabled: Boolean = true
 ) {
     val colorBlue = Color(red = 0x00, green = 0x61, blue = 0xFF)
 
