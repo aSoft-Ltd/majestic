@@ -33,7 +33,32 @@ fun InputTextField(
     label: String = field.label.capitalizedWithAstrix(),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    basicLabel: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    onChange: ((String) -> Unit)? = null
+) = InputTextField(
+    modifier = modifier,
+    field = field,
+    keyboardOptions = keyboardOptions,
+    visualTransformation = visualTransformation,
+    trailingIcon = trailingIcon,
+    leadingIcon = leadingIcon,
+    onChange = onChange,
+    label = {
+        Text(
+            modifier = Modifier.padding(bottom = 8.dp),
+            text = label
+        )
+    }
+)
+
+@Composable
+fun InputTextField(
+    modifier: Modifier = Modifier,
+    field: BaseField<String>,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    label: @Composable (() -> Unit) = {},
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     onChange: ((String) -> Unit)? = null
@@ -47,14 +72,7 @@ fun InputTextField(
     }
 
     Column(modifier = modifier) {
-        if (basicLabel != null) {
-            basicLabel()
-        } else {
-            Text(
-                modifier = Modifier.padding(bottom = 8.dp),
-                text = label
-            )
-        }
+        label()
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
