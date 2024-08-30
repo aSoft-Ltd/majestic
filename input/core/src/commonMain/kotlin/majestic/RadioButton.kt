@@ -22,39 +22,49 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 
+data class RadioColorGroup(
+    val background: Color,
+    val label: Color,
+    val border: Color
+) {
+    companion object {
+        val default by lazy {
+            RadioColorGroup(Color.Unspecified, Color.Unspecified, Color.Unspecified)
+        }
+    }
+}
+
+data class RadioColors(
+    val selected: RadioColorGroup = RadioColorGroup.default,
+    val unselected: RadioColorGroup = RadioColorGroup.default,
+    val disabled: RadioColorGroup = RadioColorGroup.default
+)
+
 @Composable
 fun RadioButton(
-    modifier: Modifier = Modifier,
-    selected: Boolean,
-    enabled: Boolean = true,
     label: String,
-    selectedColor: Color = Color.Unspecified,
-    selectedLabelColor: Color = Color.Unspecified,
-    selectedBorderColor: Color = Color.Unspecified,
-    unselectedColor: Color = Color.Unspecified,
-    unselectedLabelColor: Color = Color.Unspecified,
-    unselectedBorderColor: Color = Color.Unspecified,
-    disabledColor: Color = Color.Unspecified,
-    disabledLabelColor: Color = Color.Unspecified,
-    disabledBorderColor: Color = Color.Unspecified,
-    onSelect: () -> Unit
+    selected: Boolean,
+    onSelect: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    colors: RadioColors = RadioColors()
 ) {
     val backgroundColor: Color
     val labelColor: Color
     val borderColor: Color
 
     if (enabled && selected) {
-        backgroundColor = selectedColor
-        labelColor = selectedLabelColor
-        borderColor = selectedBorderColor
+        backgroundColor = colors.selected.background
+        labelColor = colors.selected.label
+        borderColor = colors.selected.border
     } else if (!selected) {
-        backgroundColor = unselectedColor
-        labelColor = unselectedLabelColor
-        borderColor = unselectedBorderColor
+        backgroundColor = colors.unselected.background
+        labelColor = colors.unselected.label
+        borderColor = colors.unselected.border
     } else {
-        backgroundColor = disabledColor
-        labelColor = disabledLabelColor
-        borderColor = disabledBorderColor
+        backgroundColor = colors.disabled.background
+        labelColor = colors.disabled.label
+        borderColor = colors.disabled.border
     }
 
     Box(
