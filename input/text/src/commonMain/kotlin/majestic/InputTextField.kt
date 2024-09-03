@@ -9,11 +9,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
@@ -21,10 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
 import kollections.firstOrNull
-import neat.Valid
-import neat.Validity
 import symphony.BaseField
-import symphony.toErrors
 
 @Composable
 fun InputTextField(
@@ -65,11 +57,7 @@ fun InputTextField(
 ) {
     val colorBlue = Color(red = 0x00, green = 0x61, blue = 0xFF)
     val state = field.state.watchAsState()
-    var validity: Validity<Any?> by remember(state.output) { mutableStateOf(Valid(state.output)) }
-
-    LaunchedEffect(state.output) {
-        validity = field.validate()
-    }
+    val feedback = state.feedbacks.warnings + state.feedbacks.errors
 
     Column(modifier = modifier) {
         label()
@@ -92,8 +80,12 @@ fun InputTextField(
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = if (validity is Valid) colorBlue else Color.Red,
-                unfocusedIndicatorColor = Color.Black.copy(alpha = 0.2f),
+                focusedIndicatorColor = if (feedback.isEmpty()) colorBlue else Color.Red,
+                unfocusedIndicatorColor = if (feedback.isEmpty()) {
+                    Color.Black.copy(alpha = 0.2f)
+                } else {
+                    Color.Red
+                },
             ),
             shape = RoundedCornerShape(8.dp),
             onValueChange = {
@@ -104,7 +96,7 @@ fun InputTextField(
         Text(
             color = Color.Red,
             fontSize = 12.sp,
-            text = validity.toErrors().firstOrNull()?.message ?: ""
+            text = feedback.firstOrNull() ?: ""
         )
     }
 }
