@@ -19,7 +19,7 @@ import kollections.firstOrNull
 import symphony.BaseField
 
 @Composable
-fun InputTextField(
+fun TextField(
     field: BaseField<String>,
     modifier: Modifier = Modifier,
     label: String = field.label.capitalizedWithAstrix(),
@@ -28,7 +28,7 @@ fun InputTextField(
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null
-) = InputTextField(
+) = TextField(
     modifier = modifier,
     field = field,
     keyboardOptions = keyboardOptions,
@@ -45,7 +45,7 @@ fun InputTextField(
 )
 
 @Composable
-fun InputTextField(
+fun TextField(
     field: BaseField<String>,
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
