@@ -47,11 +47,11 @@ fun TextField(
 @Composable
 fun TextField(
     field: BaseField<String>,
+    label: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
-    label: @Composable (() -> Unit) = {},
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null
 ) {
