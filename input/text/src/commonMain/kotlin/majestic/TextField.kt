@@ -55,15 +55,19 @@ fun TextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null
 ) {
-    val colorBlue = Color(red = 0x00, green = 0x61, blue = 0xFF)
     val state = field.state.watchAsState()
-    val feedback = state.feedbacks.warnings + state.feedbacks.errors
+    val feedbacks = state.feedbacks.warnings + state.feedbacks.errors
+    val hasFeedback = state.feedbacks.warnings.isNotEmpty() || state.feedbacks.errors.isNotEmpty()
+    val color = when {
+        state.feedbacks.errors.isNotEmpty() -> Color.Red
+        state.feedbacks.warnings.isNotEmpty() -> Color(0xFF964B00)
+        else -> Color(0xFF0061FF)
+    }
 
     Column(modifier = modifier) {
         label()
         OutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             value = state.output ?: "",
             leadingIcon = leadingIcon,
@@ -80,12 +84,8 @@ fun TextField(
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = if (feedback.isEmpty()) colorBlue else Color.Red,
-                unfocusedIndicatorColor = if (feedback.isEmpty()) {
-                    Color.Black.copy(alpha = 0.2f)
-                } else {
-                    Color.Red
-                },
+                focusedIndicatorColor = color,
+                unfocusedIndicatorColor = if (hasFeedback) color else Color.Black.copy(alpha = 0.2f),
             ),
             shape = RoundedCornerShape(8.dp),
             onValueChange = {
@@ -94,9 +94,9 @@ fun TextField(
             }
         )
         Text(
-            color = Color.Red,
+            color = color,
             fontSize = 12.sp,
-            text = feedback.firstOrNull() ?: ""
+            text = feedbacks.firstOrNull() ?: ""
         )
     }
 }
