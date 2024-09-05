@@ -9,11 +9,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
@@ -21,10 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
 import kollections.firstOrNull
-import neat.Valid
-import neat.Validity
+import kollections.isNotEmpty
 import symphony.BaseField
-import symphony.toErrors
 
 @Composable
 fun InputTextField(
@@ -55,27 +48,28 @@ fun InputTextField(
 @Composable
 fun InputTextField(
     field: BaseField<String>,
+    label: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
-    label: @Composable (() -> Unit) = {},
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null
 ) {
-    val colorBlue = Color(red = 0x00, green = 0x61, blue = 0xFF)
     val state = field.state.watchAsState()
-    var validity: Validity<Any?> by remember(state.output) { mutableStateOf(Valid(state.output)) }
 
-    LaunchedEffect(state.output) {
-        validity = field.validate()
+    val hasFeedback = state.feedbacks.warnings.isNotEmpty() || state.feedbacks.errors.isNotEmpty()
+
+    val color = when {
+        state.feedbacks.errors.isNotEmpty() -> Color.Red
+        state.feedbacks.warnings.isNotEmpty() -> Color(0xFF964B00)
+        else -> Color(0xFF0061FF)
     }
 
     Column(modifier = modifier) {
         label()
         OutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             value = state.output ?: "",
             leadingIcon = leadingIcon,
@@ -92,8 +86,8 @@ fun InputTextField(
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = if (validity is Valid) colorBlue else Color.Red,
-                unfocusedIndicatorColor = Color.Black.copy(alpha = 0.2f),
+                focusedIndicatorColor = color,
+                unfocusedIndicatorColor = if (hasFeedback) color else Color.Black.copy(alpha = 0.2f),
             ),
             shape = RoundedCornerShape(8.dp),
             onValueChange = {
@@ -102,9 +96,9 @@ fun InputTextField(
             }
         )
         Text(
-            color = Color.Red,
+            color = color,
             fontSize = 12.sp,
-            text = validity.toErrors().firstOrNull()?.message ?: ""
+            text = state.feedbacks.errors.firstOrNull() ?: state.feedbacks.warnings.firstOrNull() ?: ""
         )
     }
 }
