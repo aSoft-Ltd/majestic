@@ -16,11 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
 import kollections.firstOrNull
-import kollections.isNotEmpty
 import symphony.BaseField
 
 @Composable
-fun InputTextField(
+fun TextField(
     field: BaseField<String>,
     modifier: Modifier = Modifier,
     label: String = field.label.capitalizedWithAstrix(),
@@ -29,7 +28,7 @@ fun InputTextField(
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null
-) = InputTextField(
+) = TextField(
     modifier = modifier,
     field = field,
     keyboardOptions = keyboardOptions,
@@ -46,7 +45,7 @@ fun InputTextField(
 )
 
 @Composable
-fun InputTextField(
+fun TextField(
     field: BaseField<String>,
     label: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
@@ -57,9 +56,8 @@ fun InputTextField(
     leadingIcon: @Composable (() -> Unit)? = null
 ) {
     val state = field.state.watchAsState()
-
+    val feedbacks = state.feedbacks.warnings + state.feedbacks.errors
     val hasFeedback = state.feedbacks.warnings.isNotEmpty() || state.feedbacks.errors.isNotEmpty()
-
     val color = when {
         state.feedbacks.errors.isNotEmpty() -> Color.Red
         state.feedbacks.warnings.isNotEmpty() -> Color(0xFF964B00)
@@ -98,7 +96,7 @@ fun InputTextField(
         Text(
             color = color,
             fontSize = 12.sp,
-            text = state.feedbacks.errors.firstOrNull() ?: state.feedbacks.warnings.firstOrNull() ?: ""
+            text = feedbacks.firstOrNull() ?: ""
         )
     }
 }
