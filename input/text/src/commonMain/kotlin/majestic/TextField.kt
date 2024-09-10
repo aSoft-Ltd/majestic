@@ -24,6 +24,7 @@ fun TextField(
     field: BaseField<String>,
     modifier: Modifier = Modifier,
     label: String = field.label.capitalizedWithAstrix(),
+    hint: String = field.hint,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
@@ -32,6 +33,7 @@ fun TextField(
 ) = TextField(
     modifier = modifier,
     field = field,
+    hint = hint,
     keyboardOptions = keyboardOptions,
     visualTransformation = visualTransformation,
     trailingIcon = trailingIcon,
@@ -49,6 +51,7 @@ fun TextField(
 fun TextField(
     field: BaseField<String>,
     label: @Composable (() -> Unit),
+    hint: String = field.hint,
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -77,7 +80,7 @@ fun TextField(
             visualTransformation = visualTransformation,
             placeholder = {
                 Text(
-                    text = field.hint,
+                    text = hint,
                     color = Color.Black.copy(alpha = 0.4f),
                     fontSize = 17.sp
                 )
