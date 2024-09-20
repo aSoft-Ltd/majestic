@@ -20,6 +20,7 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import majestic.NoRippleInteractionSource
+import majestic.color.format.fromHex
 
 @Composable
 fun PickerButton(

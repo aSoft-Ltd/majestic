@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,16 +15,21 @@ import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import majestic.ActionButton
 import majestic.ButtonColors
 import majestic.NoRippleInteractionSource
-import symphony.SubmittingPhase
+import majestic.color.format.toCssHex
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,6 +50,42 @@ fun ColorPicker(
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
+            var selectedColor by remember { mutableStateOf(pickerColor) }
+            var h by remember { mutableFloatStateOf(0f) }
+            var s by remember { mutableFloatStateOf(0f) }
+            var v by remember { mutableFloatStateOf(0f) }
+
+            val color by remember(h, s, v) {
+                derivedStateOf { Color.hsv(h, s, v) }
+            }
+
+            SVColorCoordinate(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+                    .clip(RoundedCornerShape(20.dp)),
+                hue = h,
+                saturation = 0f,
+                value = 0f,
+                cueSize = 20.dp,
+                onChange = { sat, va ->
+                    s = sat
+                    v = va
+                    selectedColor = color.toCssHex()
+                }
+            )
+            HueBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .clip(RoundedCornerShape(20.dp)),
+                hue = h,
+                cueSize = 14.dp,
+                onChange = {
+                    h = it
+                    selectedColor = color.toCssHex()
+                }
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -55,7 +97,7 @@ fun ColorPicker(
                 Spacer(modifier = Modifier.width(15.dp))
                 PickerButton(
                     modifier = Modifier.width(200.dp),
-                    pickerColor = pickerColor,
+                    pickerColor = selectedColor,
                     borderColor = Color.Black.copy(alpha = 0.2f),
                     onClick = {}
                 )
@@ -82,7 +124,7 @@ fun ColorPicker(
                 ActionButton(
                     modifier = Modifier.weight(1f),
                     text = "Select Color",
-                    onClick = {}
+                    onClick = { onSelect(selectedColor) }
                 )
             }
         }
