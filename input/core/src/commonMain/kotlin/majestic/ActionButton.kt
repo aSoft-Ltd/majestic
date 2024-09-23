@@ -1,5 +1,7 @@
 package majestic
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -38,12 +40,15 @@ fun ActionButton(
     enabled: Boolean = true,
     showLoader: Boolean = false,
     showSuccess: Boolean = false,
-    onClick: () -> Unit,
+    border: BorderStroke? = null,
+    interactionSource: MutableInteractionSource? = null,
+    onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
         enabled = enabled,
         shape = shape,
+        border = border,
         modifier = modifier.height(52.dp)
             .pointerHoverIcon(PointerIcon.Hand),
         colors = ButtonDefaults.buttonColors(
@@ -52,6 +57,7 @@ fun ActionButton(
             disabledContainerColor = colors.containerColor.copy(alpha = 0.7f),
             disabledContentColor = colors.contentColor.copy(alpha = 0.7f)
         ),
+        interactionSource = interactionSource
     ) {
         if (showLoader)
             CircularProgressIndicator(
