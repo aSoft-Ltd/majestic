@@ -38,7 +38,7 @@ fun ActionButton(
     enabled: Boolean = true,
     showLoader: Boolean = false,
     showSuccess: Boolean = false,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Button(
         onClick = onClick,
