@@ -28,6 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
+import composex.screen.rememberScreenOrientation
 import majestic.ActionButton
 import majestic.ButtonColors
 import majestic.NoRippleInteractionSource
@@ -95,21 +98,38 @@ fun ColorPicker(
                     selectedColor = colorState.toCssHex()
                 }
             )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 10.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = label)
-                Spacer(modifier = Modifier.width(15.dp))
-                PickerButton(
-                    modifier = Modifier.width(200.dp),
-                    pickerColor = selectedColor,
-                    borderColor = Color.Black.copy(alpha = 0.2f),
-                    onClick = {}
-                )
+            when (rememberScreenOrientation()) {
+                Landscape -> Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = label)
+                    Spacer(modifier = Modifier.width(15.dp))
+                    PickerButton(
+                        modifier = Modifier.width(200.dp),
+                        pickerColor = selectedColor,
+                        borderColor = Color.Black.copy(alpha = 0.2f),
+                        onClick = {}
+                    )
+                }
+
+                Portrait -> Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Text(text = label)
+                    PickerButton(
+                        modifier = Modifier.width(200.dp),
+                        pickerColor = selectedColor,
+                        borderColor = Color.Black.copy(alpha = 0.2f),
+                        onClick = {}
+                    )
+                }
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -132,7 +152,7 @@ fun ColorPicker(
                 )
                 ActionButton(
                     modifier = Modifier.weight(1f),
-                    text = "Select Color",
+                    text = "Select",
                     onClick = { onSelect(selectedColor) }
                 )
             }
