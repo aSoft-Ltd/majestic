@@ -2,7 +2,6 @@
 
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 
@@ -19,7 +18,7 @@ plugins {
 description = "The majestic design system implementation from asoft"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.core"
+    namespace = "tz.co.asoft.academia.majestic.text"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
@@ -32,23 +31,6 @@ android {
 }
 
 kotlin {
-    applyHierarchyTemplate {
-        sourceSetTrees(KotlinSourceSetTree.main, KotlinSourceSetTree.test)
-        common {
-            withAndroidTarget()
-            group("skiko") {
-                withJvm()
-                withJs()
-                withWasmJs()
-                withIosX64()
-                withIosArm64()
-                withIosSimulatorArm64()
-                withMacosX64()
-                withMacosArm64()
-            }
-        }
-    }
-
     androidTarget {
         compilations.all {
             compileTaskProvider {
@@ -67,7 +49,7 @@ kotlin {
         nodejs()
     }
 
-    wasmJs { browser() } // until coil and kotlinx-datetime supports this, we ain't gonna
+    wasmJs { browser() }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -76,16 +58,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(compose.runtime)
-            api(compose.foundation)
-            api(compose.material3)
-            api(compose.materialIconsExtended)
-            api(libs.cinematic.live.compose)
-            api(kotlinx.coroutines.core)
-            api(libs.symphony.input.core)?.because("We need fields and forms")
-//            implementation(libs.krono.kotlinx)
-//            implementation(coil.compose)
-//            implementation(coil.network.ktor)
+            api(projects.majesticInputCore)
+            api(libs.symphony.input.choice)?.because("We need choice fields to choose from")
         }
 
         commonTest.dependencies {

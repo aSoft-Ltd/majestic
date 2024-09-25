@@ -1,4 +1,4 @@
-package majestic.color
+package majestic
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -28,10 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ActionButton
-import majestic.ButtonColors
-import majestic.NoRippleInteractionSource
-import majestic.color.format.toCssHex
+import majestic.format.toCssHex
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

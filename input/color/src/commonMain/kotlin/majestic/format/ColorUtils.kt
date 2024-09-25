@@ -1,4 +1,4 @@
-package majestic.color.format
+package majestic.format
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.util.fastRoundToInt

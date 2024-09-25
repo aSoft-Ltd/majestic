@@ -1,4 +1,4 @@
-package majestic.color.format
+package majestic.format
 
 sealed interface ColorPickerFormat
 

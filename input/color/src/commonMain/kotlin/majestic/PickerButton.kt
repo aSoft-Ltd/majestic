@@ -1,4 +1,4 @@
-package majestic.color
+package majestic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,8 +19,7 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import majestic.NoRippleInteractionSource
-import majestic.color.format.fromHex
+import majestic.format.fromHex
 
 @Composable
 fun PickerButton(

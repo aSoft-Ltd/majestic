@@ -1,4 +1,4 @@
-package majestic.color
+package majestic
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures

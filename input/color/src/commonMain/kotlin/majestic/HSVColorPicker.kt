@@ -1,4 +1,4 @@
-package majestic.color
+package majestic
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.color.format.toCssHex
+import majestic.format.toCssHex
 
 @Composable
 fun HSVColorPicker(
