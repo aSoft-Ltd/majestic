@@ -53,14 +53,15 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
-    macosArm64()
+//    macosX64()
+//    macosArm64()
 
     sourceSets {
         commonMain.dependencies {
             api(projects.majesticInputChoice)
             api(libs.sim.core)
             api(libs.symphony.input.phone)?.because("We need choice fields to choose from")
+            api(libs.nation.flags.compose)?.because("We need to render flags while selecting country dialing code")
         }
 
         commonTest.dependencies {

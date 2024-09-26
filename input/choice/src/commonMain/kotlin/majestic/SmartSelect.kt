@@ -22,6 +22,7 @@ fun <T> SmartSelect(
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
     onClick: ((T) -> Unit)? = null,
+    onChange: ((T?) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     var candidate by remember(value) { mutableStateOf(value) }
@@ -35,6 +36,7 @@ fun <T> SmartSelect(
         modifier = modifier,
         onClick = {
             candidate = if(it==candidate) null else it
+            onChange?.invoke(candidate)
             onClick?.invoke(it)
         }
     )

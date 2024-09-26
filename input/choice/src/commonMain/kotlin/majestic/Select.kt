@@ -17,6 +17,8 @@ fun <T> Select(
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
     onClick: ((T) -> Unit)? = null,
+    onSelected: ((T) -> Unit)? = null,
+    onUnSelected: ((T) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val state = field.state.watchAsState()
@@ -26,7 +28,16 @@ fun <T> Select(
         selected = selected,
         value = state.selectedItem,
         placeholder = placeholder,
-        onClick = onClick,
+        onClick = {
+            if (it == state.selectedItem) {
+                field.unselect()
+                onUnSelected?.invoke(it)
+            } else {
+                field.select(it)
+                onSelected?.invoke(it)
+            }
+            onClick?.invoke(it)
+        },
         modifier = modifier
     )
 }
