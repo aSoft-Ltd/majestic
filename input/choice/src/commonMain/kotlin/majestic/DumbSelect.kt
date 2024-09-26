@@ -18,9 +18,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
 @Composable
-fun <T> UncontrolledSelect(
+fun <T> DumbSelect(
     items: Collection<T>,
-    item: @Composable (T) -> Unit,
+    item: @Composable (T) -> Unit = { Text("$it") },
     selected: @Composable (T) -> Unit = item,
     value: T? = null,
     placeholder: @Composable () -> Unit = {
@@ -30,7 +30,6 @@ fun <T> UncontrolledSelect(
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var candidate by remember(value) { mutableStateOf(value) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -42,9 +41,9 @@ fun <T> UncontrolledSelect(
             .menuAnchor(type = MenuAnchorType.PrimaryEditable)
             .clickable { expanded = !expanded }
         ) {
-            when (val c = candidate) {
+            when (val candidate = value) {
                 null -> placeholder()
-                else -> selected(c)
+                else -> selected(candidate)
             }
         }
         ExposedDropdownMenu(
@@ -56,7 +55,6 @@ fun <T> UncontrolledSelect(
                 modifier = Modifier.fillMaxWidth(),
                 text = { item(it) },
                 onClick = {
-                    candidate = if(candidate==it) null else it
                     expanded = false
                     onClick?.invoke(it)
                 },
