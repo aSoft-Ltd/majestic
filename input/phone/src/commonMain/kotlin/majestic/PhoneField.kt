@@ -36,7 +36,10 @@ fun PhoneField(
     leadingIcon: @Composable (() -> Unit)? = {
         CountryDialingCodeSelector(
             field = field,
-            modifier = Modifier.width(110.dp)
+            modifier = Modifier.width(110.dp).testTag("${field.name}-selector"),
+            selected = {
+                CountryDialingCodePreview(it, modifier = Modifier.padding(10.dp).testTag(it.code))
+            }
         )
     }
 ) {

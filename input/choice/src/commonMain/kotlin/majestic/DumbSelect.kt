@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 
 @Composable
 fun <T> DumbSelect(
@@ -49,7 +50,7 @@ fun <T> DumbSelect(
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.exposedDropdownSize()
+            modifier = Modifier.exposedDropdownSize().testTag("popup")
         ) {
             for (it in items) DropdownMenuItem(
                 modifier = Modifier.fillMaxWidth(),
