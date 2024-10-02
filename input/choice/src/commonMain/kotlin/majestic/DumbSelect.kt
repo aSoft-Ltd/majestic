@@ -5,6 +5,7 @@ package majestic
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -16,7 +17,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun <T> DumbSelect(
@@ -52,6 +55,11 @@ fun <T> DumbSelect(
             onDismissRequest = { expanded = false },
             modifier = Modifier.exposedDropdownSize().testTag("popup")
         ) {
+//            DumbSelectSearch(
+//                modifier = Modifier.height(40.dp),
+//                hint = "Search",
+//                backgroundColor = Color.White
+//            )
             for (it in items) DropdownMenuItem(
                 modifier = Modifier.fillMaxWidth(),
                 text = { item(it) },
