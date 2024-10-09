@@ -17,13 +17,13 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
@@ -35,15 +35,20 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun DumbSelectSearch(
-    hint: String,
+    text: String = "",
+    hint: String = "Search",
     modifier: Modifier = Modifier,
     elevation: Dp = 0.dp,
     backgroundColor: Color = Color.Unspecified,
     cornerShape: Shape = RoundedCornerShape(8.dp),
-    onTextChange: (String) -> Unit = {},
+    onChange: (String) -> Unit = {},
+    onClear: () -> Unit = {},
 ) {
-    var text by remember { mutableStateOf("") }
+    val focus = remember { FocusRequester() }
 
+    LaunchedEffect(focus) {
+        focus.requestFocus()
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,13 +59,11 @@ fun DumbSelectSearch(
     ) {
         BasicTextField(
             modifier = modifier
+                .focusRequester(focus)
                 .weight(7f)
                 .padding(vertical = 10.dp, horizontal = 15.dp),
             value = text,
-            onValueChange = {
-                text = it
-                onTextChange(it)
-            },
+            onValueChange = { onChange(it) },
             decorationBox = { innerTextField ->
                 if (text.isEmpty()) {
                     Text(
@@ -83,12 +86,7 @@ fun DumbSelectSearch(
             modifier = modifier
                 .weight(1f)
                 .background(color = Color.Transparent, shape = CircleShape)
-                .clickable {
-                    if (text.isNotEmpty()) {
-                        text = ""
-                        onTextChange("")
-                    }
-                },
+                .clickable { onClear() },
         ) {
             if (text.isNotEmpty()) {
                 Icon(

@@ -12,13 +12,13 @@ import nation.Country
 import nation.Flag
 
 @Composable
-fun CountryCodeSelector(
+fun CountryCodePreview(
     country: Country,
     modifier: Modifier = Modifier
 ) = Row(modifier, verticalAlignment = Alignment.CenterVertically) {
     Flag(country)
     Spacer(modifier = Modifier.width(10.dp))
-    Text(country.name)
+    Text(country.label)
     Spacer(modifier = Modifier.width(10.dp))
     Text("(+${country.dialingCode})")
 }

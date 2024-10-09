@@ -55,11 +55,6 @@ fun <T> DumbSelect(
             onDismissRequest = { expanded = false },
             modifier = Modifier.exposedDropdownSize().testTag("popup")
         ) {
-//            DumbSelectSearch(
-//                modifier = Modifier.height(40.dp),
-//                hint = "Search",
-//                backgroundColor = Color.White
-//            )
             for (it in items) DropdownMenuItem(
                 modifier = Modifier.fillMaxWidth(),
                 text = { item(it) },
