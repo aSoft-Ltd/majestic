@@ -1,5 +1,6 @@
 package majestic
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,11 +61,15 @@ fun DumbCountryDialingCodeSelector(
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.width(300.dp).testTag("popup")
+            modifier = Modifier
+                .width(300.dp)
+                .background(color = Color.White)
+                .testTag("popup")
         ) {
             DumbSelectSearch(
                 modifier = Modifier.height(40.dp),
                 text = text,
+                elevation = 2.dp,
                 backgroundColor = Color.White,
                 onChange = { text = it}
             )
