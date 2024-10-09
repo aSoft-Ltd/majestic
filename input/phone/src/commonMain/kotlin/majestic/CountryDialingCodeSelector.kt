@@ -26,6 +26,7 @@ fun CountryDialingCodeSelector(
         selected = selected,
         placeholder = placeholder,
         modifier = modifier,
+        item = { CountryCodePreview(it) },
         onClick = {
             if (it == state.country) {
                 field.unsetCountry()
