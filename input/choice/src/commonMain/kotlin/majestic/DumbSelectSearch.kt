@@ -17,13 +17,9 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
@@ -43,70 +39,66 @@ fun DumbSelectSearch(
     cornerShape: Shape = RoundedCornerShape(8.dp),
     onChange: (String) -> Unit = {},
     onClear: () -> Unit = {},
+) = Row(
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(10.dp)
+        .shadow(elevation = elevation, shape = cornerShape)
+        .background(color = backgroundColor, shape = cornerShape),
+    verticalAlignment = Alignment.CenterVertically,
 ) {
-    val focus = remember { FocusRequester() }
-
-    LaunchedEffect(focus) {
-        focus.requestFocus()
-    }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-            .shadow(elevation = elevation, shape = cornerShape)
-            .background(color = backgroundColor, shape = cornerShape),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        BasicTextField(
-            modifier = modifier
-                .focusRequester(focus)
-                .weight(7f)
-                .padding(vertical = 10.dp, horizontal = 15.dp),
-            value = text,
-            onValueChange = { onChange(it) },
-            decorationBox = { innerTextField ->
-                if (text.isEmpty()) {
-                    Text(
-                        text = hint,
-                        color = Color.Gray.copy(alpha = 0.5f),
-                        style = TextStyle.Default.copy(
-                            fontSize = 14.sp
-                        )
+    BasicTextField(
+        modifier = modifier
+            .weight(7f)
+            .padding(vertical = 10.dp, horizontal = 15.dp),
+        value = text,
+        onValueChange = {
+            println("Basic Text Field on Value Changed called")
+            onChange(it)
+        },
+        decorationBox = { innerTextField ->
+            if (text.isEmpty()) {
+                Text(
+                    text = hint,
+                    color = Color.Gray.copy(alpha = 0.5f),
+                    style = TextStyle.Default.copy(
+                        fontSize = 14.sp
                     )
-                }
-                innerTextField()
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Search
-            ),
-            singleLine = true
-        )
-        Box(
-            modifier = modifier
-                .weight(1f)
-                .background(color = Color.Transparent, shape = CircleShape)
-                .clickable { onClear() },
-        ) {
-            if (text.isNotEmpty()) {
-                Icon(
-                    modifier = modifier
-                        .fillMaxSize()
-                        .padding(5.dp),
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = null,
-                    tint = Color.Black.copy(alpha = 0.7f),
-                )
-            } else {
-                Icon(
-                    modifier = modifier
-                        .fillMaxSize()
-                        .padding(5.dp),
-                    imageVector = Icons.Filled.Search,
-                    contentDescription = null,
-                    tint = Color.Gray.copy(alpha = 0.5f),
                 )
             }
+            println("+Calling innerTextField")
+            innerTextField()
+        },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Search
+        ),
+        singleLine = true,
+    )
+    Box(
+        modifier = modifier
+            .weight(1f)
+            .background(color = Color.Transparent, shape = CircleShape)
+            .clickable { onClear() },
+    ) {
+        if (text.isNotEmpty()) {
+            Icon(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(5.dp),
+                imageVector = Icons.Filled.Close,
+                contentDescription = null,
+                tint = Color.Black.copy(alpha = 0.7f),
+            )
+        } else {
+            Icon(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(5.dp),
+                imageVector = Icons.Filled.Search,
+                contentDescription = null,
+                tint = Color.Gray.copy(alpha = 0.5f),
+            )
         }
     }
 }

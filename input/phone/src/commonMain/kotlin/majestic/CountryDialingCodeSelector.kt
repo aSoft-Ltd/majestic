@@ -18,15 +18,18 @@ fun CountryDialingCodeSelector(
     placeholder: @Composable () -> Unit = { Text("Select") },
     selected: @Composable (Country) -> Unit = {
         CountryDialingCodePreview(it, modifier = Modifier.padding(10.dp))
-    }
+    },
+    item: @Composable (Country) -> Unit = { CountryCodePreview(it) }
 ) {
     val state = field.state.watchAsState()
     DumbCountryDialingCodeSelector(
         value = state.country,
+        countries = state.countries,
         selected = selected,
         placeholder = placeholder,
         modifier = modifier,
-        item = { CountryCodePreview(it) },
+        onSearch = { field.searchByFiltering(it.lowercase()) },
+        item = item,
         onClick = {
             if (it == state.country) {
                 field.unsetCountry()
