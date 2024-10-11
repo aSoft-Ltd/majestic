@@ -35,16 +35,16 @@ fun DumbSelectSearch(
     hint: String = "Search",
     modifier: Modifier = Modifier,
     elevation: Dp = 0.dp,
-    backgroundColor: Color = Color.Unspecified,
-    cornerShape: Shape = RoundedCornerShape(8.dp),
+    background: Color = Color.Unspecified,
+    shape: Shape = RoundedCornerShape(8.dp),
     onChange: (String) -> Unit = {},
     onClear: () -> Unit = {},
 ) = Row(
     modifier = Modifier
         .fillMaxWidth()
         .padding(10.dp)
-        .shadow(elevation = elevation, shape = cornerShape)
-        .background(color = backgroundColor, shape = cornerShape),
+        .shadow(elevation = elevation, shape = shape)
+        .background(color = background, shape = shape),
     verticalAlignment = Alignment.CenterVertically,
 ) {
     BasicTextField(
