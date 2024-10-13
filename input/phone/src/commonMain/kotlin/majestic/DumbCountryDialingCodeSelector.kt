@@ -1,8 +1,6 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package majestic
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -45,9 +42,13 @@ fun DumbCountryDialingCodeSelector(
 ) {
     var expanded by remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }
+    val interaction = remember { NoRippleInteractionSource() }
 
     Box(modifier = Modifier
-        .clickable { expanded = !expanded }
+        .clickable(
+            interactionSource = interaction,
+            indication = LocalIndication.current
+        ) { expanded = !expanded }
         .pointerHoverIcon(PointerIcon.Hand)
     ) {
         when (value) {
