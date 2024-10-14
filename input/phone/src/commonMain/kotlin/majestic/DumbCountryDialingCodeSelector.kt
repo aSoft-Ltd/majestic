@@ -88,6 +88,7 @@ fun DumbCountryDialingCodeSelector(
                 onSearch(text)
             }
         )
+        
         LazyColumn(modifier = Modifier.height(200.dp).width(350.dp)) {
             items(countries) { country ->
                 DropdownMenuItem(
