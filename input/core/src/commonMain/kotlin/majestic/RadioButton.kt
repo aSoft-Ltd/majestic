@@ -38,7 +38,11 @@ data class RadioColors(
     val selected: RadioColorGroup = RadioColorGroup.default,
     val unselected: RadioColorGroup = RadioColorGroup.default,
     val disabled: RadioColorGroup = RadioColorGroup.default
-)
+) {
+    companion object {
+        val default by lazy { RadioColors() }
+    }
+}
 
 @Composable
 fun RadioButton(
@@ -47,7 +51,7 @@ fun RadioButton(
     onSelect: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    colors: RadioColors = RadioColors()
+    colors: RadioColors = RadioColors.default
 ) {
     val backgroundColor: Color
     val labelColor: Color
