@@ -48,25 +48,17 @@ fun DumbSelectSearch(
     verticalAlignment = Alignment.CenterVertically,
 ) {
     BasicTextField(
-        modifier = modifier
-            .weight(7f)
-            .padding(vertical = 10.dp, horizontal = 15.dp),
+        modifier = modifier.weight(7f).padding(vertical = 10.dp, horizontal = 15.dp),
         value = text,
-        onValueChange = {
-            println("Basic Text Field on Value Changed called")
-            onChange(it)
-        },
+        onValueChange = { onChange(it) },
         decorationBox = { innerTextField ->
-            if (text.isEmpty()) {
-                Text(
-                    text = hint,
-                    color = Color.Gray.copy(alpha = 0.5f),
-                    style = TextStyle.Default.copy(
-                        fontSize = 14.sp
-                    )
+            if (text.isEmpty()) Text(
+                text = hint,
+                color = Color.Gray.copy(alpha = 0.5f),
+                style = TextStyle.Default.copy(
+                    fontSize = 14.sp
                 )
-            }
-            println("+Calling innerTextField")
+            )
             innerTextField()
         },
         keyboardOptions = KeyboardOptions(
@@ -81,24 +73,16 @@ fun DumbSelectSearch(
             .background(color = Color.Transparent, shape = CircleShape)
             .clickable { onClear() },
     ) {
-        if (text.isNotEmpty()) {
-            Icon(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(5.dp),
-                imageVector = Icons.Filled.Close,
-                contentDescription = null,
-                tint = Color.Black.copy(alpha = 0.7f),
-            )
-        } else {
-            Icon(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(5.dp),
-                imageVector = Icons.Filled.Search,
-                contentDescription = null,
-                tint = Color.Gray.copy(alpha = 0.5f),
-            )
-        }
+        if (text.isNotEmpty()) Icon(
+            modifier = modifier.fillMaxSize().padding(5.dp),
+            imageVector = Icons.Filled.Close,
+            contentDescription = null,
+            tint = Color.Black.copy(alpha = 0.7f),
+        ) else Icon(
+            modifier = modifier.fillMaxSize().padding(5.dp),
+            imageVector = Icons.Filled.Search,
+            contentDescription = null,
+            tint = Color.Gray.copy(alpha = 0.5f),
+        )
     }
 }
