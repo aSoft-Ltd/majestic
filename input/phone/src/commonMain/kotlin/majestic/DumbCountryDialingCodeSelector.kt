@@ -45,6 +45,7 @@ fun DumbCountryDialingCodeSelector(
     val interaction = remember { NoRippleInteractionSource() }
 
     Box(modifier = Modifier
+        .testTag("CountrySelector")
         .clickable(
             interactionSource = interaction,
             indication = LocalIndication.current
@@ -63,7 +64,7 @@ fun DumbCountryDialingCodeSelector(
         modifier = Modifier
             .width(350.dp)
             .background(color = Color.White)
-            .testTag("popup"),
+            .testTag("CountrySelectorPopup"),
     ) {
         val focus = remember { FocusRequester() }
 
@@ -88,11 +89,15 @@ fun DumbCountryDialingCodeSelector(
                 onSearch(text)
             }
         )
-        
-        LazyColumn(modifier = Modifier.height(200.dp).width(350.dp)) {
+        LazyColumn(
+            modifier = Modifier
+                .height(200.dp)
+                .width(350.dp)
+                .testTag("CountrySelectorList")
+        ) {
             items(countries) { country ->
                 DropdownMenuItem(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().testTag("${country.dialingCode}"),
                     text = { item(country) },
                     onClick = {
                         expanded = false
