@@ -21,6 +21,7 @@ import cinematic.watchAsState
 import kollections.firstOrNull
 import kollections.isNotEmpty
 import kollections.plus
+import nation.Country
 import symphony.PhoneField
 
 @Composable
@@ -28,6 +29,10 @@ fun PhoneField(
     field: PhoneField,
     label: @Composable (() -> Unit),
     hint: String = field.hint,
+    country: @Composable (Country) -> Unit = {
+        CountryDialingCodePreview(it, modifier = Modifier.padding(10.dp).testTag(it.code))
+    },
+    selected: @Composable (Country) -> Unit = country,
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -37,9 +42,8 @@ fun PhoneField(
         CountryDialingCodeSelector(
             field = field,
             modifier = Modifier.width(110.dp).testTag("${field.name}-selector"),
-            selected = {
-                CountryDialingCodePreview(it, modifier = Modifier.padding(10.dp).testTag(it.code))
-            }
+            selected = selected,
+            item = country
         )
     }
 ) {
