@@ -5,12 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 
 class DrawerController internal constructor(
     state: DrawerState,
-    internal val overlap: Boolean,
-    internal val animation: AnimationSpec<Float>,
-    internal val ratio: Float,
-    internal val direction: DrawerOpenDirection
+    overlap: Boolean,
+    val animation: AnimationSpec<Float>,
+    ratio: Float,
+    direction: DrawerOpenDirection
 ) {
     internal val state = mutableStateOf(state)
+    internal val overlap = mutableStateOf(overlap)
+    internal val ratio = mutableStateOf(ratio)
+    internal val direction = mutableStateOf(direction)
 
     val isOpen get() = state.value == DrawerState.Open
     val isClosed get() = state.value == DrawerState.Closed

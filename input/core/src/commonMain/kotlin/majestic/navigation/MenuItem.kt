@@ -41,7 +41,7 @@ data class MenuColors(
 @Composable
 fun MenuItem(
     label: @Composable (style: TextStyle) -> Unit,
-    onSelect: () -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     colors: MenuColors = MenuColors.default,
     borderColor: Color = Color.Transparent,
@@ -85,7 +85,7 @@ fun MenuItem(
                 interactionSource = NoRippleInteractionSource(),
                 indication = null,
                 enabled = true,
-                onClick = onSelect
+                onClick = onClick
             ),
     ) {
         Row(
