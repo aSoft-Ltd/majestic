@@ -25,6 +25,10 @@ fun TextField(
     modifier: Modifier = Modifier,
     label: String = field.label.capitalizedWithAstrix(),
     hint: String = field.hint,
+    color: Color = Color.Black,
+    singleLine: Boolean = true,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
@@ -34,6 +38,10 @@ fun TextField(
     modifier = modifier,
     field = field,
     hint = hint,
+    color = color,
+    singleLine = singleLine,
+    maxLines = maxLines,
+    minLines = minLines,
     keyboardOptions = keyboardOptions,
     visualTransformation = visualTransformation,
     trailingIcon = trailingIcon,
@@ -53,6 +61,10 @@ fun TextField(
     label: @Composable (() -> Unit),
     hint: String = field.hint,
     modifier: Modifier = Modifier,
+    color: Color = Color.Black,
+    singleLine: Boolean = true,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
@@ -62,7 +74,7 @@ fun TextField(
     val state = field.state.watchAsState()
     val feedbacks = state.feedbacks.warnings + state.feedbacks.errors
     val hasFeedback = state.feedbacks.warnings.isNotEmpty() || state.feedbacks.errors.isNotEmpty()
-    val color = when {
+    val feedbackColor = when {
         state.feedbacks.errors.isNotEmpty() -> Color.Red
         state.feedbacks.warnings.isNotEmpty() -> Color(0xFF964B00)
         else -> Color(0xFF0061FF)
@@ -72,24 +84,28 @@ fun TextField(
         label()
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth().testTag(field.name),
-            singleLine = true,
             value = state.output ?: "",
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
+            singleLine = singleLine,
+            maxLines = maxLines,
+            minLines = minLines,
             keyboardOptions = keyboardOptions,
             visualTransformation = visualTransformation,
             placeholder = {
                 Text(
                     text = hint,
-                    color = Color.Black.copy(alpha = 0.4f),
+                    color = color.copy(alpha = 0.4f),
                     fontSize = 17.sp
                 )
             },
             colors = TextFieldDefaults.colors(
+                focusedTextColor = color,
+                unfocusedTextColor = color.copy(alpha = 0.7f),
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = color,
-                unfocusedIndicatorColor = if (hasFeedback) color else Color.Black.copy(alpha = 0.2f),
+                focusedIndicatorColor = feedbackColor,
+                unfocusedIndicatorColor = if (hasFeedback) feedbackColor else color.copy(alpha = 0.2f),
             ),
             shape = RoundedCornerShape(8.dp),
             onValueChange = {
@@ -98,7 +114,7 @@ fun TextField(
             }
         )
         Text(
-            color = color,
+            color = feedbackColor,
             fontSize = 12.sp,
             text = feedbacks.firstOrNull() ?: ""
         )
