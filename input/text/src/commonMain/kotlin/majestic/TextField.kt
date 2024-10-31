@@ -120,3 +120,54 @@ fun TextField(
         )
     }
 }
+
+@Composable
+fun TextField(
+    value: String,
+    label: @Composable (() -> Unit),
+    hint: String = "Placeholder",
+    modifier: Modifier = Modifier,
+    color: Color = Color.Black,
+    singleLine: Boolean = true,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    onChange: ((String) -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null
+) {
+    Column(modifier = modifier) {
+        label()
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = value,
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
+            singleLine = singleLine,
+            maxLines = maxLines,
+            minLines = minLines,
+            keyboardOptions = keyboardOptions,
+            visualTransformation = visualTransformation,
+            placeholder = {
+                Text(
+                    text = hint,
+                    color = color.copy(alpha = 0.4f),
+                    fontSize = 17.sp
+                )
+            },
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = color,
+                unfocusedTextColor = color.copy(alpha = 0.7f),
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                focusedIndicatorColor = Color(0xFF0061FF),
+                unfocusedIndicatorColor = color.copy(alpha = 0.2f),
+            ),
+            shape = RoundedCornerShape(8.dp),
+            onValueChange = {
+                onChange?.invoke(it)
+            }
+        )
+    }
+}
