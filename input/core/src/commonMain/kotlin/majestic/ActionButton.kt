@@ -19,8 +19,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
-import majestic.Dimension.PaddingSmall
-import majestic.Dimension.TextDefault
+import androidx.compose.ui.unit.sp
 
 data class ButtonColors(
     val containerColor: Color = Color.Black,
@@ -43,6 +42,45 @@ fun ActionButton(
     border: BorderStroke? = null,
     interactionSource: MutableInteractionSource? = null,
     onClick: () -> Unit
+) = ActionButton(
+    modifier = modifier,
+    colors = colors,
+    shape = shape,
+    enabled = enabled,
+    border = border,
+    onClick = onClick,
+    interactionSource = interactionSource
+) {
+    if (showLoader)
+        CircularProgressIndicator(
+            modifier = Modifier.width(22.dp)
+                .padding(top = 6.dp),
+            color = colors.contentColor
+        )
+    else if (showSuccess)
+        Icon(
+            imageVector = Icons.Filled.CheckCircle,
+            tint = colors.successContentColor,
+            contentDescription = "Success Icon"
+        )
+    else
+        Text(
+            text = text,
+            fontSize = 16.sp
+        )
+}
+
+@Composable
+fun ActionButton(
+    modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonColors(),
+    shape: Shape = ButtonDefaults.shape,
+    enabled: Boolean = true,
+    showSuccess: Boolean = false,
+    border: BorderStroke? = null,
+    interactionSource: MutableInteractionSource? = null,
+    onClick: () -> Unit,
+    label: @Composable () -> Unit
 ) {
     Button(
         onClick = onClick,
@@ -59,22 +97,6 @@ fun ActionButton(
         ),
         interactionSource = interactionSource
     ) {
-        if (showLoader)
-            CircularProgressIndicator(
-                modifier = Modifier.width(22.dp)
-                    .padding(top = PaddingSmall),
-                color = colors.contentColor
-            )
-        else if (showSuccess)
-            Icon(
-                imageVector = Icons.Filled.CheckCircle,
-                tint = colors.successContentColor,
-                contentDescription = "Success Icon"
-            )
-        else
-            Text(
-                text = text,
-                fontSize = TextDefault
-            )
+        label()
     }
 }
