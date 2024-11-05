@@ -23,14 +23,12 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 
 data class RadioColorGroup(
-    val background: Color,
-    val label: Color,
-    val border: Color
+    val background: Color = Color.Unspecified,
+    val label: Color = Color.Unspecified,
+    val border: Color = Color.Unspecified
 ) {
     companion object {
-        val default by lazy {
-            RadioColorGroup(Color.Unspecified, Color.Unspecified, Color.Unspecified)
-        }
+        val default by lazy { RadioColorGroup() }
     }
 }
 
