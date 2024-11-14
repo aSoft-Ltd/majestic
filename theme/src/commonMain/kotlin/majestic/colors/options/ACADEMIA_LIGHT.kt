@@ -1,6 +1,7 @@
 package majestic.colors.options
 
 import androidx.compose.ui.graphics.Color
+import majestic.colors.BarColors
 import majestic.colors.ColorPair
 import majestic.colors.ColorRole
 import majestic.colors.ThemeColors
@@ -22,8 +23,14 @@ private val surface = ColorPair(
     background = Color.White,
 ).toColorRole()
 
+private val bar = BarColors(
+    top = surface.comp,
+    bottom = surface.comp
+)
+
 val ACADEMIA_LIGHT = ThemeColors(
     primary = primary,
     surface = surface,
-    navigation = surface.comp
+    navigation = surface.comp,
+    bar = bar
 )
