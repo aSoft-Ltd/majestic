@@ -16,10 +16,10 @@ plugins {
     alias(kotlinz.plugins.dokka)
 }
 
-description = "The majestic design system implementation from asoft"
+description = "The majestic them engine"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.core"
+    namespace = "tz.co.asoft.academia.majestic.theme"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
@@ -76,7 +76,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.majesticTheme)
             api(compose.runtime)
             api(compose.foundation)
             api(compose.material3)
