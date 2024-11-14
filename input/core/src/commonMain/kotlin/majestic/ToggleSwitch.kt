@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,13 +37,16 @@ fun ToggleSwitch(
     backgroundOffColor: Color = Color(0xFFF2F4F7),
     circleOnColor: Color = Color.White,
     circleOffColor: Color = Color.White,
+    containerModifier: Modifier = Modifier
 ) {
+    Column(
+        modifier = containerModifier
+    ){
     val sizePx = with(LocalDensity.current) { (width - height - (circlePadding * 2)).toPx() }
     val animateTranslation by animateFloatAsState(
         targetValue = if (checked) sizePx else 0f,
         animationSpec = tween(durationMillis = 300)
     )
-
     Row(
         modifier = Modifier
             .height(height)
@@ -79,4 +83,5 @@ fun ToggleSwitch(
                 )
         )
     }
+}
 }
