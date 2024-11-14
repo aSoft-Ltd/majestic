@@ -50,3 +50,32 @@ fun <T> PopupMenu(
         }
     }
 }
+
+@Composable
+fun PopupMenu(
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    dropdownModifier: Modifier = Modifier.width(200.dp),
+    shape: Shape = MenuDefaults.shape,
+    expanded: Boolean = false,
+    icon: @Composable () -> Unit,
+    content: @Composable () -> Unit,
+) {
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = {},
+        modifier = modifier
+    ) {
+        Box(modifier = Modifier.menuAnchor(type = MenuAnchorType.PrimaryEditable)) {
+            icon()
+        }
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = onDismissRequest,
+            modifier = dropdownModifier,
+            shape = shape
+        ) {
+            content()
+        }
+    }
+}
