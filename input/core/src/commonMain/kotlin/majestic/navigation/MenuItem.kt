@@ -24,17 +24,16 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import majestic.NoRippleInteractionSource
+import majestic.colors.ColorPair
 
-data class MenuColors(
-    val color: Color = Color.Black,
-    val background: Color = Color.White,
-    val selectedColor: Color = Color.White,
-    val selectedBackground: Color = Color.Blue,
-    val hoverColor: Color = Color.White.copy(alpha = 0.8f),
-    val hoverBackground: Color = Color.Black.copy(alpha = 0.6f)
+data class MenuItemColors(
+    val selected: ColorPair = ColorPair(foreground = Color.White, background = Color.Blue),
+    val hovered: ColorPair = ColorPair(foreground = Color.White.copy(alpha = 0.8f), background = Color.Black.copy(alpha = 0.6f)),
+    val inactive: ColorPair = ColorPair(foreground = Color.Black, background = Color.White),
+    val border: Color = Color.Transparent
 ) {
     companion object {
-        val default by lazy { MenuColors() }
+        val default by lazy { MenuItemColors() }
     }
 }
 
@@ -43,31 +42,22 @@ fun MenuItem(
     label: @Composable (style: TextStyle) -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    colors: MenuColors = MenuColors.default,
-    borderColor: Color = Color.Transparent,
+    colors: MenuItemColors = MenuItemColors.default,
     borderWidth: Dp = 0.dp,
     selected: Boolean = false,
     shape: Shape = RoundedCornerShape(10.dp),
-    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
-    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    arrangement: Arrangement.Horizontal = Arrangement.Start,
+    alignment: Alignment.Vertical = Alignment.CenterVertically,
     trailing: @Composable ((interactionSource: MutableInteractionSource) -> Unit)? = null,
     leading: @Composable ((interactionSource: MutableInteractionSource) -> Unit)? = null
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
 
-    val labelColor: Color
-    val backgroundColor: Color
-
-    if (selected) {
-        backgroundColor = colors.selectedBackground
-        labelColor = colors.selectedColor
-    } else if (isHovered) {
-        backgroundColor = colors.hoverBackground
-        labelColor = colors.hoverColor
-    } else {
-        backgroundColor = colors.background
-        labelColor = colors.color
+    val color = when {
+        selected -> colors.selected
+        isHovered -> colors.hovered
+        else -> colors.inactive
     }
 
     Box(
@@ -75,10 +65,10 @@ fun MenuItem(
             .clip(shape)
             .border(
                 width = borderWidth,
-                color = borderColor,
+                color = colors.border,
                 shape = shape
             )
-            .background(color = backgroundColor)
+            .background(color = color.background)
             .pointerHoverIcon(PointerIcon.Hand)
             .hoverable(interactionSource = interactionSource)
             .clickable(
@@ -90,13 +80,13 @@ fun MenuItem(
     ) {
         Row(
             modifier = modifier,
-            horizontalArrangement = horizontalArrangement,
-            verticalAlignment = verticalAlignment,
+            horizontalArrangement = arrangement,
+            verticalAlignment = alignment,
         ) {
             if (leading != null) {
                 leading(interactionSource)
             }
-            label(TextStyle(color = labelColor))
+            label(TextStyle(color = color.foreground))
             if (trailing != null) {
                 trailing(interactionSource)
             }
