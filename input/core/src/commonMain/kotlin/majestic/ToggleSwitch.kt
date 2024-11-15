@@ -37,11 +37,8 @@ fun ToggleSwitch(
     backgroundOffColor: Color = Color(0xFFF2F4F7),
     circleOnColor: Color = Color.White,
     circleOffColor: Color = Color.White,
-    containerModifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = containerModifier
-    ){
+
     val sizePx = with(LocalDensity.current) { (width - height - (circlePadding * 2)).toPx() }
     val animateTranslation by animateFloatAsState(
         targetValue = if (checked) sizePx else 0f,
@@ -83,5 +80,4 @@ fun ToggleSwitch(
                 )
         )
     }
-}
 }
