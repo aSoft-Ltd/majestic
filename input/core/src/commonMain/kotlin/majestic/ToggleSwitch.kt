@@ -42,7 +42,6 @@ fun ToggleSwitch(
         targetValue = if (checked) sizePx else 0f,
         animationSpec = tween(durationMillis = 300)
     )
-
     Row(
         modifier = Modifier
             .height(height)
