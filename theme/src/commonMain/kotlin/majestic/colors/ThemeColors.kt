@@ -8,4 +8,3 @@ class ThemeColors(
     val navigation: ColorPair,
     val bar: BarColors
 )
-
