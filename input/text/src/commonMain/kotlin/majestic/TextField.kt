@@ -26,6 +26,7 @@ fun TextField(
     label: String = field.label.capitalizedWithAstrix(),
     hint: String = field.hint,
     color: Color = Color.Black,
+    colors: TextFieldColors = TextFieldColors(),
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
@@ -39,6 +40,7 @@ fun TextField(
     field = field,
     hint = hint,
     color = color,
+    colors = colors,
     singleLine = singleLine,
     maxLines = maxLines,
     minLines = minLines,
@@ -55,6 +57,8 @@ fun TextField(
     }
 )
 
+
+// Why do we have two different implementations
 @Composable
 fun TextField(
     field: BaseField<String>,
@@ -62,6 +66,7 @@ fun TextField(
     hint: String = field.hint,
     modifier: Modifier = Modifier,
     color: Color = Color.Black,
+    colors: TextFieldColors = TextFieldColors(),
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
@@ -99,14 +104,7 @@ fun TextField(
                     fontSize = 17.sp
                 )
             },
-            colors = TextFieldDefaults.colors(
-                focusedTextColor = color,
-                unfocusedTextColor = color.copy(alpha = 0.7f),
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = feedbackColor,
-                unfocusedIndicatorColor = if (hasFeedback) feedbackColor else color.copy(alpha = 0.2f),
-            ),
+            colors = colors.toMaterialTextFieldColors(),
             shape = RoundedCornerShape(8.dp),
             onValueChange = {
                 field.set(it)
@@ -121,6 +119,30 @@ fun TextField(
     }
 }
 
+class TextFieldMicroColors(
+    val border: Color,
+    val placeholder: Color,
+    val text: Color
+)
+
+class TextFieldColors(
+    val focused: TextFieldMicroColors = TextFieldMicroColors(
+        border = Color(0xFF0061FF),
+        placeholder = Color.Black.copy(alpha = 0.4f),
+        text = Color.Black
+    ),
+    val blurred: TextFieldMicroColors = TextFieldMicroColors(
+        border = Color.Black.copy(alpha = 0.2f),
+        placeholder = Color.Black.copy(alpha = 0.4f),
+        text = Color.Black
+    ),
+    val error: TextFieldMicroColors = TextFieldMicroColors(
+        border = Color.Red.copy(alpha = 0.8f),
+        placeholder = Color.Red.copy(alpha = 0.8f),
+        text = Color.Red.copy(0.8f)
+    )
+)
+
 @Composable
 fun TextField(
     value: String,
@@ -128,6 +150,7 @@ fun TextField(
     hint: String = "Placeholder",
     modifier: Modifier = Modifier,
     color: Color = Color.Black,
+    colors: TextFieldColors = TextFieldColors(),
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
@@ -152,18 +175,11 @@ fun TextField(
             placeholder = {
                 Text(
                     text = hint,
-                    color = color.copy(alpha = 0.4f),
+                    color = colors.blurred.placeholder,
                     fontSize = 17.sp
                 )
             },
-            colors = TextFieldDefaults.colors(
-                focusedTextColor = color,
-                unfocusedTextColor = color.copy(alpha = 0.7f),
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = Color(0xFF0061FF),
-                unfocusedIndicatorColor = color.copy(alpha = 0.2f),
-            ),
+            colors = colors.toMaterialTextFieldColors(),
             shape = RoundedCornerShape(8.dp),
             onValueChange = {
                 onChange?.invoke(it)
@@ -171,3 +187,14 @@ fun TextField(
         )
     }
 }
+
+
+@Composable
+private fun TextFieldColors.toMaterialTextFieldColors() = TextFieldDefaults.colors(
+    focusedTextColor = focused.text,
+    unfocusedTextColor = blurred.text,
+    focusedContainerColor = Color.Transparent,
+    unfocusedContainerColor = Color.Transparent,
+    focusedIndicatorColor = focused.border,
+    unfocusedIndicatorColor = blurred.border,
+)

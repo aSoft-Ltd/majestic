@@ -24,6 +24,18 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import majestic.colors.ColorPair
+
+data class ToggleSwitchColors(
+    val on: ColorPair = ColorPair(
+        background = Color(0xFF4196F0),
+        foreground = Color.White
+    ),
+    val off: ColorPair = ColorPair(
+        background = Color(0xFFF2F4F7),
+        foreground = Color.White
+    )
+)
 
 @Composable
 fun ToggleSwitch(
@@ -32,16 +44,14 @@ fun ToggleSwitch(
     height: Dp = 30.dp,
     width: Dp = 60.dp,
     circlePadding: Dp = 4.dp,
-    backgroundOnColor: Color = Color(0xFF4196F0),
-    backgroundOffColor: Color = Color(0xFFF2F4F7),
-    circleOnColor: Color = Color.White,
-    circleOffColor: Color = Color.White,
+    colors: ToggleSwitchColors = ToggleSwitchColors(),
 ) {
     val sizePx = with(LocalDensity.current) { (width - height - (circlePadding * 2)).toPx() }
     val animateTranslation by animateFloatAsState(
         targetValue = if (checked) sizePx else 0f,
         animationSpec = tween(durationMillis = 300)
     )
+    val color = if (checked) colors.on else colors.off
     Row(
         modifier = Modifier
             .height(height)
@@ -53,14 +63,7 @@ fun ToggleSwitch(
                 indication = null,
                 enabled = true,
                 onClick = { onCheckedChange?.invoke(!checked) }
-            )
-            .then(
-                if (checked) Modifier.background(
-                    backgroundOnColor
-                ) else Modifier.background(
-                    backgroundOffColor
-                )
-            ),
+            ).background(color.background),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
@@ -69,13 +72,7 @@ fun ToggleSwitch(
                 .padding(circlePadding)
                 .size(height)
                 .clip(CircleShape)
-                .then(
-                    if (checked) Modifier.background(
-                        circleOnColor
-                    ) else Modifier.background(
-                        circleOffColor
-                    )
-                )
+                .background(color.foreground)
         )
     }
 }

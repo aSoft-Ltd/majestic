@@ -1,6 +1,6 @@
 package majestic.colors
 
-class ColorRole(
+class ColorRole2(
     /**
      * The main color
      */

@@ -35,6 +35,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.NoRippleInteractionSource
+import majestic.colors.ColorPair
+
+class DragAndBorderColors(
+    val hovered: Color,
+    val pending: Color
+)
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -42,6 +48,14 @@ fun DragAndDropBox(
     description: String,
     modifier: Modifier = Modifier,
     icon: Painter,
+    colors: ColorPair = ColorPair(
+        background = Color(0xFF1D2430),
+        foreground = Color(0xFFFAFAFA),
+    ),
+    border: DragAndBorderColors = DragAndBorderColors(
+        hovered = Color(0xFF007AFF),
+        pending = Color(0xFF475467)
+    ),
     onClick: () -> Unit = {},
     onDrop: () -> Unit = {},
 ) {
@@ -54,11 +68,11 @@ fun DragAndDropBox(
                 .fillMaxSize()
                 .border(
                     if (isHovered) 2.dp else 1.dp,
-                    if (isHovered) Color(0xFF007AFF) else Color(0xFF475467),
+                    if (isHovered) border.hovered else border.pending,
                     RoundedCornerShape(20.dp)
                 )
                 .clip(RoundedCornerShape(20.dp))
-                .background(Color(0xFF1D2430))
+                .background(colors.background)
                 .hoverable(interactionSource = interactionSource)
                 .clickable(
                     interactionSource = NoRippleInteractionSource(),
@@ -90,19 +104,19 @@ fun DragAndDropBox(
                     modifier = Modifier
                         .size(50.dp)
                         .clip(CircleShape)
-                        .background(Color(0xFF252F3C)),
+                        .background(colors.foreground.copy(alpha = 0.1f)),
                     contentAlignment = Alignment.Center
                 ) {
                     Box(
                         modifier = Modifier
                             .size(35.dp)
                             .clip(CircleShape)
-                            .background(Color(0xFF475467)),
+                            .background(colors.foreground.copy(alpha = 0.15f)),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             painter = icon,
-                            tint = Color.White.copy(alpha = 0.5f),
+                            tint = colors.foreground.copy(alpha = if (isHovered) 0.8f else 0.5f),
                             contentDescription = "Upload Icon"
                         )
                     }
@@ -111,7 +125,7 @@ fun DragAndDropBox(
                 Text(
                     text = description,
                     fontSize = 14.sp,
-                    color = Color(0xFF475467),
+                    color = colors.foreground.copy(alpha = if (isHovered) 0.8f else 0.5f),
                     textAlign = TextAlign.Center
                 )
             }

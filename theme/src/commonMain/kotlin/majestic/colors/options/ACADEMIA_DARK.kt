@@ -3,40 +3,51 @@ package majestic.colors.options
 import androidx.compose.ui.graphics.Color
 import majestic.colors.BarColors
 import majestic.colors.ColorPair
-import majestic.colors.ColorRole
+import majestic.colors.ColorRole2
 import majestic.colors.ThemeColors
 import majestic.colors.toColorRole
 
 private val primary = ColorPair(
-    foreground = Color.White,
-    background = Color(red = 18, green = 39, blue = 68),
+    foreground = Color(0xFFFAFAFA),
+    background = Color(0xFF0061FF),
+//    background = Color(0xFFFF5722),
+//    background = Color(0xFF673AB7),
+//    background = Color.Yellow,
+//    background = Color.Magenta
 ).toColorRole()
 
-private val surface = ColorRole(
+private val surface1 = ColorRole2(
     main = ColorPair(
-        foreground = Color.White,
-        background = Color(red = 21, green = 23, blue = 30),
+        foreground = Color(0xFFFAFAFA),
+        background = Color(0xFF15181D),
     ),
     comp = ColorPair(
-        foreground = Color.White,
-        background = Color(red = 20, green = 29, blue = 37)
+        foreground = Color(0xFFFAFAFA),
+        background = Color(0xFF151C25)
+    )
+)
+
+private val surface2 = ColorRole2(
+    main = ColorPair(
+        foreground = Color(0xFFFAFAFA),
+        background = Color(0xFF1D2430),
+    ),
+    comp = ColorPair(
+        foreground = Color(0xFFFAFAFA),
+        background = Color(0xFF232B3A),
     )
 )
 
 private val bar = BarColors(
-    top = ColorPair(
-        background = Color(red = 27, green = 37, blue = 51),
-        foreground = Color.White
-    ),
-    bottom = ColorPair(
-        background = Color(red = 20, green = 26, blue = 34),
-        foreground = Color.White
-    )
+    top = surface1.comp,
+    bottom = surface1.comp
 )
 
 val ACADEMIA_DARK = ThemeColors(
     primary = primary,
-    surface = surface,
-    navigation = surface.comp,
+    surface1 = surface1,
+    surface2 = surface2,
+    pop = surface2,
+    navigation = surface1.comp,
     bar = bar
 )
