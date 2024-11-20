@@ -51,3 +51,14 @@ val ACADEMIA_DARK = ThemeColors(
     navigation = surface1.comp,
     bar = bar
 )
+
+fun academiaDark(primary: ColorPair) = ThemeColors(
+    primary = primary.toColorRole(),
+    surface1 = surface1,
+    surface2 = surface2,
+    pop = surface2,
+    navigation = surface1.comp,
+    bar = bar
+)
+
+fun academiaDark(color: Color) = academiaDark(ColorPair(foreground = Color(0xFFFAFAFA), background = color))
