@@ -166,7 +166,7 @@ fun TextField(
     Column(modifier = modifier) {
         label()
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth().then(if (maxLines > 56) Modifier.height(maxLines.dp) else Modifier.wrapContentHeight()),
+            modifier = Modifier.fillMaxWidth(),
             value = value,
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
