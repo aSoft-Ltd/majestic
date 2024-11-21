@@ -26,6 +26,7 @@ fun PickerButton(
     pickerColor: String,
     modifier: Modifier = Modifier,
     borderColor: Color = Color.Unspecified,
+    textColor: Color = Color.Unspecified,
     backgroundColor: Color = Color.Unspecified,
     onClick: () -> Unit
 ) {
@@ -58,7 +59,8 @@ fun PickerButton(
             )
             Text(
                 text = pickerColor,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = textColor
             )
         }
     }

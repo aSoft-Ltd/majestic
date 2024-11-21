@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.colors.ColorPair
 import majestic.format.toCssHex
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,13 +38,17 @@ fun ColorPicker(
     label: String,
     color: String?,
     modifier: Modifier = Modifier,
+    colors: ColorPair = ColorPair(
+        foreground = Color.Black,
+        background = Color.White
+    ),
     onSelect: (String) -> Unit,
     onDismiss: () -> Unit
 ) {
     BasicAlertDialog(
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))
-            .background(Color.White)
+            .background(colors.background)
             .padding(vertical = 30.dp, horizontal = 20.dp),
         onDismissRequest = onDismiss
     ) {
@@ -63,7 +68,8 @@ fun ColorPicker(
             Text(
                 text = title,
                 fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
+                fontSize = 20.sp,
+                color = colors.foreground
             )
             SVColorCoordinate(
                 modifier = Modifier
@@ -99,12 +105,16 @@ fun ColorPicker(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = label)
+                Text(
+                    text = label,
+                    color = colors.foreground
+                )
                 Spacer(modifier = Modifier.width(15.dp))
                 PickerButton(
                     modifier = Modifier.width(200.dp),
                     pickerColor = selectedColor,
-                    borderColor = Color.Black.copy(alpha = 0.2f),
+                    textColor = colors.foreground,
+                    borderColor = colors.foreground.copy(alpha = 0.2f),
                     onClick = {}
                 )
             }
@@ -119,17 +129,21 @@ fun ColorPicker(
                     interactionSource = NoRippleInteractionSource(),
                     border = BorderStroke(
                         width = 1.dp,
-                        color = Color.Black.copy(alpha = 0.2f)
+                        color = colors.foreground.copy(alpha = 0.2f)
                     ),
                     colors = ButtonColors(
-                        containerColor = Color.White,
-                        contentColor = Color.Black
+                        containerColor = colors.background,
+                        contentColor = colors.foreground
                     ),
                     onClick = onDismiss
                 )
                 ActionButton(
                     modifier = Modifier.weight(1f),
                     text = "Select Color",
+                    colors = ButtonColors(
+                        containerColor = colors.foreground,
+                        contentColor = colors.background
+                    ),
                     onClick = { onSelect(selectedColor) }
                 )
             }
