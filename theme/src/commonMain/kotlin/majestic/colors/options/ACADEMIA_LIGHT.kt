@@ -9,19 +9,26 @@ import majestic.colors.toColorRole
 
 private val primary = ColorRole2(
     main = ColorPair(
-        foreground = Color.White,
-        background = Color(red = 0x30, green = 0xC0, blue = 0xF9),
+        foreground = Color.Black,
+//        background = Color(0xFFC5DAF8),
+        background = Color(0xFF0061FF),
     ),
     comp = ColorPair(
-        foreground = Color.White,
-        background = Color(red = 0x00, green = 0x61, blue = 0xFF),
+        foreground = Color.Black,
+        background = Color(0xFF0061FF),
     ),
 )
 
-private val surface1 = ColorPair(
-    foreground = Color.Black,
-    background = Color.White,
-).toColorRole()
+private val surface1 = ColorRole2(
+    main = ColorPair(
+        foreground = Color(0xFF161616),
+        background = Color(0xFFF7FAFF)
+    ),
+    comp = ColorPair(
+        foreground = Color(0xFF161616),
+        background = Color(0xFFE8EEF7)
+    )
+)
 
 private val surface2 = ColorPair(
     foreground = Color.Black,
@@ -41,3 +48,14 @@ val ACADEMIA_LIGHT = ThemeColors(
     navigation = surface1.comp,
     bar = bar
 )
+
+fun academiaLight(primary: ColorPair) = ThemeColors(
+    primary = primary.toColorRole(),
+    surface1 = surface1,
+    surface2 = surface2,
+    pop = surface2.comp.toColorRole(),
+    navigation = surface1.comp,
+    bar = bar
+)
+
+fun academiaLight(color: Color) = academiaLight(ColorPair(foreground = Color(0xFF161616), background = color))
