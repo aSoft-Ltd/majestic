@@ -146,7 +146,7 @@ class TextFieldColors(
 @Composable
 fun TextField(
     value: String,
-    label: @Composable (() -> Unit),
+    label: @Composable (() -> Unit)? = null,
     hint: String = "Placeholder",
     modifier: Modifier = Modifier,
     color: Color = Color.Black,
@@ -161,7 +161,9 @@ fun TextField(
     leadingIcon: @Composable (() -> Unit)? = null
 ) {
     Column(modifier = modifier) {
-        label()
+        if (label != null) {
+            label()
+        }
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = value,
