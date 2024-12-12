@@ -1,14 +1,18 @@
 package majestic.drawer.host
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -24,18 +28,23 @@ internal fun BoxScope.OverlayDrawer(
     drawer: Drawer,
     size: DpSize,
     state: HostedDrawerState
-) = Box(modifier = Modifier.drawer(drawer, state, size), content = drawer.content)
+) {
+    val overlay by animateColorAsState(targetValue = if (state is OpenedDrawer) drawer.background else Color.Transparent)
+    Box(modifier = Modifier.fillMaxSize().background(color = overlay)) {
+        Box(modifier = Modifier.drawer(drawer, state, size), content = drawer.content)
+    }
+}
 
 @Composable
 private fun Modifier.drawer(drawer: Drawer, state: HostedDrawerState, size: DpSize) = when {
     drawer.position in listOf(DrawerPosition.Left, DrawerPosition.Right) -> {
-        val width by animateDpAsState(targetValue = state.dynamicSpan(size.width))
+        val width by animateDpAsState(targetValue = state.computeSpan(size.width))
         val offsetX by drawer.offsetX(state, size, width)
         Modifier.width(width).offset(x = offsetX)
     }
 
     else -> {
-        val height by animateDpAsState(targetValue = state.dynamicSpan(size.height))
+        val height by animateDpAsState(targetValue = state.computeSpan(size.height))
         val offsetY by drawer.offsetY(state, size, height)
         Modifier.height(height).offset(y = offsetY)
     }

@@ -34,25 +34,25 @@ internal fun BoxScope.InlineDrawer(
 
     when (drawer.position) {
         DrawerPosition.Left -> Row(modifier = Modifier.fillMaxSize()) {
-            val width by animateDpAsState(targetValue = state.dynamicSpan(size.width))
+            val width by animateDpAsState(targetValue = state.computeSpan(size.width))
             if (width > 0.dp) Box(modifier = Modifier.width(width).fillMaxHeight(), content = drawer.content)
             Box(modifier = Modifier.width(size.width - width).fillMaxHeight()) { InlineDrawer(remaining, size, content) }
         }
 
         DrawerPosition.Right -> Row(modifier = Modifier.fillMaxSize()) {
-            val width by animateDpAsState(targetValue = state.dynamicSpan(size.width))
+            val width by animateDpAsState(targetValue = state.computeSpan(size.width))
             Box(modifier = Modifier.width(size.width - width).fillMaxHeight()) { InlineDrawer(remaining, size, content) }
             if (width > 0.dp) Box(modifier = Modifier.width(width).fillMaxHeight(), content = drawer.content)
         }
 
         DrawerPosition.Top -> Column(modifier = Modifier.fillMaxSize()) {
-            val height by animateDpAsState(targetValue = state.dynamicSpan(size.height))
+            val height by animateDpAsState(targetValue = state.computeSpan(size.height))
             if (height > 0.dp) Box(modifier = Modifier.height(height).fillMaxWidth(), content = drawer.content)
             Box(modifier = Modifier.height(size.height - height).fillMaxWidth()) { InlineDrawer(remaining, size, content) }
         }
 
         DrawerPosition.Bottom -> Column(modifier = Modifier.fillMaxSize()) {
-            val height by animateDpAsState(targetValue = state.dynamicSpan(size.height))
+            val height by animateDpAsState(targetValue = state.computeSpan(size.height))
             Box(modifier = Modifier.height(size.height - height).fillMaxWidth()) { InlineDrawer(remaining, size, content) }
             if (height > 0.dp) Box(modifier = Modifier.height(height).fillMaxWidth(), content = drawer.content)
         }

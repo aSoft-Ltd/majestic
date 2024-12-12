@@ -22,13 +22,8 @@ internal fun DrawerSpan.toDp(parent: Dp): Dp = when (this) {
 @Composable
 internal fun IntSize.toDp(): DpSize = with(LocalDensity.current) { DpSize(width.toDp(), height.toDp()) }
 
-internal fun HostedDrawerState.dynamicSpan(parent: Dp) = when (this) {
+internal fun HostedDrawerState.computeSpan(parent: Dp) = when (this) {
     is ClosedDrawer -> 0.dp
-    is OpenedDrawer -> span.toDp(parent)
-}
-
-internal fun HostedDrawerState.fixedSpan(drawer: Drawer, parent: Dp) = when (this) {
-    is ClosedDrawer -> drawer.span.toDp(parent)
     is OpenedDrawer -> span.toDp(parent)
 }
 

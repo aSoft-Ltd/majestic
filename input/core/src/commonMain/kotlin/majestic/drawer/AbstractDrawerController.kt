@@ -2,6 +2,7 @@ package majestic.drawer
 
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 
 internal abstract class AbstractDrawerController : MultiDrawerController {
@@ -39,7 +40,7 @@ internal abstract class AbstractDrawerController : MultiDrawerController {
     }
 
     override fun toggle(drawer: Drawer, ratio: Float) = toggle(drawer, RatioSpan(ratio))
-    fun toggle(drawer: Any, ratio: Float) {
+    override fun toggle(drawer: Any, ratio: Float) {
         find(drawer).forEach { toggle(it, RatioSpan(ratio)) }
     }
 
@@ -55,22 +56,25 @@ internal abstract class AbstractDrawerController : MultiDrawerController {
         ratio: Float,
         position: DrawerPosition,
         display: DrawerDisplay,
+        background: Color,
         content: @Composable (BoxScope.() -> Unit)
-    ) = add(drawer, RatioSpan(ratio), position, display, content)
+    ) = add(drawer, RatioSpan(ratio), position, display, background, content)
 
     override fun add(
         key: Any,
         span: Dp,
         position: DrawerPosition,
         display: DrawerDisplay,
+        background: Color,
         content: @Composable (BoxScope.() -> Unit)
-    ) = add(key, DpSpan(span), position, display, content)
+    ) = add(key, DpSpan(span), position, display, background, content)
 
     abstract fun add(
         key: Any,
         span: DrawerSpan,
         position: DrawerPosition,
         display: DrawerDisplay,
+        background: Color,
         content: @Composable BoxScope.() -> Unit
     ): Drawer
 

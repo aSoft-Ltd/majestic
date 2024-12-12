@@ -3,6 +3,7 @@ package majestic.drawer
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
+import androidx.compose.ui.graphics.Color
 
 internal class MultiDrawerHostController internal constructor(
     internal val state: SnapshotStateMap<Drawer, HostedDrawerState>
@@ -18,7 +19,7 @@ internal class MultiDrawerHostController internal constructor(
     }
 
     override fun close(drawer: Drawer) {
-        state[drawer] = ClosedDrawer(key = drawer, triggered = true)
+        state[drawer] = ClosedDrawer(key = drawer)
     }
 
 
@@ -30,7 +31,7 @@ internal class MultiDrawerHostController internal constructor(
                 display = drawer.display
             )
 
-            else -> ClosedDrawer(key = s?.key ?: drawer, triggered = true)
+            else -> ClosedDrawer(key = s?.key ?: drawer)
         }
     }
 
@@ -39,10 +40,11 @@ internal class MultiDrawerHostController internal constructor(
         span: DrawerSpan,
         position: DrawerPosition,
         display: DrawerDisplay,
+        background: Color,
         content: @Composable BoxScope.() -> Unit
     ): Drawer {
-        val drawer = Drawer(position, span, display, content)
-        state[drawer] = ClosedDrawer(key, triggered = false)
+        val drawer = Drawer(span, position, display, background, content)
+        state[drawer] = ClosedDrawer(key)
         return drawer
     }
 
