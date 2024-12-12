@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.unit.IntSize
 import majestic.drawer.host.InlineDrawer
-import majestic.drawer.host.HorizontalOverlayDrawer
+import majestic.drawer.host.OverlayDrawer
 import majestic.drawer.host.display
 import majestic.drawer.host.toDp
 
@@ -22,11 +22,12 @@ import majestic.drawer.host.toDp
  */
 @Composable
 fun DrawerHost(
-    controller: MultiDrawerHostController,
+    controller: MultiDrawerController,
     modifier: Modifier = Modifier,
     alignment: Alignment = Alignment.TopStart,
     content: @Composable () -> Unit,
 ) {
+    controller as MultiDrawerHostController
     var dimension by remember { mutableStateOf(IntSize.Zero) }
     val size = dimension.toDp()
     val drawers = controller.state.toList()
@@ -34,7 +35,7 @@ fun DrawerHost(
     Box(modifier.onPlaced { dimension = it.size }, alignment) {
         InlineDrawer(inlines, size, content)
         for ((drawer, state) in overlays) {
-            HorizontalOverlayDrawer(drawer, size, state)
+            OverlayDrawer(drawer, size, state)
         }
     }
 }
