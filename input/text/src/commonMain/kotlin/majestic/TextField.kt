@@ -34,7 +34,8 @@ fun TextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null
+    leadingIcon: @Composable (() -> Unit)? = null,
+    shape: RoundedCornerShape = RoundedCornerShape(8.dp)
 ) = TextField(
     modifier = modifier,
     field = field,
@@ -54,7 +55,8 @@ fun TextField(
             modifier = Modifier.padding(bottom = 8.dp),
             text = label
         )
-    }
+    },
+    shape = shape
 )
 
 
@@ -74,7 +76,8 @@ fun TextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null
+    leadingIcon: @Composable (() -> Unit)? = null,
+    shape: RoundedCornerShape = RoundedCornerShape(8.dp)
 ) {
     val state = field.state.watchAsState()
     val feedbacks = state.feedbacks.warnings + state.feedbacks.errors
@@ -105,7 +108,7 @@ fun TextField(
                 )
             },
             colors = colors.toMaterialTextFieldColors(),
-            shape = RoundedCornerShape(8.dp),
+            shape = shape,
             onValueChange = {
                 field.set(it)
                 onChange?.invoke(it)
@@ -158,7 +161,8 @@ fun TextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null
+    leadingIcon: @Composable (() -> Unit)? = null,
+    shape: RoundedCornerShape = RoundedCornerShape(8.dp)
 ) {
     Column(modifier = modifier) {
         if (label != null) {
@@ -182,7 +186,7 @@ fun TextField(
                 )
             },
             colors = colors.toMaterialTextFieldColors(),
-            shape = RoundedCornerShape(8.dp),
+            shape = shape,
             onValueChange = {
                 onChange?.invoke(it)
             }
