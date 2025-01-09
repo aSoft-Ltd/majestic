@@ -102,6 +102,7 @@ fun TextField(
             visualTransformation = visualTransformation,
             placeholder = {
                 Text(
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp),
                     text = hint,
                     color = color.copy(alpha = 0.4f),
                     fontSize = 17.sp
