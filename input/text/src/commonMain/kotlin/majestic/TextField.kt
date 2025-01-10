@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
@@ -35,7 +37,8 @@ fun TextField(
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
-    shape: RoundedCornerShape = RoundedCornerShape(8.dp)
+    shape: RoundedCornerShape = RoundedCornerShape(8.dp),
+    hintSize: TextUnit = 17.sp
 ) = TextField(
     modifier = modifier,
     field = field,
@@ -56,7 +59,8 @@ fun TextField(
             text = label
         )
     },
-    shape = shape
+    shape = shape,
+    hintSize = hintSize
 )
 
 
@@ -77,7 +81,8 @@ fun TextField(
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
-    shape: RoundedCornerShape = RoundedCornerShape(8.dp)
+    shape: RoundedCornerShape = RoundedCornerShape(8.dp),
+    hintSize: TextUnit = 17.sp
 ) {
     val state = field.state.watchAsState()
     val feedbacks = state.feedbacks.warnings + state.feedbacks.errors
@@ -102,10 +107,9 @@ fun TextField(
             visualTransformation = visualTransformation,
             placeholder = {
                 Text(
-                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp),
                     text = hint,
                     color = color.copy(alpha = 0.4f),
-                    fontSize = 17.sp
+                    fontSize = hintSize
                 )
             },
             colors = colors.toMaterialTextFieldColors(),
@@ -163,7 +167,9 @@ fun TextField(
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
-    shape: RoundedCornerShape = RoundedCornerShape(8.dp)
+    shape: RoundedCornerShape = RoundedCornerShape(8.dp),
+    textStyle: TextStyle = TextStyle.Default,
+    hintSize: TextUnit = 17.sp
 ) {
     Column(modifier = modifier) {
         if (label != null) {
@@ -183,14 +189,15 @@ fun TextField(
                 Text(
                     text = hint,
                     color = colors.blurred.placeholder,
-                    fontSize = 17.sp
+                    fontSize = hintSize
                 )
             },
             colors = colors.toMaterialTextFieldColors(),
             shape = shape,
             onValueChange = {
                 onChange?.invoke(it)
-            }
+            },
+            textStyle = textStyle,
         )
     }
 }
