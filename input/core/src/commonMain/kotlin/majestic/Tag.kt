@@ -33,7 +33,7 @@ fun Tag(
             text = label,
             color = color,
             fontSize = fontSize,
-            lineHeight = 0.sp
+            lineHeight = 1.sp
         )
     }
 }
