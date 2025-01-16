@@ -51,7 +51,7 @@ fun Table(
 
         // table data
         LazyColumn {
-            data.forEach { row ->
+            data.forEachIndexed { index, row ->
                 item {
                     val interactionSource = remember { MutableInteractionSource() }
                     val isHovered by interactionSource.collectIsHoveredAsState()
@@ -64,7 +64,7 @@ fun Table(
                     ) {
                         row.forEach { cell -> Cell(modifier = cellModifier, content = cell, weight = 1f) }
                     }
-                    if (row != data.last()) {
+                    if (index != data.lastIndex) {
                         HorizontalDivider(color = colors.separator)
                     }
                 }
