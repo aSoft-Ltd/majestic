@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
@@ -35,11 +36,17 @@ fun Table(
 ) {
     Column(modifier = modifier) {
         // table title
-        Row(modifier = rowModifier.background(colors.inactive)) { title?.invoke() }
+        if (title != null) {
+            Row(modifier = rowModifier.fillMaxWidth().background(colors.inactive)) { title() }
+            HorizontalDivider(color = colors.separator)
+        }
 
         // table header
-        Row(modifier = rowModifier.background(colors.inactive)) {
-            headers?.forEach { cell -> Cell(modifier = cellModifier, content = cell, weight = 1f) }
+        if (headers != null) {
+            Row(modifier = rowModifier.background(colors.inactive)) {
+                headers.forEach { cell -> Cell(modifier = cellModifier, content = cell, weight = 1f) }
+            }
+            HorizontalDivider(color = colors.separator)
         }
 
         // table data
