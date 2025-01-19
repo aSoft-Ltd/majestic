@@ -11,22 +11,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cinematic.watchAsState
 import kollections.mapIndexed
+import symphony.LinearTable
 import symphony.Row
+import symphony.Table
+import symphony.columns.Column
 import kotlin.jvm.JvmName
-import symphony.Table as TableManager
 
 @Composable
 fun <D> LazyTable(
-    table: TableManager<D>,
+    table: Table<D>,
     modifier: Modifier = Modifier,
+    columns: @Composable RowScope.(Column<D>) -> Unit = { Text(it.name, modifier = Modifier.weight(1f)) },
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
 ) {
-    val columns = table.columns.current.watchAsState()
+    table as LinearTable
+    val cols = table.columns.current.watchAsState()
+    val rows = table.paginator.current.watchAsState().data?.items ?: kollections.emptyList()
     LazyTable(
-        rows = table.rows,
-        columns = Columns(columns) { column ->
-            Text(column.name)
-        },
+        rows = rows,
+        columns = Columns(cols, renderer = columns),
         modifier = modifier,
         cell = cell
     )
