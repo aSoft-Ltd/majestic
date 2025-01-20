@@ -10,10 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cinematic.watchAsState
+import kollections.filter
 import kollections.mapIndexed
 import symphony.LinearTable
 import symphony.Row
 import symphony.Table
+import symphony.VisibleVisibility
 import symphony.columns.Column
 import kotlin.jvm.JvmName
 
@@ -25,7 +27,7 @@ fun <D> LazyTable(
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
 ) {
     table as LinearTable
-    val cols = table.columns.current.watchAsState()
+    val cols = table.columns.current.watchAsState().filter { it.visibility == VisibleVisibility }
     val rows = table.paginator.current.watchAsState().data?.items ?: kollections.emptyList()
     LazyTable(
         rows = rows,

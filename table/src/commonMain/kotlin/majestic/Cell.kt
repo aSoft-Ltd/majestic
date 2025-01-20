@@ -18,6 +18,6 @@ fun <D> GenericCell(
     cell: Cell<D>,
     modifier: Modifier = Modifier
 ) = Column(modifier) {
-    Text("${cell.row.item}")
+    Text("${cell.column.asData?.resolve(cell.row)}")
     Text(cell.column.name, color = LocalContentColor.current.copy(alpha = 0.5f))
 }
