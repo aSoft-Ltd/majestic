@@ -23,7 +23,7 @@ import kotlin.jvm.JvmName
 fun <D> LazyTable(
     table: Table<D>,
     modifier: Modifier = Modifier,
-    columns: @Composable RowScope.(Column<D>) -> Unit = { Text(it.name, modifier = Modifier.weight(1f)) },
+    columns: (@Composable RowScope.(Column<D>) -> Unit)? = { Text(it.name, modifier = Modifier.weight(1f)) },
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
 ) {
     table as LinearTable
@@ -46,9 +46,9 @@ fun <D> LazyTable(
     modifier: Modifier = Modifier,
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
 ) = LazyColumn(modifier) {
-    stickyHeader(columns) {
+    if (columns.renderer != null) stickyHeader(columns) {
         Row(modifier = columns.modifier.fillMaxWidth()) {
-            for (column in columns.data) columns.renderer(this, column)
+            for (column in columns.data) columns.renderer.invoke(this, column)
         }
     }
     items(rows) { row ->
