@@ -98,7 +98,8 @@ fun Search(
                         )
                     }
                     innerTextField()
-                }
+                },
+                singleLine = true
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
