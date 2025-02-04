@@ -25,12 +25,16 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.colors.ThemeColors
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
 
 @Composable
 fun Search(
@@ -45,7 +49,8 @@ fun Search(
     onFocusChange: (Boolean) -> Unit = {},
     onDismiss: () -> Unit = {},
     icon: @Composable (() -> Unit)? = null,
-    suggestions: @Composable (Boolean, Int) -> Unit = { _, _ -> }
+    suggestions: @Composable (Boolean, Int) -> Unit = { _, _ -> },
+    onEnter: (keyEvent: KeyEvent) -> Boolean = { _ -> false }
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }
@@ -66,6 +71,14 @@ fun Search(
                     .onFocusChanged {
                         isFocused = it.isFocused
                         onFocusChange(it.isFocused)
+                    }
+                    .onKeyEvent { keyEvent ->
+                        if (keyEvent.key == Key.Enter) {
+                            onEnter(keyEvent)
+                            true
+                        } else {
+                            false
+                        }
                     },
                 value = field,
                 onValueChange = onChange,
