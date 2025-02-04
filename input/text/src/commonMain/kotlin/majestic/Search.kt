@@ -50,7 +50,7 @@ fun Search(
     onDismiss: () -> Unit = {},
     icon: @Composable (() -> Unit)? = null,
     suggestions: @Composable (Boolean, Int) -> Unit = { _, _ -> },
-    onEnter: (keyEvent: KeyEvent) -> Boolean = { _ -> false }
+    onEnter: (keyEvent: KeyEvent) -> Unit = { }
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }
@@ -75,6 +75,7 @@ fun Search(
                     .onKeyEvent {
                         if (it.key != Key.Enter) return@onKeyEvent false
                         onEnter(it)
+                        true
                     },
                 value = field,
                 onValueChange = onChange,
