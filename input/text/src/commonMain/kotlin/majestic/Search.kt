@@ -34,6 +34,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.rememberScreenOrientation
 import majestic.colors.ThemeColors
 
 @Composable
@@ -54,6 +56,7 @@ fun Search(
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }
+    val orientation = rememberScreenOrientation()
 
     Box(modifier = modifier) {
         Row(
@@ -89,7 +92,7 @@ fun Search(
                     if (field.isEmpty()) {
                         Text(
                             text = hint,
-                            fontSize = 16.sp,
+                            fontSize = if (orientation is Landscape) 14.sp else 12.sp,
                             color = theme.surface1.main.foreground.copy(alpha = 0.5f),
                             style = hintStyle
                         )
