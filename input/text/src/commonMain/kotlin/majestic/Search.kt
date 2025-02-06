@@ -32,21 +32,17 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composex.screen.orientation.Landscape
-import composex.screen.rememberScreenOrientation
 import majestic.colors.ThemeColors
 
 @Composable
 fun Search(
-    field: String,
+    value: String,
     theme: ThemeColors,
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     hint: String = "Search",
-    hintSize: TextUnit = 16.sp,
     textStyle: TextStyle? = null,
     hintStyle: TextStyle = LocalTextStyle.current,
     onSearch: () -> Unit = {},
@@ -81,7 +77,7 @@ fun Search(
                         onEnter(it)
                         true
                     },
-                value = field,
+                value = value,
                 onValueChange = onChange,
                 textStyle = textStyle ?: LocalTextStyle.current.copy(
                     fontSize = 16.sp,
@@ -90,14 +86,11 @@ fun Search(
                 cursorBrush = SolidColor(theme.surface1.main.foreground),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 decorationBox = { innerTextField ->
-                    if (field.isEmpty()) {
-                        Text(
-                            text = hint,
-                            fontSize = hintSize,
-                            color = theme.surface1.main.foreground.copy(alpha = 0.5f),
-                            style = hintStyle
-                        )
-                    }
+                    if (value.isEmpty()) Text(
+                        text = hint,
+                        color = theme.surface1.main.foreground.copy(alpha = 0.5f),
+                        style = hintStyle
+                    )
                     innerTextField()
                 },
                 singleLine = true
