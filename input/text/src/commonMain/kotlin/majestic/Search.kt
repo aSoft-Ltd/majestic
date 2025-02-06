@@ -32,6 +32,7 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
@@ -45,6 +46,7 @@ fun Search(
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     hint: String = "Search",
+    hintSize: TextUnit = 16.sp,
     textStyle: TextStyle? = null,
     hintStyle: TextStyle = LocalTextStyle.current,
     onSearch: () -> Unit = {},
@@ -56,7 +58,6 @@ fun Search(
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }
-    val orientation = rememberScreenOrientation()
 
     Box(modifier = modifier) {
         Row(
@@ -92,7 +93,7 @@ fun Search(
                     if (field.isEmpty()) {
                         Text(
                             text = hint,
-                            fontSize = if (orientation is Landscape) 14.sp else 12.sp,
+                            fontSize = hintSize,
                             color = theme.surface1.main.foreground.copy(alpha = 0.5f),
                             style = hintStyle
                         )
