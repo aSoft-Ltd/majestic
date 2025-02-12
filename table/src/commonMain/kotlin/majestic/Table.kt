@@ -3,12 +3,19 @@ package majestic
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onPlaced
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import kollections.filter
 import kollections.mapIndexed
@@ -45,15 +52,21 @@ fun <D> LazyTable(
     columns: Columns<D>,
     modifier: Modifier = Modifier,
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
-) = LazyColumn(modifier) {
-    if (columns.renderer != null) stickyHeader(columns) {
-        Row(modifier = columns.modifier.fillMaxWidth()) {
-            for (column in columns.data) columns.renderer.invoke(this, column)
+) {
+    var width by remember { mutableStateOf(300.dp) }
+
+    val density = LocalDensity.current
+
+    LazyColumn(modifier.onPlaced { width = with(density) { (it.parentCoordinates?.size?.width ?: 300).toDp() } }) {
+        if (columns.renderer != null) stickyHeader(columns) {
+            Row(modifier = columns.modifier.width(width)) {
+                for (column in columns.data) columns.renderer.invoke(this, column)
+            }
         }
-    }
-    items(rows) { row ->
-        Row(modifier = Modifier.fillMaxWidth()) {
-            for (column in columns.data) cell(this, Cell(column, row))
+        items(rows) { row ->
+            Row(modifier = Modifier.width(width)) {
+                for (column in columns.data) cell(this, Cell(column, row))
+            }
         }
     }
 }

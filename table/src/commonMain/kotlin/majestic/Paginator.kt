@@ -1,5 +1,6 @@
 package majestic
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cinematic.watchAsState
 import symphony.LinearPaginationManager
 
 @Composable
@@ -53,16 +55,17 @@ fun <T> Paginator(
             modifier = Modifier.size(24.dp)
         )
     }
+    val current = paginator.current.watchAsState()
     // start of list pages
     val noOfPages = 7 // for demo purposes, later this will be handled by the paginator manager
-    val currentPage = 4 // for demo purposes, later this will be handled by the paginator manager
+    val currentPage = current.data?.number ?: 0 // for demo purposes, later this will be handled by the paginator manager
     for (page in 1..noOfPages) PaginatorItem(active = page == currentPage, colors = colors) { state ->
         val color = when {
             state.isActive -> colors.active.foreground
             state.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.7f)
         }
-        Box(modifier = Modifier.size(24.dp), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.size(24.dp).clickable { paginator.loadPage(page) }, contentAlignment = Alignment.Center) {
             Text(
                 page.toString(),
                 color = color,
