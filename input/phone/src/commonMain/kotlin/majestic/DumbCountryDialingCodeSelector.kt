@@ -27,6 +27,7 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import majestic.colors.ColorPair
 import nation.Country
 
 @Composable
@@ -34,17 +35,25 @@ fun DumbCountryDialingCodeSelector(
     value: Country? = null,
     countries: List<Country> = Country.entries,
     modifier: Modifier = Modifier,
+    colors: ColorPair = ColorPair(
+        background = Color.White,
+        foreground = Color.Black
+    ),
+    searchColors: ColorPair = ColorPair(
+        background = Color.White,
+        foreground = Color.Black
+    ),
     onClick: ((Country) -> Unit)? = null,
-    placeholder: @Composable () -> Unit = { Text("Select") },
+    placeholder: @Composable () -> Unit = { Text("Select", color = colors.foreground) },
     onSearch: (String) -> Unit = {},
-    item: @Composable (Country) -> Unit = { CountryDialingCodePreview(it) },
+    item: @Composable (Country) -> Unit = { CountryDialingCodePreview(it, color = colors.foreground) },
     selected: @Composable (Country) -> Unit = item
 ) {
     var expanded by remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }
     val interaction = remember { NoRippleInteractionSource() }
 
-    Box(modifier = Modifier
+    Box(modifier = modifier
         .testTag("CountrySelector")
         .clickable(
             interactionSource = interaction,
@@ -63,7 +72,7 @@ fun DumbCountryDialingCodeSelector(
         onDismissRequest = { expanded = false },
         modifier = Modifier
             .width(350.dp)
-            .background(color = Color.White)
+            .background(colors.background)
             .testTag("CountrySelectorPopup"),
     ) {
         val focus = remember { FocusRequester() }
@@ -79,7 +88,7 @@ fun DumbCountryDialingCodeSelector(
                 .height(40.dp),
             text = text,
             elevation = 2.dp,
-            background = Color.White,
+            colors = searchColors,
             onChange = {
                 text = it
                 onSearch(it)

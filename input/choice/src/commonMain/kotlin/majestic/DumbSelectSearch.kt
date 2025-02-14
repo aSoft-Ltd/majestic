@@ -22,12 +22,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.colors.ColorPair
 
 @Composable
 fun DumbSelectSearch(
@@ -35,7 +37,10 @@ fun DumbSelectSearch(
     hint: String = "Search",
     modifier: Modifier = Modifier,
     elevation: Dp = 0.dp,
-    background: Color = Color.Unspecified,
+    colors: ColorPair = ColorPair(
+        background = Color.White,
+        foreground = Color.Black
+    ),
     shape: Shape = RoundedCornerShape(8.dp),
     onChange: (String) -> Unit = {},
     onClear: () -> Unit = {},
@@ -44,7 +49,7 @@ fun DumbSelectSearch(
         .fillMaxWidth()
         .padding(10.dp)
         .shadow(elevation = elevation, shape = shape)
-        .background(color = background, shape = shape),
+        .background(color = colors.background, shape = shape),
     verticalAlignment = Alignment.CenterVertically,
 ) {
     BasicTextField(
@@ -54,13 +59,14 @@ fun DumbSelectSearch(
         decorationBox = { innerTextField ->
             if (text.isEmpty()) Text(
                 text = hint,
-                color = Color.Gray.copy(alpha = 0.5f),
-                style = TextStyle.Default.copy(
-                    fontSize = 14.sp
-                )
+                color = colors.foreground.copy(alpha = 0.5f),
+                fontSize = 14.sp,
+                lineHeight = 14.sp,
             )
             innerTextField()
         },
+        textStyle = TextStyle(color = colors.foreground.copy(alpha = 0.8f)),
+        cursorBrush = SolidColor(colors.foreground),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,
             imeAction = ImeAction.Search
@@ -77,12 +83,12 @@ fun DumbSelectSearch(
             modifier = modifier.fillMaxSize().padding(5.dp),
             imageVector = Icons.Filled.Close,
             contentDescription = null,
-            tint = Color.Black.copy(alpha = 0.7f),
+            tint = colors.foreground.copy(alpha = 0.7f),
         ) else Icon(
             modifier = modifier.fillMaxSize().padding(5.dp),
             imageVector = Icons.Filled.Search,
             contentDescription = null,
-            tint = Color.Gray.copy(alpha = 0.5f),
+            tint = colors.foreground.copy(alpha = 0.5f),
         )
     }
 }
