@@ -18,7 +18,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
-import kollections.firstOrNull
+import kollections.first
 import kollections.isNotEmpty
 import kollections.plus
 import nation.Country
@@ -32,6 +32,7 @@ fun PhoneField(
     country: @Composable (Country) -> Unit = {
         CountryDialingCodePreview(it, modifier = Modifier.padding(10.dp).testTag(it.code))
     },
+    colors: PhoneFieldColors = PhoneFieldColors(),
     selected: @Composable (Country) -> Unit = country,
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
@@ -69,15 +70,17 @@ fun PhoneField(
             placeholder = {
                 Text(
                     text = hint,
-                    color = Color.Black.copy(alpha = 0.4f),
+                    color = colors.blurred.placeholder,
                     fontSize = 17.sp
                 )
             },
             colors = TextFieldDefaults.colors(
+                focusedTextColor = colors.focused.text,
+                unfocusedTextColor = colors.blurred.text,
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = color,
-                unfocusedIndicatorColor = if (hasFeedback) color else Color.Black.copy(alpha = 0.2f),
+                focusedIndicatorColor = colors.focused.border,
+                unfocusedIndicatorColor = if (hasFeedback) color else colors.blurred.border,
             ),
             shape = RoundedCornerShape(8.dp),
             onValueChange = {
@@ -85,10 +88,34 @@ fun PhoneField(
                 onChange?.invoke(it)
             }
         )
-        Text(
+        if (hasFeedback) Text(
             color = color,
             fontSize = 12.sp,
-            text = feedbacks.firstOrNull() ?: ""
+            text = feedbacks.first()
         )
     }
 }
+
+class PhoneFieldMicroColors(
+    val border: Color,
+    val placeholder: Color,
+    val text: Color
+)
+
+class PhoneFieldColors(
+    val focused: PhoneFieldMicroColors = PhoneFieldMicroColors(
+        border = Color(0xFF0061FF),
+        placeholder = Color.Black.copy(alpha = 0.4f),
+        text = Color.Black
+    ),
+    val blurred: PhoneFieldMicroColors = PhoneFieldMicroColors(
+        border = Color.Black.copy(alpha = 0.2f),
+        placeholder = Color.Black.copy(alpha = 0.4f),
+        text = Color.Black
+    ),
+    val error: PhoneFieldMicroColors = PhoneFieldMicroColors(
+        border = Color.Red.copy(alpha = 0.8f),
+        placeholder = Color.Red.copy(alpha = 0.8f),
+        text = Color.Red.copy(0.8f)
+    )
+)
