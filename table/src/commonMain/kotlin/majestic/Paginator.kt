@@ -36,7 +36,7 @@ fun <T> Paginator(
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.5f)
         }
-        if (icons.firstPage != null) icons.firstPage.invoke() else Icon(
+        if (icons.first != null) icons.first.invoke() else Icon(
             imageVector = Icons.Default.KeyboardDoubleArrowLeft,
             tint = color,
             contentDescription = null,
@@ -48,7 +48,7 @@ fun <T> Paginator(
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.7f)
         }
-        if (icons.previousPage != null) icons.previousPage.invoke() else Icon(
+        if (icons.prev != null) icons.prev.invoke() else Icon(
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
             tint = color,
             contentDescription = null,
@@ -80,7 +80,7 @@ fun <T> Paginator(
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.7f)
         }
-        if (icons.nextPage != null) icons.nextPage.invoke() else Icon(
+        if (icons.next != null) icons.next.invoke() else Icon(
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
             tint = color,
             contentDescription = null,
@@ -92,7 +92,7 @@ fun <T> Paginator(
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.5f)
         }
-        if (icons.lastPage != null) icons.lastPage.invoke() else Icon(
+        if (icons.last != null) icons.last.invoke() else Icon(
             imageVector = Icons.Default.KeyboardDoubleArrowRight,
             tint = color,
             contentDescription = null,

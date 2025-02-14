@@ -3,8 +3,8 @@ package majestic
 import androidx.compose.runtime.Composable
 
 data class PaginatorIcons(
-    val nextPage: (@Composable () -> Unit)? = null,
-    val previousPage: (@Composable () -> Unit)? = null,
-    val firstPage: (@Composable () -> Unit)? = null,
-    val lastPage: (@Composable () -> Unit)? = null,
+    val next: (@Composable () -> Unit)? = null,
+    val prev: (@Composable () -> Unit)? = null,
+    val first: (@Composable () -> Unit)? = null,
+    val last: (@Composable () -> Unit)? = null,
 )
