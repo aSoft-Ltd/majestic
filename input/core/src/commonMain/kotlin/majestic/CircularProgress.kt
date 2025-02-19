@@ -1,66 +1,49 @@
 package majestic
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import majestic.colors.ColorPair
+import majestic.tooling.animateAsState
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun CircularProgress(
     modifier: Modifier = Modifier,
-    radius: Dp,
     percentage: Float,
-    count: Int,
-    foregroundColor: Color,
-    strokeWidth: Dp = 8.dp,
-    content: @Composable (Int, Float) -> Unit,
-    startAngle: Float = -90f,
-    sweepAngle: Float = 360f,
-    animationDuration: Int = 1000,
-    animationDelay: Int = 0
-) {
-    var animationPlayed by remember { mutableStateOf(false) }
-    val currentPercentage = animateFloatAsState(
-        targetValue = if (animationPlayed) percentage else 0f,
-        animationSpec = tween(
-            durationMillis = animationDuration,
-            delayMillis = animationDelay
-        )
+    color: ColorPair = ColorPair(
+        background = Color.Black.copy(alpha = 0.2f),
+        foreground = Color.White
+    ),
+    stroke: Dp = 8.dp,
+    startAngle: Float = -90f
+) = Canvas(modifier = modifier) {
+    val radius = size.minDimension / 2
+    val line = stroke.toPx()
+    val rect = Size(radius * 2 - line, radius * 2 - line)
+    val point = Offset((size.width - rect.width) / 2, (size.height - rect.height) / 2)
+    drawCircle(
+        color = color.background,
+        center = Offset(size.width / 2, size.height / 2),
+        radius = radius - line / 2,
+        style = Stroke(line, cap = StrokeCap.Round)
     )
-
-    LaunchedEffect(key1 = true) {
-        animationPlayed = true
-    }
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
-    ) {
-        Canvas(modifier = Modifier.size(radius * 2f)) {
-            drawArc(
-                color = foregroundColor,
-                startAngle = startAngle,
-                sweepAngle = sweepAngle * currentPercentage.value,
-                useCenter = false,
-                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
-            )
-        }
-        content(count, percentage)
-    }
+    drawArc(
+        color = color.foreground,
+        startAngle = startAngle,
+        sweepAngle = 360f * percentage,
+        topLeft = point,
+        useCenter = false,
+        size = rect,
+        style = Stroke(line, cap = StrokeCap.Round)
+    )
 }
