@@ -6,7 +6,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -23,15 +22,13 @@ fun animateAsState(
     LaunchedEffect(from, to, duration, steps) {
         val dv = (end - start) / steps
         val dt = duration / steps
-        launch {
-            var value = start
-            do {
-                delay(dt)
-                value += dv
-                state.value = value
-            } while (value < end)
-            state.value = end
-        }
+        var value = start
+        do {
+            delay(dt)
+            value += dv
+            state.value = value
+        } while (value < end)
+        state.value = end
     }
     return state
 }
