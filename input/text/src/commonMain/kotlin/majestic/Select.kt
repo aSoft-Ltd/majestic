@@ -57,15 +57,16 @@ class SelectColors(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Select(
-    options: List<String>,
+fun <T> Select(
+    options: List<T>,
+    toString: (T) -> String,
     hint: String = "Select",
-    value: String = "",
+    value: T? = null,
     colors: SelectColors = SelectColors(),
     icon: ImageVector = Icons.Filled.ArrowDropDown,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(8.dp),
-    onSelect: (String) -> Unit,
+    onSelect: (T?) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -80,7 +81,7 @@ fun Select(
                 .fillMaxWidth(),
             shape = shape,
             readOnly = true,
-            value = value,
+            value = value?.let(toString) ?: "",
             onValueChange = {},
             placeholder = {
                 Text(
@@ -114,17 +115,17 @@ fun Select(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            options.forEach { option: String ->
+            options.forEach { option: T ->
                 DropdownMenuItem(
                     text = {
                         Text(
-                            text = option,
+                            text = toString(option),
                             color = colors.dropdown.foreground
                         )
                     },
                     onClick = {
                         expanded = false
-                        onSelect(option)
+                        if (option == value) onSelect(null) else onSelect(option)
                     }
                 )
             }
