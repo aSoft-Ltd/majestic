@@ -33,6 +33,7 @@ fun <T> DumbSelect(
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
     onClick: ((T) -> Unit)? = null,
+    onExpanded: ((Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier,
     containerColor: Color = Color.Unspecified,
     shape: Shape = MenuDefaults.shape,
@@ -44,17 +45,27 @@ fun <T> DumbSelect(
 
     ExposedDropdownMenuBox(
         expanded = expanded,
-        onExpandedChange = { expanded = false },
+        onExpandedChange = {
+            expanded = false
+            onExpanded?.invoke(false)
+        },
         modifier = modifier
     ) {
         Box(modifier = Modifier
             .exposedDropdownSize()
             .menuAnchor(type = MenuAnchorType.PrimaryEditable)
-            .clickable { expanded = !expanded }
+            .clickable(
+                interactionSource = NoRippleInteractionSource(),
+                indication = null,
+                onClick = {
+                    expanded = true
+                    onExpanded?.invoke(true)
+                }
+            )
         ) {
-            when (val candidate = value) {
+            when (value) {
                 null -> placeholder()
-                else -> selected(candidate)
+                else -> selected(value)
             }
         }
         ExposedDropdownMenu(
@@ -64,7 +75,10 @@ fun <T> DumbSelect(
             border = border,
             tonalElevation = tonalElevation,
             expanded = expanded,
-            onDismissRequest = { expanded = false },
+            onDismissRequest = {
+                expanded = false
+                onExpanded?.invoke(false)
+            },
             modifier = Modifier.exposedDropdownSize().testTag("popup")
         ) {
             for (it in items) DropdownMenuItem(
@@ -72,6 +86,7 @@ fun <T> DumbSelect(
                 text = { item(it) },
                 onClick = {
                     expanded = false
+                    onExpanded?.invoke(expanded)
                     onClick?.invoke(it)
                 },
             )
