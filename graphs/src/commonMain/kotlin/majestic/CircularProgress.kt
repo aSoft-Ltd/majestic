@@ -2,9 +2,7 @@ package majestic
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -12,9 +10,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import majestic.colors.ColorPair
-import majestic.tooling.animateAsState
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
+import majestic.tools.minus
+import majestic.tools.toOffset
 
 @Composable
 fun CircularProgress(
@@ -30,10 +27,10 @@ fun CircularProgress(
     val radius = size.minDimension / 2
     val line = stroke.toPx()
     val rect = Size(radius * 2 - line, radius * 2 - line)
-    val point = Offset((size.width - rect.width) / 2, (size.height - rect.height) / 2)
+    val point = (size - rect) / 2f
     drawCircle(
         color = color.background,
-        center = Offset(size.width / 2, size.height / 2),
+        center = (size / 2f).toOffset(),
         radius = radius - line / 2,
         style = Stroke(line, cap = StrokeCap.Round)
     )
@@ -41,7 +38,7 @@ fun CircularProgress(
         color = color.foreground,
         startAngle = startAngle,
         sweepAngle = 360f * percentage,
-        topLeft = point,
+        topLeft = point.toOffset(),
         useCenter = false,
         size = rect,
         style = Stroke(line, cap = StrokeCap.Round)
