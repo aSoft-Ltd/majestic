@@ -3,6 +3,7 @@ package majestic.graph.tools.plot
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import kollections.getOrPut
 import majestic.graph.LinePlot
 import majestic.graph.Point
 import majestic.graph.tools.Projected
@@ -14,15 +15,15 @@ internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
     val markers = graph.markers
     if (markers != null) for (point in graph.points) drawCircle(
         color = graph.color,
-        center = point.project(factor, y),
+        center = graph.cache.getOrPut(point) { point.project(factor, y) },
         radius = markers.radius.toPx(),
         style = markers.style
     )
     when (graph.type) {
         LinePlot.Type.Straight -> graph.points.windowed(2) { (a, b) ->
             drawLine(
-                start = a.project(factor, y),
-                end = b.project(factor, y),
+                start = graph.cache.getOrPut(a) { a.project(factor, y) },
+                end = graph.cache.getOrPut(b) { b.project(factor, y) },
                 color = graph.color,
                 strokeWidth = graph.stroke.width,
                 cap = graph.stroke.cap,
@@ -30,7 +31,7 @@ internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
         }
 
         LinePlot.Type.Curve -> {
-            val points = graph.points.map { it.project(factor, y) }
+            val points = graph.points.map { graph.cache.getOrPut(it) { it.project(factor, y) } }
             if (points.size > 1) {
                 val path = Path().apply {
                     moveTo(points.first().x, points.first().y)

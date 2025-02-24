@@ -1,6 +1,7 @@
 package majestic
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
@@ -24,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import kollections.first
 import kollections.isNotEmpty
 import kollections.last
+import kotlinx.coroutines.delay
+import majestic.graph.LinePlot
+import majestic.graph.Mark
 import majestic.graph.tools.YProjection
 import majestic.graph.tools.drawXAxis
 import majestic.graph.tools.drawYAxis
@@ -33,12 +39,19 @@ import majestic.graph.tools.points
 @Composable
 fun Graph(
     modifier: Modifier = Modifier,
+    onClick: ((Mark) -> Unit)? = null,
     builder: GraphBuilderScope.() -> Unit
 ) {
     var size by remember { mutableStateOf(IntSize.Zero) }
     var xSize by remember { mutableStateOf(IntSize.Zero) }
     val density = LocalDensity.current
     val graph = GraphBuilderScope().apply(builder)
+    var mark by remember { mutableStateOf<Mark?>(null) }
+    LaunchedEffect(mark?.timeout) {
+        val timeout = mark?.timeout ?: return@LaunchedEffect
+        delay(timeout)
+        mark = null
+    }
     Row(modifier = modifier) {
         val yAxis = graph.y
         val yLabels = yAxis?.label
@@ -63,13 +76,40 @@ fun Graph(
         val xLabels = xAxis?.label
         val xPoints = xAxis?.points(0f, size.width.toFloat(), density, inverted = false)
         Column(modifier = Modifier.weight(1f).fillMaxSize()) {
-            Canvas(modifier = Modifier.weight(1f).fillMaxSize().onPlaced { size = it.size }) {
-                if (yAxis != null && yPoints != null) drawYAxis(yAxis, yPoints)
-                if (xAxis != null && xPoints != null) drawXAxis(xAxis, xPoints)
-                if (xPoints?.isNotEmpty() == true && yPoints?.isNotEmpty() == true) {
-                    val top = yPoints.first()
-                    val factor = YProjection(yAxis.max, size.height - top.dst, top.dst)
-                    plot(graph, xPoints.last(), factor)
+            Box(
+                Modifier.weight(1f)
+                    .fillMaxSize()
+            ) {
+                Canvas(
+                    modifier = Modifier.fillMaxSize()
+                        .onPlaced { size = it.size }
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onTap = { offset ->
+                                    mark = graph.find(offset, 20f)?.also { onClick?.invoke(it) }
+                                }
+                            )
+                        }
+                ) {
+                    if (yAxis != null && yPoints != null) drawYAxis(yAxis, yPoints)
+                    if (xAxis != null && xPoints != null) drawXAxis(xAxis, xPoints)
+                    if (xPoints?.isNotEmpty() == true && yPoints?.isNotEmpty() == true) {
+                        val top = yPoints.first()
+                        val factor = YProjection(yAxis.max, size.height - top.dst, top.dst)
+                        plot(graph, xPoints.last(), factor)
+                    }
+                }
+                val m = mark
+                if (m != null) when (val plot = m.plot) {
+                    is LinePlot -> Box(
+                        modifier = Modifier.offset(
+                            x = with(density) { m.offset.x.toDp() },
+                            y = with(density) { m.offset.y.toDp() }
+                        ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        plot.markers?.content?.invoke(m)
+                    }
                 }
             }
             if (xLabels != null && xPoints != null) Box(

@@ -2,12 +2,14 @@ package majestic
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import majestic.graph.Axis
 import majestic.graph.Line
 import majestic.graph.LinePlot
+import majestic.graph.Mark
 import majestic.graph.Markers
 import majestic.graph.Plot
 import majestic.graph.Point
@@ -88,4 +90,6 @@ class GraphBuilderScope {
     ) {
         plots += LinePlot(color, stroke, type, markers, points)
     }
+
+    internal fun find(offset: Offset, radius: Float): Mark? = plots.filterIsInstance<LinePlot>().firstNotNullOfOrNull { it.find(offset, radius) }
 }
