@@ -58,7 +58,7 @@ fun <D> LazyTable(
     val density = LocalDensity.current
 
     LazyColumn(modifier.onPlaced { width = with(density) { (it.parentCoordinates?.size?.width ?: 300).toDp() } }) {
-        if (columns.renderer != null) stickyHeader(columns) {
+        if (columns.renderer != null) stickyHeader {
             Row(modifier = columns.modifier.width(width)) {
                 for (column in columns.data) columns.renderer.invoke(this, column)
             }

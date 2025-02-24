@@ -5,10 +5,10 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import majestic.graph.Axis
 
 internal fun DrawScope.drawYAxis(axis: Axis, points: List<Projected>) {
-    val markers = axis.markers
-    if (markers != null) for (point in points) {
+    val ticks = axis.ticks
+    if (ticks != null) for (point in points) {
         val intercept = point.dst
-        drawLine(color = markers.color, start = Offset(0f, intercept), end = Offset(markers.length.toPx(), intercept), strokeWidth = markers.width.toPx())
+        drawLine(color = ticks.color, start = Offset(0f, intercept), end = Offset(ticks.length.toPx(), intercept), strokeWidth = ticks.stroke.width)
     }
 
     val line = axis.line

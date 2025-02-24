@@ -27,7 +27,7 @@ private fun Axis.project(min: Float, max: Float, dPos: Float, count: Int, invert
     var pos = if (inverted) max else min
     val multiplier = if (inverted) -1 else 1
     return buildList {
-        while (point < (this@project.max + dPoint) || if (inverted) (pos > min) else (pos < (max))) {
+        while (point < (this@project.max + dPoint) || if (inverted) (pos > min) else (pos < max)) {
             add(Projected(point, pos))
             point += dPoint
             pos += dPos * multiplier
@@ -36,3 +36,5 @@ private fun Axis.project(min: Float, max: Float, dPos: Float, count: Int, invert
 }
 
 internal data class Projected(val src: Float, val dst: Float)
+
+internal data class YProjection(val src: Float, val dst: Float, val offset: Float)

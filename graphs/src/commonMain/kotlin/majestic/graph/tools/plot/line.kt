@@ -5,12 +5,21 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import majestic.graph.LinePlot
 import majestic.graph.Point
+import majestic.graph.tools.Projected
+import majestic.graph.tools.YProjection
 
 
-internal fun DrawScope.plot(graph: LinePlot, x: Float, y: Float) {
-    val factor = Offset(size.width / x, size.height / y)
+internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
+    val factor = Offset(x.dst / x.src, y.dst / y.src)
+    val markers = graph.points.markers
+    if (markers != null) for (point in graph.points.data) drawCircle(
+        color = graph.color,
+        center = point.project(factor, y),
+        radius = markers.radius.toPx(),
+        style = markers.style
+    )
     when (graph.type) {
-        LinePlot.Type.Straight -> graph.points.windowed(2) { (a, b) ->
+        LinePlot.Type.Straight -> graph.points.data.windowed(2) { (a, b) ->
             drawLine(
                 start = a.project(factor, y),
                 end = b.project(factor, y),
@@ -21,7 +30,7 @@ internal fun DrawScope.plot(graph: LinePlot, x: Float, y: Float) {
         }
 
         LinePlot.Type.Curve -> {
-            val points = graph.points.map { it.project(factor, y) }
+            val points = graph.points.data.map { it.project(factor, y) }
             if (points.size > 1) {
                 val path = Path().apply {
                     moveTo(points.first().x, points.first().y)
@@ -45,4 +54,7 @@ internal fun DrawScope.plot(graph: LinePlot, x: Float, y: Float) {
     }
 }
 
-private fun Point.project(factor: Offset, size: Float) = Offset(x = x * factor.x, y = (size - y) * factor.y)
+private fun Point.project(factor: Offset, projection: YProjection) = Offset(
+    x = x * factor.x,
+    y = ((projection.src - y) * factor.y) + projection.offset
+)
