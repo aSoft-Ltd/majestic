@@ -8,8 +8,9 @@ import androidx.compose.ui.unit.Dp
 import majestic.graph.Axis
 import majestic.graph.Line
 import majestic.graph.LinePlot
+import majestic.graph.Markers
 import majestic.graph.Plot
-import majestic.graph.Points
+import majestic.graph.Point
 import majestic.graph.SpaceAxis
 import majestic.graph.StepAxis
 import majestic.graph.Ticks
@@ -82,8 +83,9 @@ class GraphBuilderScope {
         color: Color = Color.Black,
         stroke: Stroke = Stroke(),
         type: LinePlot.Type = LinePlot.Type.Straight,
-        points: Points
+        markers: Markers? = null,
+        points: List<Point>
     ) {
-        plots += LinePlot(color, stroke, type, points)
+        plots += LinePlot(color, stroke, type, markers, points)
     }
 }

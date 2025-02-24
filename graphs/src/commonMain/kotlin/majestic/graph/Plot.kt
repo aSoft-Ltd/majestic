@@ -9,7 +9,8 @@ data class LinePlot(
     val color: Color,
     val stroke: Stroke,
     val type: Type,
-    val points: Points
+    val markers: Markers?,
+    val points: List<Point>
 ) : Plot {
     enum class Type {
         Straight, Curve
