@@ -3,11 +3,13 @@ package majestic
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -137,12 +139,12 @@ private fun ItemSelect(
             .height(52.dp)
             .border(1.dp, borderColor, RoundedCornerShape(8.dp))
             .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        content()
+        Box(modifier = Modifier.weight(11f)) { content() }
+        Spacer(Modifier.width(8.dp))
         Icon(
-            modifier = Modifier.graphicsLayer { rotationX = animateRotation },
+            modifier = Modifier.weight(1f).graphicsLayer { rotationX = animateRotation },
             imageVector = icon,
             contentDescription = "Dropdown Arrow",
             tint = if (isExpanded) colors.focused.text else colors.blurred.text
