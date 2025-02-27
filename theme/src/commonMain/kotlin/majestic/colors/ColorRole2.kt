@@ -8,5 +8,5 @@ class ColorRole2(
     /**
      * The complementary color
      */
-    val comp: ColorPair
+    var comp: ColorPair
 )
