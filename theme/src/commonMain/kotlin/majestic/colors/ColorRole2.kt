@@ -4,7 +4,7 @@ class ColorRole2(
     /**
      * The main color
      */
-    val main: ColorPair,
+    var main: ColorPair,
     /**
      * The complementary color
      */

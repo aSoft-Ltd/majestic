@@ -1,6 +1,7 @@
 package majestic.colors.options
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import majestic.colors.BarColors
 import majestic.colors.ColorPair
 import majestic.colors.ColorRole2
@@ -42,7 +43,10 @@ private val bar = BarColors(
 
 val ACADEMIA_LIGHT = ThemeColors(
     primary = primary,
-    surface1 = surface1,
+    surface1 = surface1.apply {
+        //main = surface1.main.copy(background = lerp(main.background, primary.main.background.copy(0.05f), 1f))
+        comp = surface1.comp.copy(background = lerp(comp.background, primary.main.background.copy(0.05f), 1f))
+    },
     surface2 = surface2,
     pop = surface2.comp.toColorRole(),
     navigation = surface1.comp,
@@ -51,7 +55,10 @@ val ACADEMIA_LIGHT = ThemeColors(
 
 fun academiaLight(primary: ColorPair) = ThemeColors(
     primary = primary.toColorRole(),
-    surface1 = surface1,
+    surface1 = surface1.apply {
+        //main = surface1.main.copy(background = lerp(main.background, primary.background.copy(0.05f), 1f))
+        comp = surface1.comp.copy(background = lerp(comp.background, primary.background.copy(0.05f), 1f))
+    },
     surface2 = surface2,
     pop = surface2.comp.toColorRole(),
     navigation = surface1.comp,

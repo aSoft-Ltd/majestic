@@ -47,7 +47,8 @@ private val bar = BarColors(
 val ACADEMIA_DARK = ThemeColors(
     primary = primary,
     surface1 = surface1.apply {
-        comp = surface1.main.copy(background = lerp(comp.background, primary.main.background.copy(0.05f), 1f))
+        //main = surface1.main.copy(background = lerp(main.background, primary.main.background.copy(0.05f), 1f))
+        comp = surface1.comp.copy(background = lerp(comp.background, primary.main.background.copy(0.05f), 1f))
     },
     surface2 = surface2,
     pop = surface2,
@@ -58,7 +59,8 @@ val ACADEMIA_DARK = ThemeColors(
 fun academiaDark(primary: ColorPair) = ThemeColors(
     primary = primary.toColorRole(),
     surface1 = surface1.apply {
-        comp = surface1.main.copy(background = lerp(comp.background, primary.background.copy(0.05f), 1f))
+        //main = surface1.main.copy(background = lerp(main.background, primary.background.copy(0.05f), 0f))
+        comp = surface1.comp.copy(background = lerp(comp.background, primary.background.copy(0.05f), 1f))
     },
     surface2 = surface2,
     pop = surface2,
