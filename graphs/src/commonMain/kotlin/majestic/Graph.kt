@@ -95,7 +95,7 @@ fun Graph(
                     if (xAxis != null && xPoints != null) drawXAxis(xAxis, xPoints)
                     if (xPoints?.isNotEmpty() == true && yPoints?.isNotEmpty() == true) {
                         val top = yPoints.first()
-                        val factor = YProjection(yAxis.max, size.height - top.dst, top.dst)
+                        val factor = YProjection(yAxis.max - yAxis.min, size.height - top.dst, top.dst)
                         plot(graph, xPoints.last(), factor)
                     }
                 }

@@ -12,13 +12,6 @@ import majestic.graph.tools.YProjection
 
 internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
     val factor = Offset(x.dst / x.src, y.dst / y.src)
-    val markers = graph.markers
-    if (markers != null) for (point in graph.points) drawCircle(
-        color = graph.color,
-        center = graph.cache.getOrPut(point) { point.project(factor, y) },
-        radius = markers.radius.toPx(),
-        style = markers.style
-    )
     when (graph.type) {
         LinePlot.Type.Straight -> graph.points.windowed(2) { (a, b) ->
             drawLine(
@@ -53,6 +46,14 @@ internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
             }
         }
     }
+
+    val markers = graph.markers
+    if (markers != null) for (point in graph.points) drawCircle(
+        color = markers.color ?: graph.color,
+        center = graph.cache.getOrPut(point) { point.project(factor, y) },
+        radius = markers.radius.toPx(),
+        style = markers.style
+    )
 }
 
 private fun Point.project(factor: Offset, projection: YProjection) = Offset(
