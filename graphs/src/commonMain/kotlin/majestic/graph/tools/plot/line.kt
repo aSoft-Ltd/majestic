@@ -62,7 +62,6 @@ internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
 // (y - offset) = slope * (ySrc - yMax)
 private fun Point.project(factor: Offset, projection: YProjection) = Offset(
     x = x * factor.x,
-//    y = ((projection.src - y) * factor.y) + projection.offset
     y = run {
         val axis = projection.axis
         val slope = projection.slope()
