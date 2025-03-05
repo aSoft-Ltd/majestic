@@ -37,4 +37,4 @@ private fun Axis.project(min: Float, max: Float, dPos: Float, count: Int, invert
 
 internal data class Projected(val src: Float, val dst: Float)
 
-internal data class YProjection(val src: Float, val dst: Float, val offset: Float)
+internal data class YProjection(val axis: Axis, val span: Float, val offset: Float)

@@ -9,16 +9,8 @@ import majestic.graph.Point
 import majestic.graph.tools.Projected
 import majestic.graph.tools.YProjection
 
-
 internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
-    val factor = Offset(x.dst / x.src, y.dst / y.src)
-    val markers = graph.markers
-    if (markers != null) for (point in graph.points) drawCircle(
-        color = graph.color,
-        center = graph.cache.getOrPut(point) { point.project(factor, y) },
-        radius = markers.radius.toPx(),
-        style = markers.style
-    )
+    val factor = Offset(x.dst / x.src, 0f)
     when (graph.type) {
         LinePlot.Type.Straight -> graph.points.windowed(2) { (a, b) ->
             drawLine(
@@ -53,9 +45,28 @@ internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
             }
         }
     }
+
+    val markers = graph.markers
+    if (markers != null) for (point in graph.points) drawCircle(
+        color = markers.color ?: graph.color,
+        center = graph.cache.getOrPut(point) { point.project(factor, y) },
+        radius = markers.radius.toPx(),
+        style = markers.style
+    )
 }
 
+// Projection
+// yMax,offset (ideally zero)
+// yMin,height (ideally size.height)
+// slope = (offset - height)/(yMax - yMin)
+// (y - offset) = slope * (ySrc - yMax)
 private fun Point.project(factor: Offset, projection: YProjection) = Offset(
     x = x * factor.x,
-    y = ((projection.src - y) * factor.y) + projection.offset
+    y = run {
+        val axis = projection.axis
+        val slope = projection.slope()
+        projection.offset + slope * (y - axis.max)
+    }
 )
+
+private fun YProjection.slope() = span / (axis.min - axis.max)

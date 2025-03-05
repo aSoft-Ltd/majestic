@@ -10,7 +10,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 data class Markers(
-    val color: Color = Color.White,
+    val color: Color? = null,
     val radius: Dp = 5.dp,
     val style: DrawStyle = Fill,
     val timeout: Duration = 5.seconds,
