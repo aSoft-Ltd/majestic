@@ -75,7 +75,7 @@ fun DragAndDropBox(
                 .background(colors.background)
                 .hoverable(interactionSource = interactionSource)
                 .clickable(
-                    interactionSource = NoRippleInteractionSource(),
+                    interactionSource = NoRippleInteractionSource,
                     indication = null,
                     enabled = true,
                     onClick = onClick

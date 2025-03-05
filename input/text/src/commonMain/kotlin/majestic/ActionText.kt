@@ -41,7 +41,7 @@ fun ActionText(
             contentPadding = PaddingValues(0.dp),
             enabled = enabled,
             onClick = onClick,
-            interactionSource = NoRippleInteractionSource()
+            interactionSource = NoRippleInteractionSource
         ) {
             Text(
                 text = label,

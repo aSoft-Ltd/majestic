@@ -126,7 +126,7 @@ fun ColorPicker(
                 ActionButton(
                     modifier = Modifier.weight(1f),
                     text = "Cancel",
-                    interactionSource = NoRippleInteractionSource(),
+                    interactionSource = NoRippleInteractionSource,
                     border = BorderStroke(
                         width = 1.dp,
                         color = colors.foreground.copy(alpha = 0.2f)
