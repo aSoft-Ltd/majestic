@@ -72,7 +72,7 @@ fun MenuItem(
             .pointerHoverIcon(PointerIcon.Hand)
             .hoverable(interactionSource = interactionSource)
             .clickable(
-                interactionSource = NoRippleInteractionSource(),
+                interactionSource = NoRippleInteractionSource,
                 indication = null,
                 enabled = true,
                 onClick = onClick

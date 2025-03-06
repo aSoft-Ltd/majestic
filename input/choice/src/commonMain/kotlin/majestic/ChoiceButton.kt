@@ -68,7 +68,7 @@ fun ChoiceButton(
             .padding(10.dp)
             .pointerHoverIcon(PointerIcon.Hand)
             .clickable(
-                interactionSource = NoRippleInteractionSource(),
+                interactionSource = NoRippleInteractionSource,
                 indication = null,
                 enabled = true,
                 onClick = onSelect

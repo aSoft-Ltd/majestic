@@ -59,7 +59,7 @@ fun ToggleSwitch(
             .clip(RoundedCornerShape(height))
             .pointerHoverIcon(PointerIcon.Hand)
             .clickable(
-                interactionSource = NoRippleInteractionSource(),
+                interactionSource = NoRippleInteractionSource,
                 indication = null,
                 enabled = true,
                 onClick = { onCheckedChange?.invoke(!checked) }

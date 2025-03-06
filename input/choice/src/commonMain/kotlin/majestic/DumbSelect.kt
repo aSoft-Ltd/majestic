@@ -55,7 +55,7 @@ fun <T> DumbSelect(
             .exposedDropdownSize()
             .menuAnchor(type = MenuAnchorType.PrimaryEditable)
             .clickable(
-                interactionSource = NoRippleInteractionSource(),
+                interactionSource = NoRippleInteractionSource,
                 indication = null,
                 onClick = {
                     expanded = true
