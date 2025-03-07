@@ -19,6 +19,7 @@ internal fun DrawScope.plot(graph: LinePlot, x: Projected, y: YProjection) {
                 color = graph.color,
                 strokeWidth = graph.stroke.width,
                 cap = graph.stroke.cap,
+                pathEffect = graph.stroke.pathEffect
             )
         }
 
