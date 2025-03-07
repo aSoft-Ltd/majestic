@@ -1,12 +1,12 @@
 package majestic.colors
 
-class ColorRole2(
+data class ColorRole2(
     /**
      * The main color
      */
-    var main: ColorPair,
+    val main: ColorPair,
     /**
      * The complementary color
      */
-    var comp: ColorPair
+    val comp: ColorPair
 )
