@@ -80,7 +80,7 @@ fun RadioButton(
             .background(color = backgroundColor)
             .pointerHoverIcon(PointerIcon.Hand)
             .clickable(
-                interactionSource = NoRippleInteractionSource(),
+                interactionSource = NoRippleInteractionSource,
                 indication = null,
                 enabled = enabled,
                 onClick = onSelect

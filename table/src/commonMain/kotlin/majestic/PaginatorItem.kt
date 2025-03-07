@@ -47,7 +47,7 @@ fun PaginatorItem(
             .hoverable(interactionSource = interactionSource)
             .padding(5.dp)
             .clickable(
-                interactionSource = NoRippleInteractionSource(),
+                interactionSource = NoRippleInteractionSource,
                 indication = null,
                 enabled = true,
                 onClick = onClick

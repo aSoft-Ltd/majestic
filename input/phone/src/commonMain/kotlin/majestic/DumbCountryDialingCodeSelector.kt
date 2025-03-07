@@ -51,7 +51,7 @@ fun DumbCountryDialingCodeSelector(
 ) {
     var expanded by remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }
-    val interaction = remember { NoRippleInteractionSource() }
+    val interaction = remember { NoRippleInteractionSource }
 
     Box(modifier = modifier
         .testTag("CountrySelector")

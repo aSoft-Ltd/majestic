@@ -21,7 +21,7 @@ fun LinkText(
     Text(
         modifier = modifier
             .clickable(
-                interactionSource = NoRippleInteractionSource(),
+                interactionSource = NoRippleInteractionSource,
                 indication = null,
                 onClick = onClick
             )
