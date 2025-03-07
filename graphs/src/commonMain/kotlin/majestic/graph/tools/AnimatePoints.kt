@@ -28,3 +28,37 @@ fun animatePoints(
     }
     return data
 }
+
+@Composable
+fun animateRandomLoadingPoints(
+    x: IntRange = 0..100,
+    y: IntRange = 0..100,
+    duration: Duration = 1.seconds,
+    delay: Duration = 0.seconds,
+): SnapshotStateList<Point> {
+    val data = remember(x, y) { mutableStateListOf<Point>() }
+    LaunchedEffect(duration, delay, x, y) {
+        delay(delay)
+        var expanding = true
+        val dt = duration / x.step / 2
+        var r = x.first.toFloat()
+        while (true) {
+            if (expanding) {
+                data.add(Point(r, y.random().toFloat()))
+                r += x.step
+                if (r > x.last) {
+                    expanding = false
+                }
+            } else {
+                data.removeAll { it.x == r }
+                r -= x.step
+                if (r <= x.first) {
+                    data.clear()
+                    expanding = true
+                }
+            }
+            delay(dt)
+        }
+    }
+    return data
+}
