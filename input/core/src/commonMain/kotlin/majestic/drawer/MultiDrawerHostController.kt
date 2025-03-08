@@ -41,7 +41,7 @@ internal class MultiDrawerHostController internal constructor(
         position: DrawerPosition,
         display: DrawerDisplay,
         background: Color,
-        content: @Composable BoxScope.() -> Unit
+        content: @Composable BoxScope.(MultiDrawerController) -> Unit
     ): Drawer {
         val drawer = Drawer(span, position, display, background, content)
         state[drawer] = ClosedDrawer(key)

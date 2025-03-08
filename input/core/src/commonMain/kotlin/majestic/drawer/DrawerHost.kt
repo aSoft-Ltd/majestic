@@ -36,9 +36,9 @@ fun DrawerHost(
     val (inlines, overlays) = drawers.partition { (drawer, state) -> state.display(drawer) == DrawerDisplay.Inline }
 
     Box(modifier.onPlaced { dimension = it.size }) {
-        InlineDrawer(inlines, size, content)
+        InlineDrawer(controller, inlines, size, content)
         for ((drawer, state) in overlays) {
-            OverlayDrawer(drawer, size, state)
+            OverlayDrawer(controller, drawer, size, state)
         }
     }
 }
@@ -49,7 +49,7 @@ fun InlineDrawerHost(
     span: Dp,
     position: DrawerPosition = DrawerPosition.Left,
     modifier: Modifier = Modifier,
-    drawer: @Composable BoxScope.() -> Unit,
+    drawer: @Composable BoxScope.(MultiDrawerController) -> Unit,
     content: @Composable () -> Unit
 ) = InlineDrawerHost(controller, DpSpan(span), position, modifier, drawer, content)
 
@@ -59,7 +59,7 @@ fun InlineDrawerHost(
     span: Float,
     position: DrawerPosition = DrawerPosition.Left,
     modifier: Modifier = Modifier,
-    drawer: @Composable BoxScope.() -> Unit,
+    drawer: @Composable BoxScope.(MultiDrawerController) -> Unit,
     content: @Composable () -> Unit
 ) = InlineDrawerHost(controller, RatioSpan(span), position, modifier, drawer, content)
 
@@ -69,7 +69,7 @@ private fun InlineDrawerHost(
     span: DrawerSpan,
     position: DrawerPosition = DrawerPosition.Left,
     modifier: Modifier = Modifier,
-    drawer: @Composable BoxScope.() -> Unit,
+    drawer: @Composable BoxScope.(MultiDrawerController) -> Unit,
     content: @Composable () -> Unit
 ) = DrawerHost(
     controller = rememberMultiDrawerHostController(controller, span, position, DrawerDisplay.Inline, Color.Transparent, drawer),
@@ -84,7 +84,7 @@ fun OverlayDrawerHost(
     position: DrawerPosition = DrawerPosition.Left,
     background: Color = Color.Transparent,
     modifier: Modifier = Modifier,
-    drawer: @Composable BoxScope.() -> Unit,
+    drawer: @Composable BoxScope.(MultiDrawerController) -> Unit,
     content: @Composable () -> Unit
 ) = DrawerHost(
     controller = rememberMultiDrawerHostController(controller, DpSpan(span), position, DrawerDisplay.Overlay, background, drawer),
@@ -99,7 +99,7 @@ fun OverlayDrawerHost(
     position: DrawerPosition = DrawerPosition.Left,
     background: Color = Color.Transparent,
     modifier: Modifier = Modifier,
-    drawer: @Composable BoxScope.() -> Unit,
+    drawer: @Composable BoxScope.(MultiDrawerController) -> Unit,
     content: @Composable () -> Unit
 ) = DrawerHost(
     controller = rememberMultiDrawerHostController(controller, RatioSpan(ratio), position, DrawerDisplay.Overlay, background, drawer),
@@ -114,7 +114,7 @@ private fun OverlayDrawerHost(
     position: DrawerPosition = DrawerPosition.Left,
     background: Color = Color.Transparent,
     modifier: Modifier = Modifier,
-    drawer: @Composable BoxScope.() -> Unit,
+    drawer: @Composable BoxScope.(MultiDrawerController) -> Unit,
     content: @Composable () -> Unit
 ) = DrawerHost(
     controller = rememberMultiDrawerHostController(controller, span, position, DrawerDisplay.Overlay, background, drawer),
@@ -129,7 +129,7 @@ private fun rememberMultiDrawerHostController(
     position: DrawerPosition,
     display: DrawerDisplay,
     background: Color,
-    drawer: @Composable BoxScope.() -> Unit,
+    drawer: @Composable BoxScope.(MultiDrawerController) -> Unit,
 ): MultiDrawerHostController {
     controller as MultiDrawerHostController
     DisposableEffect(controller, span, position, background, drawer) {

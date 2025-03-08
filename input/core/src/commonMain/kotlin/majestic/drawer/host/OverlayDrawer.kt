@@ -4,7 +4,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -20,18 +19,20 @@ import majestic.drawer.ClosedDrawer
 import majestic.drawer.Drawer
 import majestic.drawer.DrawerPosition
 import majestic.drawer.HostedDrawerState
+import majestic.drawer.MultiDrawerController
 import majestic.drawer.OpenedDrawer
 
 
 @Composable
-internal fun BoxScope.OverlayDrawer(
+internal fun OverlayDrawer(
+    controller: MultiDrawerController,
     drawer: Drawer,
     size: DpSize,
     state: HostedDrawerState
 ) {
     val overlay by animateColorAsState(targetValue = if (state is OpenedDrawer) drawer.background else Color.Transparent)
     Box(modifier = Modifier.fillMaxSize().background(color = overlay)) {
-        Box(modifier = Modifier.drawer(drawer, state, size), content = drawer.content)
+        Box(modifier = Modifier.drawer(drawer, state, size)) { drawer.content(this, controller) }
     }
 }
 
