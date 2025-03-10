@@ -9,5 +9,5 @@ class Drawer internal constructor(
     internal val position: DrawerPosition,
     internal val display: DrawerDisplay,
     internal val background: Color,
-    internal val content: @Composable BoxScope.() -> Unit
+    internal val content: @Composable BoxScope.(MultiDrawerController) -> Unit
 )

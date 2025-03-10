@@ -36,7 +36,7 @@ interface MultiDrawerController : SingleDrawerController {
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
         background: Color = Color.Transparent,
-        content: @Composable BoxScope.() -> Unit
+        content: @Composable BoxScope.(MultiDrawerController) -> Unit
     ): Drawer
 
     fun add(
@@ -45,7 +45,7 @@ interface MultiDrawerController : SingleDrawerController {
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
         background: Color = Color.Transparent,
-        content: @Composable BoxScope.() -> Unit
+        content: @Composable BoxScope.(MultiDrawerController) -> Unit
     ): Drawer
 
 
