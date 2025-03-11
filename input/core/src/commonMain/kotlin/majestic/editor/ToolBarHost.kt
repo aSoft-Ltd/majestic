@@ -3,8 +3,8 @@ package majestic.editor
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.hoverable
-import androidx.compose.foundation.interaction.HoverInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,11 +13,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -50,20 +47,18 @@ fun Modifier.borderBottom(
 @Composable
 fun ToolBarHost(
     modifier: Modifier,
-    toolBarHost: ToolBarHostController,
+    controller: ToolBarHostController,
     colors: ToolBarTabColors = ToolBarTabColors(),
-    textStyle: (active: Boolean) -> TextStyle = { active ->
-        TextStyle(
-            fontSize = 13.sp,
-            fontFamily = FontFamily.Default,
-            fontWeight = FontWeight(500),
-            color = if (active) colors.text.active else colors.text.inActive.copy(alpha = 178F)
-        )
-    }
-
+    style: TextStyle = TextStyle(
+        fontSize = 13.sp,
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight(500)
+    )
 ) {
-    var selectedTabIndex by remember { mutableStateOf(0) }
 
+    val selected by controller.selected
+    val activeColor = colors.bottomLine.active
+    val inActiveColor = colors.bottomLine.inActive
 
     Column(
         modifier = modifier,
@@ -76,28 +71,16 @@ fun ToolBarHost(
             horizontalArrangement = Arrangement.spacedBy(25.dp, Alignment.Start),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            toolBarHost.tabs.forEachIndexed { index, toolBar ->
-                val active = selectedTabIndex == index
-                val activeColor = colors.bottomLine.active
-                val inActiveColor = colors.bottomLine.inActive
+            controller.tabs.forEach { toolBar ->
+                val active = selected == toolBar
 
                 val interactionSource = remember { MutableInteractionSource() }
-                var hovered by remember { mutableStateOf(false) }
-
-                LaunchedEffect(interactionSource) {
-                    interactionSource.interactions.collect {
-                        when (it) {
-                            is HoverInteraction.Enter -> hovered = true
-                            is HoverInteraction.Exit -> hovered = false
-                        }
-                    }
-                }
-
+                val hovered by interactionSource.collectIsHoveredAsState()
 
                 Text(
                     modifier = Modifier
                         .wrapContentSize()
-                        .clickable(onClick = { selectedTabIndex = index })
+                        .clickable(onClick = { controller.select(toolBar) })
                         .padding(top = 8.dp)
                         .hoverable(interactionSource = interactionSource)
                         .borderBottom(
@@ -106,10 +89,15 @@ fun ToolBarHost(
                         )
                         .padding(bottom = 8.dp),
                     text = toolBar.name,
-                    style = textStyle(active)
+                    style = style.copy(
+                        color = when {
+                            active -> colors.text.active
+                            else -> colors.text.inActive
+                        }
+                    )
                 )
             }
         }
-        toolBarHost.tabs[selectedTabIndex].content()
+        selected.content()
     }
 }
