@@ -50,7 +50,7 @@ fun Modifier.borderBottom(
 @Composable
 fun ToolBarHost(
     modifier: Modifier,
-    toolBarHost: ToolbarHost,
+    toolBarHost: ToolBarHostController,
     colors: ToolBarTabColors = ToolBarTabColors(),
     textStyle: (active: Boolean) -> TextStyle = { active ->
         TextStyle(
