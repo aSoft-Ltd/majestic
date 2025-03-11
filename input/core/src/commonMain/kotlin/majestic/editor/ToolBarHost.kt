@@ -8,6 +8,7 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
@@ -29,7 +30,10 @@ import androidx.compose.ui.unit.sp
 
 class ToolBarTabColors(
     val text: ToolButtonColor = ToolButtonColor(Color.White, Color.Gray),
-    val bottomLine: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray)
+    val bottomLine: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray),
+    val background: Color = Color.Transparent,
+    val foreground: Color = Color.White,
+    val brush: Color = Color.White
 )
 
 fun Modifier.borderBottom(
@@ -69,7 +73,7 @@ fun ToolBarHost(
             modifier = Modifier
                 .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(25.dp, Alignment.Start),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top
         ) {
             controller.tabs.forEach { toolBar ->
                 val active = selected == toolBar
@@ -81,7 +85,6 @@ fun ToolBarHost(
                     modifier = Modifier
                         .wrapContentSize()
                         .clickable(onClick = { controller.select(toolBar) })
-                        .padding(top = 8.dp)
                         .hoverable(interactionSource = interactionSource)
                         .borderBottom(
                             color = if (active) activeColor else if (hovered) inActiveColor.copy(alpha = 178F) else Color.Transparent,
