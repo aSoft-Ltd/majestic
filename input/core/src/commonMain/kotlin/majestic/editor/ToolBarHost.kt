@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 
 class ToolBarTabColors(
     val text: ToolButtonColor = ToolButtonColor(Color.White, Color.Gray),
-    val bottomLine: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray)
+    val underline: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray)
 )
 
 fun Modifier.borderBottom(
@@ -46,8 +46,8 @@ fun Modifier.borderBottom(
 
 @Composable
 fun ToolBarHost(
-    modifier: Modifier,
     controller: ToolBarHostController,
+    modifier: Modifier = Modifier,
     colors: ToolBarTabColors = ToolBarTabColors(),
     style: TextStyle = TextStyle(
         fontSize = 13.sp,
@@ -55,10 +55,7 @@ fun ToolBarHost(
         fontWeight = FontWeight(500)
     )
 ) {
-
     val selected by controller.selected
-    val activeColor = colors.bottomLine.active
-    val inActiveColor = colors.bottomLine.inActive
 
     Column(
         modifier = modifier,
@@ -66,8 +63,7 @@ fun ToolBarHost(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
-            modifier = Modifier
-                .horizontalScroll(rememberScrollState()),
+            modifier = Modifier.horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(25.dp, Alignment.Start),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -84,8 +80,12 @@ fun ToolBarHost(
                         .padding(top = 8.dp)
                         .hoverable(interactionSource = interactionSource)
                         .borderBottom(
-                            color = if (active) activeColor else if (hovered) inActiveColor.copy(alpha = 178F) else Color.Transparent,
-                            width = 2.dp
+                            width = 2.dp,
+                            color = when {
+                                active -> colors.underline.active
+                                hovered -> colors.underline.inActive.copy(alpha = 178F)
+                                else -> Color.Transparent
+                            }
                         )
                         .padding(bottom = 8.dp),
                     text = toolBar.name,
