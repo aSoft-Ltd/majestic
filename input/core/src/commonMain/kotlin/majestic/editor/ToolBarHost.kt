@@ -8,7 +8,9 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
@@ -29,10 +31,13 @@ import androidx.compose.ui.unit.sp
 
 class ToolBarTabColors(
     val text: ToolButtonColor = ToolButtonColor(Color.White, Color.Gray),
-    val underline: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray)
+    val underline: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray),
+    val background: Color = Color.Transparent,
+    val foreground: Color = Color.White,
+    val brush: Color = Color.White
 )
 
-fun Modifier.borderBottom(
+fun Modifier.underline(
     color: Color = Color.Black,
     width: Dp = 2.dp
 ) = drawBehind {
@@ -46,8 +51,8 @@ fun Modifier.borderBottom(
 
 @Composable
 fun ToolBarHost(
+    modifier: Modifier = Modifier.fillMaxWidth().wrapContentHeight(),
     controller: ToolBarHostController,
-    modifier: Modifier = Modifier,
     colors: ToolBarTabColors = ToolBarTabColors(),
     style: TextStyle = TextStyle(
         fontSize = 13.sp,
@@ -55,7 +60,10 @@ fun ToolBarHost(
         fontWeight = FontWeight(500)
     )
 ) {
+
     val selected by controller.selected
+    val activeColor = colors.underline.active
+    val inActiveColor = colors.underline.inActive
 
     Column(
         modifier = modifier,
@@ -63,9 +71,10 @@ fun ToolBarHost(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
-            modifier = Modifier.horizontalScroll(rememberScrollState()),
+            modifier = Modifier
+                .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(25.dp, Alignment.Start),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top
         ) {
             controller.tabs.forEach { toolBar ->
                 val active = selected == toolBar
@@ -77,15 +86,14 @@ fun ToolBarHost(
                     modifier = Modifier
                         .wrapContentSize()
                         .clickable(onClick = { controller.select(toolBar) })
-                        .padding(top = 8.dp)
                         .hoverable(interactionSource = interactionSource)
-                        .borderBottom(
-                            width = 2.dp,
+                        .underline(
                             color = when {
-                                active -> colors.underline.active
-                                hovered -> colors.underline.inActive.copy(alpha = 178F)
+                                active -> activeColor
+                                hovered -> inActiveColor.copy(alpha = 178F)
                                 else -> Color.Transparent
-                            }
+                            },
+                            width = 2.dp
                         )
                         .padding(bottom = 8.dp),
                     text = toolBar.name,
