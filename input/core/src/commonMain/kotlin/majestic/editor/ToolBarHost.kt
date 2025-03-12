@@ -8,8 +8,9 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
@@ -36,7 +37,7 @@ class ToolBarTabColors(
     val brush: Color = Color.White
 )
 
-fun Modifier.borderBottom(
+fun Modifier.underline(
     color: Color = Color.Black,
     width: Dp = 2.dp
 ) = drawBehind {
@@ -50,7 +51,7 @@ fun Modifier.borderBottom(
 
 @Composable
 fun ToolBarHost(
-    modifier: Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth().wrapContentHeight(),
     controller: ToolBarHostController,
     colors: ToolBarTabColors = ToolBarTabColors(),
     style: TextStyle = TextStyle(
@@ -86,8 +87,12 @@ fun ToolBarHost(
                         .wrapContentSize()
                         .clickable(onClick = { controller.select(toolBar) })
                         .hoverable(interactionSource = interactionSource)
-                        .borderBottom(
-                            color = if (active) activeColor else if (hovered) inActiveColor.copy(alpha = 178F) else Color.Transparent,
+                        .underline(
+                            color = when {
+                                active -> activeColor
+                                hovered -> inActiveColor.copy(alpha = 178F)
+                                else -> Color.Transparent
+                            },
                             width = 2.dp
                         )
                         .padding(bottom = 8.dp),
