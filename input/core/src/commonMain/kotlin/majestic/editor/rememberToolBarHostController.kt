@@ -5,5 +5,5 @@ import androidx.compose.runtime.remember
 
 @Composable
 fun rememberToolBarHostController(vararg toolBars: ToolBar): ToolBarHostController {
-    return remember(toolBars) {   ToolBarHostController(toolBars.toList()) }
+    return remember(toolBars.joinToString { it.name }) { ToolBarHostController(toolBars.toList()) }
 }
