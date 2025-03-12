@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import majestic.colors.ColorPair
-import majestic.tooling.onClick
 
 enum class ExpandDirection {
     UP, DOWN, LEFT, RIGHT
@@ -33,26 +32,19 @@ private fun Label(color: ColorPair, rotation: Float = 0f) = Icon(
     tint = color.foreground
 )
 
-fun Modifier.floatActionButton(
-    background: Color,
-    onClick: () -> Unit
-) = this.size(56.dp)
+fun Modifier.floatActionButton(background: Color) = size(56.dp)
     .clip(CircleShape)
     .background(background)
-    .onClick(onClick)
 
 @Composable
 fun FloatingActionButton(
     expanded: Boolean,
-    onExpandChanged: (Boolean) -> Unit,
     direction: ExpandDirection,
     color: ColorPair = ColorPair(
         background = Color.Black,
         foreground = Color.White
     ),
-    modifier: Modifier = Modifier.floatActionButton(color.background) {
-        onExpandChanged(!expanded)
-    },
+    modifier: Modifier = Modifier,
     label: @Composable (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
