@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.sp
 
 class ToolBarTabColors(
     val text: ToolButtonColor = ToolButtonColor(Color.White, Color.Gray),
-    val bottomLine: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray),
+    val underline: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray),
     val background: Color = Color.Transparent,
     val foreground: Color = Color.White,
     val brush: Color = Color.White
@@ -62,8 +62,8 @@ fun ToolBarHost(
 ) {
 
     val selected by controller.selected
-    val activeColor = colors.bottomLine.active
-    val inActiveColor = colors.bottomLine.inActive
+    val activeColor = colors.underline.active
+    val inActiveColor = colors.underline.inActive
 
     Column(
         modifier = modifier,
