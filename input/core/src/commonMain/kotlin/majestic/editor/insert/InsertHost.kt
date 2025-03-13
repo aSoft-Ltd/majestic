@@ -33,6 +33,7 @@ fun InsertHost(
     insertControl: @Composable (controller: List<Insert>) -> Unit,
     editorControl: @Composable (controller: List<Insert>) -> Unit,
 ) {
+    println("Test 3: Selected object is: ${editorController.inserts}")
     val selected by editorController.selected
 
     Column(
@@ -56,10 +57,10 @@ fun InsertHost(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(117.dp)
+                    .wrapContentHeight()
                     .background(color = Color(0xFF1D2430), shape = RoundedCornerShape(size = 12.dp))
-                    .padding(25.dp)
             ) {
+                println("Test 4: Selected object is: ${selected.name}")
                 selected.content()
             }
         }

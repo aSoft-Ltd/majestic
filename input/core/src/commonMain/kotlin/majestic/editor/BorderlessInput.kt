@@ -35,8 +35,7 @@ fun BorderlessInput(
         lineHeight = 14.sp,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight(600),
-    ),
-    fontSize: TextUnit = 16.sp,
+    )
 ) {
     var focusState by remember { mutableStateOf(false) }
     BasicTextField(
@@ -45,7 +44,6 @@ fun BorderlessInput(
         modifier = modifier.onFocusChanged { focusState = it.isFocused },
         singleLine = singleLine,
         textStyle = style.copy(
-            fontSize = fontSize,
             color = if (focusState) colors.text.active else colors.text.inActive
         ),
         cursorBrush = SolidColor(colors.text.active),
