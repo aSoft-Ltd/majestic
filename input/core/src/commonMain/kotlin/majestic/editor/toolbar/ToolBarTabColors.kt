@@ -1,4 +1,4 @@
-package majestic.editor
+package majestic.editor.toolbar
 
 import androidx.compose.ui.graphics.Color
 
