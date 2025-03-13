@@ -1,4 +1,4 @@
-package majestic.editor
+package majestic.editor.topbar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -19,29 +19,33 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import majestic.editor.toolbar.ToolBarTabColors
 
 @Composable
 fun BorderlessInput(
     modifier: Modifier,
-    title: String,
+    value: String,
     onChange: (String) -> Unit,
     colors: ToolBarTabColors,
+    singleLine: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     style: TextStyle = TextStyle(
-        fontSize = 16.sp,
         lineHeight = 14.sp,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight(600),
-    )
+    ),
+    fontSize: TextUnit = 16.sp,
 ) {
     var focusState by remember { mutableStateOf(false) }
     BasicTextField(
-        value = title,
+        value = value,
         onValueChange = onChange,
         modifier = modifier.onFocusChanged { focusState = it.isFocused },
-        singleLine = true,
+        singleLine = singleLine,
         textStyle = style.copy(
+            fontSize = fontSize,
             color = if (focusState) colors.text.active else colors.text.inActive
         ),
         cursorBrush = SolidColor(colors.text.active),
