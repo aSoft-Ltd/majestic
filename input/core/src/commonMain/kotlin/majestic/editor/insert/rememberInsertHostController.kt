@@ -5,5 +5,5 @@ import androidx.compose.runtime.remember
 
 @Composable
 fun rememberInsertHostController(vararg inserts: Insert): InsertHostController {
-    return remember(inserts) { InsertHostController(inserts.toList()) }
+    return remember(inserts) { InsertHostController(inserts.toMutableList()) }
 }

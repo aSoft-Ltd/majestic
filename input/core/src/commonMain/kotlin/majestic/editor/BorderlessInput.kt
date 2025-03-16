@@ -19,16 +19,15 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import majestic.editor.toolbar.ToolBarTabColors
+import majestic.editor.toolbar.EditorColors
 
 @Composable
 fun BorderlessInput(
     modifier: Modifier,
     value: String,
     onChange: (String) -> Unit,
-    colors: ToolBarTabColors,
+    colors: EditorColors,
     singleLine: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     style: TextStyle = TextStyle(

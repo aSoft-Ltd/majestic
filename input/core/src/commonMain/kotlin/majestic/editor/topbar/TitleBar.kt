@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.editor.BorderlessInput
-import majestic.editor.toolbar.ToolBarTabColors
+import majestic.editor.toolbar.EditorColors
 
 @Composable
 fun TitleBar(
@@ -27,7 +27,7 @@ fun TitleBar(
     onTitleChange: (String) -> Unit,
     onBack: () -> Unit = {},
     resource: Painter,
-    colors: ToolBarTabColors,
+    colors: EditorColors,
     style: TextStyle = TextStyle(
         fontSize = 16.sp,
         lineHeight = 14.sp,

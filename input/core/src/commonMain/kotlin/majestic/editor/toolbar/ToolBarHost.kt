@@ -28,14 +28,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.editor.body.EditorBodyController
+import majestic.editor.body.chunkUI.DropDownColors
 
-class ToolBarTabColors(
+class EditorColors(
     val text: ToolButtonColor = ToolButtonColor(Color.White, Color.Gray),
     val underline: ToolButtonColor = ToolButtonColor(Color(0xFF0061FF), Color.Gray),
     val background: Color = Color.Transparent,
     val foreground: Color = Color.White,
-    val brush: Color = Color.White
+    val brush: Color = Color.White,
+    val dropDownColors: DropDownColors = DropDownColors()
 )
 
 fun Modifier.underline(
@@ -54,7 +55,7 @@ fun Modifier.underline(
 fun ToolBarHost(
     modifier: Modifier = Modifier.fillMaxWidth().wrapContentHeight(),
     controller: ToolBarHostController,
-    colors: ToolBarTabColors = ToolBarTabColors(),
+    colors: EditorColors = EditorColors(),
     style: TextStyle = TextStyle(
         fontSize = 13.sp,
         fontFamily = FontFamily.Default,
