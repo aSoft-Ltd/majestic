@@ -3,33 +3,15 @@ package majestic.editor.body.chunkUI
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import majestic.editor.body.chunks.Chunk
-import majestic.editor.body.chunks.EditorControl
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Paragraph
-import majestic.editor.insert.InsertHostController
 
 
 class EditorBodyController(
     val chunks: SnapshotStateList<Chunk> = mutableStateListOf()
 ) {
-    val actions: InsertHostController = InsertHostController()
-    val dropDowns: InsertHostController = InsertHostController()
-
-
-    val editorControl: EditorControl
-        get() = EditorControl(actions, dropDowns)
-
     init {
         addHeading(1)
-    }
-
-
-    fun connectActionsController(controller: InsertHostController) {
-        actions.updateInserts(controller.inserts)
-    }
-
-    fun connectDropDownsController(controller: InsertHostController) {
-        dropDowns.updateInserts(controller.inserts)
     }
 
     private fun getNextId() = (chunks.maxOfOrNull { it.uid } ?: 0) + 1

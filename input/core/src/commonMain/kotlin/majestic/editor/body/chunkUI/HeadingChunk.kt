@@ -1,8 +1,12 @@
 package majestic.editor.body.chunkUI
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,33 +17,16 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.editor.BorderlessInput
-import majestic.editor.body.ChunkWrapper
-import majestic.editor.body.chunks.Chunk
-import majestic.editor.body.chunks.EditorControl
 import majestic.editor.body.chunks.Heading
-import majestic.editor.insert.Insert
 import majestic.editor.toolbar.EditorColors
 
 @Composable
 internal fun HeadingChunk(
     heading: Heading,
-    modifier: Modifier,
     colors: EditorColors,
-    control: EditorControl,
-    actions: @Composable (Chunk) -> Unit,
-    customItemContent: @Composable (Insert) -> Unit,
-    leadingIcon: @Composable () -> Unit,
-    trailingIcon: @Composable () -> Unit
-) = ChunkWrapper(
-    modifier = modifier, colors = colors,
-    control = control,
-    actions = { actions(heading) },
-    customItemContent = customItemContent,
-    leadingIcon = leadingIcon,
-    trailingIcon = trailingIcon
-) {
+) = Box(modifier = Modifier.wrapContentSize().background(color = colors.background, shape = RoundedCornerShape(12.dp))) {
 
-    var text by remember {
+    val hint by remember {
         val preAssigned = when (heading.level) {
             1 -> "Heading 1"
             2 -> "Heading 2"
@@ -52,8 +39,11 @@ internal fun HeadingChunk(
 
     }
 
+    var text by remember { mutableStateOf(heading.text) }
+
     BorderlessInput(
         value = text,
+        hint = hint,
         onChange = {
             text = it
             heading.text = it

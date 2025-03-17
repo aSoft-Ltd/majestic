@@ -54,6 +54,6 @@ fun TitleBar(
         value = title,
         onChange = onTitleChange,
         colors = colors,
-        style = style
+        style = style,
     )
 }

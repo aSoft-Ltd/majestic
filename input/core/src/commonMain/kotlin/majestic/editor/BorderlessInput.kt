@@ -6,6 +6,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +27,7 @@ import majestic.editor.toolbar.EditorColors
 fun BorderlessInput(
     modifier: Modifier,
     value: String,
+    hint: String = "",
     onChange: (String) -> Unit,
     colors: EditorColors,
     singleLine: Boolean = true,
@@ -54,7 +56,14 @@ fun BorderlessInput(
                     .background(Color.Transparent),
                 contentAlignment = Alignment.CenterStart
             ) {
-                innerTextField()
+                if (value.isEmpty()) {
+                    Text(
+                        text = hint,
+                        style = style.copy(color = colors.text.inActive)
+                    )
+                } else {
+                    innerTextField()
+                }
             }
         }
     )
