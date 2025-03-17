@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import majestic.editor.BorderlessInput
 import majestic.editor.body.ChunkWrapper
+import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.EditorControl
 import majestic.editor.body.chunks.Paragraph
 import majestic.editor.insert.Insert
@@ -23,7 +24,7 @@ internal fun ParagraphChunk(
     modifier: Modifier,
     colors: EditorColors,
     control: EditorControl,
-    actions: @Composable () -> Unit,
+    actions: @Composable (Chunk) -> Unit,
     customItemContent: @Composable (Insert) -> Unit,
     leadingIcon: @Composable () -> Unit,
     trailingIcon: @Composable () -> Unit
@@ -31,7 +32,7 @@ internal fun ParagraphChunk(
     modifier = modifier,
     colors = colors,
     control = control,
-    actions = actions,
+    actions = { actions(paragraph) },
     customItemContent = customItemContent,
     leadingIcon = leadingIcon,
     trailingIcon = trailingIcon,

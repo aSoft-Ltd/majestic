@@ -12,7 +12,6 @@ import majestic.editor.insert.InsertHostController
 class EditorBodyController(
     val chunks: SnapshotStateList<Chunk> = mutableStateListOf()
 ) {
-
     val actions: InsertHostController = InsertHostController()
     val dropDowns: InsertHostController = InsertHostController()
 
@@ -33,12 +32,14 @@ class EditorBodyController(
         dropDowns.updateInserts(controller.inserts)
     }
 
+    private fun getNextId() = (chunks.maxOfOrNull { it.uid } ?: 0) + 1
+
     fun addHeading(level: Int) {
-        chunks.add(Heading("", level))
+        chunks.add(Heading(getNextId(), "", level))
     }
 
     fun addParagraph() {
-        chunks.add(Paragraph(""))
+        chunks.add(Paragraph(getNextId(), ""))
     }
 
     fun remove(chunk: Chunk) {
@@ -59,5 +60,32 @@ class EditorBodyController(
             chunks.remove(chunk)
             chunks.add(index + 1, chunk)
         }
+    }
+
+    fun changeToHeading(chunk: Chunk,level: Int) {
+        val uid = getNextId()
+        val c = when(chunk) {
+            is Heading -> chunk.copy(uid = uid, text = chunk.text, level = level)
+            is Paragraph -> Heading(uid = uid, text = chunk.text, level = level)
+        }
+        val index = chunks.indexOf(chunk)
+        chunks.remove(chunk)
+        chunks.add(index, c)
+    }
+
+    fun changeToParagraph(chunk: Chunk) {
+        val uid = getNextId()
+        val c = when(chunk) {
+            is Heading -> Paragraph(uid = uid, text = chunk.text)
+            is Paragraph -> Paragraph(uid = uid, text = chunk.text)
+        }
+        val index = chunks.indexOf(chunk)
+        chunks.remove(chunk)
+        chunks.add(index, c)
+    }
+
+    fun duplicate(chunk: Chunk) {
+        val index = chunks.indexOf(chunk)
+        chunks.add(index + 1, chunk.copy(getNextId()))
     }
 }

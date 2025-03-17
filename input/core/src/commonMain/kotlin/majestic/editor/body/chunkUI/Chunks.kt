@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import majestic.editor.body.chunks.EditorControl
+import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Paragraph
 import majestic.editor.insert.Insert
@@ -21,7 +21,7 @@ fun Chunks(
     controller: EditorBodyController,
     modifier: Modifier = Modifier,
     colors: EditorColors,
-    actions: @Composable () -> Unit = {},
+    actions: @Composable (chunk: Chunk) -> Unit = {},
     leadingIcon: @Composable () -> Unit = {},
     customItemContent: @Composable (Insert) -> Unit = {},
     trailingIcon: @Composable () -> Unit = {}
@@ -39,7 +39,8 @@ fun Chunks(
         state = listState
     ) {
 
-        items(controller.chunks) { chunk ->
+        items(controller.chunks, key = { it.uid }) { chunk ->
+//            actions(chunk)
             when (chunk) {
                 is Heading -> HeadingChunk(
                     heading = chunk,

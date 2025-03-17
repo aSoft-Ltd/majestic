@@ -1,6 +1,5 @@
 package majestic.editor.body.chunkUI
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -10,12 +9,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.editor.BorderlessInput
 import majestic.editor.body.ChunkWrapper
+import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.EditorControl
 import majestic.editor.body.chunks.Heading
 import majestic.editor.insert.Insert
@@ -27,14 +26,14 @@ internal fun HeadingChunk(
     modifier: Modifier,
     colors: EditorColors,
     control: EditorControl,
-    actions: @Composable () -> Unit,
+    actions: @Composable (Chunk) -> Unit,
     customItemContent: @Composable (Insert) -> Unit,
     leadingIcon: @Composable () -> Unit,
     trailingIcon: @Composable () -> Unit
 ) = ChunkWrapper(
     modifier = modifier, colors = colors,
     control = control,
-    actions = actions,
+    actions = { actions(heading) },
     customItemContent = customItemContent,
     leadingIcon = leadingIcon,
     trailingIcon = trailingIcon
