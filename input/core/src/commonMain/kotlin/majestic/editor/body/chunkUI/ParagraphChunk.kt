@@ -18,11 +18,12 @@ import majestic.editor.insert.Insert
 import majestic.editor.toolbar.EditorColors
 
 @Composable
-fun ParagraphChunk(
+internal fun ParagraphChunk(
     paragraph: Paragraph,
     modifier: Modifier,
     colors: EditorColors,
     control: EditorControl,
+    actions: @Composable () -> Unit,
     customItemContent: @Composable (Insert) -> Unit,
     leadingIcon: @Composable () -> Unit,
     trailingIcon: @Composable () -> Unit
@@ -30,6 +31,7 @@ fun ParagraphChunk(
     modifier = modifier,
     colors = colors,
     control = control,
+    actions = actions,
     customItemContent = customItemContent,
     leadingIcon = leadingIcon,
     trailingIcon = trailingIcon,

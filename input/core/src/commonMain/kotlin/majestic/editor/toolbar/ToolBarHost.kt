@@ -36,7 +36,7 @@ class EditorColors(
     val background: Color = Color.Transparent,
     val foreground: Color = Color.White,
     val brush: Color = Color.White,
-    val dropDownColors: DropDownColors = DropDownColors()
+    val dropDown: DropDownColors = DropDownColors()
 )
 
 fun Modifier.underline(

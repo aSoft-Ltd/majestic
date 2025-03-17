@@ -12,16 +12,13 @@ import majestic.editor.insert.InsertHostController
 class EditorBodyController(
     val chunks: SnapshotStateList<Chunk> = mutableStateListOf()
 ) {
-    private val _actions = InsertHostController()
-    private val _dropDowns = InsertHostController()
 
-
-    val actions: InsertHostController get() = _actions
-    val dropDowns: InsertHostController get() = _dropDowns
+    val actions: InsertHostController = InsertHostController()
+    val dropDowns: InsertHostController = InsertHostController()
 
 
     val editorControl: EditorControl
-        get() = EditorControl(_actions, _dropDowns)
+        get() = EditorControl(actions, dropDowns)
 
     init {
         addHeading(1)
@@ -29,11 +26,11 @@ class EditorBodyController(
 
 
     fun connectActionsController(controller: InsertHostController) {
-        _actions.updateInserts(controller.inserts)
+        actions.updateInserts(controller.inserts)
     }
 
     fun connectDropDownsController(controller: InsertHostController) {
-        _dropDowns.updateInserts(controller.inserts)
+        dropDowns.updateInserts(controller.inserts)
     }
 
     fun addHeading(level: Int) {

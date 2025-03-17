@@ -22,32 +22,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.editor.insert.Insert
 
-data class BorderColors(
+data class StateColors(
     val focused: Color,
     val unfocused: Color
 )
 
-data class TextColors(
-    val focused: Color,
-    val unfocused: Color
-)
-
-data class TextField(
-    val text: TextColors,
-    val border: BorderColors
+data class FieldColors(
+    val text: StateColors,
+    val border: StateColors
 )
 
 data class DropDownColors(
     val background: Color = Color.White,
-    val field: TextField = TextField(
-        text = TextColors(
-            focused = Color.Black,
-            unfocused = Color.Black.copy(.5f)
-        ),
-        border = BorderColors(
-            focused = Color.Black,
-            unfocused = Color.Transparent
-        )
+    val field: FieldColors = FieldColors(
+        text = StateColors(Color.Black, Color.Gray),
+        border = StateColors(Color.Black, Color.Gray)
     )
 )
 
