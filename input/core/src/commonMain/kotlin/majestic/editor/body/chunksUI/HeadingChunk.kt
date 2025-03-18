@@ -20,22 +20,19 @@ import majestic.editor.BorderlessInput
 import majestic.editor.body.chunks.Heading
 import majestic.editor.toolbar.EditorColors
 
+
+
+
 @Composable
 internal fun HeadingChunk(
     heading: Heading,
     colors: EditorColors,
+    labels: Labels
 ) = Box(modifier = Modifier.wrapContentSize().background(color = colors.background, shape = RoundedCornerShape(12.dp))) {
 
-    val hint by remember {
-        val preAssigned = when (heading.level) {
-            1 -> "Heading 1"
-            2 -> "Heading 2"
-            3 -> "Heading 3"
-            else -> null
-        }
-        mutableStateOf(
-            if (preAssigned != null && heading.text == "") preAssigned else heading.text
-        )
+    fun getHintState(heading: Heading) = labels.getHeadingHint(heading)?.takeIf { heading.text.isBlank() } ?: heading.text
+    val hint by remember(heading.level, heading.text) {
+       mutableStateOf(getHintState(heading))
 
     }
 

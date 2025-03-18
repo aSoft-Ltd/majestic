@@ -33,6 +33,22 @@ class EditorBodyController(
         }
     }
 
+    fun moveToTop(chunk: Chunk) {
+        val index = chunks.indexOf(chunk)
+        if (index > 0) {
+            chunks.remove(chunk)
+            chunks.add(0, chunk)
+        }
+    }
+
+    fun moveToBottom(chunk: Chunk) {
+        val index = chunks.indexOf(chunk)
+        if (index < chunks.size - 1) {
+            chunks.remove(chunk)
+            chunks.add(chunks.size, chunk)
+        }
+    }
+
     fun moveDown(chunk: Chunk) {
         val index = chunks.indexOf(chunk)
         if (index < chunks.size - 1) {
@@ -41,9 +57,9 @@ class EditorBodyController(
         }
     }
 
-    fun changeToHeading(chunk: Chunk,level: Int) {
+    fun changeToHeading(chunk: Chunk, level: Int) {
         val uid = getNextId()
-        val c = when(chunk) {
+        val c = when (chunk) {
             is Heading -> chunk.copy(uid = uid, text = chunk.text, level = level)
             is Paragraph -> Heading(uid = uid, text = chunk.text, level = level)
         }
@@ -54,7 +70,7 @@ class EditorBodyController(
 
     fun changeToParagraph(chunk: Chunk) {
         val uid = getNextId()
-        val c = when(chunk) {
+        val c = when (chunk) {
             is Heading -> Paragraph(uid = uid, text = chunk.text)
             is Paragraph -> Paragraph(uid = uid, text = chunk.text)
         }
