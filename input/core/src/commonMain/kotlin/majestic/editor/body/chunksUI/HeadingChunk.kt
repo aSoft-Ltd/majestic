@@ -1,4 +1,4 @@
-package majestic.editor.body.chunkUI
+package majestic.editor.body.chunksUI
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

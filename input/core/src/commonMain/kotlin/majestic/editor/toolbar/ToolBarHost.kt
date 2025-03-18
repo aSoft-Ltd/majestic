@@ -28,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.editor.body.chunkUI.DropDownColors
+import majestic.editor.body.chunksUI.DropDownColors
 
 class EditorColors(
     val text: ToolButtonColor = ToolButtonColor(Color.White, Color.Gray),

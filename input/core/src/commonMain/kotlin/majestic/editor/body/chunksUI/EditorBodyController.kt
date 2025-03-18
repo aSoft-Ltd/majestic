@@ -1,4 +1,4 @@
-package majestic.editor.body.chunkUI
+package majestic.editor.body.chunksUI
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -10,9 +10,6 @@ import majestic.editor.body.chunks.Paragraph
 class EditorBodyController(
     val chunks: SnapshotStateList<Chunk> = mutableStateListOf()
 ) {
-    init {
-        addHeading(1)
-    }
 
     private fun getNextId() = (chunks.maxOfOrNull { it.uid } ?: 0) + 1
 

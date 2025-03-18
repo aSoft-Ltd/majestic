@@ -1,4 +1,4 @@
-package majestic.editor.body.chunkUI
+package majestic.editor.body.chunksUI
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Paragraph
-import majestic.editor.insert.Insert
 import majestic.editor.toolbar.EditorColors
 
 @Composable
