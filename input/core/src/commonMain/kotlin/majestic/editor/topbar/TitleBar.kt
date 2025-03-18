@@ -1,4 +1,4 @@
-package majestic.editor
+package majestic.editor.topbar
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +17,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.editor.BorderlessInput
+import majestic.editor.toolbar.EditorColors
 
 @Composable
 fun TitleBar(
@@ -25,7 +27,7 @@ fun TitleBar(
     onTitleChange: (String) -> Unit,
     onBack: () -> Unit = {},
     resource: Painter,
-    colors: ToolBarTabColors,
+    colors: EditorColors,
     style: TextStyle = TextStyle(
         fontSize = 16.sp,
         lineHeight = 14.sp,
@@ -49,9 +51,9 @@ fun TitleBar(
             .weight(1f)
             .height(36.dp)
             .padding(4.dp),
-        title = title,
+        value = title,
         onChange = onTitleChange,
         colors = colors,
-        style = style
+        style = style,
     )
 }

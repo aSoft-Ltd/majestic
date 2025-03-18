@@ -6,6 +6,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,16 +21,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import majestic.editor.toolbar.EditorColors
 
 @Composable
 fun BorderlessInput(
     modifier: Modifier,
-    title: String,
+    value: String,
+    hint: String = "",
     onChange: (String) -> Unit,
-    colors: ToolBarTabColors,
+    colors: EditorColors,
+    singleLine: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     style: TextStyle = TextStyle(
-        fontSize = 16.sp,
         lineHeight = 14.sp,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight(600),
@@ -37,10 +40,10 @@ fun BorderlessInput(
 ) {
     var focusState by remember { mutableStateOf(false) }
     BasicTextField(
-        value = title,
+        value = value,
         onValueChange = onChange,
         modifier = modifier.onFocusChanged { focusState = it.isFocused },
-        singleLine = true,
+        singleLine = singleLine,
         textStyle = style.copy(
             color = if (focusState) colors.text.active else colors.text.inActive
         ),
@@ -53,7 +56,14 @@ fun BorderlessInput(
                     .background(Color.Transparent),
                 contentAlignment = Alignment.CenterStart
             ) {
-                innerTextField()
+                if (value.isEmpty()) {
+                    Text(
+                        text = hint,
+                        style = style.copy(color = colors.text.inActive)
+                    )
+                } else {
+                    innerTextField()
+                }
             }
         }
     )
