@@ -16,7 +16,7 @@ internal fun ImageChunk(
 ) = DragAndDropBox(
     modifier = Modifier
         .fillMaxWidth()
-        .height(114.dp),
+        .height(155.dp),
     icon = resource,
     description = labels.instructions,
     onClick = { }, onDrop = { }
