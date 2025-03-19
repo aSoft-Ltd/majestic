@@ -12,9 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
+import majestic.editor.body.chunks.Image
 import majestic.editor.body.chunks.Paragraph
 import majestic.editor.toolbar.EditorColors
 
@@ -24,7 +26,8 @@ fun Chunks(
     modifier: Modifier = Modifier,
     colors: EditorColors,
     actions: @Composable (chunk: Chunk) -> Unit,
-    labels: Labels
+    labels: Labels,
+    resource: Painter
 ) {
     val listState = rememberLazyListState()
 
@@ -57,6 +60,11 @@ fun Chunks(
                         paragraph = chunk,
                         colors = colors,
                         labels
+                    )
+
+                    is Image -> ImageChunk(
+                        resource = resource,
+                        labels = labels
                     )
                 }
 

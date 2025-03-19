@@ -2,6 +2,7 @@ package majestic
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -94,10 +95,12 @@ fun <T> Select(
     items: List<T>,
     hint: String = "Select",
     value: T? = null,
+    border: BorderStroke? = null,
     colors: SelectColors = SelectColors(),
     icon: ImageVector = Icons.Filled.ArrowDropDown,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(8.dp),
+    drawerShape: Shape = RoundedCornerShape(8.dp),
     onSelect: ((T) -> Unit)? = null,
     option: @Composable (T) -> Unit = { Text("$it") }
 ) {
@@ -108,8 +111,11 @@ fun <T> Select(
         items = items,
         value = candidate,
         modifier = modifier,
+        border = border,
         shape = shape,
-        containerColor = colors.dropdown.background,
+        drawerShape = drawerShape,
+        containerColor = colors.focused.placeholder,
+        drawerContainerColor = colors.dropdown.background,
         placeholder = { ItemSelect(icon, colors, expanded) { Text(hint, color = colors.blurred.text) } },
         selected = { ItemSelect(icon, colors, expanded) { option(it) } },
         item = option,
