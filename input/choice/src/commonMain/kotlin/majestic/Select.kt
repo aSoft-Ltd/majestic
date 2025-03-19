@@ -100,7 +100,7 @@ fun <T> Select(
     icon: ImageVector = Icons.Filled.ArrowDropDown,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(8.dp),
-    drawerShape: Shape = RoundedCornerShape(8.dp),
+    dropDownShape: Shape = RoundedCornerShape(8.dp),
     onSelect: ((T) -> Unit)? = null,
     option: @Composable (T) -> Unit = { Text("$it") }
 ) {
@@ -113,9 +113,9 @@ fun <T> Select(
         modifier = modifier,
         border = border,
         shape = shape,
-        drawerShape = drawerShape,
+        dropDownShape = dropDownShape,
         containerColor = colors.focused.placeholder,
-        drawerContainerColor = colors.dropdown.background,
+        dropDownContainerColor = colors.dropdown.background,
         placeholder = { ItemSelect(icon, colors, expanded) { Text(hint, color = colors.blurred.text) } },
         selected = { ItemSelect(icon, colors, expanded) { option(it) } },
         item = option,

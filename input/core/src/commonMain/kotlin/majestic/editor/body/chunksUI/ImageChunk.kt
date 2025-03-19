@@ -1,6 +1,7 @@
 package majestic.editor.body.chunksUI
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,7 +15,7 @@ internal fun ImageChunk(
     resource: Painter, labels: Labels
 ) = DragAndDropBox(
     modifier = Modifier
-        .fillMaxSize()
+        .fillMaxWidth()
         .height(114.dp),
     icon = resource,
     description = labels.instructions,

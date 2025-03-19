@@ -51,7 +51,7 @@ fun <T> SmartSelect(
             onClick?.invoke(it)
         },
         containerColor = containerColor,
-        drawerContainerColor = drawerContainerColor,
+        dropDownContainerColor = drawerContainerColor,
         shape = shape,
         shadowElevation = shadowElevation,
         border = border,

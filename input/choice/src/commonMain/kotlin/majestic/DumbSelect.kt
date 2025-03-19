@@ -39,8 +39,8 @@ fun <T> DumbSelect(
     modifier: Modifier = Modifier,
     containerColor: Color = Color.Unspecified,
     shape: Shape = MenuDefaults.shape,
-    drawerContainerColor: Color = Color.Unspecified,
-    drawerShape: Shape = MenuDefaults.shape,
+    dropDownContainerColor: Color = Color.Unspecified,
+    dropDownShape: Shape = MenuDefaults.shape,
     shadowElevation: Dp = MenuDefaults.ShadowElevation,
     border: BorderStroke? = null,
     tonalElevation: Dp = MenuDefaults.TonalElevation
@@ -76,8 +76,8 @@ fun <T> DumbSelect(
             }
         }
         ExposedDropdownMenu(
-            containerColor = drawerContainerColor,
-            shape = drawerShape,
+            containerColor = dropDownContainerColor,
+            shape = dropDownShape,
             shadowElevation = shadowElevation,
             border = border,
             tonalElevation = tonalElevation,
