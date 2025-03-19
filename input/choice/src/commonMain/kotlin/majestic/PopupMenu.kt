@@ -13,6 +13,7 @@ import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
@@ -57,6 +58,7 @@ fun PopupMenu(
     modifier: Modifier = Modifier,
     dropdownModifier: Modifier = Modifier.width(200.dp),
     shape: Shape = MenuDefaults.shape,
+    containerColor: Color = MenuDefaults.containerColor,
     expanded: Boolean = false,
     icon: @Composable () -> Unit,
     content: @Composable () -> Unit,
@@ -73,7 +75,8 @@ fun PopupMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
             modifier = dropdownModifier,
-            shape = shape
+            shape = shape,
+            containerColor = containerColor
         ) {
             content()
         }

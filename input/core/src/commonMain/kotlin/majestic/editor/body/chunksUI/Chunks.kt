@@ -23,7 +23,8 @@ fun Chunks(
     controller: EditorBodyController,
     modifier: Modifier = Modifier,
     colors: EditorColors,
-    actions: @Composable (chunk: Chunk) -> Unit
+    actions: @Composable (chunk: Chunk) -> Unit,
+    labels: Labels
 ) {
     val listState = rememberLazyListState()
 
@@ -49,11 +50,13 @@ fun Chunks(
                     is Heading -> HeadingChunk(
                         heading = chunk,
                         colors = colors,
+                        labels = labels
                     )
 
                     is Paragraph -> ParagraphChunk(
                         paragraph = chunk,
                         colors = colors,
+                        labels
                     )
                 }
 
