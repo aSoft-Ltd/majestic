@@ -7,8 +7,7 @@ class Labels(
     private val heading2: String,
     private val heading3: String,
     val paragraph: String,
-    val bullet: String,
-    val numbering: String
+    val instructions: String,
 ) {
     fun getHeadingHint(heading: Heading): String? {
         return when (heading.level) {

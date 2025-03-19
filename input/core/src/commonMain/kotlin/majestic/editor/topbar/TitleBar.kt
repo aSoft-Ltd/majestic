@@ -23,7 +23,8 @@ import majestic.editor.toolbar.EditorColors
 @Composable
 fun TitleBar(
     modifier: Modifier = Modifier.fillMaxWidth(),
-    title: String = "Untitled",
+    title: String,
+    hint: String = "Untitled",
     onTitleChange: (String) -> Unit,
     onBack: () -> Unit = {},
     resource: Painter,
@@ -52,6 +53,7 @@ fun TitleBar(
             .height(36.dp)
             .padding(4.dp),
         value = title,
+        hint = hint,
         onChange = onTitleChange,
         colors = colors,
         style = style,

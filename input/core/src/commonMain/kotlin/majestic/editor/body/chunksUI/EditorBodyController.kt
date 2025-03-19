@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
+import majestic.editor.body.chunks.Image
 import majestic.editor.body.chunks.Paragraph
 
 
@@ -19,6 +20,16 @@ class EditorBodyController(
 
     fun addParagraph() {
         chunks.add(Paragraph(getNextId(), ""))
+    }
+
+    fun addImage() {
+        chunks.add(
+            Image(
+                getNextId(),
+                url = null,
+                caption = null
+            )
+        )
     }
 
     fun remove(chunk: Chunk) {
@@ -62,6 +73,7 @@ class EditorBodyController(
         val c = when (chunk) {
             is Heading -> chunk.copy(uid = uid, text = chunk.text, level = level)
             is Paragraph -> Heading(uid = uid, text = chunk.text, level = level)
+            is Image -> Heading(uid = uid, text = chunk.caption ?: "", level = level)
         }
         val index = chunks.indexOf(chunk)
         chunks.remove(chunk)
@@ -73,10 +85,29 @@ class EditorBodyController(
         val c = when (chunk) {
             is Heading -> Paragraph(uid = uid, text = chunk.text)
             is Paragraph -> Paragraph(uid = uid, text = chunk.text)
+            is Image -> Paragraph(uid = uid, text = chunk.caption ?: "")
         }
         val index = chunks.indexOf(chunk)
         chunks.remove(chunk)
         chunks.add(index, c)
+    }
+
+    fun changeToImage(chunk: Chunk): Chunk {
+        val uid = getNextId()
+
+        return when (chunk) {
+            is Heading -> if (chunk.text.isEmpty()) Image(
+                uid = uid, chunk.text,
+                caption = null
+            ) else chunk
+
+            is Paragraph -> if (chunk.text.isEmpty()) Image(
+                uid = uid, chunk.text,
+                caption = null
+            ) else chunk
+
+            is Image -> chunk
+        }
     }
 
     fun duplicate(chunk: Chunk) {

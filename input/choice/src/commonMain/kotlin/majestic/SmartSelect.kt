@@ -30,6 +30,7 @@ fun <T> SmartSelect(
     onChange: ((T?) -> Unit)? = null,
     modifier: Modifier = Modifier,
     containerColor: Color = Color.Unspecified,
+    drawerContainerColor: Color = Color.Unspecified,
     shape: Shape = MenuDefaults.shape,
     shadowElevation: Dp = MenuDefaults.ShadowElevation,
     border: BorderStroke? = null,
@@ -50,6 +51,7 @@ fun <T> SmartSelect(
             onClick?.invoke(it)
         },
         containerColor = containerColor,
+        dropDownContainerColor = drawerContainerColor,
         shape = shape,
         shadowElevation = shadowElevation,
         border = border,

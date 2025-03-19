@@ -3,6 +3,7 @@
 package majestic
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
@@ -37,6 +39,8 @@ fun <T> DumbSelect(
     modifier: Modifier = Modifier,
     containerColor: Color = Color.Unspecified,
     shape: Shape = MenuDefaults.shape,
+    dropDownContainerColor: Color = Color.Unspecified,
+    dropDownShape: Shape = MenuDefaults.shape,
     shadowElevation: Dp = MenuDefaults.ShadowElevation,
     border: BorderStroke? = null,
     tonalElevation: Dp = MenuDefaults.TonalElevation
@@ -51,7 +55,10 @@ fun <T> DumbSelect(
         },
         modifier = modifier
     ) {
-        Box(modifier = Modifier
+        Box(
+            modifier = Modifier
+            .clip(shape = shape)
+            .background(color = containerColor, shape = shape)
             .exposedDropdownSize()
             .menuAnchor(type = MenuAnchorType.PrimaryEditable)
             .clickable(
@@ -69,8 +76,8 @@ fun <T> DumbSelect(
             }
         }
         ExposedDropdownMenu(
-            containerColor = containerColor,
-            shape = shape,
+            containerColor = dropDownContainerColor,
+            shape = dropDownShape,
             shadowElevation = shadowElevation,
             border = border,
             tonalElevation = tonalElevation,
