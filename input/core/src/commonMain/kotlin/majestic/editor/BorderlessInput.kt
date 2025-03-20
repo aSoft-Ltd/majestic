@@ -70,13 +70,13 @@ fun BorderlessInput(
     onChange: (String) -> Unit,
     colors: EditorColors,
     singleLine: Boolean = true,
-    minLines: Int = 1,
+    minLines: Int = if (singleLine) 1 else 4,  // Default to 4 lines in paragraph mode when empty
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     style: TextStyle = TextStyle(
         lineHeight = 24.sp,
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight(600),
+        fontWeight = FontWeight(500),
     ),
     preserveEmojiColors: Boolean = true
 ) {
@@ -84,12 +84,22 @@ fun BorderlessInput(
     val lineHeight = style.lineHeight.value.dp
     val textColor = if (focusState) colors.text.active else colors.text.inActive
 
+
+    val effectiveMinHeight = if (!singleLine && value.isNotEmpty()) {
+        lineHeight
+    } else {
+        lineHeight * minLines
+    }
+
     BasicTextField(
         value = value,
         onValueChange = onChange,
         modifier = modifier
             .onFocusChanged { focusState = it.isFocused }
-            .heightIn(min = lineHeight * minLines, max = if (singleLine) lineHeight else lineHeight * maxLines),
+            .heightIn(
+                min = effectiveMinHeight,
+                max = if (singleLine) lineHeight else lineHeight * maxLines
+            ),
         singleLine = singleLine,
         textStyle = style.copy(
             color = if (!preserveEmojiColors) textColor else Color.Unspecified
@@ -106,16 +116,16 @@ fun BorderlessInput(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.Transparent),
-                contentAlignment = if (singleLine || !focusState) Alignment.CenterStart else Alignment.TopStart
+                contentAlignment = if (singleLine) Alignment.CenterStart else Alignment.TopStart
             ) {
                 if (value.isEmpty() && !focusState) {
                     Text(
                         text = hint,
                         style = style.copy(color = colors.text.inActive),
+                        modifier = Modifier.align(if (singleLine) Alignment.CenterStart else Alignment.TopStart)
                     )
-                } else {
-                    innerTextField()
                 }
+                innerTextField()
             }
         }
     )
