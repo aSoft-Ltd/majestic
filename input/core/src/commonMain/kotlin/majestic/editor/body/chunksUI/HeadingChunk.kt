@@ -28,17 +28,13 @@ internal fun HeadingChunk(
     labels: Labels
 ) = Box(modifier = Modifier.wrapContentSize().background(color = colors.background, shape = RoundedCornerShape(12.dp))) {
 
-    fun getHintState(heading: Heading) = labels.getHeadingHint(heading)?.takeIf { heading.text.isBlank() } ?: heading.text
-    val hint by remember(heading.level, heading.text) {
-        mutableStateOf(getHintState(heading))
-
-    }
+    fun getHintLevel(heading: Heading) = labels.getHeadingHint(heading)?.takeIf { heading.text.isBlank() } ?: heading.text
 
     var text by remember { mutableStateOf(heading.text) }
 
     BorderlessInput(
         value = text,
-        hint = hint,
+        hint = getHintLevel(heading),
         onChange = {
             text = it
             heading.text = it
