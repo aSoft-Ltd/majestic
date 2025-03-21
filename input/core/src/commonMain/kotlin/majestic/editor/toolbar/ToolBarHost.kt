@@ -57,7 +57,7 @@ fun ToolBarHost(
     controller: ToolBarHostController,
     colors: EditorColors = EditorColors(),
     style: TextStyle = TextStyle(
-        fontSize = 13.sp,
+        fontSize = 16.sp,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight(500)
     )

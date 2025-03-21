@@ -110,6 +110,16 @@ class EditorBodyController(
         }
     }
 
+    fun onClick() {
+        println("clicked")
+
+    }
+
+    fun onDrop() {
+        println("dropped")
+
+    }
+
     fun duplicate(chunk: Chunk) {
         val index = chunks.indexOf(chunk)
         chunks.add(index + 1, chunk.copy(getNextId()))
