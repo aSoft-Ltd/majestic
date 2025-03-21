@@ -20,6 +20,7 @@ import majestic.editor.BorderlessInput
 import majestic.editor.body.chunks.Heading
 import majestic.editor.toolbar.EditorColors
 
+private fun getHint(heading: Heading, labels: Labels) = labels.getHeadingHint(heading)?.takeIf { heading.text.isBlank() } ?: heading.text
 
 @Composable
 internal fun HeadingChunk(
@@ -28,22 +29,20 @@ internal fun HeadingChunk(
     labels: Labels
 ) = Box(modifier = Modifier.wrapContentSize().background(color = colors.background, shape = RoundedCornerShape(12.dp))) {
 
-    fun getHintLevel(heading: Heading) = labels.getHeadingHint(heading)?.takeIf { heading.text.isBlank() } ?: heading.text
-
     var text by remember { mutableStateOf(heading.text) }
 
     BorderlessInput(
         value = text,
-        hint = getHintLevel(heading),
+        hint = getHint(heading, labels),
         onChange = {
             text = it
             heading.text = it
         },
         colors = colors,
         modifier = Modifier
-            .padding(horizontal = 10.dp, vertical = 10.dp) //here measurement was 25 now its 10/15 but not much different if reduced farther it looks ugly
+            .padding(horizontal = 10.dp, vertical = 10.dp)
             .fillMaxWidth()
-            .wrapContentHeight(), //this hugs the content and the look is not nice, the older design was not hugging the content than height of the box was  made it look like padding
+            .wrapContentHeight(),
         style = TextStyle(
             fontSize = when (heading.level) {
                 1 -> 32.sp
