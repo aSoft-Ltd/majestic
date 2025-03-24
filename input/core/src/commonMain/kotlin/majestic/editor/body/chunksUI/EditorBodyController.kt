@@ -110,9 +110,8 @@ class EditorBodyController(
         }
     }
 
-    fun onClick() {
-        println("clicked")
-
+    fun clickToUpload(url: String) {
+        println("Uploaded image URL: $url")
     }
 
     fun onDrop() {
