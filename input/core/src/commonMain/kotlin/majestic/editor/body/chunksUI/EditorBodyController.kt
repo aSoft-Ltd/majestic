@@ -2,14 +2,18 @@ package majestic.editor.body.chunksUI
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
 import majestic.editor.body.chunks.Paragraph
+import majestic.filepicker.FilePicker
+import majestic.filepicker.FileType
 
 
 class EditorBodyController(
-    val chunks: SnapshotStateList<Chunk> = mutableStateListOf()
+    val chunks: SnapshotStateList<Chunk> = mutableStateListOf(),
+    val filePicker: FilePicker
 ) {
 
     private fun getNextId() = (chunks.maxOfOrNull { it.uid } ?: 0) + 1
@@ -22,12 +26,19 @@ class EditorBodyController(
         chunks.add(Paragraph(getNextId(), ""))
     }
 
+    suspend fun pickImage(): BitmapPainter? {
+        val files = filePicker.pickFiles(
+            FilePicker.Config(maxFiles = 1, allowedFileTypes = listOf(FileType.IMAGE))
+        )
+        return files.firstOrNull()?.let { fileInfo -> filePicker.getBitMap(fileInfo.path) }
+    }
+
     fun addImage() {
         chunks.add(
             Image(
                 getNextId(),
-                url = null,
-                caption = null
+                caption = "",
+                uri = ""
             )
         )
     }

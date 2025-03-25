@@ -3,8 +3,8 @@ package majestic.editor.body.chunks
 
 data class Image(
     override val uid: Int,
-    val url: String?,
+    val uri: String?,
     val caption: String?
 ) : Chunk {
-    override fun copy(uid: Int): Chunk = copy(uid = uid, url = url, caption = caption)
+    override fun copy(uid: Int): Chunk = copy(uid = uid, uri = uri, caption = caption)
 }
