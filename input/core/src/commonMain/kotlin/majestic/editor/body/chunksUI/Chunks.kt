@@ -28,8 +28,8 @@ fun Chunks(
     actions: @Composable (chunk: Chunk) -> Unit,
     labels: Labels,
     resource: Painter,
-    onDrop: () -> Unit,
-    onClick: () -> Unit
+    onImagePick: (Image) -> Unit,
+    imagePreview: @Composable (Image) -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -68,8 +68,9 @@ fun Chunks(
                         resource = resource,
                         labels = labels,
                         colors = colors,
-                        onDrop = onDrop,
-                        onClick = onClick
+                        onImagePick = onImagePick,
+                        image = chunk,
+                        imagePreview = imagePreview,
                     )
                 }
 

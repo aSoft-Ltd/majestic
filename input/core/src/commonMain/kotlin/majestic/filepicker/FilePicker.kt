@@ -5,11 +5,10 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 interface FilePicker {
     data class Config(
         val allowedFileTypes: List<FileType> = listOf(FileType.ALL),
-        val maxFiles: Int = 1,
-        val enableSearch: Boolean = true
+        val maxFiles: Int = 1
     )
 
-    suspend fun hasPermission(): Boolean
+    fun hasPermission(): Boolean
 
     suspend fun requestPermission(): Boolean
 
@@ -18,9 +17,10 @@ interface FilePicker {
     suspend fun searchFiles(
         query: String,
         path: String? = null,
-        fileTypes: List<FileType> = listOf(FileType.ALL)
+        fileTypes: List<FileType> = listOf(FileType.ALL),
     ): List<FileInfo>
 
     fun fileExists(path: String): Boolean
     suspend fun getBitMap(uri: String): BitmapPainter
+    suspend fun getBytes(uri: String): ByteArray
 }

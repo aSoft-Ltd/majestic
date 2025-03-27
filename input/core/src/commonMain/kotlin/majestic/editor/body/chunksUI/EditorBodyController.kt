@@ -27,20 +27,46 @@ class EditorBodyController(
     }
 
     suspend fun pickImage(): BitmapPainter? {
-        val files = filePicker.pickFiles(
-            FilePicker.Config(maxFiles = 1, allowedFileTypes = listOf(FileType.IMAGE))
+        val files = filePicker.pickFiles( //if pick has permission then pick file, else
+            config = FilePicker.Config(maxFiles = 1, allowedFileTypes = listOf(FileType.IMAGE))
         )
         return files.firstOrNull()?.let { fileInfo -> filePicker.getBitMap(fileInfo.path) }
+    }
+
+
+    fun attachImageToChunk(chunk: Image, painter: BitmapPainter) {
+        val index = chunks.indexOf(chunk)
+        if (index != -1) {
+            chunks[index] = chunk.copy(
+                painter = painter,
+                uri = ""
+            )
+        }
     }
 
     fun addImage() {
         chunks.add(
             Image(
-                getNextId(),
-                caption = "",
-                uri = ""
+                uid = getNextId(),
+                caption = null,
+                uri = "",
+                painter = null
             )
         )
+    }
+
+    fun togglePreview(chunk: Image) {
+        val index = chunks.indexOf(chunk)
+        if (index != -1) {
+            chunks[index] = chunk.copyWithPreviewVisible(!chunk.isPreviewVisible)
+        }
+    }
+
+    fun discardImage(chunk: Image) {
+        val index = chunks.indexOf(chunk)
+        if (index != -1) {
+            chunks[index] = chunk.copyWithPainter(null)
+        }
     }
 
     fun remove(chunk: Chunk) {
@@ -123,11 +149,6 @@ class EditorBodyController(
 
     fun clickToUpload(url: String) {
         println("Uploaded image URL: $url")
-    }
-
-    fun onDrop() {
-        println("dropped")
-
     }
 
     fun duplicate(chunk: Chunk) {
