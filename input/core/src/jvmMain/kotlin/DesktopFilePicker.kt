@@ -2,6 +2,7 @@ package majestic.filepicker
 
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.decodeToImageBitmap
@@ -19,7 +20,7 @@ class DesktopFilePicker : FilePicker {
 
     override suspend fun requestPermission(): Boolean = true
 
-    override suspend fun pickFiles(config: FilePicker.Config): List<FileInfo> = withContext(Dispatchers.IO) {
+    override suspend fun pickFiles(config: FilePicker.Config): List<FileInfo> = withContext(Dispatchers.Swing) {
         val fileChooser = JFileChooser().apply {
             isMultiSelectionEnabled = config.maxFiles > 1
             val allTypes = config.allowedFileTypes.contains(FileType.ALL)

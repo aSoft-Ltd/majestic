@@ -99,6 +99,9 @@ kotlin {
         androidMain.dependencies {
             implementation("androidx.activity:activity-ktx:1.10.1")?.because("We need ComponentActivity for android file picker")
         }
+        jvmMain.dependencies {
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.3")
+        }
         jvmTest.dependencies {
             implementation(compose.desktop.currentOs)
         }
