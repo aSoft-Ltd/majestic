@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
@@ -23,7 +22,6 @@ import kotlinx.coroutines.withContext
 import majestic.filepicker.FileInfo
 import majestic.filepicker.FilePicker
 import majestic.filepicker.FileType
-import java.io.File
 
 class AndroidFilePicker(
     private val activity: ComponentActivity
@@ -109,13 +107,7 @@ class AndroidFilePicker(
     }
 
     override suspend fun pickFiles(config: FilePicker.Config): List<FileInfo> {
-        if (!hasPermissionForTypes(config.allowedFileTypes)) {
-            val granted = requestPermissionForTypes(config.allowedFileTypes)
-            if (!granted) {
-                return kollections.emptyList()
-            }
-        }
-        launcher?.picker?.launch(config.allowedFileTypes.map { it.toMimeType() }.toTypedArray()) ?: return emptyList()
+        launcher?.picker?.launch(config.type.map { it.toMimeType() }.toTypedArray()) ?: return emptyList()
         val uris = results.picker.receive()
         return processUris(uris)
     }
@@ -135,63 +127,6 @@ class AndroidFilePicker(
             } catch (e: Exception) {
                 null
             }
-        }
-    }
-
-    override suspend fun searchFiles(
-        query: String,
-        path: String?, // Consider implementing path filtering if needed
-        fileTypes: List<FileType>
-    ): List<FileInfo> {
-        if (!hasPermissionForTypes(fileTypes)) {
-            val granted = requestPermissionForTypes(fileTypes)
-            if (!granted) {
-                return kollections.emptyList()
-            }
-        }
-        val projection = arrayOf(
-            MediaStore.Files.FileColumns._ID,
-            MediaStore.Files.FileColumns.DISPLAY_NAME,
-            MediaStore.Files.FileColumns.SIZE,
-            MediaStore.Files.FileColumns.MIME_TYPE
-        )
-        val mimeTypes = fileTypes.map { it.toMimeType() }
-        val selection = "${MediaStore.Files.FileColumns.DISPLAY_NAME} LIKE ?" +
-                if (mimeTypes.isNotEmpty()) " AND ${MediaStore.Files.FileColumns.MIME_TYPE} IN (${mimeTypes.joinToString { "'$it'" }})" else ""
-        val selectionArgs = arrayOf("%$query%")
-        val cursor = activity.contentResolver.query(
-            MediaStore.Files.getContentUri("external"),
-            projection,
-            selection,
-            selectionArgs,
-            null
-        )
-        return cursor?.use { c ->
-            val idColumn = c.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID)
-            val nameColumn = c.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME)
-            val sizeColumn = c.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)
-            val mimeTypeColumn = c.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MIME_TYPE)
-            val files = mutableListOf<FileInfo>()
-            while (c.moveToNext()) {
-                val id = c.getLong(idColumn)
-                val name = c.getString(nameColumn)
-                val size = c.getLong(sizeColumn)
-                val mimeType = c.getString(mimeTypeColumn)
-                files.add(FileInfo("content://media/external/files/$id", name, size, mimeType))
-            }
-            files
-        } ?: kollections.emptyList()
-    }
-
-    override fun fileExists(path: String): Boolean {
-        return if (path.startsWith("content://")) {
-            try {
-                activity.contentResolver.query(Uri.parse(path), null, null, null, null)?.use { it.moveToFirst() } ?: false
-            } catch (e: Exception) {
-                false
-            }
-        } else {
-            File(path).exists()
         }
     }
 

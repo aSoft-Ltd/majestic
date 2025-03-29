@@ -1,6 +1,7 @@
 package majestic.editor.body.chunksUI
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -19,6 +20,7 @@ import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
 import majestic.editor.body.chunks.Paragraph
 import majestic.editor.toolbar.EditorColors
+import majestic.filepicker.FilePicker
 
 @Composable
 fun Chunks(
@@ -28,8 +30,9 @@ fun Chunks(
     actions: @Composable (chunk: Chunk) -> Unit,
     labels: Labels,
     resource: Painter,
-    onImagePick: (Image) -> Unit,
-    imagePreview: @Composable (Image) -> Unit
+    picker: FilePicker,
+    previewOverlay: @Composable BoxScope.() -> Unit,
+    permissionRequest: @Composable ((Boolean) -> Unit) -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -68,9 +71,9 @@ fun Chunks(
                         resource = resource,
                         labels = labels,
                         colors = colors,
-                        onImagePick = onImagePick,
-                        image = chunk,
-                        imagePreview = imagePreview,
+                        picker = picker,
+                        previewOverlay = previewOverlay,
+                        permissionRequest = permissionRequest
                     )
                 }
 

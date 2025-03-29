@@ -2,7 +2,6 @@ package majestic.editor.body.chunksUI
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.ui.graphics.painter.BitmapPainter
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
@@ -22,23 +21,12 @@ class EditorBodyController(val chunks: SnapshotStateList<Chunk> = mutableStateLi
     }
 
 
-    fun attachImageToChunk(chunk: Image, painter: BitmapPainter) {
-        val index = chunks.indexOf(chunk)
-        if (index != -1) {
-            chunks[index] = chunk.copy(
-                painter = painter,
-                uri = ""
-            )
-        }
-    }
-
     fun addImage() {
         chunks.add(
             Image(
                 uid = getNextId(),
                 caption = null,
-                uri = "",
-                painter = null
+                uri = ""
             )
         )
     }

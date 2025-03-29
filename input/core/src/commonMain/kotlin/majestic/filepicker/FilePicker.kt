@@ -1,11 +1,9 @@
 package majestic.filepicker
 
-import androidx.compose.ui.graphics.painter.BitmapPainter
-
-interface FilePicker {
+interface FilePicker : FileOperations {
     data class Config(
-        val allowedFileTypes: List<FileType> = listOf(FileType.ALL),
-        val maxFiles: Int = 1
+        val type: List<FileType> = listOf(FileType.ALL),
+        val count: Int = 1
     )
 
     fun hasPermission(): Boolean
@@ -14,13 +12,4 @@ interface FilePicker {
 
     suspend fun pickFiles(config: Config = Config()): List<FileInfo>
 
-    suspend fun searchFiles(
-        query: String,
-        path: String? = null,
-        fileTypes: List<FileType> = listOf(FileType.ALL),
-    ): List<FileInfo>
-
-    fun fileExists(path: String): Boolean
-    suspend fun getBitMap(uri: String): BitmapPainter
-    suspend fun getBytes(uri: String): ByteArray
 }
