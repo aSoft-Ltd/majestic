@@ -18,7 +18,10 @@ import androidx.compose.ui.unit.dp
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
+import majestic.editor.body.chunks.lists.ListChunk
 import majestic.editor.body.chunks.Paragraph
+import majestic.editor.body.chunks.OrderedList
+import majestic.editor.body.chunks.UnorderedList
 import majestic.editor.toolbar.EditorColors
 import majestic.filepicker.FilePicker
 
@@ -74,6 +77,20 @@ fun Chunks(
                         picker = picker,
                         previewOverlay = previewOverlay,
                         permissionRequest = permissionRequest
+                    )
+
+                    is OrderedList -> OrderedChunk(
+                        list = chunk,
+                        colors = colors,
+                        labels = labels,
+                        controller = controller
+                    )
+
+                    is UnorderedList -> UnorderedChunk(
+                        list = chunk,
+                        colors = colors,
+                        labels = labels,
+                        controller = controller
                     )
                 }
 
