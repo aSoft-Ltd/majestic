@@ -1,4 +1,4 @@
-package majestic.editor.body.chunksUI
+package majestic.editor.body.chunksUI.tools
 
 import androidx.compose.ui.graphics.Color
 

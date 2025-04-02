@@ -1,5 +1,7 @@
 package majestic.editor.body.chunksUI
 
+import OrderedChunk
+import UnorderedChunk
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -18,10 +20,11 @@ import androidx.compose.ui.unit.dp
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
-import majestic.editor.body.chunks.lists.ListChunk
-import majestic.editor.body.chunks.Paragraph
 import majestic.editor.body.chunks.OrderedList
+import majestic.editor.body.chunks.Paragraph
 import majestic.editor.body.chunks.UnorderedList
+import majestic.editor.body.chunksUI.tools.EditorBodyController
+import majestic.editor.body.chunksUI.tools.Labels
 import majestic.editor.toolbar.EditorColors
 import majestic.filepicker.FilePicker
 

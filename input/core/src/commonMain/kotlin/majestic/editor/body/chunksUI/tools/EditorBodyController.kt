@@ -1,8 +1,7 @@
-package majestic.editor.body.chunksUI
+package majestic.editor.body.chunksUI.tools
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.runtime.toMutableStateList
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
@@ -46,49 +45,82 @@ class EditorBodyController(val chunks: SnapshotStateList<Chunk> = mutableStateLi
     }
 
     fun addOrderedList(numberingType: NumberingType = NumberingType.NUMBERS) {
-        chunks.add(OrderedList(getNextId(), numberingType = numberingType))
+        val list = OrderedList(getNextId(), mutableListOf(SimpleListItem("")), numberingType)
+        chunks.add(list)
+        numberingTypeMap[list] = numberingType
     }
 
     fun addUnorderedList(bulletType: BulletType = BulletType.DOT) {
-        chunks.add(UnorderedList(getNextId(), bulletType = bulletType))
+        val list = UnorderedList(getNextId(), mutableListOf(SimpleListItem("")), bulletType)
+
+        chunks.add(list)
+
+        bulletTypeMap[list] = bulletType
     }
 
     fun changeToOrderedList(chunk: Chunk, numberingType: NumberingType = NumberingType.NUMBERS) {
         val uid = getNextId()
         val c = when (chunk) {
-            is Heading -> OrderedList(uid, mutableStateListOf(SimpleListItem(chunk.text)), numberingType)
-            is Paragraph -> OrderedList(uid, mutableStateListOf(SimpleListItem(chunk.text)), numberingType)
-            is Image -> OrderedList(uid, mutableStateListOf(SimpleListItem(chunk.caption ?: "")), numberingType)
-            is OrderedList -> chunk.apply { this.numberingType = numberingType }
-            is UnorderedList -> OrderedList(uid, chunk.items.toMutableStateList(), numberingType)
+            is Heading -> OrderedList(uid, mutableListOf(SimpleListItem(chunk.text)), numberingType)
+            is Paragraph -> OrderedList(uid, mutableListOf(SimpleListItem(chunk.text)), numberingType)
+            is Image -> OrderedList(uid, mutableListOf(SimpleListItem(chunk.caption ?: "")), numberingType)
+            is OrderedList -> chunk.copy(uid = chunk.uid, items = chunk.items, numberingType = numberingType)
+            is UnorderedList -> OrderedList(uid, chunk.items.toMutableList(), numberingType)
         }
         val index = chunks.indexOf(chunk)
+        println("EditorBodyController 3:index: $index")
         chunks.remove(chunk)
+        println("EditorBodyController 4: removed chunk: $chunk")
         chunks.add(index, c)
+        println("added chunk: $c")
+        if (c is OrderedList) {
+            println("EditorBodyController 5: added chunk: $c")
+            numberingTypeMap[c] = numberingType
+            println("EditorBodyController 6: added chunk: $c")
+        }
     }
 
     fun changeToUnorderedList(chunk: Chunk, bulletType: BulletType = BulletType.DOT) {
         val uid = getNextId()
         val c = when (chunk) {
-            is Heading -> UnorderedList(uid, mutableStateListOf(SimpleListItem(chunk.text)), bulletType)
-            is Paragraph -> UnorderedList(uid, mutableStateListOf(SimpleListItem(chunk.text)), bulletType)
-            is Image -> UnorderedList(uid, mutableStateListOf(SimpleListItem(chunk.caption ?: "")), bulletType)
-            is OrderedList -> UnorderedList(uid, chunk.items.toMutableStateList(), bulletType)
-            is UnorderedList -> chunk.apply { this.bulletType = bulletType }
+            is Heading -> UnorderedList(uid, mutableListOf(SimpleListItem(chunk.text)), bulletType)
+            is Paragraph -> UnorderedList(uid, mutableListOf(SimpleListItem(chunk.text)), bulletType)
+            is Image -> UnorderedList(uid, mutableListOf(SimpleListItem(chunk.caption ?: "")), bulletType)
+            is OrderedList -> UnorderedList(uid, chunk.items.toMutableList(), bulletType)
+            is UnorderedList -> chunk.copy(uid = chunk.uid, items = chunk.items, bulletType = bulletType)
         }
         val index = chunks.indexOf(chunk)
         chunks.remove(chunk)
         chunks.add(index, c)
+        if (c is UnorderedList) {
+            bulletTypeMap[c] = bulletType
+        }
     }
 
     fun changeBulletType(chunk: UnorderedList, bulletType: BulletType) {
-        chunk.bulletType = bulletType
+        println("EditorBodyController 8: changing bullet type: $bulletType")
+        val newChunk = chunk.copy(uid = chunk.uid, items = chunk.items, bulletType = bulletType)
+        println("EditorBodyController 8: new chunk: $newChunk")
+        val index = chunks.indexOf(chunk)
+        println("index: $index")
+        if (index != -1) {
+            println("EditorBodyController 9: removing chunk: $chunk")
+            chunks[index] = newChunk
+        }
+        bulletTypeMap[newChunk] = bulletType //used newChunk instead of the chunk
     }
 
     fun changeNumberingType(chunk: OrderedList, numberingType: NumberingType) {
-        chunk.numberingType = numberingType
-    }
+        val newChunk = chunk.copy(uid = chunk.uid, items = chunk.items, numberingType = numberingType)
+        val index = chunks.indexOf(chunk)
+        println("EditorBodyController 10: index: $index")
+        if (index != -1) {
+            println("EditorBodyController 11: removing chunk: $chunk")
+            chunks[index] = newChunk
+        }
+        numberingTypeMap[chunk] = numberingType
 
+    }
     fun remove(chunk: Chunk) {
         chunks.remove(chunk)
     }

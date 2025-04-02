@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.editor.BorderlessInput
 import majestic.editor.body.chunks.Heading
+import majestic.editor.body.chunksUI.tools.Labels
 import majestic.editor.toolbar.EditorColors
 
 private fun getHint(heading: Heading, labels: Labels) = labels.getHeadingHint(heading)?.takeIf { heading.text.isBlank() } ?: heading.text

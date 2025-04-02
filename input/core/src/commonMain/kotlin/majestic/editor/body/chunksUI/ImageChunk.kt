@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 import majestic.colors.ColorPair
 import majestic.dragdrop.DragAndBorderColors
 import majestic.dragdrop.DragAndDropBox
+import majestic.editor.body.chunksUI.tools.Labels
 import majestic.editor.toolbar.EditorColors
 import majestic.filepicker.FilePicker
 import majestic.filepicker.FileType

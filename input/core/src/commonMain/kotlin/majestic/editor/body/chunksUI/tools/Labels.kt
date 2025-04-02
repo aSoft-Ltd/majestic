@@ -1,4 +1,4 @@
-package majestic.editor.body.chunksUI
+package majestic.editor.body.chunksUI.tools
 
 import majestic.editor.body.chunks.Heading
 
@@ -6,6 +6,8 @@ class Labels(
     private val heading1: String,
     private val heading2: String,
     private val heading3: String,
+    private val orderedChunk: String,
+    private val unorderedChunk: String,
     val paragraph: String,
     val instructions: String,
 ) {
