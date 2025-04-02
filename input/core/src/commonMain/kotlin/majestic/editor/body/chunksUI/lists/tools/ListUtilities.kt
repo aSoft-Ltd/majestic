@@ -17,7 +17,6 @@ object ListUtilities {
         BulletType.DIAMOND -> "◆ "
     }
 
-    // Get number prefix based on type and index
     fun getNumberText(type: NumberingType, index: Int): String = when (type) {
         NumberingType.NUMBERS -> "${index + 1}. "
         NumberingType.ROMAN -> "${toRoman(index + 1)}. "
@@ -25,7 +24,6 @@ object ListUtilities {
         NumberingType.LOWERCASE_ALPHABETS -> "${('a' + index)}. "
     }
 
-    // Convert number to Roman numeral
     private fun toRoman(number: Int): String {
         if (number <= 0) return ""
         val romanValues = listOf(
@@ -44,7 +42,6 @@ object ListUtilities {
         return result
     }
 
-    // Create a new item in an ordered list
     fun createNewOrderedItem(index: Int, list: OrderedList, controller: EditorBodyController) {
         val newItem = SimpleListItem("")
         list.items.add(index + 1, newItem)
@@ -52,7 +49,6 @@ object ListUtilities {
         if (chunkIndex != -1) controller.chunks[chunkIndex] = list
     }
 
-    // Create a new item in an unordered list
     fun createNewUnorderedItem(index: Int, list: UnorderedList, controller: EditorBodyController) {
         val newItem = SimpleListItem("")
         list.items.add(index + 1, newItem)
@@ -60,7 +56,6 @@ object ListUtilities {
         if (chunkIndex != -1) controller.chunks[chunkIndex] = list
     }
 
-    // Merge an ordered list item with the previous one
     fun mergeWithPreviousOrderedItem(
         index: Int,
         textField: TextFieldValue,
@@ -78,7 +73,6 @@ object ListUtilities {
         if (chunkIndex != -1) controller.chunks[chunkIndex] = list
     }
 
-    // Merge an unordered list item with the previous one
     fun mergeWithPreviousUnorderedItem(
         index: Int,
         textField: TextFieldValue,

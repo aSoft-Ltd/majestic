@@ -6,7 +6,7 @@ class Labels(
     private val heading1: String,
     private val heading2: String,
     private val heading3: String,
-    private val orderedChunk: String,
+    val list: String,
     private val unorderedChunk: String,
     val paragraph: String,
     val instructions: String,

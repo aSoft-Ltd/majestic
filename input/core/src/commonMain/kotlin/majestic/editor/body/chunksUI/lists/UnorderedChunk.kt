@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -61,9 +62,8 @@ fun UnorderedChunk(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             list.items.forEachIndexed { index, item ->
-                androidx.compose.runtime.key(index) {
+                key(index) {
                     val bulletText = ListUtilities.getBulletText(bulletType)
-                    println("UnorderedChunk: Displaying bulletText: $bulletText")
                     GenericListItem(
                         item = item,
                         index = index,
@@ -73,11 +73,9 @@ fun UnorderedChunk(
                         controller = controller,
                         colors = colors,
                         createNewItem = ListUtilities::createNewUnorderedItem,
-                        mergeWithPrevious = ListUtilities::mergeWithPreviousUnorderedItem
+                        mergeWithPrevious = ListUtilities::mergeWithPreviousUnorderedItem,
+                        label = labels,
                     )
-                    println("UnorderedChunk: Created new item with bulletText: ${ListUtilities::createNewUnorderedItem}")
-                    println("UnorderedChunk: Merged with previous item with bulletText: ${ListUtilities::mergeWithPreviousUnorderedItem}")
-                    println("UnorderedChunk: GenericListItem: $item")
                 }
             }
             SideEffect {

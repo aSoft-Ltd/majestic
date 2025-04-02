@@ -17,6 +17,7 @@ import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.lists.ListChunk
 import majestic.editor.body.chunks.lists.SimpleListItem
 import majestic.editor.body.chunksUI.tools.EditorBodyController
+import majestic.editor.body.chunksUI.tools.Labels
 import majestic.editor.toolbar.EditorColors
 
 @Composable
@@ -24,6 +25,7 @@ fun <T> GenericListItem(
     item: SimpleListItem,
     index: Int,
     prefixText: String,
+    label: Labels,
     listController: ListController<T>,
     list: T,
     controller: EditorBodyController,
@@ -41,25 +43,20 @@ fun <T> GenericListItem(
         item.text = textField.text
     }
 
-    // Handle focus requests
     LaunchedEffect(listController.focusTarget) {
         if (listController.focusTarget == index) {
             delay(50)
             try {
                 focusRequester.requestFocus()
             } catch (e: Exception) {
-                println("GenericListItem 4: Error requesting focus for index $index: ${e.message}")
             }
             listController.focusTarget = null
         }
     }
 
-    // Display text with prefix when focused and empty
     val displayText = if (isFocused) {
-        println("GenericListItem 5: Displaying text with prefix for index $index")
         if (textField.text.isEmpty()) prefixText else textField.text
     } else {
-        println("GenericListItem 6: Displaying text without prefix for index $index")
         if (textField.text.isEmpty()) "" else textField.text
     }
 
@@ -69,7 +66,7 @@ fun <T> GenericListItem(
             val adjustedText = listController.adjustTextWithPrefix(newText, prefixText)
             listController.updateTextValue(index, TextFieldValue(adjustedText, TextRange(adjustedText.length)))
         },
-        hint = "${prefixText}Add text",
+        hint = "$prefixText ${label.list}",
         colors = colors,
         singleLine = false,
         style = TextStyle(fontSize = 16.sp, lineHeight = 24.sp),
