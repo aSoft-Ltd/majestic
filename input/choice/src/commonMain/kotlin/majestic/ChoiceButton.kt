@@ -4,14 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -76,22 +71,14 @@ fun ChoiceButton(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(
-            modifier = Modifier
-                .size(24.dp)
-                .clip(CircleShape)
-                .background(color.icon.background)
-                .border(1.dp, color.border, CircleShape)
-        ) {
-            if (selected) {
-                Icon(
-                    modifier = Modifier.padding(4.dp),
-                    imageVector = Icons.Filled.Check,
-                    tint = color.icon.foreground,
-                    contentDescription = "Selected Icon"
-                )
-            }
-        }
+        IconCheckCircle(
+            selected = selected,
+            colors = IconCheckColors(
+                background = color.icon.background,
+                border = color.border,
+                icon = color.icon
+            )
+        )
         Text(modifier = Modifier.padding(end = 5.dp), text = label, color = color.label)
     }
 }
