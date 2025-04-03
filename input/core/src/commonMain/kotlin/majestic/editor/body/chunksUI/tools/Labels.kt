@@ -7,7 +7,6 @@ class Labels(
     private val heading2: String,
     private val heading3: String,
     val list: String,
-    private val unorderedChunk: String,
     val paragraph: String,
     val instructions: String,
 ) {
