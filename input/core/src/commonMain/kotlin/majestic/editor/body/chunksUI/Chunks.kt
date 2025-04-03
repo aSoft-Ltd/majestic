@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
-import majestic.editor.body.chunks.Lists
+import majestic.editor.body.chunks.List
 import majestic.editor.body.chunks.Paragraph
 import majestic.editor.body.chunksUI.tools.EditorBodyController
 import majestic.editor.body.chunksUI.tools.ExternalResources
@@ -80,7 +80,7 @@ fun Chunks(
                         permissionRequest = permissionRequest
                     )
 
-                    is Lists -> ListChunk(
+                    is List -> ListChunk(
                         chunk = chunk,
                         colors = colors,
                         labels = labels,

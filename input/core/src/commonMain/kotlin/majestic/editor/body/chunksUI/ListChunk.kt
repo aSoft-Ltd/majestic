@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.editor.BorderlessInput
-import majestic.editor.body.chunks.Lists
+import majestic.editor.body.chunks.List
 import majestic.editor.body.chunks.lists.Type
 import majestic.editor.body.chunksUI.tools.EditorBodyController
 import majestic.editor.body.chunksUI.tools.Labels
@@ -40,7 +40,7 @@ data class ListChunkResources(
 
 @Composable
 internal fun ListChunk(
-    chunk: Lists,
+    chunk: List,
     colors: EditorColors,
     labels: Labels,
     resource: ListChunkResources,
@@ -49,8 +49,8 @@ internal fun ListChunk(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        chunk.list.items.forEachIndexed { index, item ->
-            val marker = when (val type = chunk.list.type) {
+        chunk.list.forEachIndexed { index, item ->
+            val marker = when (val type = chunk.type) {
                 is Type.Ordered -> ListUtilities.getMarker(type, index)
                 is Type.UnOrdered -> ListUtilities.getMarker(type)
             }
@@ -95,7 +95,7 @@ internal fun ListChunk(
                             hint = labels.list,
                             onChange = {
                                 textState = it
-                                chunk.list.items[index] = it
+                                chunk.list[index] = it
                             },
                             colors = colors,
                             modifier = Modifier
@@ -118,7 +118,7 @@ internal fun ListChunk(
                         .actionButton(colors, hovered = false)
                         .align(alignment = Alignment.TopEnd),
                     onClick = {
-                        if (chunk.list.items.size == 1) controller.remove(chunk) else controller.removeListItem(chunk, index)
+                        if (chunk.list.size == 1) controller.remove(chunk) else controller.removeListItem(chunk, index)
                     },
                     colors = colors,
                     resource = resource.remove,
