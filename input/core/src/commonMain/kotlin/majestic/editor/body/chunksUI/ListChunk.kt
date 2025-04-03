@@ -1,3 +1,5 @@
+package majestic.editor.body.chunksUI
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -76,7 +78,7 @@ internal fun ListChunk(
                             fontWeight = FontWeight.Bold
                         ),
                         modifier = Modifier
-                            .width(32.dp)
+                            .wrapContentSize()
                             .padding(end = 8.dp)
                     )
 

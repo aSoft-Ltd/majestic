@@ -1,6 +1,5 @@
 package majestic.editor.body.chunksUI
 
-import ListChunk
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column

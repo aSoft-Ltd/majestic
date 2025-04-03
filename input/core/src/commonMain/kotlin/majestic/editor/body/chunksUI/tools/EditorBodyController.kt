@@ -59,34 +59,30 @@ class EditorBodyController(val chunks: SnapshotStateList<Chunk> = mutableStateLi
         chunk.list.removeAt(index)
     }
 
-    fun changeToOrderedList(chunk: List) {
-        if (chunk !is List) return
-
-        val newType = when (chunk.type) {
-            is Type.Ordered -> chunk.type
-            is Type.UnOrdered -> Type.Ordered.Numbers
+    fun changeToOrderedList(chunk: Chunk) {
+        val uid = getNextId()
+        val newChunk = when (chunk) {
+            is Heading -> List(uid = uid, type = Type.Ordered.Numbers, list = mutableListOf(chunk.text))
+            is Paragraph -> List(uid = uid, type = Type.Ordered.Numbers, list = mutableListOf(chunk.text))
+            is Image -> List(uid = uid, type = Type.Ordered.Numbers, list = mutableListOf(chunk.caption ?: ""))
+            is List -> chunk.copy(type = Type.Ordered.Numbers)
         }
-
-        val newChunk = chunk.copy(type = newType)
         val index = chunks.indexOf(chunk)
-        if (index != -1) {
-            chunks[index] = newChunk
-        }
+        chunks.remove(chunk)
+        chunks.add(index, newChunk)
     }
 
-    fun changeToUnorderedList(chunk: List) {
-        if (chunk !is List) return
-
-        val newType = when (chunk.type) {
-            is Type.UnOrdered -> chunk.type
-            is Type.Ordered -> Type.UnOrdered.Bullet
-        }
-
-        val newChunk = chunk.copy(type = newType)
-        val index = chunks.indexOf(chunk)
-        if (index != -1) {
-            chunks[index] = newChunk
-        }
+    fun changeToUnorderedList(chunk: Chunk) {
+            val uid = getNextId()
+            val newChunk = when (chunk) {
+                is Heading -> List(uid = uid, type = Type.UnOrdered.Bullet, list = mutableListOf(chunk.text))
+                is Paragraph -> List(uid = uid, type = Type.UnOrdered.Bullet, list = mutableListOf(chunk.text))
+                is Image -> List(uid = uid, type = Type.UnOrdered.Bullet, list = mutableListOf(chunk.caption ?: ""))
+                is List -> chunk.copy(type = Type.UnOrdered.Bullet)
+            }
+            val index = chunks.indexOf(chunk)
+            chunks.remove(chunk)
+            chunks.add(index, newChunk)
     }
 
     fun changeUnorderedType(chunk: List, chosenOption: Type.UnOrdered) {
@@ -105,35 +101,20 @@ class EditorBodyController(val chunks: SnapshotStateList<Chunk> = mutableStateLi
         }
     }
 
-    fun changeOrderedType(chunk: List, chosenOption: Type.Ordered) {
-        if (chunk !is List || chunk.type !is Type.Ordered) return
+   fun changeOrderedType(chunk: List, chosenOption: Type.Ordered) {
+       if (chunk.type !is Type.Ordered) return
 
-        val currentType = chunk.type
-        val newType = when (chosenOption) {
-            Type.Ordered.Numbers -> Type.Ordered.Numbers
-            is Type.Ordered.Alphabetic -> {
-                when (currentType) {
-                    is Type.Ordered.Alphabetic -> Type.Ordered.Alphabetic(caps = !currentType.caps)
-                    is Type.Ordered.Roman -> Type.Ordered.Roman(caps = currentType.caps)
-                    Type.Ordered.Numbers -> Type.Ordered.Alphabetic(caps = chosenOption.caps)
-                }
-            }
+       val newType = when (chosenOption) {
+           Type.Ordered.Numbers -> Type.Ordered.Numbers
+           is Type.Ordered.Alphabetic -> Type.Ordered.Alphabetic(caps = chosenOption.caps)
+           is Type.Ordered.Roman -> Type.Ordered.Roman(caps = chosenOption.caps)
+       }
 
-            is Type.Ordered.Roman -> {
-                when (currentType) {
-                    is Type.Ordered.Roman -> Type.Ordered.Roman(caps = !currentType.caps)
-                    is Type.Ordered.Alphabetic -> Type.Ordered.Roman(caps = currentType.caps)
-                    Type.Ordered.Numbers -> Type.Ordered.Roman(caps = chosenOption.caps)
-                }
-            }
-        }
-
-        val newChunk = chunk.copy(type = newType)
-        val index = chunks.indexOf(chunk)
-        if (index != -1) {
-            chunks[index] = newChunk
-        }
-    }
+       val index = chunks.indexOf(chunk)
+       if (index != -1) {
+           chunks[index] = chunk.copy(type = newType)
+       }
+   }
 
     fun remove(chunk: Chunk) {
         chunks.remove(chunk)
