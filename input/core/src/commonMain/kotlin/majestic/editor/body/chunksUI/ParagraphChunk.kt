@@ -19,7 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.editor.BorderlessInput
 import majestic.editor.body.chunks.Paragraph
-import majestic.editor.toolbar.EditorColors
+import majestic.editor.body.chunksUI.tools.Labels
+import majestic.editor.tools.EditorColors
 
 @Composable
 internal fun ParagraphChunk(

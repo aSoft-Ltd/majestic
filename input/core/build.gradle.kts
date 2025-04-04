@@ -23,6 +23,7 @@ android {
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
+
     }
 
     compileOptions {
@@ -87,11 +88,16 @@ kotlin {
 //            implementation(libs.krono.kotlinx)
 //            implementation(coil.compose)
 //            implementation(coil.network.ktor)
+            api(compose.components.resources)
         }
 
         commonTest.dependencies {
             implementation(libs.kommander.coroutines)
             implementation(compose.uiTest)
+        }
+
+        androidMain.dependencies {
+            implementation(androidx.activity.ktx)?.because("We need ComponentActivity for android file picker")
         }
 
         jvmTest.dependencies {
