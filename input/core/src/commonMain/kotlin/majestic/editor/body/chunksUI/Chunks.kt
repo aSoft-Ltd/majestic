@@ -1,6 +1,7 @@
 package majestic.editor.body.chunksUI
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -12,13 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
+import majestic.editor.body.chunks.List
 import majestic.editor.body.chunks.Paragraph
-import majestic.editor.toolbar.EditorColors
+import majestic.editor.body.chunksUI.tools.EditorBodyController
+import majestic.editor.body.chunksUI.tools.ExternalResources
+import majestic.editor.body.chunksUI.tools.Labels
+import majestic.editor.tools.EditorColors
+import majestic.filepicker.FilePicker
 
 @Composable
 fun Chunks(
@@ -27,9 +32,10 @@ fun Chunks(
     colors: EditorColors,
     actions: @Composable (chunk: Chunk) -> Unit,
     labels: Labels,
-    resource: Painter,
-    onDrop: () -> Unit,
-    onClick: () -> Unit
+    externalResources: ExternalResources,
+    picker: FilePicker,
+    previewOverlay: @Composable BoxScope.() -> Unit,
+    permissionRequest: @Composable ((Boolean) -> Unit) -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -65,11 +71,20 @@ fun Chunks(
                     )
 
                     is Image -> ImageChunk(
-                        resource = resource,
+                        resource = externalResources.imageChunk,
                         labels = labels,
                         colors = colors,
-                        onDrop = onDrop,
-                        onClick = onClick
+                        picker = picker,
+                        previewOverlay = previewOverlay,
+                        permissionRequest = permissionRequest
+                    )
+
+                    is List -> ListChunk(
+                        chunk = chunk,
+                        colors = colors,
+                        labels = labels,
+                        controller = controller,
+                        resource = externalResources.listChunk
                     )
                 }
 
