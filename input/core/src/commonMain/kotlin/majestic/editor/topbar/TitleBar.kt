@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.editor.BorderlessInput
-import majestic.editor.toolbar.EditorColors
+import majestic.editor.tools.EditorColors
 
 @Composable
 fun TitleBar(

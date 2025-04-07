@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.editor.toolbar.EditorColors
+import majestic.editor.tools.EditorColors
 
 class EmojiPreservingVisualTransformation(private val textColor: Color) : VisualTransformation {
     private val emojiRegex = Regex("[\uD83C-\uDBFF\uDC00-\uDFFF]+")
@@ -70,7 +70,7 @@ fun BorderlessInput(
     onChange: (String) -> Unit,
     colors: EditorColors,
     singleLine: Boolean = true,
-    minLines: Int = if (singleLine) 1 else 4,  // Default to 4 lines in paragraph mode when empty
+    minLines: Int = if (singleLine) 1 else 4,
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     style: TextStyle = TextStyle(
@@ -83,13 +83,7 @@ fun BorderlessInput(
     var focusState by remember { mutableStateOf(false) }
     val lineHeight = style.lineHeight.value.dp
     val textColor = if (focusState) colors.text.active else colors.text.inActive
-
-
-    val effectiveMinHeight = if (!singleLine && value.isNotEmpty()) {
-        lineHeight
-    } else {
-        lineHeight * minLines
-    }
+    val effectiveMinHeight = if (!singleLine && value.isNotEmpty()) lineHeight else lineHeight * (if (value.isEmpty() && focusState) minLines else 1)
 
     BasicTextField(
         value = value,
