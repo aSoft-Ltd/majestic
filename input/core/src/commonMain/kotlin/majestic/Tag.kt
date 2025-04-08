@@ -28,8 +28,7 @@ fun Tag(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            modifier = Modifier
-                .padding(vertical = 2.dp, horizontal = 5.dp),
+            modifier = Modifier.padding(vertical = 2.dp, horizontal = 5.dp),
             text = label,
             color = color,
             fontSize = fontSize,
