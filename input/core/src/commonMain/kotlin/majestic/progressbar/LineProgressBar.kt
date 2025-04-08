@@ -60,7 +60,7 @@ fun LineProgressBar(
                     } else if (index == current) {
                         icon.active()
                     } else {
-                        icon.default()
+                        icon.pending()
                     }
                 }
             }
