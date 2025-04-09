@@ -1,14 +1,11 @@
 package majestic.multiselect
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import majestic.multiselect.defaults.MultiSelectDefaults
 
 @Composable
 fun <T> SmartMultiSelect(
@@ -16,8 +13,8 @@ fun <T> SmartMultiSelect(
     items: Collection<T>,
     selectedItems: List<T>,
     onItemToggled: (T) -> Unit,
-    item: @Composable (T) -> Unit = { Text("$it") },
-    dropDownItem: @Composable (T, () -> Unit) -> Unit = { option, onToggle ->
+    selectedItem: @Composable (T) -> Unit = { Text("$it") },
+    item: @Composable (T, () -> Unit) -> Unit = { option, onToggle ->
         Text("$option", modifier = Modifier.clickable { onToggle() })
     },
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -25,29 +22,14 @@ fun <T> SmartMultiSelect(
     placeholder: @Composable () -> Unit = {
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
-    multiSelectDefaults: MultiSelectDefaults = MultiSelectDefaults(
-        selectedDefaults = SelectedDefaults(
-            containerColor = Color.Transparent,
-            containerShape = RoundedCornerShape(8.dp),
-            borderWidth = 0.dp,
-            borderColor = Color.Transparent,
-            borderShape = RoundedCornerShape(8.dp)
-        ),
-        dropDownDefaults = DropDownDefaults(
-            containerColor = Color.Transparent,
-            shape = RoundedCornerShape(8.dp),
-            shadowElevation = 0.dp,
-            border = BorderStroke(0.dp, Color.Transparent),
-            tonalElevation = 0.dp
-        )
-    )
+    multiSelectDefaults: MultiSelectDefaults = MultiSelectDefaults.Default
 ) {
     DumbMultiSelect(
         items = items,
         selectedItems = selectedItems,
         onItemClick = onItemToggled,
+        selectedItem = selectedItem,
         item = item,
-        listItem = dropDownItem,
         placeholder = placeholder,
         modifier = modifier,
         leadingIcon = leadingIcon,

@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import majestic.NoRippleInteractionSource
+import majestic.multiselect.defaults.MultiSelectDefaults
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,8 +33,8 @@ fun <T> DumbMultiSelect(
     items: Collection<T>,
     selectedItems: List<T>,
     onItemClick: (T) -> Unit,
-    item: @Composable (T) -> Unit,
-    listItem: @Composable (T, () -> Unit) -> Unit,
+    selectedItem: @Composable (T) -> Unit,
+    item: @Composable (T, () -> Unit) -> Unit,
     placeholder: @Composable () -> Unit = {
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
@@ -50,12 +51,12 @@ fun <T> DumbMultiSelect(
     ) {
         Box(
             modifier = Modifier
-                .clip(shape = multiSelectDefaults.selectedDefaults.containerShape)
-                .background(color = multiSelectDefaults.selectedDefaults.containerColor, shape = multiSelectDefaults.selectedDefaults.containerShape)
+                .clip(shape = multiSelectDefaults.selected.containerShape)
+                .background(color = multiSelectDefaults.selected.containerColor, shape = multiSelectDefaults.selected.containerShape)
                 .border(
-                    width = multiSelectDefaults.selectedDefaults.borderWidth,
-                    color = multiSelectDefaults.selectedDefaults.borderColor,
-                    shape = multiSelectDefaults.selectedDefaults.borderShape
+                    width = multiSelectDefaults.selected.borderWidth,
+                    color = multiSelectDefaults.selected.borderColor,
+                    shape = multiSelectDefaults.selected.borderShape
                 )
                 .exposedDropdownSize()
                 .menuAnchor(type = MenuAnchorType.PrimaryEditable)
@@ -71,8 +72,8 @@ fun <T> DumbMultiSelect(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
-                        color = multiSelectDefaults.selectedDefaults.containerColor,
-                        shape = multiSelectDefaults.selectedDefaults.containerShape
+                        color = multiSelectDefaults.selected.containerColor,
+                        shape = multiSelectDefaults.selected.containerShape
                     )
                     .padding(horizontal = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -91,7 +92,7 @@ fun <T> DumbMultiSelect(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         selectedItems.forEach { selectedItem ->
-                            item(selectedItem)
+                            selectedItem(selectedItem)
                         }
                     }
                 }
@@ -104,17 +105,17 @@ fun <T> DumbMultiSelect(
         }
 
         ExposedDropdownMenu(
-            containerColor = multiSelectDefaults.dropDownDefaults.containerColor,
-            shape = multiSelectDefaults.dropDownDefaults.shape,
-            shadowElevation = multiSelectDefaults.dropDownDefaults.shadowElevation,
-            border = multiSelectDefaults.dropDownDefaults.border,
-            tonalElevation = multiSelectDefaults.dropDownDefaults.tonalElevation,
+            containerColor = multiSelectDefaults.dropdown.containerColor,
+            shape = multiSelectDefaults.dropdown.shape,
+            shadowElevation = multiSelectDefaults.dropdown.shadowElevation,
+            border = multiSelectDefaults.dropdown.border,
+            tonalElevation = multiSelectDefaults.dropdown.tonalElevation,
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier.exposedDropdownSize()
         ) {
             items.forEach { itemValue ->
-                listItem(itemValue) { onItemClick(itemValue) }
+                item(itemValue) { onItemClick(itemValue) }
             }
         }
     }

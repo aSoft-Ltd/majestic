@@ -1,8 +1,10 @@
-package majestic.multiselect
+package majestic.multiselect.defaults
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 /**
  * Default values for the selected item in the [MultiSelect] component.
@@ -13,10 +15,20 @@ import androidx.compose.ui.unit.Dp
  * @param borderColor The color of the border around the selected item.
  * @param borderShape The shape of the border around the selected item.
  */
-class SelectedDefaults(
+data class SelectedDefaults(
     val containerColor: Color,
     val containerShape: Shape,
     val borderWidth: Dp,
     val borderColor: Color,
-    val borderShape: Shape,
-)
+    val borderShape: Shape
+) {
+    companion object {
+        val Default = SelectedDefaults(
+            containerColor = Color.Transparent,
+            containerShape = RoundedCornerShape(8.dp),
+            borderWidth = 0.dp,
+            borderColor = Color.Transparent,
+            borderShape = RoundedCornerShape(8.dp)
+        )
+    }
+}
