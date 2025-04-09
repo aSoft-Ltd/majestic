@@ -101,6 +101,9 @@ fun <T> Select(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(8.dp),
     dropDownShape: Shape = RoundedCornerShape(8.dp),
+    placeholder: @Composable (Boolean) -> Unit = { expanded ->
+        Placeholder(icon, colors, expanded, hint)
+    },
     onSelect: ((T) -> Unit)? = null,
     option: @Composable (T) -> Unit = { Text("$it") }
 ) {
@@ -116,7 +119,7 @@ fun <T> Select(
         dropDownShape = dropDownShape,
         containerColor = colors.focused.placeholder,
         dropDownContainerColor = colors.dropdown.background,
-        placeholder = { ItemSelect(icon, colors, expanded) { Text(hint, color = colors.blurred.text) } },
+        placeholder = { placeholder(expanded) },
         selected = { ItemSelect(icon, colors, expanded) { option(it) } },
         item = option,
         onExpanded = { expanded = it },
@@ -125,6 +128,11 @@ fun <T> Select(
             onSelect?.invoke(it)
         }
     )
+}
+
+@Composable
+private fun Placeholder(icon: ImageVector, colors: SelectColors, expanded: Boolean, hint: String) {
+    ItemSelect(icon, colors, expanded) { Text(hint, color = colors.blurred.text) }
 }
 
 @Composable
