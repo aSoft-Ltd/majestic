@@ -31,9 +31,8 @@ import majestic.colors.ColorPair
  * @param content Optional composable content to display in the center
  */
 @Composable
-fun RotatingLoader(
+fun CircularLoader(
     modifier: Modifier = Modifier,
-    size: Dp = 100.dp,
     strokeWidth: Dp = 8.dp,
     arcLength: Float = 45f,
     color: ColorPair = ColorPair(
@@ -56,7 +55,7 @@ fun RotatingLoader(
     )
 
     Box(
-        modifier = modifier.size(size),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         content?.invoke(this)
