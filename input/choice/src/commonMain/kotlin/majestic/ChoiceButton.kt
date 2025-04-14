@@ -5,7 +5,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -68,7 +70,7 @@ fun ChoiceButton(
                 enabled = true,
                 onClick = onSelect
             ),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconCheckCircle(
@@ -79,6 +81,7 @@ fun ChoiceButton(
                 icon = color.icon
             )
         )
+        Spacer(Modifier.width(10.dp))
         Text(modifier = Modifier.padding(end = 5.dp), text = label, color = color.label)
     }
 }
