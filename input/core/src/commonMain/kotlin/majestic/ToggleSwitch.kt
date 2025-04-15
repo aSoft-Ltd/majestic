@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -42,8 +43,10 @@ fun ToggleSwitch(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     height: Dp = 30.dp,
+    circleSize: Dp = 20.dp,
     width: Dp = 60.dp,
     circlePadding: Dp = 4.dp,
+    shape: Shape = CircleShape,
     colors: ToggleSwitchColors = ToggleSwitchColors(),
 ) {
     val sizePx = with(LocalDensity.current) { (width - height - (circlePadding * 2)).toPx() }
@@ -70,8 +73,8 @@ fun ToggleSwitch(
             Modifier
                 .graphicsLayer { translationX = animateTranslation }
                 .padding(circlePadding)
-                .size(height)
-                .clip(CircleShape)
+                .size(circleSize)
+                .clip(shape)
                 .background(color.foreground)
         )
     }
