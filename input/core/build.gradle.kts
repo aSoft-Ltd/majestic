@@ -97,7 +97,7 @@ kotlin {
         }
 
         androidMain.dependencies {
-//            implementation(androidx.activity.ktx)?.because("We need ComponentActivity for android file picker")
+            implementation(androidx.activity.ktx)?.because("We need ComponentActivity for android file picker")
         }
 
         jvmTest.dependencies {
