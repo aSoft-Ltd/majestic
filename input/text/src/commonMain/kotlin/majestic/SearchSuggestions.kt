@@ -13,25 +13,38 @@ import majestic.colors.ThemeColors
 fun <T> SearchSuggestions(
     expanded: Boolean,
     suggestions: List<T>,
+    currentSelectedIndex: Int,
     theme: ThemeColors,
     onClick: (T) -> Unit,
     suggestion: @Composable (T) -> Unit,
     modifier: Modifier = Modifier
-) = DropdownMenu(
-    containerColor = theme.surface1.main.background,
-    expanded = expanded,
-    onDismissRequest = { /* Do nothing to prevent auto-dismiss */ },
-    modifier = modifier,
-    properties = PopupProperties(
-        focusable = false,
-        dismissOnBackPress = false,
-        dismissOnClickOutside = true
-    )
 ) {
-    for (item in suggestions) DropdownMenuItem(
-        modifier = Modifier.fillMaxWidth().background(theme.surface1.main.background),
-        onClick = { onClick(item) },
-        text = { suggestion(item) }
-    )
+    DropdownMenu(
+        containerColor = theme.surface1.main.background,
+        expanded = expanded,
+        onDismissRequest = { /* Do nothing to prevent auto-dismiss */ },
+        modifier = modifier,
+        properties = PopupProperties(
+            focusable = false,
+            dismissOnBackPress = false,
+            dismissOnClickOutside = true
+        ),
+    ) {
+        suggestions.forEachIndexed { index, item ->
+            DropdownMenuItem(
+                modifier = Modifier.fillMaxWidth()
+                    .background(
+                        if (index == currentSelectedIndex) theme.surface1.main.background.copy(
+                            alpha = .3f,
+                            red = .4f,
+                            blue = .45f,
+                            green = .4f
+                        ) else theme.surface1.main.background
+                    ),
+                onClick = { onClick(item) },
+                text = { suggestion(item) },
+            )
+        }
+    }
 }
 

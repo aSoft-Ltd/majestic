@@ -1,5 +1,6 @@
 package majestic
 
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -21,15 +22,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -43,6 +50,7 @@ fun Search(
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     hint: String = "Search",
+    focusRequester: FocusRequester? = null,
     textStyle: TextStyle? = null,
     hintStyle: TextStyle = LocalTextStyle.current,
     onSearch: () -> Unit = {},
@@ -50,7 +58,9 @@ fun Search(
     onDismiss: () -> Unit = {},
     icon: @Composable (() -> Unit)? = null,
     suggestions: @Composable (Boolean, Int) -> Unit = { _, _ -> },
-    onEnter: (keyEvent: KeyEvent) -> Unit = { }
+    onEnter: (keyEvent: KeyEvent) -> Unit = { },
+    onUpArrow: () -> Unit = {},
+    onDownArrow: () -> Unit = {},
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }
@@ -63,14 +73,27 @@ fun Search(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            val focusRequester = remember { FocusRequester() }
             BasicTextField(
-                modifier = Modifier
-                    .weight(1f)
-                    .focusRequester(focusRequester)
+                modifier = if (focusRequester != null) {
+                    Modifier.focusRequester(focusRequester)
+                } else {
+                    Modifier
+                }.weight(1f)
                     .onFocusChanged {
                         isFocused = it.isFocused
                         onFocusChange(it.isFocused)
+                    }.onPreviewKeyEvent {
+                        when {
+                            it.key == Key.DirectionUp && it.type == KeyEventType.KeyUp -> {
+                                onUpArrow()
+                                true
+                            }
+                            it.key == Key.DirectionDown && it.type == KeyEventType.KeyUp -> {
+                                onDownArrow()
+                                true
+                            }
+                            else -> false
+                        }
                     }
                     .onKeyEvent {
                         if (it.key != Key.Enter) return@onKeyEvent false
@@ -105,6 +128,9 @@ fun Search(
                     onClick = {
                         onSearch()
                         onDismiss()
+                    },
+                    modifier = Modifier.focusProperties {
+                        canFocus = false
                     }
                 ) {
                     if (icon != null) icon() else Icon(
