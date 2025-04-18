@@ -1,6 +1,5 @@
 package majestic
 
-import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
@@ -36,12 +34,12 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.colors.ThemeColors
+
 
 @Composable
 fun Search(
@@ -65,6 +63,7 @@ fun Search(
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }
 
+
     Box(modifier = modifier) {
         Row(
             modifier = Modifier
@@ -73,51 +72,54 @@ fun Search(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BasicTextField(
-                modifier = if (focusRequester != null) {
-                    Modifier.focusRequester(focusRequester)
-                } else {
-                    Modifier
-                }.weight(1f)
-                    .onFocusChanged {
-                        isFocused = it.isFocused
-                        onFocusChange(it.isFocused)
-                    }.onPreviewKeyEvent {
-                        when {
-                            it.key == Key.DirectionUp && it.type == KeyEventType.KeyUp -> {
-                                onUpArrow()
-                                true
+                BasicTextField(
+                    modifier = if (focusRequester != null) {
+                        Modifier.focusRequester(focusRequester)
+                    } else {
+                        Modifier
+                    }.weight(1f)
+                        .onFocusChanged {
+                            isFocused = it.isFocused
+                            onFocusChange(it.isFocused)
+                        }.onPreviewKeyEvent {
+                            when {
+                                it.key == Key.DirectionUp && it.type == KeyEventType.KeyUp -> {
+                                    onUpArrow()
+                                    true
+                                }
+
+                                it.key == Key.DirectionDown && it.type == KeyEventType.KeyUp -> {
+                                    onDownArrow()
+                                    true
+                                }
+
+                                else -> false
                             }
-                            it.key == Key.DirectionDown && it.type == KeyEventType.KeyUp -> {
-                                onDownArrow()
-                                true
-                            }
-                            else -> false
                         }
-                    }
-                    .onKeyEvent {
-                        if (it.key != Key.Enter) return@onKeyEvent false
-                        onEnter(it)
-                        true
+                        .onKeyEvent {
+                            if (it.key != Key.Enter) return@onKeyEvent false
+                            onEnter(it)
+                            true
+                        },
+                    value = value,
+                    onValueChange = onChange,
+                    textStyle = textStyle ?: LocalTextStyle.current.copy(
+                        fontSize = 16.sp,
+                        color = theme.surface1.main.foreground
+                    ),
+                    cursorBrush = SolidColor(theme.surface1.main.foreground),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    decorationBox = { innerTextField ->
+                        if (value.isEmpty()) Text(
+                            text = hint,
+                            color = theme.surface1.main.foreground.copy(alpha = 0.5f),
+                            style = hintStyle
+                        )
+                        innerTextField()
                     },
-                value = value,
-                onValueChange = onChange,
-                textStyle = textStyle ?: LocalTextStyle.current.copy(
-                    fontSize = 16.sp,
-                    color = theme.surface1.main.foreground
-                ),
-                cursorBrush = SolidColor(theme.surface1.main.foreground),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                decorationBox = { innerTextField ->
-                    if (value.isEmpty()) Text(
-                        text = hint,
-                        color = theme.surface1.main.foreground.copy(alpha = 0.5f),
-                        style = hintStyle
-                    )
-                    innerTextField()
-                },
-                singleLine = true
-            )
+                    singleLine = true
+                )
+
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 VerticalDivider(
