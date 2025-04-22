@@ -18,7 +18,7 @@ plugins {
 description = "The majestic design system implementation from asoft"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.text"
+    namespace = "tz.co.asoft.academia.majestic.input.choice"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
