@@ -37,8 +37,7 @@ fun <T> DumbSelect(
     onClick: ((T) -> Unit)? = null,
     onExpanded: ((Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier,
-    containerColor: Color = Color.Unspecified,
-    shape: Shape = MenuDefaults.shape,
+    containerShape: Shape = MenuDefaults.shape,
     dropDownContainerColor: Color = Color.Unspecified,
     dropDownShape: Shape = MenuDefaults.shape,
     shadowElevation: Dp = MenuDefaults.ShadowElevation,
@@ -57,18 +56,18 @@ fun <T> DumbSelect(
     ) {
         Box(
             modifier = Modifier
-            .clip(shape = shape)
-            .background(color = containerColor, shape = shape)
-            .exposedDropdownSize()
-            .menuAnchor(type = MenuAnchorType.PrimaryEditable)
-            .clickable(
-                interactionSource = NoRippleInteractionSource,
-                indication = null,
-                onClick = {
-                    expanded = true
-                    onExpanded?.invoke(true)
-                }
-            )
+                .clip(shape = containerShape)
+                .background(color = Color.Transparent, shape = containerShape)
+                .exposedDropdownSize()
+                .menuAnchor(type = MenuAnchorType.PrimaryEditable)
+                .clickable(
+                    interactionSource = NoRippleInteractionSource,
+                    indication = null,
+                    onClick = {
+                        expanded = true
+                        onExpanded?.invoke(true)
+                    }
+                )
         ) {
             when (value) {
                 null -> placeholder()
