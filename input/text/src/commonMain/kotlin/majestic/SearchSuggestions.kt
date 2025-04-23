@@ -6,8 +6,14 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.PopupProperties
 import majestic.colors.ThemeColors
+
+data class SuggestionHighlightColors(
+    val inactive: Color,
+    val active: Color,
+)
 
 @Composable
 fun <T> SearchSuggestions(
@@ -15,6 +21,7 @@ fun <T> SearchSuggestions(
     suggestions: List<T>,
     currentSelectedIndex: Int,
     theme: ThemeColors,
+    suggestionColors: SuggestionHighlightColors,
     onClick: (T) -> Unit,
     suggestion: @Composable (T) -> Unit,
     modifier: Modifier = Modifier
@@ -34,12 +41,8 @@ fun <T> SearchSuggestions(
             DropdownMenuItem(
                 modifier = Modifier.fillMaxWidth()
                     .background(
-                        if (index == currentSelectedIndex) theme.surface1.main.background.copy(
-                            alpha = .3f,
-                            red = .4f,
-                            blue = .45f,
-                            green = .4f
-                        ) else theme.surface1.main.background
+                        if (index == currentSelectedIndex)
+                            suggestionColors.active else suggestionColors.inactive
                     ),
                 onClick = { onClick(item) },
                 text = { suggestion(item) },
