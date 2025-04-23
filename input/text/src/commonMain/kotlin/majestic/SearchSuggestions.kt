@@ -47,4 +47,3 @@ fun <T> SearchSuggestions(
         }
     }
 }
-
