@@ -25,6 +25,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEvent
@@ -38,13 +39,29 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.colors.ThemeColors
 
+data class SearchDefaultColors(
+    val hint: Color,
+    val text: Color,
+    val cursor: Color,
+    val verticalDivider: Color,
+    val tint: Color
+) {
+    companion object {
+        val Default = SearchDefaultColors(
+            hint = Color(0xFFB0B0B0),
+            text = Color(0xFF000000),
+            cursor = Color(0xFF000000),
+            verticalDivider = Color(0xFFB0B0B0),
+            tint = Color(0xFF000000)
+        )
+    }
+}
 
 @Composable
 fun Search(
     value: String,
-    theme: ThemeColors,
+    colors: SearchDefaultColors = SearchDefaultColors.Default,
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     hint: String = "Search",
@@ -54,7 +71,7 @@ fun Search(
     onSearch: () -> Unit = {},
     onFocusChange: (Boolean) -> Unit = {},
     onDismiss: () -> Unit = {},
-    icon: @Composable (() -> Unit)? = null,
+    icon: @Composable() (() -> Unit)? = null,
     suggestions: @Composable (Boolean, Int) -> Unit = { _, _ -> },
     onEnter: (keyEvent: KeyEvent) -> Unit = { },
     onUpArrow: () -> Unit = {},
@@ -72,59 +89,59 @@ fun Search(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-                BasicTextField(
-                    modifier = if (focusRequester != null) {
-                        Modifier.focusRequester(focusRequester)
-                    } else {
-                        Modifier
-                    }.weight(1f)
-                        .onFocusChanged {
-                            isFocused = it.isFocused
-                            onFocusChange(it.isFocused)
-                        }.onPreviewKeyEvent {
-                            when {
-                                it.key == Key.DirectionUp && it.type == KeyEventType.KeyUp -> {
-                                    onUpArrow()
-                                    true
-                                }
-
-                                it.key == Key.DirectionDown && it.type == KeyEventType.KeyUp -> {
-                                    onDownArrow()
-                                    true
-                                }
-
-                                else -> false
+            BasicTextField(
+                modifier = if (focusRequester != null) {
+                    Modifier.focusRequester(focusRequester)
+                } else {
+                    Modifier
+                }.weight(1f)
+                    .onFocusChanged {
+                        isFocused = it.isFocused
+                        onFocusChange(it.isFocused)
+                    }.onPreviewKeyEvent {
+                        when {
+                            it.key == Key.DirectionUp && it.type == KeyEventType.KeyUp -> {
+                                onUpArrow()
+                                true
                             }
+
+                            it.key == Key.DirectionDown && it.type == KeyEventType.KeyUp -> {
+                                onDownArrow()
+                                true
+                            }
+
+                            else -> false
                         }
-                        .onKeyEvent {
-                            if (it.key != Key.Enter) return@onKeyEvent false
-                            onEnter(it)
-                            true
-                        },
-                    value = value,
-                    onValueChange = onChange,
-                    textStyle = textStyle ?: LocalTextStyle.current.copy(
-                        fontSize = 16.sp,
-                        color = theme.surface1.main.foreground
-                    ),
-                    cursorBrush = SolidColor(theme.surface1.main.foreground),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    decorationBox = { innerTextField ->
-                        if (value.isEmpty()) Text(
-                            text = hint,
-                            color = theme.surface1.main.foreground.copy(alpha = 0.5f),
-                            style = hintStyle
-                        )
-                        innerTextField()
+                    }
+                    .onKeyEvent {
+                        if (it.key != Key.Enter) return@onKeyEvent false
+                        onEnter(it)
+                        true
                     },
-                    singleLine = true
-                )
+                value = value,
+                onValueChange = onChange,
+                textStyle = textStyle ?: LocalTextStyle.current.copy(
+                    fontSize = 16.sp,
+                    color = colors.text
+                ),
+                cursorBrush = SolidColor(colors.cursor),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                decorationBox = { innerTextField ->
+                    if (value.isEmpty()) Text(
+                        text = hint,
+                        color = colors.hint,
+                        style = hintStyle
+                    )
+                    innerTextField()
+                },
+                singleLine = true
+            )
 
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 VerticalDivider(
                     modifier = Modifier.padding(vertical = 8.dp),
-                    color = theme.surface1.main.foreground.copy(alpha = 0.15f)
+                    color = colors.verticalDivider
                 )
                 IconButton(
                     onClick = {
@@ -139,7 +156,7 @@ fun Search(
                         modifier = Modifier.padding(10.dp),
                         imageVector = Icons.Default.Search,
                         contentDescription = "Search Icon",
-                        tint = theme.surface1.main.foreground,
+                        tint = colors.tint,
                     )
                 }
             }
