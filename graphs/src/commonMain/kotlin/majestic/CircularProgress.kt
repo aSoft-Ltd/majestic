@@ -1,7 +1,12 @@
 package majestic
 
+
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -12,6 +17,31 @@ import androidx.compose.ui.unit.dp
 import majestic.colors.ColorPair
 import majestic.tools.minus
 import majestic.tools.toOffset
+
+@Composable
+fun CircularProgress(
+    modifier: Modifier = Modifier.size(100.dp),
+    percentage: Float,
+    color: ColorPair = ColorPair(
+        background = Color.Black.copy(alpha = 0.2f),
+        foreground = Color.White
+    ),
+    stroke: Dp = 8.dp,
+    startAngle: Float = -90f,
+    content: @Composable BoxScope.() -> Unit = {}
+) = Box(
+    modifier = modifier,
+    contentAlignment = Alignment.Center
+) {
+    content()
+    CircularProgress(
+        modifier = Modifier.matchParentSize(),
+        percentage = percentage,
+        color = color,
+        stroke = stroke,
+        startAngle = startAngle
+    )
+}
 
 @Composable
 fun CircularProgress(
