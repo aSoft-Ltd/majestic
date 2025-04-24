@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import majestic.colors.ColorPair
 
 data class ChoiceColorGroup(
@@ -81,6 +82,11 @@ fun ChoiceButton(
             )
         )
         Spacer(Modifier.width(10.dp))
-        Text(modifier = Modifier.padding(end = 5.dp), text = label, color = color.label)
+        Text(
+            modifier = Modifier.padding(end = 5.dp),
+            text = label,
+            color = color.label,
+            lineHeight = 1.sp
+        )
     }
 }
