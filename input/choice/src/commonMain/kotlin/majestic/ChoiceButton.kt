@@ -2,7 +2,6 @@ package majestic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -48,28 +47,28 @@ data class ChoiceColors(
     )
 )
 
+fun Modifier.choiceButton(background: Color, border: Color) = clip(CircleShape)
+    .border(1.dp, border, CircleShape)
+    .background(color = background)
+    .padding(10.dp)
+    .pointerHoverIcon(PointerIcon.Hand)
+
+fun Modifier.choiceButton(selected: Boolean, colors: ChoiceColors = ChoiceColors()) = choiceButton(
+    background = if (selected) colors.selected.background else colors.unselected.background,
+    border = if (selected) colors.selected.border else colors.unselected.border,
+)
+
 @Composable
 fun ChoiceButton(
     label: String,
     selected: Boolean,
-    onSelect: () -> Unit,
-    modifier: Modifier = Modifier,
-    colors: ChoiceColors = ChoiceColors()
+    onSelect: () -> Unit = {}, // TODO: remove this later use modifier
+    colors: ChoiceColors = ChoiceColors(),
+    modifier: Modifier = Modifier.choiceButton(selected, colors)
 ) {
     val color = if (selected) colors.selected else colors.unselected
     Row(
-        modifier = modifier
-            .clip(CircleShape)
-            .border(1.dp, color.border, CircleShape)
-            .background(color = color.background)
-            .padding(10.dp)
-            .pointerHoverIcon(PointerIcon.Hand)
-            .clickable(
-                interactionSource = NoRippleInteractionSource,
-                indication = null,
-                enabled = true,
-                onClick = onSelect
-            ),
+        modifier = modifier,
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
