@@ -12,21 +12,21 @@ import majestic.calendar.tools.DatePickerState
 import majestic.calendar.days.DefaultGrid
 import majestic.calendar.days.WeekDays
 import majestic.calendar.month.MonthYearPicker
-import majestic.calendar.tools.CalendarDefaults
+import majestic.calendar.tools.Calendar
 
 @Composable
 fun Calendar(
     state: DatePickerState,
     modifier: Modifier = Modifier,
-    defaults: CalendarDefaults = CalendarDefaults.Default,
+    defaults: Calendar = Calendar.Default,
 ) {
     Column(
         modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 2.dp, alignment = Alignment.CenterVertically),
     ) {
-        MonthYearPicker(state = state, modifier = Modifier.fillMaxWidth(), defaults = defaults.defaults.monthYear)
-        WeekDays(modifier = Modifier.weight(1f), defaults = defaults.defaults.weekDays)
+        MonthYearPicker(state = state, modifier = Modifier.fillMaxWidth(), defaults = defaults.week.monthYear)
+        WeekDays(modifier = Modifier.weight(1f), defaults = defaults.week.day)
         DefaultGrid(modifier = Modifier.height(240.dp).fillMaxWidth(), state = state, colors = defaults.colors.day)
     }
 }

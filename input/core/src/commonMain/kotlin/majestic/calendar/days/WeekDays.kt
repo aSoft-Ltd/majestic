@@ -5,10 +5,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import majestic.calendar.days.tools.WeekDays
+import majestic.calendar.days.tools.Day
 
 @Composable
-internal fun WeekDays(modifier: Modifier, defaults: WeekDays = WeekDays.Default) {
+internal fun WeekDays(modifier: Modifier, defaults: Day = Day.Default) {
     Row {
         defaults.days.forEach { day ->
             Text(
