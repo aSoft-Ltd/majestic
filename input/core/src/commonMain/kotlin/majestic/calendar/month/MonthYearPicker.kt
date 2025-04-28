@@ -24,7 +24,7 @@ import majestic.calendar.tools.DatePickerState
 
 
 @Composable
-fun MonthYearPicker(
+internal fun MonthYearPicker(
     state: DatePickerState,
     modifier: Modifier,
     defaults: MonthYearDefaults = MonthYearDefaults.Default,
@@ -36,7 +36,7 @@ fun MonthYearPicker(
     ) {
         Icon(
             modifier = Modifier.size(24.dp).clickable(onClick = { state.onMonthChanged(state.currentMonth.minus(1, DateTimeUnit.MONTH)) }),
-            imageVector = defaults.resources.previousMonth,
+            imageVector = defaults.resources.prev,
             contentDescription = "Previous month",
             tint = defaults.colors.tint.previousMonth
         )
@@ -74,7 +74,7 @@ fun MonthYearPicker(
         }
 
         Icon(
-            imageVector = defaults.resources.nextMonth,
+            imageVector = defaults.resources.next,
             tint = defaults.colors.tint.nextMonth,
             contentDescription = "Next month",
             modifier = Modifier.size(24.dp).clickable(onClick = { state.onMonthChanged(state.currentMonth.plus(1, DateTimeUnit.MONTH)) }),

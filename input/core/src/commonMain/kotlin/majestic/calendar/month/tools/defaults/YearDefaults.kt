@@ -5,12 +5,12 @@ import androidx.compose.ui.unit.sp
 
 data class YearDefaults(
     val fontSize: TextUnit,
-    val colors: YearDefaultColors
+    val colors: YearColors
 ) {
     companion object {
         val Default = YearDefaults(
             fontSize = 16.sp,
-            colors = YearDefaultColors.Default
+            colors = YearColors.Default
         )
     }
 }

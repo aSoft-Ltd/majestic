@@ -16,14 +16,14 @@ data class DateRangePickerLabels(
 
 @Stable
 class DateRangeState(
-    initialFromDate: LocalDate? = null,
-    initialToDate: LocalDate? = null,
+    from: LocalDate? = null,
+    to: LocalDate? = null,
     val currentDate: LocalDate,
     labels: DateRangePickerLabels
 ) {
     var showCalendar by mutableStateOf(false)
-    var fromDate by mutableStateOf(initialFromDate)
-    var toDate by mutableStateOf(initialToDate)
+    var fromDate by mutableStateOf(from)
+    var toDate by mutableStateOf(to)
     private val formattedFromDate = derivedStateOf { formatDate(fromDate) }
     private val formattedToDate = derivedStateOf { formatDate(toDate) }
 

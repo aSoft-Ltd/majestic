@@ -25,8 +25,8 @@ fun Calendar(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 2.dp, alignment = Alignment.CenterVertically),
     ) {
-        MonthYearPicker(state = state, modifier = Modifier.fillMaxWidth(), defaults = defaults.defaults.monthYearDefaults)
-        WeekDays(modifier = Modifier.weight(1f), defaults = defaults.defaults.weekDaysDefaults)
+        MonthYearPicker(state = state, modifier = Modifier.fillMaxWidth(), defaults = defaults.defaults.monthYear)
+        WeekDays(modifier = Modifier.weight(1f), defaults = defaults.defaults.weekDays)
         DefaultGrid(modifier = Modifier.height(240.dp).fillMaxWidth(), state = state, colors = defaults.colors.day)
     }
 }

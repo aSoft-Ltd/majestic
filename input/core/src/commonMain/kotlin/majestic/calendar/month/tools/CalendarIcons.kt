@@ -2,8 +2,8 @@ package majestic.calendar.month.tools
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
-data class MonthYearResources(
-    val previousMonth: ImageVector,
-    val nextMonth: ImageVector,
+data class CalendarIcons(
+    val prev: ImageVector,
+    val next: ImageVector,
     val dropDown: ImageVector
 )

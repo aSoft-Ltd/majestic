@@ -1,34 +1,33 @@
 package majestic.calendar.tools
 
-import majestic.calendar.days.tools.DayDefaultColors
-import majestic.calendar.days.tools.WeekDaysDefaults
+import majestic.calendar.days.tools.DayColors
+import majestic.calendar.days.tools.WeekDays
 import majestic.calendar.month.tools.defaults.MonthYearColors
 import majestic.calendar.month.tools.defaults.MonthYearDefaults
-import majestic.calendar.month.tools.defaults.YearDefaultColors
-import majestic.calendar.month.tools.defaults.YearDefaults
+import majestic.calendar.month.tools.defaults.YearColors
 
 data class CalendarColors(
-    val day: DayDefaultColors,
+    val day: DayColors,
     val month: MonthYearColors,
-    val year: YearDefaultColors
+    val year: YearColors
 ) {
     companion object {
         val Default = CalendarColors(
-            day = DayDefaultColors.Default,
+            day = DayColors.Default,
             month = MonthYearColors.Default,
-            year = YearDefaultColors.Default
+            year = YearColors.Default
         )
     }
 }
 
-data class Defaults(
-    val weekDaysDefaults: WeekDaysDefaults,
-    val monthYearDefaults: MonthYearDefaults,
+data class Weeks(
+    val weekDays: WeekDays,
+    val monthYear: MonthYearDefaults,
 ) {
     companion object {
-        val Default = Defaults(
-            weekDaysDefaults = WeekDaysDefaults.Default,
-            monthYearDefaults = MonthYearDefaults.Default
+        val Default = Weeks(
+            weekDays = WeekDays.Default,
+            monthYear = MonthYearDefaults.Default
         )
 
     }
@@ -36,12 +35,12 @@ data class Defaults(
 
 data class CalendarDefaults(
     val colors: CalendarColors,
-    val defaults: Defaults
+    val defaults: Weeks
 ) {
     companion object {
         val Default = CalendarDefaults(
             colors = CalendarColors.Default,
-            defaults = Defaults.Default
+            defaults = Weeks.Default
         )
     }
 }

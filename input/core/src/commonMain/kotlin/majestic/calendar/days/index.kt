@@ -9,14 +9,14 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.isoDayNumber
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
-import majestic.calendar.days.tools.DayDefaultColors
+import majestic.calendar.days.tools.DayColors
 import majestic.calendar.tools.DatePickerState
 import majestic.calendar.tools.daysInMonth
 
 @Composable
 internal fun DefaultGrid(
     modifier: Modifier = Modifier,
-    colors: DayDefaultColors,
+    colors: DayColors,
     state: DatePickerState
 ) {
     val currentMonth = state.currentMonth

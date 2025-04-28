@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import majestic.calendar.days.tools.DayDefaultColors
+import majestic.calendar.days.tools.DayColors
 
 @Composable
 internal fun Day(
@@ -19,7 +19,7 @@ internal fun Day(
     isCurrentMonth: Boolean,
     isSelected: Boolean,
     onClick: () -> Unit,
-    colors: DayDefaultColors = DayDefaultColors.Default
+    colors: DayColors = DayColors.Default
 ) = Box(
     modifier = Modifier
         .aspectRatio(1f)
