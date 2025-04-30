@@ -28,6 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.ScreenOrientation
 import majestic.editor.tools.EditorColors
 
 
@@ -48,6 +50,7 @@ fun ToolBarHost(
     modifier: Modifier = Modifier.fillMaxWidth().wrapContentHeight(),
     controller: ToolBarHostController,
     colors: EditorColors = EditorColors(),
+    orientation: ScreenOrientation,
     style: TextStyle = TextStyle(
         fontSize = 16.sp,
         fontFamily = FontFamily.Default,
@@ -62,7 +65,7 @@ fun ToolBarHost(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = if (orientation is Landscape) Arrangement.SpaceBetween else Arrangement.spacedBy(space = 8.dp, alignment = Alignment.CenterVertically)
     ) {
         Row(
             modifier = Modifier
@@ -89,7 +92,7 @@ fun ToolBarHost(
                             },
                             width = 2.dp
                         )
-                        .padding(bottom = 8.dp),
+                        .padding(bottom = if (orientation is Landscape) 8.dp else 4.dp),
                     text = toolBar.name,
                     style = style.copy(
                         color = when {
