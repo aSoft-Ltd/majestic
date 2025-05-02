@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -119,7 +120,7 @@ fun <T> Select(
         dropDownShape = dropDownShape,
         dropDownContainerColor = colors.dropdown.background,
         placeholder = { placeholder(expanded) },
-        selected = { ItemSelect(icon, colors, expanded) { option(it) } },
+        selected = { ItemSelect(colors, expanded, icon) { option(it) } },
         item = option,
         onExpanded = { expanded = it },
         onClick = {
@@ -131,33 +132,33 @@ fun <T> Select(
 
 @Composable
 private fun Placeholder(icon: ImageVector, colors: SelectColors, expanded: Boolean, hint: String) {
-    ItemSelect(icon, colors, expanded) { Text(hint, color = colors.blurred.text) }
+    ItemSelect(colors, expanded, icon) { Text(hint, color = colors.blurred.text) }
 }
 
 @Composable
-private fun ItemSelect(
-    icon: ImageVector,
+fun ItemSelect(
     colors: SelectColors,
     isExpanded: Boolean = false,
+    icon: ImageVector,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .height(52.dp)
+        .border(1.dp, color = if (isExpanded) colors.focused.border else colors.blurred.border, RoundedCornerShape(8.dp))
+        .padding(horizontal = 16.dp),
     content: @Composable () -> Unit
 ) {
-    val borderColor = if (isExpanded) colors.focused.border else colors.blurred.border
     val animateRotation by animateFloatAsState(
         targetValue = if (isExpanded) -180f else 0f,
         animationSpec = tween(durationMillis = 300)
     )
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(52.dp)
-            .border(1.dp, borderColor, RoundedCornerShape(8.dp))
-            .padding(horizontal = 16.dp),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(modifier = Modifier.weight(11f)) { content() }
+        Box(modifier = Modifier.weight(1f)) { content() }
         Spacer(Modifier.width(8.dp))
         Icon(
-            modifier = Modifier.weight(1f).graphicsLayer { rotationX = animateRotation },
+            modifier = Modifier.wrapContentSize().graphicsLayer { rotationX = animateRotation },
             imageVector = icon,
             contentDescription = "Dropdown Arrow",
             tint = if (isExpanded) colors.focused.text else colors.blurred.text
