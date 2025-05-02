@@ -105,7 +105,8 @@ fun <T> Select(
         Placeholder(icon, colors, expanded, hint)
     },
     onSelect: ((T) -> Unit)? = null,
-    option: @Composable (T) -> Unit = { Text("$it") }
+    option: @Composable (T) -> Unit = { Text("$it") },
+    selected: @Composable (T) -> Unit = { ItemSelect(icon, colors, false) { option(it) } }
 ) {
     var expanded by remember { mutableStateOf(false) }
     var candidate by remember(value) { mutableStateOf(value) }
@@ -119,7 +120,7 @@ fun <T> Select(
         dropDownShape = dropDownShape,
         dropDownContainerColor = colors.dropdown.background,
         placeholder = { placeholder(expanded) },
-        selected = { ItemSelect(icon, colors, expanded) { option(it) } },
+        selected = selected,
         item = option,
         onExpanded = { expanded = it },
         onClick = {
