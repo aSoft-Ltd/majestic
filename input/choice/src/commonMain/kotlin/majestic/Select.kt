@@ -95,20 +95,23 @@ fun <T> Select(
 fun <T> Select(
     items: List<T>,
     hint: String = "Select",
+    expanded: Boolean = false,
+    onExpanded: (Boolean) -> Unit = {},
     value: T? = null,
     border: BorderStroke? = null,
+    dropdownModifier: Modifier = Modifier,
     colors: SelectColors = SelectColors(),
     icon: ImageVector = Icons.Filled.ArrowDropDown,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(8.dp),
     dropDownShape: Shape = RoundedCornerShape(8.dp),
-    placeholder: @Composable (Boolean) -> Unit = { expanded ->
-        Placeholder(icon, colors, expanded, hint)
+    placeholder: @Composable (Boolean) -> Unit = { isExpanded ->
+        Placeholder(icon, colors, isExpanded, hint)
     },
     onSelect: ((T) -> Unit)? = null,
-    option: @Composable (T) -> Unit = { Text("$it") }
+    option: @Composable (T) -> Unit = { Text("$it") },
+    selected: @Composable (T) -> Unit = { ItemSelect(colors, expanded, icon) { option(it) } }
 ) {
-    var expanded by remember { mutableStateOf(false) }
     var candidate by remember(value) { mutableStateOf(value) }
 
     DumbSelect(
@@ -118,11 +121,12 @@ fun <T> Select(
         border = border,
         containerShape = shape,
         dropDownShape = dropDownShape,
+        dropdownModifier = dropdownModifier,
         dropDownContainerColor = colors.dropdown.background,
         placeholder = { placeholder(expanded) },
-        selected = { ItemSelect(colors, expanded, icon) { option(it) } },
+        selected = selected,
         item = option,
-        onExpanded = { expanded = it },
+        onExpanded = onExpanded,
         onClick = {
             candidate = if (it == candidate) null else it
             onSelect?.invoke(it)
