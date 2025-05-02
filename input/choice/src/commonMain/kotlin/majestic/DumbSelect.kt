@@ -4,6 +4,7 @@ package majestic
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun <T> DumbSelect(
@@ -34,6 +36,7 @@ fun <T> DumbSelect(
     placeholder: @Composable () -> Unit = {
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
+    dropdownModifier: Modifier = Modifier,
     onClick: ((T) -> Unit)? = null,
     onExpanded: ((Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier,
@@ -57,6 +60,7 @@ fun <T> DumbSelect(
         Box(
             modifier = Modifier
                 .clip(shape = containerShape)
+                .border(border ?: BorderStroke(0.dp, Color.Transparent))
                 .background(color = Color.Transparent, shape = containerShape)
                 .exposedDropdownSize()
                 .menuAnchor(type = MenuAnchorType.PrimaryEditable)
@@ -78,14 +82,14 @@ fun <T> DumbSelect(
             containerColor = dropDownContainerColor,
             shape = dropDownShape,
             shadowElevation = shadowElevation,
-            border = border,
+            border = BorderStroke(0.dp, Color.Transparent),
             tonalElevation = tonalElevation,
             expanded = expanded,
             onDismissRequest = {
                 expanded = false
                 onExpanded?.invoke(false)
             },
-            modifier = Modifier.exposedDropdownSize().testTag("popup")
+            modifier = dropdownModifier.exposedDropdownSize()
         ) {
             for (it in items) DropdownMenuItem(
                 modifier = Modifier.fillMaxWidth(),

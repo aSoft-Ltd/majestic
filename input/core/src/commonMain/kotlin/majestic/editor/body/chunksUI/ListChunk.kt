@@ -3,12 +3,12 @@ package majestic.editor.body.chunksUI
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,6 +25,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.ScreenOrientation
 import majestic.editor.BorderlessInput
 import majestic.editor.body.chunks.List
 import majestic.editor.body.chunks.lists.Type
@@ -45,10 +47,12 @@ internal fun ListChunk(
     chunk: List,
     colors: EditorColors,
     labels: Labels,
+    orientation: ScreenOrientation,
     resource: ListChunkResources,
     controller: EditorBodyController,
 ) {
     Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.Top),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         chunk.list.forEachIndexed { index, item ->
@@ -58,16 +62,18 @@ internal fun ListChunk(
             }
             val itemInteractionSource = remember { MutableInteractionSource() }
             val isHovered by itemInteractionSource.collectIsHoveredAsState()
-            Box(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 4.dp)
+                    .wrapContentHeight()
+                    .padding(vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(if (orientation is Landscape) 16.dp else 8.dp, alignment = Alignment.Start),
+                verticalAlignment = Alignment.Top
             ) {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth(.9f)
-                        .padding(vertical = 4.dp)
-                        .align(alignment = Alignment.CenterStart),
+                        .weight(1f)
+                        .padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
@@ -116,9 +122,8 @@ internal fun ListChunk(
                 }
                 ListAction(
                     modifier = Modifier
-                        .padding(horizontal = 10.dp, vertical = 5.dp)
-                        .actionButton(colors, hovered = false)
-                        .align(alignment = Alignment.TopEnd),
+                        .padding(vertical = 4.dp)
+                        .actionButton(colors),
                     onClick = {
                         if (chunk.list.size == 1) controller.remove(chunk) else controller.removeListItem(chunk, index)
                     },

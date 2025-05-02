@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import composex.screen.orientation.ScreenOrientation
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
@@ -32,6 +33,7 @@ fun Chunks(
     colors: EditorColors,
     actions: @Composable (chunk: Chunk) -> Unit,
     labels: Labels,
+    orientation: ScreenOrientation,
     externalResources: ExternalResources,
     picker: FilePicker,
     previewOverlay: @Composable BoxScope.() -> Unit,
@@ -84,7 +86,8 @@ fun Chunks(
                         colors = colors,
                         labels = labels,
                         controller = controller,
-                        resource = externalResources.listChunk
+                        resource = externalResources.listChunk,
+                        orientation = orientation
                     )
                 }
 
