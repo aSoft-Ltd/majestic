@@ -77,32 +77,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.majesticTheme)
             api(compose.runtime)
             api(compose.foundation)
-            api(compose.material3)
-            api(compose.materialIconsExtended)
-            api(libs.cinematic.live.compose)
-            api(kotlinx.coroutines.core)
-            api(libs.symphony.input.core)?.because("We need fields and forms")
-            api(kotlinx.datetime)?.because("We need access to date time")
-//            implementation(libs.krono.kotlinx)
-//            implementation(coil.compose)
-//            implementation(coil.network.ktor)
-            api(compose.components.resources)
-        }
-
-        commonTest.dependencies {
-            implementation(libs.kommander.coroutines)
-            implementation(compose.uiTest)
-        }
-
-        androidMain.dependencies {
-            implementation(androidx.activity.ktx)?.because("We need ComponentActivity for android file picker")
-        }
-
-        jvmTest.dependencies {
-            implementation(compose.desktop.currentOs)
         }
     }
 }

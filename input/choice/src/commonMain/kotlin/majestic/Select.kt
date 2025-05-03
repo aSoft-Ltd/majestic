@@ -136,10 +136,11 @@ private fun Placeholder(icon: ImageVector, colors: SelectColors, expanded: Boole
 }
 
 @Composable
-private fun ItemSelect(
+fun ItemSelect(
     icon: ImageVector,
     colors: SelectColors,
     isExpanded: Boolean = false,
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
     val borderColor = if (isExpanded) colors.focused.border else colors.blurred.border

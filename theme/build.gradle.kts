@@ -78,23 +78,7 @@ kotlin {
         commonMain.dependencies {
             api(compose.runtime)
             api(compose.foundation)
-            api(compose.material3)
-            api(compose.materialIconsExtended)
             api(libs.cinematic.live.compose)
-            api(kotlinx.coroutines.core)
-            api(libs.symphony.input.core)?.because("We need fields and forms")
-//            implementation(libs.krono.kotlinx)
-//            implementation(coil.compose)
-//            implementation(coil.network.ktor)
-        }
-
-        commonTest.dependencies {
-            implementation(libs.kommander.coroutines)
-            implementation(compose.uiTest)
-        }
-
-        jvmTest.dependencies {
-            implementation(compose.desktop.currentOs)
         }
     }
 }

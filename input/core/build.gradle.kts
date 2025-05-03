@@ -78,6 +78,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.majesticTheme)
+            api(projects.majesticScreen)
             api(compose.runtime)
             api(compose.foundation)
             api(compose.material3)
