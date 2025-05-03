@@ -59,12 +59,12 @@ fun <D> LazyTable(
 
     LazyColumn(modifier.onPlaced { width = with(density) { (it.parentCoordinates?.size?.width ?: 300).toDp() } }) {
         if (columns.renderer != null) stickyHeader {
-            Row {
+            Row(modifier = columns.modifier.width(width)) {
                 for (column in columns.data) columns.renderer.invoke(this, column)
             }
         }
         items(rows) { row ->
-            Row{
+            Row(modifier = Modifier.width(width)){
                 for (column in columns.data) cell(this, Cell(column, row))
             }
         }
