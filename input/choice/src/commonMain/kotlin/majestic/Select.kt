@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -94,21 +95,23 @@ fun <T> Select(
 fun <T> Select(
     items: List<T>,
     hint: String = "Select",
+    expanded: Boolean = false,
+    onExpanded: (Boolean) -> Unit = {},
     value: T? = null,
     border: BorderStroke? = null,
+    dropdownModifier: Modifier = Modifier,
     colors: SelectColors = SelectColors(),
     icon: ImageVector = Icons.Filled.ArrowDropDown,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(8.dp),
     dropDownShape: Shape = RoundedCornerShape(8.dp),
-    placeholder: @Composable (Boolean) -> Unit = { expanded ->
-        Placeholder(icon, colors, expanded, hint)
+    placeholder: @Composable (Boolean) -> Unit = { isExpanded ->
+        Placeholder(icon, colors, isExpanded, hint)
     },
     onSelect: ((T) -> Unit)? = null,
     option: @Composable (T) -> Unit = { Text("$it") },
-    selected: @Composable (T) -> Unit = { ItemSelect(icon, colors, false) { option(it) } }
+    selected: @Composable (T) -> Unit = { ItemSelect(colors, expanded, icon) { option(it) } }
 ) {
-    var expanded by remember { mutableStateOf(false) }
     var candidate by remember(value) { mutableStateOf(value) }
 
     DumbSelect(
@@ -118,11 +121,12 @@ fun <T> Select(
         border = border,
         containerShape = shape,
         dropDownShape = dropDownShape,
+        dropdownModifier = dropdownModifier,
         dropDownContainerColor = colors.dropdown.background,
         placeholder = { placeholder(expanded) },
         selected = selected,
         item = option,
-        onExpanded = { expanded = it },
+        onExpanded = onExpanded,
         onClick = {
             candidate = if (it == candidate) null else it
             onSelect?.invoke(it)
@@ -132,34 +136,33 @@ fun <T> Select(
 
 @Composable
 private fun Placeholder(icon: ImageVector, colors: SelectColors, expanded: Boolean, hint: String) {
-    ItemSelect(icon, colors, expanded) { Text(hint, color = colors.blurred.text) }
+    ItemSelect(colors, expanded, icon) { Text(hint, color = colors.blurred.text) }
 }
 
 @Composable
 fun ItemSelect(
-    icon: ImageVector,
     colors: SelectColors,
     isExpanded: Boolean = false,
-    modifier: Modifier = Modifier,
+    icon: ImageVector,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .height(52.dp)
+        .border(1.dp, color = if (isExpanded) colors.focused.border else colors.blurred.border, RoundedCornerShape(8.dp))
+        .padding(horizontal = 16.dp),
     content: @Composable () -> Unit
 ) {
-    val borderColor = if (isExpanded) colors.focused.border else colors.blurred.border
     val animateRotation by animateFloatAsState(
         targetValue = if (isExpanded) -180f else 0f,
         animationSpec = tween(durationMillis = 300)
     )
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(52.dp)
-            .border(1.dp, borderColor, RoundedCornerShape(8.dp))
-            .padding(horizontal = 16.dp),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(modifier = Modifier.weight(11f)) { content() }
+        Box(modifier = Modifier.weight(1f)) { content() }
         Spacer(Modifier.width(8.dp))
         Icon(
-            modifier = Modifier.weight(1f).graphicsLayer { rotationX = animateRotation },
+            modifier = Modifier.wrapContentSize().graphicsLayer { rotationX = animateRotation },
             imageVector = icon,
             contentDescription = "Dropdown Arrow",
             tint = if (isExpanded) colors.focused.text else colors.blurred.text
