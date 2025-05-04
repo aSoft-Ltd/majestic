@@ -16,13 +16,14 @@ plugins {
     alias(kotlinz.plugins.dokka)
 }
 
-description = "The majestic them engine"
+description = "Different drawers that can be used"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.theme"
+    namespace = "tz.co.asoft.academia.majestic.input.core"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
+
     }
 
     compileOptions {
@@ -76,9 +77,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(projects.majesticScreen)
             api(compose.runtime)
             api(compose.foundation)
-            api(libs.cinematic.live.compose)
+            api(compose.material3)?.because("We need to provide icons for default Navigation drawer header")
         }
     }
 }
