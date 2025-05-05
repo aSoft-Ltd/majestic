@@ -155,10 +155,16 @@ class TextFieldColors(
 fun TextField(
     value: String,
     label: @Composable (() -> Unit)? = null,
-    hint: String = "Placeholder",
-    modifier: Modifier = Modifier,
-    color: Color = Color.Black,
     colors: TextFieldColors = TextFieldColors(),
+    hintSize: TextUnit = 17.sp,
+    hint: @Composable () -> Unit = {
+        Text(
+            text = "Placeholder",
+            color = colors.blurred.placeholder,
+            fontSize = hintSize
+        )
+    },
+    modifier: Modifier = Modifier,
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
@@ -169,7 +175,6 @@ fun TextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     shape: RoundedCornerShape = RoundedCornerShape(8.dp),
     textStyle: TextStyle = TextStyle.Default,
-    hintSize: TextUnit = 17.sp
 ) {
     Column(modifier = modifier) {
         if (label != null) {
@@ -185,13 +190,7 @@ fun TextField(
             minLines = minLines,
             keyboardOptions = keyboardOptions,
             visualTransformation = visualTransformation,
-            placeholder = {
-                Text(
-                    text = hint,
-                    color = colors.blurred.placeholder,
-                    fontSize = hintSize
-                )
-            },
+            placeholder = hint,
             colors = colors.toMaterialTextFieldColors(),
             shape = shape,
             onValueChange = {
@@ -202,6 +201,51 @@ fun TextField(
     }
 }
 
+
+@Composable
+fun TextField(
+    value: String,
+    label: @Composable (() -> Unit)? = null,
+    hint: String = "Placeholder",
+    modifier: Modifier = Modifier,
+    colors: TextFieldColors = TextFieldColors(),
+    singleLine: Boolean = true,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    onChange: ((String) -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    shape: RoundedCornerShape = RoundedCornerShape(8.dp),
+    textStyle: TextStyle = TextStyle.Default,
+    hintSize: TextUnit = 17.sp
+) {
+    TextField(
+        value = value,
+        label = label,
+        hint = {
+            Text(
+                text = hint,
+                color = colors.blurred.placeholder,
+                fontSize = hintSize
+            )
+        },
+        modifier = modifier,
+        colors = colors,
+        singleLine = singleLine,
+        maxLines = maxLines,
+        minLines = minLines,
+        keyboardOptions = keyboardOptions,
+        visualTransformation = visualTransformation,
+        onChange = onChange,
+        trailingIcon = trailingIcon,
+        leadingIcon = leadingIcon,
+        shape = shape,
+        textStyle = textStyle,
+        hintSize = hintSize
+    )
+}
 
 @Composable
 private fun TextFieldColors.toMaterialTextFieldColors() = TextFieldDefaults.colors(

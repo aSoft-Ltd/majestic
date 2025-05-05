@@ -64,7 +64,7 @@ fun <D> LazyTable(
             }
         }
         items(rows) { row ->
-            Row(modifier = Modifier.width(width)) {
+            Row(modifier = Modifier.width(width)){
                 for (column in columns.data) cell(this, Cell(column, row))
             }
         }
