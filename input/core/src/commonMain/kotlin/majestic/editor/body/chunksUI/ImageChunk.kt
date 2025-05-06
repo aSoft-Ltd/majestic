@@ -38,7 +38,7 @@ internal fun ImageChunk(
     resource: Painter,
     labels: Labels,
     colors: EditorColors,
-    picker: FilePicker,
+    files: FileManger,
     previewOverlay: @Composable BoxScope.() -> Unit,
     permissionRequest: @Composable ((Boolean) -> Unit) -> Unit,
 ) {
@@ -54,7 +54,6 @@ internal fun ImageChunk(
             .padding(15.dp),
         contentAlignment = Alignment.Center
     ) {
-
         if (painter == null) {
             DragAndDropBox(
                 modifier = Modifier.fillMaxSize(),

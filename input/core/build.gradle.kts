@@ -87,6 +87,8 @@ kotlin {
             api(kotlinx.coroutines.core)
             api(libs.symphony.input.core)?.because("We need fields and forms")
             api(kotlinx.datetime)?.because("We need access to date time")
+            api(libs.kiota.file.manager.core)?.because("Blog Editor needs to be able to pick images")
+//            api(libs.kiota.file.compose)?.because("Blog Editor needs to be able to render pickerd images")
 //            implementation(libs.krono.kotlinx)
 //            implementation(coil.compose)
 //            implementation(coil.network.ktor)

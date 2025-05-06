@@ -24,7 +24,6 @@ import majestic.editor.body.chunksUI.tools.EditorBodyController
 import majestic.editor.body.chunksUI.tools.ExternalResources
 import majestic.editor.body.chunksUI.tools.Labels
 import majestic.editor.tools.EditorColors
-import majestic.filepicker.FilePicker
 
 @Composable
 fun Chunks(
@@ -35,7 +34,6 @@ fun Chunks(
     labels: Labels,
     orientation: ScreenOrientation,
     externalResources: ExternalResources,
-    picker: FilePicker,
     previewOverlay: @Composable BoxScope.() -> Unit,
     permissionRequest: @Composable ((Boolean) -> Unit) -> Unit
 ) {
