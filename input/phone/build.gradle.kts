@@ -44,10 +44,10 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(IR) {
-        browser()
-        nodejs()
-    }
+//    js(IR) {
+//        browser()
+//        nodejs()
+//    }
 
     wasmJs { browser() }
     iosX64()

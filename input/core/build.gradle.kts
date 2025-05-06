@@ -63,17 +63,17 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(IR) {
-        browser()
-        nodejs()
-    }
+//    js(IR) {
+//        browser()
+//        nodejs()
+//    }
 
-    wasmJs { browser() } // until coil and kotlinx-datetime supports this, we ain't gonna
+    wasmJs { browser() }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
-    macosArm64()
+//    macosX64()
+//    macosArm64()
 
     sourceSets {
         commonMain.dependencies {
@@ -88,7 +88,7 @@ kotlin {
             api(libs.symphony.input.core)?.because("We need fields and forms")
             api(kotlinx.datetime)?.because("We need access to date time")
             api(libs.kiota.file.manager.core)?.because("Blog Editor needs to be able to pick images")
-//            api(libs.kiota.file.compose)?.because("Blog Editor needs to be able to render pickerd images")
+            api(libs.kiota.file.compose)?.because("Blog Editor needs to be able to render pickerd images")
 //            implementation(libs.krono.kotlinx)
 //            implementation(coil.compose)
 //            implementation(coil.network.ktor)

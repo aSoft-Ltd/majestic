@@ -58,17 +58,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.majesticInputCore)
-            api(libs.symphony.input.choice)?.because("We need choice fields to choose from")
-        }
-
-        commonTest.dependencies {
-            implementation(libs.kommander.coroutines)
-            implementation(compose.uiTest)
-        }
-
-        jvmTest.dependencies {
-            implementation(compose.desktop.currentOs)
+            api(compose.runtime)
+            api(compose.foundation)
+            api(projects.majesticTheme)
+            api(projects.majesticTheme)
+            api(compose.material3)?.because("We need default labels for graphs")
         }
     }
 }

@@ -24,9 +24,6 @@ import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import kollections.first
-import kollections.isNotEmpty
-import kollections.last
 import kotlinx.coroutines.delay
 import majestic.graph.LinePlot
 import majestic.graph.Mark

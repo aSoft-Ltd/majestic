@@ -74,7 +74,7 @@ fun Chunks(
                         resource = externalResources.imageChunk,
                         labels = labels,
                         colors = colors,
-                        picker = picker,
+                        files = controller.files,
                         previewOverlay = previewOverlay,
                         permissionRequest = permissionRequest
                     )

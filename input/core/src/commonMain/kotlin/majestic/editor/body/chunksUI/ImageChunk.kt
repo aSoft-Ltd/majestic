@@ -24,21 +24,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import kiota.Cancelled
+import kiota.Denied
+import kiota.Failure
+import kiota.File
+import kiota.FileManager
+import kiota.file.mime.Image
+import kiota.toImageBitmap
 import kotlinx.coroutines.launch
 import majestic.colors.ColorPair
 import majestic.dragdrop.DragAndBorderColors
 import majestic.dragdrop.DragAndDropBox
 import majestic.editor.body.chunksUI.tools.Labels
 import majestic.editor.tools.EditorColors
-import majestic.filepicker.FilePicker
-import majestic.filepicker.FileType
+
+private suspend fun FileManager.getBitmapPainter(file: File) = BitmapPainter(readBytes(file).toImageBitmap())
 
 @Composable
 internal fun ImageChunk(
     resource: Painter,
     labels: Labels,
     colors: EditorColors,
-    files: FileManger,
+    files: FileManager,
     previewOverlay: @Composable BoxScope.() -> Unit,
     permissionRequest: @Composable ((Boolean) -> Unit) -> Unit,
 ) {
@@ -61,14 +68,11 @@ internal fun ImageChunk(
                 description = labels.instructions,
                 onClick = {
                     scope.launch {
-                        if (picker.hasPermission()) {
-                            picker.pickFiles(
-                                config = FilePicker.Config(count = 3, type = listOf(FileType.IMAGE))
-                            ).firstOrNull()?.let { fileInfo ->
-                                painter = picker.getBitMap(fileInfo.path)
-                            }
-                        } else if (!showPermissionPrompt) {
-                            showPermissionPrompt = true
+                        when (val res = files.pickers.media.open(mimes = listOf(Image))) {
+                            is Cancelled -> {}
+                            is Denied -> showPermissionPrompt = true
+                            is Failure -> {}
+                            is File -> painter = files.getBitmapPainter(res)
                         }
                     }
                 },
@@ -93,10 +97,11 @@ internal fun ImageChunk(
                             .hoverable(interactionSource = interactionSource)
                             .clickable {
                                 scope.launch {
-                                    picker.pickFiles(
-                                        config = FilePicker.Config(count = 3, type = listOf(FileType.IMAGE))
-                                    ).firstOrNull()?.let { fileInfo ->
-                                        painter = picker.getBitMap(fileInfo.path)
+                                    when (val res = files.pickers.media.open(mimes = listOf(Image))) {
+                                        is Cancelled -> {}
+                                        is Denied -> showPermissionPrompt = true
+                                        is Failure -> {}
+                                        is File -> painter = files.getBitmapPainter(res)
                                     }
                                 }
                             }
@@ -111,13 +116,7 @@ internal fun ImageChunk(
 
     if (showPermissionPrompt) {
         permissionRequest { shouldRequest ->
-            scope.launch {
-                if (shouldRequest) {
-                    showPermissionPrompt = false
-                    picker.requestPermission()
-                }
-                showPermissionPrompt = false
-            }
+            
         }
     }
 }

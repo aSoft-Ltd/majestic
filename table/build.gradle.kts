@@ -58,8 +58,14 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.majesticInputCore)
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.material3)?.because("We need to access LocalContentColor")
+            api(compose.materialIconsExtended)?.because("We need default icons for table")
             api(libs.symphony.table)?.because("We need a table manager of some sorts")
+            api(libs.cinematic.live.compose)?.because("We need to watchAsState")
+            api(projects.majesticTheme)?.because("We need an instance of ColorPair")
+            api(projects.majesticScreen)?.because("We need access to NoRippleInteractionSource")
         }
 
         commonTest.dependencies {

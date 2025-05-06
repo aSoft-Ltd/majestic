@@ -3,8 +3,6 @@ package majestic.graph
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
-import kollections.filter
-import kollections.firstOrNull
 import kotlin.time.Duration.Companion.seconds
 
 sealed interface Plot

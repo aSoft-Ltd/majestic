@@ -2,6 +2,7 @@ package majestic.editor.body.chunksUI.tools
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import kiota.FileManager
 import majestic.editor.body.chunks.Chunk
 import majestic.editor.body.chunks.Heading
 import majestic.editor.body.chunks.Image
@@ -9,7 +10,10 @@ import majestic.editor.body.chunks.List
 import majestic.editor.body.chunks.Paragraph
 import majestic.editor.body.chunks.lists.Type
 
-class EditorBodyController(val chunks: SnapshotStateList<Chunk> = mutableStateListOf()) {
+class EditorBodyController(
+    val chunks: SnapshotStateList<Chunk> = mutableStateListOf(),
+    val files: FileManager
+) {
 
     private fun getNextId() = (chunks.maxOfOrNull { it.uid } ?: 0) + 1
 

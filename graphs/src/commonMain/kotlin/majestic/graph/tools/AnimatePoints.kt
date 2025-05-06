@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import kollections.isNotEmpty
 import kotlinx.coroutines.delay
 import majestic.graph.Point
 import kotlin.time.Duration
