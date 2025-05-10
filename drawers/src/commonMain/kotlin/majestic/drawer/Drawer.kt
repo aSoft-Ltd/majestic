@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-data class Drawer internal constructor(
+class Drawer internal constructor(
     internal val span: DrawerSpan,
     internal val position: DrawerPosition,
     internal val display: DrawerDisplay,
