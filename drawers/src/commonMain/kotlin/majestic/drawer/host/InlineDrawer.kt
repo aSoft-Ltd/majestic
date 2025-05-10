@@ -1,6 +1,7 @@
 package majestic.drawer.host
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import majestic.drawer.Drawer
@@ -23,7 +25,7 @@ import majestic.drawer.HostedDrawerState
 import majestic.drawer.MultiDrawerController
 
 @Composable
-internal fun BoxScope.InlineDrawer(
+internal fun InlineDrawer(
     controller: MultiDrawerController,
     drawers: List<Pair<Drawer, HostedDrawerState>>,
     size: DpSize,
@@ -58,6 +60,7 @@ internal fun BoxScope.InlineDrawer(
             val height by animateDpAsState(targetValue = state.computeSpan(size.height))
             Box(modifier = Modifier.height(size.height - height).fillMaxWidth()) { InlineDrawer(controller, remaining, size, content) }
             if (height > 0.dp) Box(modifier = Modifier.height(height).fillMaxWidth()) { drawer.content(this, DrawerContext(controller, drawer)) }
+            println("$height/${size.height} = ${height.value/size.height.value}")
         }
     }
 }
