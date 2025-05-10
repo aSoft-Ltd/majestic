@@ -2,6 +2,7 @@ package majestic.drawer.host
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
@@ -20,7 +21,9 @@ internal fun DrawerSpan.toDp(parent: Dp): Dp = when (this) {
 }
 
 @Composable
-internal fun IntSize.toDp(): DpSize = with(LocalDensity.current) { DpSize(width.toDp(), height.toDp()) }
+internal fun IntSize.toDp(): DpSize = toDp(LocalDensity.current)
+
+internal fun IntSize.toDp(density: Density): DpSize = with(density) { DpSize(width.toDp(), height.toDp()) }
 
 internal fun HostedDrawerState.computeSpan(parent: Dp) = when (this) {
     is ClosedDrawer -> 0.dp

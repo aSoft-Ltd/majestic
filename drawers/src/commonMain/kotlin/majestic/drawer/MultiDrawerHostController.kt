@@ -6,6 +6,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
 
 internal class MultiDrawerHostController internal constructor(
     internal val state: SnapshotStateMap<Drawer, HostedDrawerState>
@@ -17,11 +18,21 @@ internal class MultiDrawerHostController internal constructor(
         drawer: Drawer,
         span: DrawerSpan?
     ) {
-        state[drawer] = OpenedDrawer(key = drawer, span = span ?: drawer.span, display = drawer.display)
+        val key = state[drawer]?.key ?: drawer
+        state[drawer] = OpenedDrawer(key = key, span = span ?: drawer.span, display = drawer.display)
+    }
+
+    override fun open(vararg drawers: Drawer) {
+        val them = drawers.associateWith {
+            val key = state[it]?.key ?: it
+            OpenedDrawer(key = key, span = it.span, display = it.display)
+        }
+        state.putAll(them)
     }
 
     override fun close(drawer: Drawer) {
-        state[drawer] = ClosedDrawer(key = drawer)
+        val key = state[drawer]?.key ?: drawer
+        state[drawer] = ClosedDrawer(key = key)
     }
 
 
@@ -33,7 +44,6 @@ internal class MultiDrawerHostController internal constructor(
                 span = span ?: drawer.span,
                 display = drawer.display
             )
-
             else -> ClosedDrawer(key = s?.key ?: drawer)
         }
     }
@@ -51,6 +61,15 @@ internal class MultiDrawerHostController internal constructor(
         return drawer
     }
 
+    private fun KProperty<*>.createKey(): String {
+        var key = name
+        var count = 0
+        while (state.values.any { it.key == key }) {
+            key = "$name-${count++}"
+        }
+        return key
+    }
+
     override fun add(
         ratio: Float,
         position: DrawerPosition,
@@ -58,9 +77,8 @@ internal class MultiDrawerHostController internal constructor(
         background: Color,
         content: @Composable BoxScope.(DrawerContext) -> Unit
     ) = ReadOnlyProperty<Any?, Drawer> { _, property ->
-        val key = property.name
         val drawer = Drawer(RatioSpan(ratio), position, display, background, content)
-        state[drawer] = ClosedDrawer(key)
+        state[drawer] = ClosedDrawer(property.createKey())
         drawer
     }
 
@@ -71,9 +89,8 @@ internal class MultiDrawerHostController internal constructor(
         background: Color,
         content: @Composable BoxScope.(DrawerContext) -> Unit
     ) = ReadOnlyProperty<Any?, Drawer> { _, property ->
-        val key = property.name
         val drawer = Drawer(DpSpan(span), position, display, background, content)
-        state[drawer] = ClosedDrawer(key)
+        state[drawer] = ClosedDrawer(property.createKey())
         drawer
     }
 

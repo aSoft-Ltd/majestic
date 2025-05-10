@@ -10,6 +10,8 @@ interface MultiDrawerController : SingleDrawerController {
     fun open(drawer: Drawer)
     fun open(drawer: Any)
 
+    fun open(vararg drawers: Drawer)
+
     fun open(drawer: Drawer, ratio: Float)
     fun open(drawer: Any, ratio: Float)
 

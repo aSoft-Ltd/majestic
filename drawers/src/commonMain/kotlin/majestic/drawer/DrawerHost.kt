@@ -4,13 +4,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onPlaced
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import majestic.drawer.host.InlineDrawer
@@ -30,7 +34,7 @@ fun DrawerHost(
     content: @Composable () -> Unit,
 ) {
     controller as MultiDrawerHostController
-    var dimension by remember { mutableStateOf(IntSize.Zero) }
+    var dimension by remember(controller) { mutableStateOf(IntSize.Zero) }
     val size = dimension.toDp()
     val drawers = controller.state.toList()
     val (inlines, overlays) = drawers.partition { (drawer, state) -> state.display(drawer) == DrawerDisplay.Inline }

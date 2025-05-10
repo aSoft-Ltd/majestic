@@ -36,7 +36,9 @@ internal abstract class AbstractDrawerController : MultiDrawerController {
 
     override fun toggle(drawer: Drawer) = toggle(drawer, null)
     override fun toggle(drawer: Any) {
-        find(drawer).forEach { toggle(it, null) }
+        val found = find(drawer)
+        println("Found: ${found.size}")
+        found.forEach { toggle(it, null) }
     }
 
     override fun toggle(drawer: Drawer, ratio: Float) = toggle(drawer, RatioSpan(ratio))

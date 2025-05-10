@@ -1,7 +1,6 @@
 package majestic.drawer.host
 
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -15,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import majestic.drawer.Drawer
@@ -25,7 +23,7 @@ import majestic.drawer.HostedDrawerState
 import majestic.drawer.MultiDrawerController
 
 @Composable
-internal fun InlineDrawer(
+internal fun BoxScope.InlineDrawer(
     controller: MultiDrawerController,
     drawers: List<Pair<Drawer, HostedDrawerState>>,
     size: DpSize,
@@ -51,16 +49,17 @@ internal fun InlineDrawer(
         }
 
         DrawerPosition.Top -> Column(modifier = Modifier.fillMaxSize()) {
-            val height by animateDpAsState(targetValue = state.computeSpan(size.height))
+            val height by animateDpAsState(targetValue = state.computeSpan(size.height), label = state.key.toString())
             if (height > 0.dp) Box(modifier = Modifier.height(height).fillMaxWidth()) { drawer.content(this, DrawerContext(controller, drawer)) }
-            Box(modifier = Modifier.height(size.height - height).fillMaxWidth()) { InlineDrawer(controller, remaining, size, content) }
+            Box(modifier = Modifier.weight(1f).fillMaxWidth()) { InlineDrawer(controller, remaining, size, content) }
         }
 
         DrawerPosition.Bottom -> Column(modifier = Modifier.fillMaxSize()) {
             val height by animateDpAsState(targetValue = state.computeSpan(size.height))
-            Box(modifier = Modifier.height(size.height - height).fillMaxWidth()) { InlineDrawer(controller, remaining, size, content) }
-            if (height > 0.dp) Box(modifier = Modifier.height(height).fillMaxWidth()) { drawer.content(this, DrawerContext(controller, drawer)) }
-            println("$height/${size.height} = ${height.value/size.height.value}")
+            Box(modifier = Modifier.weight(1f).fillMaxWidth()) { InlineDrawer(controller, remaining, size, content) }
+            if (height > 0.dp) Box(modifier = Modifier.height(height).fillMaxWidth()) {
+                drawer.content(this, DrawerContext(controller, drawer))
+            }
         }
     }
 }
