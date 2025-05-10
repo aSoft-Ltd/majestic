@@ -57,7 +57,7 @@ internal abstract class AbstractDrawerController : MultiDrawerController {
         position: DrawerPosition,
         display: DrawerDisplay,
         background: Color,
-        content: @Composable (BoxScope.(MultiDrawerController) -> Unit)
+        content: @Composable (BoxScope.(DrawerContext) -> Unit)
     ) = add(drawer, RatioSpan(ratio), position, display, background, content)
 
     override fun add(
@@ -66,7 +66,7 @@ internal abstract class AbstractDrawerController : MultiDrawerController {
         position: DrawerPosition,
         display: DrawerDisplay,
         background: Color,
-        content: @Composable (BoxScope.(MultiDrawerController) -> Unit)
+        content: @Composable (BoxScope.(DrawerContext) -> Unit)
     ) = add(key, DpSpan(span), position, display, background, content)
 
     abstract fun add(
@@ -75,7 +75,7 @@ internal abstract class AbstractDrawerController : MultiDrawerController {
         position: DrawerPosition,
         display: DrawerDisplay,
         background: Color,
-        content: @Composable BoxScope.(MultiDrawerController) -> Unit
+        content: @Composable BoxScope.(DrawerContext) -> Unit
     ): Drawer
 
     abstract fun find(key: Any): Set<Drawer>

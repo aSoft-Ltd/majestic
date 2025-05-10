@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import majestic.drawer.ClosedDrawer
 import majestic.drawer.Drawer
+import majestic.drawer.DrawerContext
 import majestic.drawer.DrawerPosition
 import majestic.drawer.HostedDrawerState
 import majestic.drawer.MultiDrawerController
@@ -32,7 +33,7 @@ internal fun OverlayDrawer(
 ) {
     val overlay by animateColorAsState(targetValue = if (state is OpenedDrawer) drawer.background else Color.Transparent)
     Box(modifier = Modifier.fillMaxSize().background(color = overlay)) {
-        Box(modifier = Modifier.drawer(drawer, state, size)) { drawer.content(this, controller) }
+        Box(modifier = Modifier.drawer(drawer, state, size)) { drawer.content(this, DrawerContext(controller, drawer)) }
     }
 }
 

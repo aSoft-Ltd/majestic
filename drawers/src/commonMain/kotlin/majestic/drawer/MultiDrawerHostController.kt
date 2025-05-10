@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
+import kotlin.properties.ReadOnlyProperty
 
 internal class MultiDrawerHostController internal constructor(
     internal val state: SnapshotStateMap<Drawer, HostedDrawerState>
@@ -25,6 +27,7 @@ internal class MultiDrawerHostController internal constructor(
 
     override fun toggle(drawer: Drawer, span: DrawerSpan?) {
         state[drawer] = when (val s = state[drawer]) {
+            is OpenedDrawer -> ClosedDrawer(key = s.key)
             is ClosedDrawer -> OpenedDrawer(
                 key = s.key,
                 span = span ?: drawer.span,
@@ -41,12 +44,48 @@ internal class MultiDrawerHostController internal constructor(
         position: DrawerPosition,
         display: DrawerDisplay,
         background: Color,
-        content: @Composable BoxScope.(MultiDrawerController) -> Unit
+        content: @Composable BoxScope.(DrawerContext) -> Unit
     ): Drawer {
         val drawer = Drawer(span, position, display, background, content)
         state[drawer] = ClosedDrawer(key)
         return drawer
     }
+
+    override fun add(
+        ratio: Float,
+        position: DrawerPosition,
+        display: DrawerDisplay,
+        background: Color,
+        content: @Composable BoxScope.(DrawerContext) -> Unit
+    ) = ReadOnlyProperty<Any?, Drawer> { _, property ->
+        val key = property.name
+        val drawer = Drawer(RatioSpan(ratio), position, display, background, content)
+        state[drawer] = ClosedDrawer(key)
+        drawer
+    }
+
+    override fun add(
+        span: Dp,
+        position: DrawerPosition,
+        display: DrawerDisplay,
+        background: Color,
+        content: @Composable BoxScope.(DrawerContext) -> Unit
+    ) = ReadOnlyProperty<Any?, Drawer> { _, property ->
+        val key = property.name
+        val drawer = Drawer(DpSpan(span), position, display, background, content)
+        state[drawer] = ClosedDrawer(key)
+        drawer
+    }
+
+    private fun checkState(drawer: Any) = when (state[drawer]) {
+        is ClosedDrawer -> DrawerState.Closed
+        is OpenedDrawer -> DrawerState.Open
+        null -> DrawerState.Closed
+    }
+
+    override fun state(drawer: Any): DrawerState = checkState(drawer)
+
+    override fun state(drawer: Drawer): DrawerState = checkState(drawer)
 
     override fun find(key: Any) = state.filterValues { it.key == key }.keys
 
