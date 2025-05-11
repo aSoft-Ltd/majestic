@@ -34,10 +34,7 @@ internal class MultiDrawerHostController internal constructor(
     private fun Drawer.toOpened(span: DrawerSpan?): OpenedDrawer {
         val key = key()
         val existing = state.entries.filter { (d, s) -> s.key == key }
-        println("Found: ${existing.size} existing")
         existing.map { it.key }.forEach { state.remove(it) }
-        println("existing: ${existing.map { it.value.key }}")
-//        state.filterValues { it.key == key }
         return OpenedDrawer(key = key, span = span ?: this.span, display = this.display)
     }
 
