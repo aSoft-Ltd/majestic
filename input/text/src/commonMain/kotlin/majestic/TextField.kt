@@ -5,11 +5,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.runtime.remember
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
@@ -20,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
 import kollections.firstOrNull
 import symphony.BaseField
+
 
 @Composable
 fun TextField(
@@ -197,6 +206,76 @@ fun TextField(
                 onChange?.invoke(it)
             },
             textStyle = textStyle,
+        )
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues,
+    readOnly: Boolean = false,
+    textStyle: TextStyle = TextStyle.Default,
+    label: @Composable (() -> Unit)? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    enabled: Boolean = true,
+    singleLine: Boolean = true,
+    shape: Shape = RoundedCornerShape(8.dp),
+    trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    placeHolder: @Composable (() -> Unit)? = null,
+    isError: Boolean = false,
+    colors: TextFieldColors,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
+) {
+    val interactionSource = remember {
+        MutableInteractionSource()
+    }
+
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        visualTransformation = visualTransformation,
+        interactionSource = interactionSource,
+        enabled = enabled,
+        singleLine = singleLine,
+        textStyle = textStyle,
+        readOnly = readOnly,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        maxLines = maxLines,
+        minLines = minLines,
+    ) { innerTextField ->
+        // places leading icon, text field with label and placeholder, trailing icon
+        OutlinedTextFieldDefaults.DecorationBox(
+            value = value,
+            visualTransformation = visualTransformation,
+            innerTextField = innerTextField,
+            singleLine = singleLine,
+            enabled = enabled,
+            interactionSource = interactionSource,
+            contentPadding = contentPadding,
+            trailingIcon = trailingIcon,
+            leadingIcon = leadingIcon,
+            placeholder = placeHolder,
+            label = label,
+            container = {
+                OutlinedTextFieldDefaults.Container(
+                    enabled = enabled,
+                    isError = isError,
+                    interactionSource = interactionSource,
+                    colors = colors.toMaterialTextFieldColors(),
+                    shape = shape,
+                )
+            }
         )
     }
 }
