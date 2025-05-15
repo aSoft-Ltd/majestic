@@ -18,6 +18,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
@@ -160,56 +161,6 @@ class TextFieldColors(
     )
 )
 
-@Composable
-fun TextField(
-    value: String,
-    label: @Composable (() -> Unit)? = null,
-    colors: TextFieldColors = TextFieldColors(),
-    hintSize: TextUnit = 17.sp,
-    hint: @Composable () -> Unit = {
-        Text(
-            text = "Placeholder",
-            color = colors.blurred.placeholder,
-            fontSize = hintSize
-        )
-    },
-    modifier: Modifier = Modifier,
-    singleLine: Boolean = true,
-    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
-    minLines: Int = 1,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    onChange: ((String) -> Unit)? = null,
-    trailingIcon: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null,
-    shape: RoundedCornerShape = RoundedCornerShape(8.dp),
-    textStyle: TextStyle = TextStyle.Default,
-) {
-    Column(modifier = modifier) {
-        if (label != null) {
-            label()
-        }
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = value,
-            leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon,
-            singleLine = singleLine,
-            maxLines = maxLines,
-            minLines = minLines,
-            keyboardOptions = keyboardOptions,
-            visualTransformation = visualTransformation,
-            placeholder = hint,
-            colors = colors.toMaterialTextFieldColors(),
-            shape = shape,
-            onValueChange = {
-                onChange?.invoke(it)
-            },
-            textStyle = textStyle,
-        )
-    }
-}
-
 /**
  * This TextField uses [BasicTextField] internally to allow user to truly control its height and width
  * with the padding values passed inside its [contentPadding] parameter.
@@ -223,68 +174,84 @@ fun TextField(
 @Composable
 fun TextField(
     value: String,
-    onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(vertical = 10.dp, horizontal = 14.dp),
-    readOnly: Boolean = false,
-    textStyle: TextStyle = TextStyle.Default,
+    onChange: ((String) -> Unit)? = null,
     label: @Composable (() -> Unit)? = null,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    enabled: Boolean = true,
+    colors: TextFieldColors = TextFieldColors(),
+    hintSize: TextUnit = 17.sp,
+    hint: @Composable () -> Unit = {
+        Text(
+            text = "Placeholder",
+            color = colors.blurred.placeholder,
+            fontSize = hintSize
+        )
+    },
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(vertical = 14.dp, horizontal = 14.dp),
+    readOnly: Boolean = false,
     singleLine: Boolean = true,
-    shape: Shape = RoundedCornerShape(8.dp),
-    trailingIcon: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null,
-    placeHolder: @Composable (() -> Unit)? = null,
-    isError: Boolean = false,
-    colors: TextFieldColors,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    enabled: Boolean = true,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    shape: Shape = RoundedCornerShape(8.dp),
+    textStyle: TextStyle = TextStyle.Default.copy(color = colors.focused.text),
+    interactionSource: MutableInteractionSource? = null,
+    isError: Boolean = false,
 ) {
-    val interactionSource = remember {
-        MutableInteractionSource()
-    }
+    @Suppress("NAME_SHADOWING")
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+    val materialColors = colors.toMaterialTextFieldOutlinedColors()
 
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = modifier,
-        visualTransformation = visualTransformation,
-        interactionSource = interactionSource,
-        enabled = enabled,
-        singleLine = singleLine,
-        textStyle = textStyle,
-        readOnly = readOnly,
-        keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions,
-        maxLines = maxLines,
-        minLines = minLines,
-    ) { innerTextField ->
-        // places leading icon, text field with label and placeholder, trailing icon
-        OutlinedTextFieldDefaults.DecorationBox(
+    Column(modifier = modifier) {
+        if (label != null) {
+            label()
+        }
+        BasicTextField(
             value = value,
+            onValueChange = {
+                onChange?.invoke(it)
+            },
+            modifier = Modifier.fillMaxWidth(),
             visualTransformation = visualTransformation,
-            innerTextField = innerTextField,
-            singleLine = singleLine,
-            enabled = enabled,
             interactionSource = interactionSource,
-            contentPadding = contentPadding,
-            trailingIcon = trailingIcon,
-            leadingIcon = leadingIcon,
-            placeholder = placeHolder,
-            label = label,
-            container = {
-                OutlinedTextFieldDefaults.Container(
-                    enabled = enabled,
-                    isError = isError,
-                    interactionSource = interactionSource,
-                    colors = colors.toMaterialTextFieldColors(),
-                    shape = shape,
-                )
-            }
-        )
+            enabled = enabled,
+            singleLine = singleLine,
+            textStyle = textStyle,
+            readOnly = readOnly,
+            cursorBrush = SolidColor(materialColors.focusedTextColor),
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            maxLines = maxLines,
+            minLines = minLines,
+        ) { innerTextField ->
+            // places leading icon, text field with label and placeholder, trailing icon
+            OutlinedTextFieldDefaults.DecorationBox(
+                value = value,
+                visualTransformation = visualTransformation,
+                innerTextField = innerTextField,
+                singleLine = singleLine,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                contentPadding = contentPadding,
+                trailingIcon = trailingIcon,
+                leadingIcon = leadingIcon,
+                placeholder = hint,
+                colors = materialColors,
+                container = {
+                    OutlinedTextFieldDefaults.Container(
+                        enabled = enabled,
+                        isError = isError,
+                        interactionSource = interactionSource,
+                        colors = materialColors,
+                        shape = shape,
+                    )
+                }
+            )
+        }
     }
 }
 
@@ -305,7 +272,7 @@ fun TextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     shape: RoundedCornerShape = RoundedCornerShape(8.dp),
-    textStyle: TextStyle = TextStyle.Default,
+    textStyle: TextStyle = TextStyle.Default.copy(color = colors.focused.text),
     hintSize: TextUnit = 17.sp
 ) {
     TextField(
@@ -342,4 +309,17 @@ private fun TextFieldColors.toMaterialTextFieldColors() = TextFieldDefaults.colo
     unfocusedContainerColor = Color.Transparent,
     focusedIndicatorColor = focused.border,
     unfocusedIndicatorColor = blurred.border,
+)
+
+
+// TODO: Seek out other arguments of OutlinedTextDefaults.colors to fill up
+@Composable
+private fun TextFieldColors.toMaterialTextFieldOutlinedColors() = OutlinedTextFieldDefaults.colors(
+    focusedTextColor = focused.text,
+    unfocusedTextColor = blurred.text,
+    cursorColor = focused.text,
+    focusedContainerColor = Color.Transparent,
+    unfocusedContainerColor = Color.Transparent,
+    focusedBorderColor = focused.border,
+    unfocusedBorderColor = blurred.border,
 )
