@@ -210,14 +210,22 @@ fun TextField(
     }
 }
 
-
+/**
+ * This TextField uses [BasicTextField] internally to allow user to truly control its height and width
+ * with the padding values passed inside its [contentPadding] parameter.
+ *
+ * It is meant to overcome the limitation of TextFields using material implementations which have a fixed
+ * minHeight(56.dp) following material guidelines, which is inconvenient especially in KMP projects
+ * @param contentPadding pass [PaddingValues] with vertical or horizontal to set space between the content and
+ * the TextField's border, to control size of the TextField.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues,
+    contentPadding: PaddingValues = PaddingValues(vertical = 10.dp, horizontal = 14.dp),
     readOnly: Boolean = false,
     textStyle: TextStyle = TextStyle.Default,
     label: @Composable (() -> Unit)? = null,
