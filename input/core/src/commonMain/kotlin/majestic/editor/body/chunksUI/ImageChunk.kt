@@ -29,6 +29,7 @@ import kiota.Denied
 import kiota.Failure
 import kiota.File
 import kiota.FileManager
+import kiota.MB
 import kiota.file.mime.Image
 import kiota.toImageBitmap
 import kotlinx.coroutines.launch
@@ -38,7 +39,7 @@ import majestic.dragdrop.DragAndDropBox
 import majestic.editor.body.chunksUI.tools.Labels
 import majestic.editor.tools.EditorColors
 
-private suspend fun FileManager.getBitmapPainter(file: File) = BitmapPainter(readBytes(file).toImageBitmap())
+private suspend fun FileManager.getBitmapPainter(file: File) = BitmapPainter(toImageBitmap(file))
 
 @Composable
 internal fun ImageChunk(
@@ -68,7 +69,7 @@ internal fun ImageChunk(
                 description = labels.instructions,
                 onClick = {
                     scope.launch {
-                        when (val res = files.pickers.media.open(mimes = listOf(Image))) {
+                        when (val res = files.picker(listOf(Image.PNG,Image.JPG, Image.JPEG), limit = 10.MB).open()) {
                             is Cancelled -> {}
                             is Denied -> showPermissionPrompt = true
                             is Failure -> {}
@@ -97,7 +98,7 @@ internal fun ImageChunk(
                             .hoverable(interactionSource = interactionSource)
                             .clickable {
                                 scope.launch {
-                                    when (val res = files.pickers.media.open(mimes = listOf(Image))) {
+                                    when (val res = files.picker(listOf(Image.PNG,Image.JPG, Image.JPEG), limit = 10.MB).open()) {
                                         is Cancelled -> {}
                                         is Denied -> showPermissionPrompt = true
                                         is Failure -> {}

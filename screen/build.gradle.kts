@@ -79,6 +79,7 @@ kotlin {
         commonMain.dependencies {
             api(compose.runtime)
             api(compose.foundation)
+            api(kotlinx.serialization.core)
         }
     }
 }

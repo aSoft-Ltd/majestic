@@ -33,23 +33,6 @@ android {
 }
 
 kotlin {
-    applyHierarchyTemplate {
-        sourceSetTrees(KotlinSourceSetTree.main, KotlinSourceSetTree.test)
-        common {
-            withAndroidTarget()
-            group("skiko") {
-                withJvm()
-                withJs()
-                withWasmJs()
-                withIosX64()
-                withIosArm64()
-                withIosSimulatorArm64()
-                withMacosX64()
-                withMacosArm64()
-            }
-        }
-    }
-
     androidTarget {
         compilations.all {
             compileTaskProvider {
@@ -100,13 +83,9 @@ kotlin {
             implementation(compose.uiTest)
         }
 
-        androidMain.dependencies {
-            implementation(androidx.activity.ktx)?.because("We need ComponentActivity for android file picker")
-        }
-
-        jvmTest.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
+//        androidMain.dependencies {
+//            implementation(androidx.activity.ktx)?.because("We need ComponentActivity for android file picker")
+//        }
     }
 }
 

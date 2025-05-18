@@ -33,23 +33,6 @@ android {
 }
 
 kotlin {
-    applyHierarchyTemplate {
-        sourceSetTrees(KotlinSourceSetTree.main, KotlinSourceSetTree.test)
-        common {
-            withAndroidTarget()
-            group("skiko") {
-                withJvm()
-                withJs()
-                withWasmJs()
-                withIosX64()
-                withIosArm64()
-                withIosSimulatorArm64()
-                withMacosX64()
-                withMacosArm64()
-            }
-        }
-    }
-
     androidTarget {
         compilations.all {
             compileTaskProvider {
@@ -81,6 +64,7 @@ kotlin {
             api(compose.runtime)
             api(compose.foundation)
             api(compose.material3)?.because("We need to provide icons for default Navigation drawer header")
+            api(compose.materialIconsExtended)?.because("We need to provide icons for default Navigation drawer header")
         }
     }
 }
