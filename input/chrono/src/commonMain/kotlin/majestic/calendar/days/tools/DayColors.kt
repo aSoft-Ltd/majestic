@@ -1,12 +1,16 @@
 package majestic.calendar.days.tools
 
 import androidx.compose.ui.graphics.Color
-import majestic.editor.tools.StateColors
 
 data class DayColors(
     val text: TextColors,
     val background: StateColors
 ) {
+    data class StateColors(
+        val focused: Color,
+        val unfocused: Color
+    )
+
     companion object {
         val Default = DayColors(
             text = TextColors.Default,

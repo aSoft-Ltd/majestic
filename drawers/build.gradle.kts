@@ -19,7 +19,7 @@ plugins {
 description = "Different drawers that can be used"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.input.core"
+    namespace = "tz.co.asoft.academia.majestic.drawers"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk

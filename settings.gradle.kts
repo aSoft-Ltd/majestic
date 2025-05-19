@@ -16,4 +16,4 @@ fun includeSubs(base: String, path: String = base, vararg subs: String) {
 rootProject.name = "majestic"
 
 includeSubs("majestic", ".", "theme", "table", "graphs", "drawers", "screen", "loaders")
-includeSubs("majestic-input", "input", "core", "text", "color", "choice", "phone")
+includeSubs("majestic-input", "input", "core", "text", "color", "choice", "phone", "chrono")
