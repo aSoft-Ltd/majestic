@@ -11,6 +11,9 @@ enum class StartWindow(val width: Int, val height: Int) {
     @SerialName("iphone-12-pro")
     Iphone12Pro(390, 844),
 
+    @SerialName("galaxy-s20")
+    GalaxyS20(412, 915),
+
     // Desktops
     @SerialName("1366x768")
     Desktop1366x768(1366, 768),
