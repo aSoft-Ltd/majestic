@@ -3,11 +3,8 @@
 package majestic
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -19,7 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import majestic.popup.Inline
+import majestic.popup.Items
+import majestic.popup.Overlay
 
+@Deprecated("In favour of Popup")
 @Composable
 fun <T> PopupMenu(
     items: Collection<T>,
@@ -55,6 +56,29 @@ fun <T> PopupMenu(
     }
 }
 
+
+@Composable
+fun <T> Popup(
+    onDismissRequest: () -> Unit,
+    items: Items<T>,
+    inline: Inline,
+    expanded: Boolean = false,
+    anchor: MenuAnchorType = MenuAnchorType.PrimaryEditable,
+    modifier: Modifier = Modifier,
+) = Popup(
+    onDismissRequest = onDismissRequest,
+    modifier = modifier,
+    expanded = expanded,
+    anchor = anchor,
+    inline = inline,
+    overlay = Overlay(items.modifier, items.shape) {
+        for (item in items.data) Box(modifier = items.item.modifier) {
+            items.item.content(item)
+        }
+    }
+)
+
+@Deprecated("In favour of Popup(overlay = Overlay)")
 @Composable
 fun PopupMenu(
     onDismissRequest: () -> Unit,
@@ -86,17 +110,6 @@ fun PopupMenu(
     }
 }
 
-class Inline(
-    val modifier: Modifier = Modifier,
-    val content: @Composable BoxScope.(expanded: Boolean) -> Unit
-)
-
-class Overlay(
-    val modifier: Modifier = Modifier,
-    val shape: Shape = RoundedCornerShape(8.0.dp),
-    val content: @Composable ColumnScope.() -> Unit
-)
-
 @Composable
 fun Popup(
     onDismissRequest: () -> Unit,
@@ -111,7 +124,7 @@ fun Popup(
         onExpandedChange = {},
         modifier = modifier
     ) {
-        Box(modifier = inline.modifier.menuAnchor(type = anchor)) {
+        Box(modifier = inline.modifier.menuAnchor(type = anchor), contentAlignment = inline.alignment) {
             inline.content(this, expanded)
         }
         ExposedDropdownMenu(
