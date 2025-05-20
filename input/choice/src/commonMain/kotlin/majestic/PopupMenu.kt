@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
+/*
 @Composable
 fun <T> PopupMenu(
     items: Collection<T>,
@@ -82,3 +83,4 @@ fun PopupMenu(
         }
     }
 }
+ */

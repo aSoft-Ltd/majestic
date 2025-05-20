@@ -37,10 +37,11 @@ data class MenuItemColors(
     }
 }
 
+
+// TODO: This is a bad architecture the exposed modifier should go to the parent not the child
 @Composable
 fun MenuItem(
     label: @Composable (style: TextStyle) -> Unit,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     colors: MenuItemColors = MenuItemColors.default,
     borderWidth: Dp = 0.dp,
@@ -71,12 +72,6 @@ fun MenuItem(
             .background(color = color.background)
             .pointerHoverIcon(PointerIcon.Hand)
             .hoverable(interactionSource = interactionSource)
-            .clickable(
-                interactionSource = NoRippleInteractionSource,
-                indication = null,
-                enabled = true,
-                onClick = onClick
-            ),
     ) {
         Row(
             modifier = modifier,
