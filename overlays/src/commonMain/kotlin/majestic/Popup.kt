@@ -3,8 +3,11 @@
 package majestic
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -79,6 +82,46 @@ fun PopupMenu(
             containerColor = containerColor
         ) {
             content()
+        }
+    }
+}
+
+class Inline(
+    val modifier: Modifier = Modifier,
+    val content: @Composable BoxScope.(expanded: Boolean) -> Unit
+)
+
+class Overlay(
+    val modifier: Modifier = Modifier,
+    val shape: Shape = RoundedCornerShape(8.0.dp),
+    val content: @Composable ColumnScope.() -> Unit
+)
+
+@Composable
+fun Popup(
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    expanded: Boolean = false,
+    anchor: MenuAnchorType = MenuAnchorType.PrimaryEditable,
+    inline: Inline,
+    overlay: Overlay,
+) {
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = {},
+        modifier = modifier
+    ) {
+        Box(modifier = inline.modifier.menuAnchor(type = anchor)) {
+            inline.content(this, expanded)
+        }
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = onDismissRequest,
+            modifier = overlay.modifier,
+            shape = overlay.shape,
+            containerColor = Color.Unspecified
+        ) {
+            overlay.content(this)
         }
     }
 }

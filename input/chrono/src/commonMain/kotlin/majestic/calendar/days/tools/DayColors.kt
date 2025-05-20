@@ -12,12 +12,14 @@ data class DayColors(
     )
 
     companion object {
-        val Default = DayColors(
-            text = TextColors.Default,
-            background = StateColors(
-                focused = Color.White,
-                unfocused = Color.Transparent
+        val Default by lazy {
+            DayColors(
+                text = TextColors.Default,
+                background = StateColors(
+                    focused = Color.White,
+                    unfocused = Color.Transparent
+                )
             )
-        )
+        }
     }
 }

@@ -10,7 +10,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import majestic.calendar.month.tools.defaults.YearDefaults
-import majestic.calendar.tools.DatePickerState
+import majestic.calendar.DatePickerState
 
 @Composable
 internal fun YearDropdown(
