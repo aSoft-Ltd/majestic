@@ -1,5 +1,6 @@
 package majestic.popup
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,9 +21,10 @@ class Items<T>(
     ) : this(
         data = data,
         item = Item(
-            modifier = modifier,
+            modifier = Modifier.fillMaxWidth(),
             content = item,
         ),
         shape = shape,
+        modifier = modifier
     )
 }
