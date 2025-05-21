@@ -62,6 +62,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.majesticScreen)
             api(compose.runtime)
+            api(compose.components.resources)?.because("We need to model menu items with action menus")
             api(compose.foundation)
             api(compose.material3)?.because("We need to provide icons for default Navigation drawer header")
             api(compose.materialIconsExtended)?.because("We need to provide icons for default Navigation drawer header")
