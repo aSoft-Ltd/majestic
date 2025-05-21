@@ -16,8 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import majestic.popup.Inline
+import majestic.popup.Items
+import majestic.popup.Overlay
 
-/*
+@Deprecated("In favour of Popup")
 @Composable
 fun <T> PopupMenu(
     items: Collection<T>,
@@ -53,6 +56,29 @@ fun <T> PopupMenu(
     }
 }
 
+
+@Composable
+fun <T> Popup(
+    onDismissRequest: () -> Unit,
+    items: Items<T>,
+    inline: Inline,
+    expanded: Boolean = false,
+    anchor: MenuAnchorType = MenuAnchorType.PrimaryEditable,
+    modifier: Modifier = Modifier,
+) = Popup(
+    onDismissRequest = onDismissRequest,
+    modifier = modifier,
+    expanded = expanded,
+    anchor = anchor,
+    inline = inline,
+    overlay = Overlay(items.modifier, items.shape) {
+        for (item in items.data) Box(modifier = items.item.modifier) {
+            items.item.content(item)
+        }
+    }
+)
+
+@Deprecated("In favour of Popup(overlay = Overlay)")
 @Composable
 fun PopupMenu(
     onDismissRequest: () -> Unit,
@@ -83,4 +109,32 @@ fun PopupMenu(
         }
     }
 }
- */
+
+@Composable
+fun Popup(
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    expanded: Boolean = false,
+    anchor: MenuAnchorType = MenuAnchorType.PrimaryEditable,
+    inline: Inline,
+    overlay: Overlay,
+) {
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = {},
+        modifier = modifier
+    ) {
+        Box(modifier = inline.modifier.menuAnchor(type = anchor), contentAlignment = inline.alignment) {
+            inline.content(this, expanded)
+        }
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = onDismissRequest,
+            modifier = overlay.modifier,
+            shape = overlay.shape,
+            containerColor = Color.Unspecified
+        ) {
+            overlay.content(this)
+        }
+    }
+}

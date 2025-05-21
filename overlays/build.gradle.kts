@@ -16,10 +16,10 @@ plugins {
     alias(kotlinz.plugins.dokka)
 }
 
-description = "Different drawers that can be used"
+description = "Majestic extention of different kind of overlays like modals, popups and dialogs"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.drawers"
+    namespace = "tz.co.asoft.academia.majestic.overlays"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk

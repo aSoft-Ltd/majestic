@@ -10,7 +10,7 @@ import kotlinx.datetime.isoDayNumber
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import majestic.calendar.days.tools.DayColors
-import majestic.calendar.tools.DatePickerState
+import majestic.calendar.DatePickerState
 import majestic.calendar.tools.daysInMonth
 
 @Composable

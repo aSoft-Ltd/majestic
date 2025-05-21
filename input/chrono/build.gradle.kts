@@ -16,10 +16,10 @@ plugins {
     alias(kotlinz.plugins.dokka)
 }
 
-description = "The majestic design system implementation from asoft"
+description = "The majestic design system implementation from asoft for time, dates and calendars"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.input.core"
+    namespace = "tz.co.asoft.academia.majestic.input.chrono"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
