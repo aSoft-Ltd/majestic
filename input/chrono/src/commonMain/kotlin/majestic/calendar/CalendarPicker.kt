@@ -1,31 +1,52 @@
 package majestic.calendar
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import majestic.calendar.days.DefaultGrid
-import majestic.calendar.days.WeekDays
-import majestic.calendar.month.MonthYearPicker
-import majestic.calendar.tools.Calendar
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
+import majestic.calendar.days.DayGrid
+import majestic.calendar.days.tools.DayColors
 
 @Composable
-fun Calendar(
-    state: DatePickerState,
+fun CalendarPicker(
     modifier: Modifier = Modifier,
-    defaults: Calendar = Calendar.Default,
+    labels: CalendarPickerLabels = CalendarPickerLabels.Default,
+    colors: CalendarPickerColors = CalendarPickerColors.Default
 ) {
+    var selected by remember { mutableStateOf<LocalDate?>(null) }
+    println("Selected: $selected")
     Column(
-        modifier,
+        modifier = Modifier.background(colors.surface.background).then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 2.dp, alignment = Alignment.CenterVertically),
     ) {
-        MonthYearPicker(state = state, modifier = Modifier.fillMaxWidth(), defaults = defaults.week.monthYear)
-        WeekDays(modifier = Modifier.weight(1f), defaults = defaults.week.day)
-        DefaultGrid(modifier = Modifier.height(240.dp).fillMaxWidth(), state = state, colors = defaults.colors.day)
+        DayGrid(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            labels = labels.day,
+            colors = colors.day,
+            month = Month.APRIL,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            year = 2025,
+            selected = { selected == it },
+            onClick = {
+                selected = if (!it.isSameDateAs(selected)) it else null
+            }
+        )
     }
+}
+
+private fun LocalDate?.isSameDateAs(other: LocalDate?): Boolean {
+    return this?.year == other?.year && this?.monthNumber == other?.monthNumber && this?.dayOfMonth == other?.dayOfMonth
 }

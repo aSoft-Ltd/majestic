@@ -3,7 +3,7 @@ package majestic.calendar.days.tools
 import androidx.compose.ui.graphics.Color
 
 data class DayColors(
-    val text: TextColors,
+    val foreground: TextColors,
     val background: StateColors
 ) {
     data class StateColors(
@@ -14,7 +14,7 @@ data class DayColors(
     companion object {
         val Default by lazy {
             DayColors(
-                text = TextColors.Default,
+                foreground = TextColors.Default,
                 background = StateColors(
                     focused = Color.White,
                     unfocused = Color.Transparent
