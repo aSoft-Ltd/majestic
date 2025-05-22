@@ -28,11 +28,9 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
+import majestic.DatePickerManager
 import majestic.calendar.CalendarPickerView.Grid
-import majestic.calendar.days.CellContext
-import majestic.calendar.days.DayGrid
-import majestic.calendar.days.MonthGrid
-import majestic.calendar.days.YearGrid
+import majestic.calendar.tools.CellContext
 
 
 @Composable
@@ -42,7 +40,6 @@ fun CalendarPicker(
     labels: CalendarPickerLabels = CalendarPickerLabels.Default,
     colors: CalendarPickerColors = CalendarPickerColors.Default,
     spacing: Dp = 12.dp,
-    onChange: (LocalDate?) -> Unit = {},
     day: @Composable RowScope.(CellContext<LocalDate>) -> Unit = { },
 ) = CalendarPicker(
     manager = manager,
@@ -50,7 +47,6 @@ fun CalendarPicker(
     labels = labels,
     colors = colors,
     day = day,
-    onChange = onChange,
     arrangement = CalendarArrangement(
         vertical = Arrangement.spacedBy(spacing),
         horizontal = Arrangement.spacedBy(spacing)
@@ -64,7 +60,6 @@ fun CalendarPicker(
     labels: CalendarPickerLabels = CalendarPickerLabels.Default,
     colors: CalendarPickerColors = CalendarPickerColors.Default,
     arrangement: CalendarArrangement,
-    onChange: (LocalDate?) -> Unit = {},
     day: @Composable RowScope.(CellContext<LocalDate>) -> Unit = { }
 ) {
     Column(

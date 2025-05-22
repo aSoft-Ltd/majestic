@@ -1,4 +1,4 @@
-package majestic.calendar.days
+package majestic.calendar.tools
 
 enum class DayState {
     Selected, Hovered, Waiting

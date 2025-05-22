@@ -1,4 +1,4 @@
-package majestic.calendar.days
+package majestic.calendar
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
@@ -16,6 +16,9 @@ import androidx.compose.ui.Modifier
 import kotlinx.datetime.Month
 import majestic.NoRippleInteractionSource
 import majestic.calendar.CalendarPickerColors.GridColors
+import majestic.calendar.tools.CellContext
+import majestic.calendar.tools.DayPosition
+import majestic.calendar.tools.DayState
 
 @Composable
 internal fun MonthGrid(

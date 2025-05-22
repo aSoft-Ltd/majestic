@@ -1,4 +1,4 @@
-package majestic.calendar.days
+package majestic.calendar.tools
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
-import majestic.calendar.DatePickerManager
+import majestic.DatePickerManager
 
 @Composable
 fun CalenderHeader(

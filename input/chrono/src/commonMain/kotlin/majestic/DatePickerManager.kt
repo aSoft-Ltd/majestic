@@ -1,4 +1,4 @@
-package majestic.calendar
+package majestic
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -10,6 +10,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
+import majestic.calendar.CalendarPickerView
 import majestic.calendar.CalendarPickerView.Grid
 import majestic.calendar.CalendarPickerView.Grid.Day
 import majestic.calendar.CalendarPickerView.Grid.Month

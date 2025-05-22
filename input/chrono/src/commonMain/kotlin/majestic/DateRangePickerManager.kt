@@ -1,4 +1,4 @@
-package majestic.calendar
+package majestic
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

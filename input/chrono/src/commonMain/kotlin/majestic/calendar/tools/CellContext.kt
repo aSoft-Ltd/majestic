@@ -1,4 +1,4 @@
-package majestic.calendar.days
+package majestic.calendar.tools
 
 import androidx.compose.ui.Modifier
 import majestic.calendar.CalendarPickerColors

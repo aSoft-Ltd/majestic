@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.calendar.days.CellContext
+import majestic.calendar.tools.CellContext
 
 fun Modifier.cell(
     ctx: CellContext<*>,

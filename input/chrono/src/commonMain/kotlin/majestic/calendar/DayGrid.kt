@@ -1,4 +1,4 @@
-package majestic.calendar.days
+package majestic.calendar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,8 +26,9 @@ import kotlinx.datetime.isoDayNumber
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import majestic.NoRippleInteractionSource
-import majestic.calendar.CalendarPickerColors
-import majestic.calendar.CalendarPickerLabels
+import majestic.calendar.tools.CellContext
+import majestic.calendar.tools.DayPosition
+import majestic.calendar.tools.DayState
 import majestic.calendar.tools.daysInMonth
 
 @Composable
