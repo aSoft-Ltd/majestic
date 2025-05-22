@@ -22,4 +22,25 @@ class CalendarPickerLabels(
             }
         }
     }
+
+    data class MonthLabels(
+        val jan: String,
+        val feb: String,
+        val mar: String,
+        val apr: String,
+        val may: String,
+        val jun: String,
+        val jul: String,
+        val aug: String,
+        val sep: String,
+        val oct: String,
+        val nov: String,
+        val dec: String
+    ) {
+        companion object {
+            val Default by lazy {
+                MonthLabels("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+            }
+        }
+    }
 }

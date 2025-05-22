@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -33,13 +34,14 @@ import majestic.calendar.tools.daysInMonth
 internal fun DayGrid(
     modifier: Modifier,
     labels: CalendarPickerLabels.WeekdayLabels,
-    colors: CalendarPickerColors.DayGridColors,
+    colors: CalendarPickerColors.GridColors,
     month: Month,
     year: Int,
     selected: (LocalDate) -> Boolean,
     verticalArrangement: Arrangement.Vertical,
     horizontalArrangement: Arrangement.Horizontal,
-    onClick: (LocalDate) -> Unit
+    onClick: (LocalDate) -> Unit,
+    day: @Composable RowScope.(CellContext<LocalDate>) -> Unit
 ) {
     val daysInCurrentMonth = daysInMonth(month, year)
     val firstDay = LocalDate(year, month, 1)
@@ -83,32 +85,23 @@ internal fun DayGrid(
             for (day in week) {
                 val interaction = remember { MutableInteractionSource() }
                 val hovered by interaction.collectIsHoveredAsState()
-                val selected = selected(day)
-                val outside = day.month != month
 
-                val color = when {
-                    selected -> colors.picked
-                    hovered -> colors.hovered
-                    outside -> colors.outside
-                    else -> colors.waiting
-                }
-
-                Box(
-                    modifier = Modifier.hoverable(interaction)
-                        .background(
-                            color = color.background,
-                            shape = RoundedCornerShape(8.dp)
-                        ).weight(1f)
+                val ctx = CellContext(
+                    position = if (day.month == month) DayPosition.Inside else DayPosition.Outside,
+                    state = when {
+                        selected(day) -> DayState.Selected
+                        hovered -> DayState.Hovered
+                        else -> DayState.Waiting
+                    },
+                    value = day,
+                    modifier = Modifier.weight(1f)
+                        .hoverable(interaction)
                         .clickable(NoRippleInteractionSource, null) {
                             onClick(day)
                         },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "${day.dayOfMonth}",
-                        color = color.foreground
-                    )
-                }
+                    colors = colors
+                )
+                day(ctx)
             }
         }
     }

@@ -3,9 +3,9 @@ package majestic.calendar
 import androidx.compose.ui.graphics.Color
 import majestic.colors.ColorPair
 
-class CalendarPickerColors(
+data class CalendarPickerColors(
     val surface: ColorPair = ColorPair(foreground = Color.Black, background = Color.White),
-    val day: DayGridColors = DayGridColors(
+    val day: GridColors = GridColors(
         waiting = ColorPair(foreground = surface.foreground, background = Color.Transparent),
         hovered = ColorPair(foreground = Color.White, background = Color.Blue),
         picked = ColorPair(foreground = Color.White, background = Color.Green),
@@ -16,7 +16,7 @@ class CalendarPickerColors(
         val Default by lazy { CalendarPickerColors() }
     }
 
-    class DayGridColors(
+    data class GridColors(
         /**
          * When the day is waiting to be picked
          */
