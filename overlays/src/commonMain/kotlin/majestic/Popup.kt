@@ -69,7 +69,7 @@ fun Popup(
             },
             modifier = overlay.modifier.clip(overlay.shape),
             shape = overlay.shape,
-            containerColor = Color.Unspecified
+            containerColor = overlay.background
         ) {
             overlay.content(this)
         }
