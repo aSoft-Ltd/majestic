@@ -17,7 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
@@ -80,19 +84,27 @@ fun CalendarPicker(
                 horizontalArrangement = arrangement.horizontal,
                 verticalArrangement = arrangement.vertical,
                 year = manager.view.year,
-                selected = { manager.selected == it },
+                selected = { manager.isSelected(it) },
+                selectable = { manager.isAcceptable(it) },
                 day = { context ->
                     Text(
                         modifier = Modifier.cell(context),
-                        text = "${context.value.dayOfMonth}",
+                        text = buildAnnotatedString {
+                            val decoration = if (!context.pickable) {
+                                TextDecoration.LineThrough
+                            } else {
+                                TextDecoration.None
+                            }
+                            withStyle(SpanStyle(textDecoration = decoration)) {
+                                append("${context.value.dayOfMonth}")
+                            }
+                        },
                         color = context.toColorPair(context.colors).foreground,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 },
                 onClick = {
-                    val v = if (!it.isSameDateAs(manager.selected)) it else null
-                    manager.selected = v
-                    onChange(v)
+                    manager.select(it)
                 }
             )
 
@@ -129,10 +141,6 @@ fun CalendarPicker(
             )
         }
     }
-}
-
-private fun LocalDate?.isSameDateAs(other: LocalDate?): Boolean {
-    return this?.year == other?.year && this?.monthNumber == other?.monthNumber && this?.dayOfMonth == other?.dayOfMonth
 }
 
 private fun IntSize.toDpSize(density: Density) = with(density) {

@@ -52,6 +52,7 @@ internal fun YearGrid(
                     else -> DayState.Waiting
                 },
                 value = y,
+                pickable = true,
                 modifier = Modifier
                     .hoverable(interaction)
                     .clickable(NoRippleInteractionSource, null) {

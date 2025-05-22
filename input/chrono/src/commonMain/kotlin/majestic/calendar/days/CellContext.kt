@@ -5,6 +5,7 @@ import majestic.calendar.CalendarPickerColors
 
 class CellContext<out T>(
     val position: DayPosition,
+    val pickable: Boolean,
     val state: DayState,
     val value: T,
     internal val colors: CalendarPickerColors.GridColors,
@@ -12,8 +13,9 @@ class CellContext<out T>(
 ) {
     fun toColorPair(colors: CalendarPickerColors.GridColors) = when {
         state == DayState.Selected -> colors.picked
-        state == DayState.Hovered -> colors.hovered
+        state == DayState.Hovered && pickable -> colors.hovered
         position == DayPosition.Outside -> colors.outside
-        else -> colors.waiting
+        pickable -> colors.waiting
+        else -> colors.outside
     }
 }

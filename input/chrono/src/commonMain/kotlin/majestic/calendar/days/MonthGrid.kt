@@ -39,6 +39,7 @@ internal fun MonthGrid(
                         else -> DayState.Waiting
                     },
                     value = month,
+                    pickable = true,
                     modifier = Modifier.weight(1f)
                         .hoverable(interaction)
                         .clickable(NoRippleInteractionSource, null) {

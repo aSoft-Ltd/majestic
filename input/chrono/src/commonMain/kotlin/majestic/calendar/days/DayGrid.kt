@@ -38,6 +38,7 @@ internal fun DayGrid(
     month: Month,
     year: Int,
     selected: (LocalDate) -> Boolean,
+    selectable: (LocalDate) -> Boolean,
     verticalArrangement: Arrangement.Vertical,
     horizontalArrangement: Arrangement.Horizontal,
     onClick: (LocalDate) -> Unit,
@@ -93,6 +94,7 @@ internal fun DayGrid(
                         hovered -> DayState.Hovered
                         else -> DayState.Waiting
                     },
+                    pickable = selectable(day),
                     value = day,
                     modifier = Modifier.weight(1f)
                         .hoverable(interaction)
