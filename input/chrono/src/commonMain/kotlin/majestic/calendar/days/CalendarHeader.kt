@@ -10,11 +10,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
-import majestic.calendar.CalendarPickerManager
+import majestic.calendar.DatePickerManager
 
 @Composable
 fun CalenderHeader(
-    manager: CalendarPickerManager,
+    manager: DatePickerManager,
     color: Color = Color.Black,
     modifier: Modifier = Modifier,
 ) = Row(modifier, horizontalArrangement = Arrangement.SpaceBetween) {

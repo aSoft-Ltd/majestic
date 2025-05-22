@@ -33,7 +33,7 @@ import majestic.calendar.days.YearGrid
 
 @Composable
 fun CalendarPicker(
-    manager: CalendarPickerManager,
+    manager: DatePickerManager,
     modifier: Modifier = Modifier,
     labels: CalendarPickerLabels = CalendarPickerLabels.Default,
     colors: CalendarPickerColors = CalendarPickerColors.Default,
@@ -55,7 +55,7 @@ fun CalendarPicker(
 
 @Composable
 fun CalendarPicker(
-    manager: CalendarPickerManager,
+    manager: DatePickerManager,
     modifier: Modifier = Modifier,
     labels: CalendarPickerLabels = CalendarPickerLabels.Default,
     colors: CalendarPickerColors = CalendarPickerColors.Default,
@@ -120,6 +120,7 @@ fun CalendarPicker(
                 mid = manager.view.year,
                 year = { context ->
                     Text(
+                        modifier = Modifier.cell(context),
                         text = "${context.value}",
                         color = context.toColorPair(context.colors).foreground,
                         textAlign = TextAlign.Center
