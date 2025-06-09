@@ -19,24 +19,39 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import majestic.colors.ColorPair
 
-data class CheckboxColors(
+data class CheckboxMicroColors(
     val background: Color,
     val border: Color,
-    val icon: ColorPair,
+    val icon: ColorPair
+)
+
+data class CheckboxColors(
+    val selected: CheckboxMicroColors,
+    val unselected: CheckboxMicroColors
 ) {
     companion object {
         val Default = CheckboxColors(
-            background = Color.Transparent,
-            border = Color.Transparent,
-            icon = ColorPair(
-                background = Color.Black,
-                foreground = Color.White
+            selected = CheckboxMicroColors(
+                background = Color.Transparent,
+                border = Color.Transparent,
+                icon = ColorPair(
+                    background = Color.Black,
+                    foreground = Color.White
+                )
+            ),
+            unselected = CheckboxMicroColors(
+                background = Color.Transparent,
+                border = Color.Transparent,
+                icon = ColorPair(
+                    background = Color.Black,
+                    foreground = Color.White
+                )
             )
         )
     }
 }
 
-fun Modifier.checkbox(colors: CheckboxColors, shape: Shape) = size(24.dp)
+fun Modifier.checkbox(colors: CheckboxMicroColors, shape: Shape) = size(24.dp)
     .clip(shape)
     .background(colors.background)
     .border(1.dp, color = colors.border, shape)
@@ -45,7 +60,7 @@ fun Modifier.checkbox(colors: CheckboxColors, shape: Shape) = size(24.dp)
 fun Checkbox(
     selected: Boolean,
     icon: ImageVector = Icons.Filled.Check,
-    colors: CheckboxColors = CheckboxColors.Default,
+    colors: CheckboxMicroColors = CheckboxColors.Default.unselected,
     shape: Shape = RoundedCornerShape(5.dp),
     modifier: Modifier = Modifier.checkbox(colors, shape)
 ) = Box(modifier = modifier) {
