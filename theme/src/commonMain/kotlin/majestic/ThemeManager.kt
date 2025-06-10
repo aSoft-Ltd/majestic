@@ -1,23 +1,17 @@
 package majestic
 
 import androidx.compose.runtime.mutableStateOf
-import majestic.colors.ColorMode
-import majestic.colors.options.ACADEMIA_DARK
-import majestic.colors.options.ACADEMIA_LIGHT
 
 class ThemeManager {
-    val mode = mutableStateOf(ColorMode.Dark)
-    val colors = mutableStateOf(mode.value.toColors())
+    val state = mutableStateOf(ThemeState.dark())
 
-    private fun ColorMode.toColors() = when (this) {
-        ColorMode.Dark -> ACADEMIA_DARK
-        ColorMode.Light -> ACADEMIA_LIGHT
+    fun setMode(m: ThemeMode) {
+        val current = state.value
+        state.value = current.copy(
+            mode = m,
+            colors = current.colors.copy(base = m.color)
+        )
     }
 
-    fun setMode(m: ColorMode) {
-        mode.value = m
-        colors.value = m.toColors()
-    }
-
-    fun toggleMode() = setMode(mode.value.toggled())
+    fun toggleMode() = setMode(state.value.mode.toggled())
 }

@@ -80,7 +80,6 @@ fun Search(
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }
 
-
     Box(modifier = modifier) {
         Row(
             modifier = Modifier
