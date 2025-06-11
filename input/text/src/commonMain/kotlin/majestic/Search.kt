@@ -74,10 +74,17 @@ fun Search(
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(30.dp),
-    hint: String = "Search",
+    hint: String? = null,
+    placeholder: @Composable (String?) -> Unit = {
+        Text(
+            modifier = Modifier.padding(start = 10.dp),
+            text = it ?: "Search",
+            color = colors.hint,
+            style = LocalTextStyle.current,
+        )
+    },
     focusRequester: FocusRequester? = null,
     textStyle: TextStyle? = null,
-    hintStyle: TextStyle = LocalTextStyle.current,
     onSearch: () -> Unit = {},
     onFocusChange: (Boolean) -> Unit = {},
     onDismiss: () -> Unit = {},
@@ -138,12 +145,7 @@ fun Search(
                 cursorBrush = SolidColor(colors.cursor),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 decorationBox = { innerTextField ->
-                    if (value.isEmpty()) Text(
-                        modifier = Modifier.padding(start = 8.dp),
-                        text = hint,
-                        color = colors.hint,
-                        style = hintStyle
-                    )
+                    if (value.isEmpty()) placeholder(hint)
                     innerTextField()
                 },
                 singleLine = true
