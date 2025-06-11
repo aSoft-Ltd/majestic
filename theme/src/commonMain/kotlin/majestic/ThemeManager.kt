@@ -7,31 +7,36 @@ class ThemeManager(
     val choices: List<ColorPair> = listOf(
         ColorPair(Color(0xFFFAFAFA), Color(0xFF0061FF)),
         ColorPair(Color(0xFFFAFAFA), Color(0xFF673AB7)),
-        ColorPair(Color(0xFFFAFAFA), Color(0xFF26C6DA)),
+        ColorPair(Color(0xFF121212), Color(0xFF26C6DA)),
         ColorPair(Color(0xFFFAFAFA), Color(0xFF26A69A)),
         ColorPair(Color(0xFFFAFAFA), Color(0xFF4CAF50)),
-        ColorPair(Color(0xFFFAFAFA), Color(0xFFCDDC39)),
-        ColorPair(Color(0xFFFAFAFA), Color(0xFFFFA000)),
-        ColorPair(Color(0xFFFAFAFA), Color(0xFFF57C00)),
-        ColorPair(Color(0xFFFAFAFA), Color(0xFFFF5722)),
+        ColorPair(Color(0xFF121212), Color(0xFFCDDC39)),
+        ColorPair(Color(0xFF121212), Color(0xFFFFA000)),
+        ColorPair(Color(0xFF121212), Color(0xFFF57C00)),
+        ColorPair(Color(0xFF121212), Color(0xFFFF5722)),
     )
 ) {
-    val state = mutableStateOf(ThemeState.dark())
+    val state = mutableStateOf(ThemeState.light(choices.first()))
 
-    fun setMode(m: ThemeMode) {
-        val current = state.value
-        state.value = current.copy(
-            mode = m,
-            colors = current.colors.copy(base = m.color)
+    fun set(mode: ThemeMode, color: ColorPair) {
+        state.value = ThemeState(
+            mode = mode,
+            colors = ThemeColors(
+                base = mode.color,
+                primary = color
+            )
         )
     }
 
-    fun toggleMode() = setMode(state.value.mode.toggled())
+    fun set(mode: ThemeMode) = set(mode, state.value.colors.primary)
 
-    fun setColor(color: ColorPair) {
-        val current = state.value
-        state.value = current.copy(
-            colors = current.colors.copy(primary = color)
-        )
+    fun toggleMode() = set(state.value.mode.toggled())
+
+    private var idx = 0
+    fun next() {
+        idx = (idx + 1) % choices.size
+        set(choices[idx])
     }
+
+    fun set(color: ColorPair) = set(state.value.mode, color)
 }
