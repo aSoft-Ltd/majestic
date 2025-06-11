@@ -1,10 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package majestic
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,11 +23,13 @@ fun <T> SmartSelect(
     placeholder: @Composable () -> Unit = {
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
+    onExpanded: ((Boolean) -> Unit)? = null,
     onClick: ((T) -> Unit)? = null,
     onChange: ((T?) -> Unit)? = null,
     modifier: Modifier = Modifier,
     drawerContainerColor: Color = Color.Unspecified,
     shape: Shape = MenuDefaults.shape,
+    dropDownShape: Shape = MenuDefaults.shape,
     shadowElevation: Dp = MenuDefaults.ShadowElevation,
     border: BorderStroke? = null,
     tonalElevation: Dp = MenuDefaults.TonalElevation
@@ -49,6 +48,8 @@ fun <T> SmartSelect(
             onChange?.invoke(candidate)
             onClick?.invoke(it)
         },
+        onExpanded = onExpanded,
+        dropDownShape = dropDownShape,
         dropDownContainerColor = drawerContainerColor,
         containerShape = shape,
         shadowElevation = shadowElevation,
