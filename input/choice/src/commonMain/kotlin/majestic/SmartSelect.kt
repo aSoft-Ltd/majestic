@@ -23,6 +23,7 @@ fun <T> SmartSelect(
     placeholder: @Composable () -> Unit = {
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
+    onExpanded: ((Boolean) -> Unit)? = null,
     onClick: ((T) -> Unit)? = null,
     onChange: ((T?) -> Unit)? = null,
     modifier: Modifier = Modifier,
@@ -47,6 +48,7 @@ fun <T> SmartSelect(
             onChange?.invoke(candidate)
             onClick?.invoke(it)
         },
+        onExpanded = onExpanded,
         dropDownShape = dropDownShape,
         dropDownContainerColor = drawerContainerColor,
         containerShape = shape,
