@@ -101,7 +101,7 @@ fun ChoiceButton(
     val color = if (selected) colors.selected else colors.unselected
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconCheckCircle(
@@ -112,7 +112,6 @@ fun ChoiceButton(
                 icon = color.icon
             )
         )
-        Spacer(Modifier.width(10.dp))
         label(selected)
     }
 }
