@@ -90,3 +90,29 @@ fun ChoiceButton(
         )
     }
 }
+
+@Composable
+fun ChoiceButton(
+    label: @Composable (Boolean) -> Unit,
+    selected: Boolean,
+    colors: ChoiceColors = ChoiceColors(),
+    modifier: Modifier = Modifier.choiceButton(selected, colors)
+) {
+    val color = if (selected) colors.selected else colors.unselected
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconCheckCircle(
+            selected = selected,
+            colors = IconCheckColors(
+                background = color.icon.background,
+                border = color.border,
+                icon = color.icon
+            )
+        )
+        Spacer(Modifier.width(10.dp))
+        label(selected)
+    }
+}
