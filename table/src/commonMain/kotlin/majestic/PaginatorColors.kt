@@ -1,7 +1,7 @@
 package majestic
 
 import androidx.compose.ui.graphics.Color
-import majestic.colors.ColorPair
+import majestic.ColorPair
 
 data class PaginatorColors(
     val active: ColorPair = ColorPair(

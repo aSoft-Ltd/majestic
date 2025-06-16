@@ -1,9 +1,0 @@
-package majestic.colors
-
-import androidx.compose.ui.graphics.Color
-
-@Deprecated("In favour of majestic.ColorPair")
-data class ColorPair(
-    val foreground: Color,
-    val background: Color
-)

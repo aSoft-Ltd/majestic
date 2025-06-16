@@ -31,7 +31,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import kollections.toKList
-import majestic.colors.ColorPair
+import majestic.ColorPair
 import symphony.SingleChoiceField
 
 class SelectMicroColors(

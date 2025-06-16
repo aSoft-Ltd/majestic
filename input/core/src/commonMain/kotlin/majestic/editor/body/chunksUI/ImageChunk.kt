@@ -33,7 +33,7 @@ import kiota.MB
 import kiota.file.mime.Image
 import kiota.toImageBitmap
 import kotlinx.coroutines.launch
-import majestic.colors.ColorPair
+import majestic.ColorPair
 import majestic.dragdrop.DragAndBorderColors
 import majestic.dragdrop.DragAndDropBox
 import majestic.editor.body.chunksUI.tools.Labels

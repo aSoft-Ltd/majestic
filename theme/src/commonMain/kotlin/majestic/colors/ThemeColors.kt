@@ -1,5 +1,7 @@
 package majestic.colors
 
+import majestic.ColorPair
+
 class ThemeColors(
     val primary: ColorRole2,
     val surface1: ColorRole2,

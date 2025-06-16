@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.colors.ColorPair
+import majestic.ColorPair
 
 /**
  * A rotating loader component that shows an animated circular progress with

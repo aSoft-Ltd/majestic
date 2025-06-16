@@ -1,5 +1,7 @@
 package majestic.colors
 
+import majestic.ColorPair
+
 class ColorRole3(
     /**
      * The main color

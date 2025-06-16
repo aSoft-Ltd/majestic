@@ -35,7 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.NoRippleInteractionSource
-import majestic.colors.ColorPair
+import majestic.ColorPair
 
 class DragAndBorderColors(
     val hovered: Color,

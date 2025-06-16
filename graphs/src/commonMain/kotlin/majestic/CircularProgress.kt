@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.colors.ColorPair
+import majestic.ColorPair
 import majestic.tools.minus
 import majestic.tools.toOffset
 
