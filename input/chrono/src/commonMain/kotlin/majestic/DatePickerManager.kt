@@ -25,7 +25,7 @@ abstract class DatePickerManager(
     var selected by mutableStateOf(initial)
     var max by mutableStateOf(max)
     var min by mutableStateOf(min)
-    internal var view by mutableStateOf(
+    var view by mutableStateOf(
         CalendarPickerView(
             month = initial?.month ?: LocalDate.fromEpochDays(0).month,
             year = initial?.year ?: LocalDate.fromEpochDays(0).year,
@@ -46,19 +46,19 @@ abstract class DatePickerManager(
         selected = null
     }
 
-    internal fun nextMonth() {
+    fun nextMonth() {
         val last = LocalDate(view.year, view.month, daysInMonth(view.month, view.year))
         val next = last.plus(1, DateTimeUnit.DAY)
         view = view.copy(month = next.month, year = next.year)
     }
 
-    internal fun prevMonth() {
+    fun prevMonth() {
         val last = LocalDate(view.year, view.month, 1)
         val prev = last.minus(1, DateTimeUnit.DAY)
         view = view.copy(month = prev.month, year = prev.year)
     }
 
-    internal fun nextView() {
+    fun nextView() {
         view = view.copy(grid = view.grid.next())
     }
 
@@ -68,11 +68,11 @@ abstract class DatePickerManager(
         Year -> Day
     }
 
-    internal fun select(month: Month) {
+    fun select(month: Month) {
         view = view.copy(grid = Day, month = month)
     }
 
-    internal fun select(year: Int) {
+    fun select(year: Int) {
         view = view.copy(grid = Month, year = year)
     }
 
