@@ -30,6 +30,7 @@ fun <T> SmartSelect(
     drawerContainerColor: Color = Color.Unspecified,
     shape: Shape = MenuDefaults.shape,
     dropDownShape: Shape = MenuDefaults.shape,
+    dropdownModifier: Modifier = Modifier,
     shadowElevation: Dp = MenuDefaults.ShadowElevation,
     border: BorderStroke? = null,
     tonalElevation: Dp = MenuDefaults.TonalElevation
@@ -51,6 +52,7 @@ fun <T> SmartSelect(
         onExpanded = onExpanded,
         dropDownShape = dropDownShape,
         dropDownContainerColor = drawerContainerColor,
+        dropdownModifier = dropdownModifier,
         containerShape = shape,
         shadowElevation = shadowElevation,
         border = border,
