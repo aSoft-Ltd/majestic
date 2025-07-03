@@ -1,6 +1,5 @@
 package majestic
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -64,7 +63,8 @@ fun <T> Paginator(
     }
     for (page in 1..noOfPages) PaginatorItem(
         active = page == currentPage,
-        colors = colors
+        colors = colors,
+        onClick = { paginator.loadPage(page) }
     ) { state ->
         val color = when {
             state.isActive -> colors.active.foreground
@@ -72,7 +72,7 @@ fun <T> Paginator(
             else -> colors.inactive.foreground.copy(0.7f)
         }
         Box(
-            modifier = Modifier.size(24.dp).clickable { paginator.loadPage(page) },
+            modifier = Modifier.size(24.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
