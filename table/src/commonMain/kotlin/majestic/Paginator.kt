@@ -31,6 +31,11 @@ fun <T> Paginator(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(5.dp)
 ) {
+    val current = paginator.current.watchAsState()
+    // start of list pages
+    val noOfPages = 7 // for demo purposes, later this will be handled by the paginator manager
+    val currentPage = current.data?.number
+        ?: 0 // for demo purposes, later this will be handled by the paginator manager
     PaginatorItem(colors = colors) {
         val color = when {
             it.isHovered -> colors.hovered.foreground
@@ -43,7 +48,9 @@ fun <T> Paginator(
             modifier = Modifier.size(24.dp)
         )
     }
-    PaginatorItem(colors = colors) {
+    PaginatorItem(
+        colors = colors,
+        onClick = { paginator.loadPage((currentPage - 1).coerceAtLeast(1)) }) {
         val color = when {
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.7f)
@@ -55,17 +62,19 @@ fun <T> Paginator(
             modifier = Modifier.size(24.dp)
         )
     }
-    val current = paginator.current.watchAsState()
-    // start of list pages
-    val noOfPages = 7 // for demo purposes, later this will be handled by the paginator manager
-    val currentPage = current.data?.number ?: 0 // for demo purposes, later this will be handled by the paginator manager
-    for (page in 1..noOfPages) PaginatorItem(active = page == currentPage, colors = colors) { state ->
+    for (page in 1..noOfPages) PaginatorItem(
+        active = page == currentPage,
+        colors = colors
+    ) { state ->
         val color = when {
             state.isActive -> colors.active.foreground
             state.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.7f)
         }
-        Box(modifier = Modifier.size(24.dp).clickable { paginator.loadPage(page) }, contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier.size(24.dp).clickable { paginator.loadPage(page) },
+            contentAlignment = Alignment.Center
+        ) {
             Text(
                 page.toString(),
                 color = color,
@@ -75,7 +84,9 @@ fun <T> Paginator(
         }
     }
     // end of list pages
-    PaginatorItem(colors = colors) {
+    PaginatorItem(
+        colors = colors,
+        onClick = { paginator.loadPage((currentPage + 1).coerceAtMost(noOfPages)) }) {
         val color = when {
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.7f)
