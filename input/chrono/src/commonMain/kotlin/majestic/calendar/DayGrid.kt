@@ -31,6 +31,8 @@ import majestic.calendar.tools.DayPosition
 import majestic.calendar.tools.DayState
 import majestic.calendar.tools.daysInMonth
 
+enum class WeekStart { MONDAY, SUNDAY }
+
 @Composable
 internal fun DayGrid(
     modifier: Modifier,
@@ -38,6 +40,7 @@ internal fun DayGrid(
     colors: CalendarPickerColors.GridColors,
     month: Month,
     year: Int,
+    weekStart: WeekStart,
     selected: (LocalDate) -> Boolean,
     selectable: (LocalDate) -> Boolean,
     verticalArrangement: Arrangement.Vertical,
@@ -48,7 +51,10 @@ internal fun DayGrid(
     val daysInCurrentMonth = daysInMonth(month, year)
     val firstDay = LocalDate(year, month, 1)
     val firstDayOfWeek = firstDay.dayOfWeek
-    val offset = (firstDayOfWeek.isoDayNumber % 7)
+    val offset = when (weekStart) {
+        WeekStart.MONDAY -> (firstDayOfWeek.isoDayNumber - 1)
+        WeekStart.SUNDAY -> (firstDayOfWeek.isoDayNumber % 7)
+    }
 
     val prevMonth = firstDay.minus(1, DateTimeUnit.MONTH)
     val daysInPrevMonth = daysInMonth(prevMonth.month, prevMonth.year)
@@ -68,7 +74,11 @@ internal fun DayGrid(
 
     Column(modifier, verticalArrangement = verticalArrangement) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = horizontalArrangement) {
-            listOf(labels.sun, labels.mon, labels.tue, labels.wed, labels.thu, labels.fri, labels.sat).forEach {
+            val weekDays = when (weekStart) {
+                WeekStart.MONDAY -> listOf(labels.mon, labels.tue, labels.wed, labels.thu, labels.fri, labels.sat, labels.sun)
+                WeekStart.SUNDAY -> listOf(labels.sun, labels.mon, labels.tue, labels.wed, labels.thu, labels.fri, labels.sat)
+            }
+            weekDays.forEach {
                 Box(
                     modifier = Modifier.background(
                         color = colors.outside.background,
