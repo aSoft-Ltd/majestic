@@ -78,6 +78,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.majesticScreen)
+            api(projects.majesticTheme)
             api(compose.runtime)
             api(compose.foundation)
             api(compose.material3)?.because("We need to provide icons for default Navigation drawer header")
