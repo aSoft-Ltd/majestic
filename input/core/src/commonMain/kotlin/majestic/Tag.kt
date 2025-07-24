@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-fun Modifier.tag(color: Color = Color(0xFF5C6BC0).copy(alpha = 0.2f)) = this
+fun Modifier.tag(color: Color = Color(0x335C6BC0)) = this
     .clip(RoundedCornerShape(5.dp))
     .background(color)
 
