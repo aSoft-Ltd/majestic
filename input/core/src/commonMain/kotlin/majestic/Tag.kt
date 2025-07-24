@@ -20,9 +20,7 @@ fun Tag(
     label: String,
     fontSize: TextUnit = 12.sp,
     color: Color = Color(0xFF66BB6A),
-    modifier: Modifier = Modifier
-        .clip(RoundedCornerShape(5.dp))
-        .background(Color(0xFF5C6BC0).copy(alpha = 0.2f))
+    modifier: Modifier = Modifier.tag()
 ) {
     Box(
         modifier = modifier,
