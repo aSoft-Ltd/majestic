@@ -10,14 +10,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-fun Modifier.tag() = this
-    .clip(RoundedCornerShape(5.dp))
-    .background(Color(0xFF5C6BC0).copy(alpha = 0.2f))
+fun Modifier.tag(
+    color: Color = Color(0x335C6BC0),
+    shape: Shape = RoundedCornerShape(5.dp)
+) = this
+    .clip(shape)
+    .background(color)
 
 @Composable
 fun Tag(
