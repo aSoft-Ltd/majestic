@@ -16,7 +16,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-fun Modifier.tag(color: Color = Color(0x335C6BC0), shape: Shape = RoundedCornerShape(5.dp)) = this
+fun Modifier.tag(
+    color: Color = Color(0x335C6BC0),
+    shape: Shape = RoundedCornerShape(5.dp)
+) = this
     .clip(shape)
     .background(color)
 
