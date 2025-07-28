@@ -10,27 +10,37 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
+fun Modifier.tag(
+    color: Color = Color(0x335C6BC0),
+    shape: Shape = RoundedCornerShape(5.dp)
+) = this
+    .clip(shape)
+    .background(color)
 
 @Composable
 fun Tag(
     label: String,
     fontSize: TextUnit = 12.sp,
-    color: Color = Color(0xFF64B5F6),
-    backgroundColor: Color = Color(0xFF5C6BC0).copy(alpha = 0.2f)
+    color: Color = Color(0xFF66BB6A),
+    modifier: Modifier = Modifier.tag()
 ) {
     Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(5.dp))
-            .background(backgroundColor),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         Text(
             modifier = Modifier.padding(vertical = 2.dp, horizontal = 5.dp),
             text = label,
             color = color,
+            overflow = TextOverflow.Ellipsis,
+            minLines = 1,
+            maxLines = 1,
             fontSize = fontSize,
             lineHeight = 1.sp
         )

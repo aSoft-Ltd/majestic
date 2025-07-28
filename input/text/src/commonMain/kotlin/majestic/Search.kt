@@ -77,7 +77,7 @@ fun Search(
     hint: String? = null,
     placeholder: @Composable (String?) -> Unit = {
         Text(
-            modifier = Modifier.padding(start = 10.dp),
+            modifier = Modifier,
             text = it ?: "Search",
             color = colors.hint,
             style = LocalTextStyle.current,
@@ -101,7 +101,6 @@ fun Search(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(width = 1.dp, color = if (isFocused) colors.border.focused else colors.border.unfocused, shape = shape)
                 .onSizeChanged { containerWidth = it.width },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -110,7 +109,7 @@ fun Search(
                 modifier = if (focusRequester != null) {
                     Modifier.focusRequester(focusRequester).padding(start = 10.dp)
                 } else {
-                    Modifier
+                    Modifier.padding(start = 10.dp)
                 }.weight(1f)
                     .onFocusChanged {
                         isFocused = it.isFocused
@@ -144,7 +143,9 @@ fun Search(
                 cursorBrush = SolidColor(colors.cursor),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 decorationBox = { innerTextField ->
-                    if (value.isEmpty()) placeholder(hint)
+                    if (value.isEmpty()) {
+                        placeholder(hint)
+                    }
                     innerTextField()
                 },
                 singleLine = true
