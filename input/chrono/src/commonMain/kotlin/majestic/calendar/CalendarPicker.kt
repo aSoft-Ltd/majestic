@@ -32,7 +32,6 @@ import majestic.DatePickerManager
 import majestic.calendar.CalendarPickerView.Grid
 import majestic.calendar.tools.CellContext
 
-
 @Composable
 fun CalendarPicker(
     manager: DatePickerManager,
@@ -40,6 +39,7 @@ fun CalendarPicker(
     labels: CalendarPickerLabels = CalendarPickerLabels.Default,
     colors: CalendarPickerColors = CalendarPickerColors.Default,
     spacing: Dp = 12.dp,
+    weekStart: WeekStart = WeekStart.SUNDAY,
     day: @Composable RowScope.(CellContext<LocalDate>) -> Unit = { },
 ) = CalendarPicker(
     manager = manager,
@@ -47,6 +47,7 @@ fun CalendarPicker(
     labels = labels,
     colors = colors,
     day = day,
+    weekStart = weekStart,
     arrangement = CalendarArrangement(
         vertical = Arrangement.spacedBy(spacing),
         horizontal = Arrangement.spacedBy(spacing)
@@ -60,6 +61,7 @@ fun CalendarPicker(
     labels: CalendarPickerLabels = CalendarPickerLabels.Default,
     colors: CalendarPickerColors = CalendarPickerColors.Default,
     arrangement: CalendarArrangement,
+    weekStart: WeekStart = WeekStart.SUNDAY,
     day: @Composable RowScope.(CellContext<LocalDate>) -> Unit = { }
 ) {
     Column(
@@ -76,6 +78,7 @@ fun CalendarPicker(
                 labels = labels.day,
                 colors = colors.day,
                 month = manager.view.month,
+                weekStart = weekStart,
                 horizontalArrangement = arrangement.horizontal,
                 verticalArrangement = arrangement.vertical,
                 year = manager.view.year,
