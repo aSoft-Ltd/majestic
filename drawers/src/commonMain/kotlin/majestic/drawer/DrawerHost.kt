@@ -31,7 +31,7 @@ import majestic.drawer.host.toDp
  */
 @Composable
 fun DrawerHost(
-    controller: MultiDrawerController,
+    controller: MultiDrawerController = LocalDrawerHostControllerContext.current,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
