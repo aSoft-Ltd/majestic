@@ -18,10 +18,10 @@ sealed interface ThemeColor : Nature {
 
 internal data class LightThemeColor(
     override val dominant: ColorPack,
-    override val surface: ColorPack
+    override val surface: ColorPack = ColorPack.surfaceLight()
 ) : ThemeColor, Light
 
 internal data class DarkThemeColor(
     override val dominant: ColorPack,
-    override val surface: ColorPack
+    override val surface: ColorPack = ColorPack.surfaceDark()
 ) : ThemeColor, Dark

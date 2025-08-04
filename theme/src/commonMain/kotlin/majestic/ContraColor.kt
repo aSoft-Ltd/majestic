@@ -1,6 +1,7 @@
 package majestic
 
 import androidx.compose.ui.graphics.Color
+import kotlin.jvm.JvmInline
 
 sealed interface ContraColor : Nature {
     val color: Color
@@ -13,10 +14,12 @@ sealed interface ContraColor : Nature {
     }
 }
 
-private data class LightContraColor(
+@JvmInline
+private value class LightContraColor(
     override val color: Color
 ) : ContraColor, Light
 
-private data class DarkContraColor(
+@JvmInline
+private value class DarkContraColor(
     override val color: Color
 ) : ContraColor, Dark

@@ -1,19 +1,17 @@
 package majestic
 
-import androidx.compose.ui.graphics.Color
-
 data class ColorPack(
-    val actual: Color,
+    val actual: ActualColor,
     val contra: ContraColor
 ) {
     companion object {
         fun surfaceLight() = ColorPack(
-            actual = NeutralColors.white.color,
+            actual = ActualColor(NeutralColors.white.color),
             contra = ContraColor.light(NeutralColors.black.color)
         )
 
         fun surfaceDark() = ColorPack(
-            actual = NeutralColors.black.color,
+            actual = ActualColor(NeutralColors.black.color),
             contra = ContraColor.dark(NeutralColors.white.color)
         )
     }
