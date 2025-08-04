@@ -27,19 +27,12 @@ class ThemeManager(
         ColorPack(actual = Color(0xFFFF5722), contra = ContraColor.dark()),
     )
 ) {
-    val state = mutableStateOf(ThemeState.light(choices.first()))
-    val theme = mutableStateOf<ThemeColor>(
-        LightThemeColor(
-            dominant = dominants.first(),
-            surface = ColorPack(
-                actual = NeutralColors.white.color,
-                contra = ContraColor.dark()
-            )
-        )
-    )
+    val oldState = mutableStateOf(ThemeState.light(choices.first()))
+
+    val state = mutableStateOf<ThemeColor>(LightThemeColor(dominants.first(), ColorPack.surfaceLight()))
 
     fun set(mode: ThemeMode, color: ColorPair) {
-        state.value = ThemeState(
+        oldState.value = ThemeState(
             mode = mode,
             colors = ThemeColors(
                 base = mode.color,
@@ -48,15 +41,73 @@ class ThemeManager(
         )
     }
 
-    fun set(mode: ThemeMode) = set(mode, state.value.colors.primary)
+    fun set(mode: ThemeMode) = set(mode, oldState.value.colors.primary)
 
-    fun toggleMode() = set(state.value.mode.toggled())
+    /**
+     * Sets the theme mode to either Light or Dark.
+     * If the current theme is already in the specified mode, no change is made.
+     *
+     * e.g
+     * ```kotlin
+     *     set(Dark) // Sets the theme to Dark mode
+     *     set(Light) // Sets the theme to Light mode
+     * ```
+     */
+    fun set(mode: ColorMode) {
+        when (mode) {
+            is Light -> {
+                if (state.value is Light) return
+                val current = state.value
+                state.value = LightThemeColor(
+                    dominant = current.dominant,
+                    surface = ColorPack.surfaceLight(),
+                )
+            }
+
+            is Dark -> {
+                if (state.value is Dark) return
+                val current = state.value
+                state.value = DarkThemeColor(
+                    dominant = current.dominant,
+                    surface = ColorPack.surfaceDark(),
+                )
+            }
+        }
+    }
+
+    fun set(mode: ColorMode, dominant: ColorPack) = when (mode) {
+        is Light -> state.value = LightThemeColor(
+            dominant = dominant,
+            surface = ColorPack.surfaceLight()
+        )
+
+        is Dark -> state.value = DarkThemeColor(
+            dominant = dominant,
+            surface = ColorPack.surfaceDark()
+        )
+    }
+
+    fun toggleMode() {
+        set(oldState.value.mode.toggled())
+        set(state.value.mode.toggled())
+    }
 
     private var idx = 0
+    private var index = 0
     fun next() {
         idx = (idx + 1) % choices.size
         set(choices[idx])
+
+        index = (index + 1) % dominants.size
+        set(dominants[index])
     }
 
-    fun set(color: ColorPair) = set(state.value.mode, color)
+    fun set(color: ColorPair) = set(oldState.value.mode, color)
+
+    fun set(dominant: ColorPack) {
+        state.value = when (state.value) {
+            is LightThemeColor -> state.value.dominant(dominant)
+            is DarkThemeColor -> state.value.dominant(dominant)
+        }
+    }
 }
