@@ -25,7 +25,7 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.colors.ColorPair
+import majestic.ColorPair
 
 data class ToggleSwitchColors(
     val on: ColorPair = ColorPair(

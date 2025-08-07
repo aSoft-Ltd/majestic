@@ -2,7 +2,6 @@ package majestic.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -23,8 +22,7 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.NoRippleInteractionSource
-import majestic.colors.ColorPair
+import majestic.ColorPair
 
 data class MenuItemColors(
     val selected: ColorPair = ColorPair(foreground = Color.White, background = Color.Blue),
@@ -34,6 +32,12 @@ data class MenuItemColors(
 ) {
     companion object {
         val default by lazy { MenuItemColors() }
+    }
+
+    fun during(selected: Boolean, hovered: Boolean): ColorPair = when {
+        selected -> this.selected
+        hovered -> this.hovered
+        else -> this.inactive
     }
 }
 

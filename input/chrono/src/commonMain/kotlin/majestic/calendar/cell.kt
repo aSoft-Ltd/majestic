@@ -13,7 +13,7 @@ fun Modifier.cell(
     ctx: CellContext<*>,
     shape: Shape = RoundedCornerShape(8.dp),
     padding: Dp = 4.dp
-) = ctx.modifier.background(
+) = then(ctx.modifier).background(
     color = ctx.toColorPair(ctx.colors).background,
     shape = shape
 ).padding(padding)

@@ -1,7 +1,7 @@
 package majestic.colors.options
 
 import androidx.compose.ui.graphics.Color
-import majestic.colors.ColorPair
+import majestic.ColorPair
 import majestic.colors.toColorRole
 
 private val BlackOnWhitePair = ColorPair(

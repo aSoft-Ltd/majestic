@@ -26,6 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import majestic.popup.Inline
+import majestic.popup.Items
 
 @Composable
 fun <T> DumbSelect(

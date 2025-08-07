@@ -1,7 +1,7 @@
 package majestic.calendar
 
 import androidx.compose.ui.graphics.Color
-import majestic.colors.ColorPair
+import majestic.ColorPair
 
 data class CalendarPickerColors(
     val surface: ColorPair = ColorPair(foreground = Color.Black, background = Color.White),

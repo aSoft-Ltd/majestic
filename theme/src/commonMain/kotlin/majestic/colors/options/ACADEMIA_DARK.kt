@@ -3,7 +3,7 @@ package majestic.colors.options
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import majestic.colors.BarColors
-import majestic.colors.ColorPair
+import majestic.ColorPair
 import majestic.colors.ColorRole2
 import majestic.colors.ThemeColors
 import majestic.colors.toColorRole

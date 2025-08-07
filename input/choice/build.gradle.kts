@@ -56,6 +56,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.majesticInputCore)
+            api(projects.majesticOverlays)?.because("We need popups for select  and dropdowns")
             api(libs.symphony.input.choice)?.because("We need choice fields to choose from")
         }
 
