@@ -53,7 +53,7 @@ fun DumbSelectSearch(
     verticalAlignment = Alignment.CenterVertically,
 ) {
     BasicTextField(
-        modifier = modifier.weight(7f).padding(vertical = 10.dp, horizontal = 15.dp),
+        modifier = modifier.weight(9f).padding(vertical = 10.dp, horizontal = 15.dp),
         value = text,
         onValueChange = { onChange(it) },
         decorationBox = { innerTextField ->
@@ -75,7 +75,7 @@ fun DumbSelectSearch(
     )
     Box(
         modifier = modifier
-            .weight(1f)
+            .weight(.8f)
             .background(color = Color.Transparent, shape = CircleShape)
             .clickable { onClear() },
     ) {
