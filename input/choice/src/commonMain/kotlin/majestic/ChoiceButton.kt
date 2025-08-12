@@ -18,7 +18,7 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.colors.ColorPair
+import majestic.ColorPair
 
 data class ChoiceColorGroup(
     val background: Color,

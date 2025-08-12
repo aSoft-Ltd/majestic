@@ -12,6 +12,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+@Deprecated(
+    message = "In favor of DrawerHost",
+    replaceWith = ReplaceWith(
+        imports = arrayOf(
+            "majestic.drawer.DrawerHost",
+            "majestic.drawer.rememberDrawerController"
+        ),
+        expression = "DrawerHost",
+    )
+)
 @Composable
 fun NavigationDrawer(
     controller: DrawerController = rememberDrawerController(),
@@ -24,7 +34,7 @@ fun NavigationDrawer(
         targetValue = if (controller.isOpen) r else 0.0f,
         animationSpec = controller.animation
     )
-    
+
     val overlap by controller.overlap
     val direction by controller.direction
 

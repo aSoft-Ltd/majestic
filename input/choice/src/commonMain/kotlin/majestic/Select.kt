@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,7 +32,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import kollections.toKList
-import majestic.colors.ColorPair
+import majestic.popup.Inline
+import majestic.popup.Items
+import majestic.tooling.onClick
 import symphony.SingleChoiceField
 
 class SelectMicroColors(
@@ -168,4 +171,85 @@ fun ItemSelect(
             tint = if (isExpanded) colors.focused.text else colors.blurred.text
         )
     }
+}
+
+@Composable
+fun <T> Select(
+    items: Items<T>,
+    value: T? = null,
+    selected: Inline = Inline(modifier = Modifier.fillMaxWidth()) {
+        if (value != null) items.item.content(value)
+    },
+    placeholder: Inline = Inline(modifier = Modifier.fillMaxWidth()) {
+        Text("Select", modifier = Modifier.fillMaxWidth())
+    },
+    modifier: Modifier = Modifier
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val inline = remember(value) {
+        if (value == null) placeholder else selected
+    }
+
+    Popup(
+        modifier = modifier.onClick { expanded = !expanded },
+        onDismissRequest = { expanded = false },
+        expanded = expanded,
+        inline = inline,
+        items = items,
+        anchor = MenuAnchorType.PrimaryEditable
+    )
+
+//    ExposedDropdownMenuBox(
+//        expanded = expanded,
+//        onExpandedChange = {
+//            expanded = false
+//            onExpanded?.invoke(false)
+//        },
+//        modifier = modifier
+//    ) {
+//        Box(
+//            modifier = Modifier
+//                .clip(shape = containerShape)
+//                .border(border ?: BorderStroke(0.dp, Color.Transparent))
+//                .background(color = Color.Transparent, shape = containerShape)
+//                .exposedDropdownSize()
+//                .menuAnchor(type = MenuAnchorType.PrimaryEditable)
+//                .clickable(
+//                    interactionSource = NoRippleInteractionSource,
+//                    indication = null,
+//                    onClick = {
+//                        expanded = true
+//                        onExpanded?.invoke(true)
+//                    }
+//                )
+//        ) {
+//            when (value) {
+//                null -> placeholder()
+//                else -> selected(value)
+//            }
+//        }
+//        ExposedDropdownMenu(
+//            containerColor = dropDownContainerColor,
+//            shape = dropDownShape,
+//            shadowElevation = shadowElevation,
+//            border = BorderStroke(0.dp, Color.Transparent),
+//            tonalElevation = tonalElevation,
+//            expanded = expanded,
+//            onDismissRequest = {
+//                expanded = false
+//                onExpanded?.invoke(false)
+//            },
+//            modifier = dropdownModifier.exposedDropdownSize()
+//        ) {
+//            for (it in data) DropdownMenuItem(
+//                modifier = Modifier.fillMaxWidth(),
+//                text = { item(it) },
+//                onClick = {
+//                    expanded = false
+//                    onExpanded?.invoke(expanded)
+//                    onClick?.invoke(it)
+//                },
+//            )
+//        }
+//    }
 }

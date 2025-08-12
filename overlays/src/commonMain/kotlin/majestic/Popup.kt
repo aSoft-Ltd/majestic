@@ -2,6 +2,7 @@
 
 package majestic
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -10,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import majestic.popup.Inline
@@ -33,7 +34,15 @@ fun <T> Popup(
     anchor = anchor,
     inline = inline,
     overlay = Overlay(items.modifier, items.shape) {
-        for (item in items.data) Box(modifier = items.item.modifier) {
+        for (item in items.data) Box(
+            modifier = items.item.modifier.clickable(
+                interactionSource = NoRippleInteractionSource,
+                indication = null,
+                enabled = true,
+                onClickLabel = null,
+                role = Role.ValuePicker
+            ) { items.item.onClick(item) }
+        ) {
             items.item.content(item)
         }
     }
@@ -51,7 +60,7 @@ fun Popup(
     val scope = rememberCoroutineScope()
     ExposedDropdownMenuBox(
         expanded = expanded,
-        onExpandedChange = {},
+        onExpandedChange = { },
         modifier = modifier
     ) {
         Box(modifier = inline.modifier.menuAnchor(type = anchor), contentAlignment = inline.alignment) {
@@ -69,7 +78,9 @@ fun Popup(
             },
             modifier = overlay.modifier.clip(overlay.shape),
             shape = overlay.shape,
-            containerColor = overlay.background
+            containerColor = overlay.background,
+            shadowElevation = overlay.shadowElevation,
+            tonalElevation = overlay.tonalElevation
         ) {
             overlay.content(this)
         }

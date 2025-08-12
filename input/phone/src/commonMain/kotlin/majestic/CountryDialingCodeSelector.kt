@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import majestic.colors.ColorPair
+import majestic.ColorPair
 import nation.Country
 import symphony.PhoneField
 

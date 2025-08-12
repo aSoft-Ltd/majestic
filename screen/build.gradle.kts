@@ -1,10 +1,8 @@
 @file:OptIn(ExperimentalComposeLibrary::class)
 
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
+
 
 plugins {
     id("com.android.library")
@@ -51,11 +49,11 @@ kotlin {
     }
 
     androidTarget {
-        compilations.all {
-            compileTaskProvider {
-                compilerOptions.jvmTarget = JvmTarget.JVM_17
-            }
-        }
+        // compilations.all {
+        //    compileTaskProvider {
+        //        compilerOptions.jvmTarget = JvmTarget.JVM_17
+        //    }
+        // }
     }
 
     jvm {
@@ -82,13 +80,4 @@ kotlin {
             api(kotlinx.serialization.core)
         }
     }
-}
-
-rootProject.the<NodeJsRootExtension>().apply {
-    version = npm.versions.node.version.get()
-    downloadBaseUrl = npm.versions.node.url.get()
-}
-
-rootProject.tasks.withType<KotlinNpmInstallTask>().configureEach {
-    args.add("--ignore-engines")
 }

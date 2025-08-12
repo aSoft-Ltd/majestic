@@ -3,6 +3,8 @@ package majestic.drawer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocal
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -29,7 +31,7 @@ import majestic.drawer.host.toDp
  */
 @Composable
 fun DrawerHost(
-    controller: MultiDrawerController,
+    controller: MultiDrawerController = LocalDrawerHostControllerContext.current,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -39,10 +41,12 @@ fun DrawerHost(
     val drawers = controller.state.toList()
     val (inlines, overlays) = drawers.partition { (drawer, state) -> state.display(drawer) == DrawerDisplay.Inline }
 
-    Box(modifier.onPlaced { dimension = it.size }) {
-        InlineDrawer(controller, inlines, size, content)
-        for ((drawer, state) in overlays) {
-            OverlayDrawer(controller, drawer, size, state)
+    CompositionLocalProvider(LocalDrawerHostControllerContext provides controller) {
+        Box(modifier.onPlaced { dimension = it.size }) {
+            InlineDrawer(controller, inlines, size, content)
+            for ((drawer, state) in overlays) {
+                OverlayDrawer(controller, drawer, size, state)
+            }
         }
     }
 }
