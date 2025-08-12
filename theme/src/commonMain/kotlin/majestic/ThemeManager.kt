@@ -30,8 +30,8 @@ class ThemeManager(
     @Deprecated("To be removed after we finish migrating to state")
     val oldState = mutableStateOf(ThemeState.light(choices.first()))
 
-//    val state = mutableStateOf<ThemeColor>(DarkThemeColor(dominants.first(), ColorPack.surfaceDark()))
-    val state = mutableStateOf<ThemeColor>(LightThemeColor(dominants.first(), ColorPack.surfaceLight()))
+    val state = mutableStateOf<ThemeColor>(DarkThemeColor(dominants.first(), ColorPack.surfaceDark()))
+//    val state = mutableStateOf<ThemeColor>(LightThemeColor(dominants.first(), ColorPack.surfaceLight()))
 
     @Deprecated("To be removed after we finish migrating to state")
     fun set(mode: ThemeMode, color: ColorPair) {
