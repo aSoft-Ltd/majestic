@@ -47,7 +47,7 @@ fun Modifier.underline(
 
 @Composable
 fun ToolBarHost(
-    modifier: Modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+    modifier: Modifier,
     controller: ToolBarHostController,
     colors: EditorColors = EditorColors(),
     orientation: ScreenOrientation,
