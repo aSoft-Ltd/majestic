@@ -15,6 +15,7 @@ data class SuggestionHighlightColors(
     val active: Color,
 )
 
+@Deprecated("Use the one with ThemeColor")
 @Composable
 fun <T> SearchSuggestions(
     expanded: Boolean,
@@ -28,6 +29,42 @@ fun <T> SearchSuggestions(
 ) {
     DropdownMenu(
         containerColor = theme.surface1.main.background,
+        expanded = expanded,
+        onDismissRequest = { /* Do nothing to prevent auto-dismiss */ },
+        modifier = modifier,
+        properties = PopupProperties(
+            focusable = false,
+            dismissOnBackPress = false,
+            dismissOnClickOutside = true
+        ),
+    ) {
+        suggestions.forEachIndexed { index, item ->
+            DropdownMenuItem(
+                modifier = Modifier.fillMaxWidth()
+                    .background(
+                        if (index == currentSelectedIndex)
+                            suggestionColors.active else suggestionColors.inactive
+                    ),
+                onClick = { onClick(item) },
+                text = { suggestion(item) },
+            )
+        }
+    }
+}
+
+@Composable
+fun <T> SearchSuggestions(
+    expanded: Boolean,
+    suggestions: List<T>,
+    currentSelectedIndex: Int,
+    theme: ThemeColor,
+    suggestionColors: SuggestionHighlightColors,
+    onClick: (T) -> Unit,
+    suggestion: @Composable (T) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    DropdownMenu(
+        containerColor = theme.surface.actual.color,
         expanded = expanded,
         onDismissRequest = { /* Do nothing to prevent auto-dismiss */ },
         modifier = modifier,
