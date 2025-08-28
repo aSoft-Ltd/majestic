@@ -15,6 +15,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.ScreenOrientation
 
 fun Modifier.tag(
     color: Color = Color(0x335C6BC0),
@@ -33,6 +35,31 @@ fun Tag(
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center
+    ) {
+        Text(
+            modifier = Modifier.padding(vertical = 2.dp, horizontal = 5.dp),
+            text = label,
+            color = color,
+            overflow = TextOverflow.Ellipsis,
+            minLines = 1,
+            maxLines = 1,
+            fontSize = fontSize,
+            lineHeight = 1.sp
+        )
+    }
+}
+
+@Composable
+fun Tag(
+    label: String,
+    fontSize: TextUnit = 12.sp,
+    orientation: ScreenOrientation,
+    color: Color = Color(0xFF66BB6A),
+    modifier: Modifier = Modifier.tag()
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = if (orientation is Landscape) Alignment.Center else Alignment.CenterStart
     ) {
         Text(
             modifier = Modifier.padding(vertical = 2.dp, horizontal = 5.dp),
