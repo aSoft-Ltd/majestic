@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
@@ -81,12 +82,13 @@ fun ChoiceButton(
                 icon = color.icon
             )
         )
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(5.dp))
         Text(
             modifier = Modifier.padding(end = 5.dp),
             text = label,
             color = color.label,
-            lineHeight = 1.sp
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1
         )
     }
 }
