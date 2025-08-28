@@ -87,8 +87,8 @@ fun ChoiceButton(
             modifier = Modifier.padding(end = 5.dp),
             text = label,
             color = color.label,
-            lineHeight = 1.sp,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1
         )
     }
 }
