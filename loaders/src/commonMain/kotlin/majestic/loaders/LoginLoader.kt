@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import kotlin.math.PI
 import kotlin.math.sin
 
@@ -41,8 +42,9 @@ fun LoginLoader(
     dotColor: Color = Color(0xFF0D0D0D),
     dotSize: Dp = 5.dp,
     gap: Dp = 4.dp,
-    durationMillis: Int = 1200,
-    arcHeightMultiplier: Float = 1.6f
+    durationMillis: Int = 1000,
+    arcHeightMultiplier: Float = 1.6f,
+    pauseMillis: Long = 1000
 ) {
     val widthDp = dotSize * 3 + gap * 2
     val stepDp = dotSize + gap
@@ -61,12 +63,16 @@ fun LoginLoader(
     var slotToDot by remember { mutableStateOf(intArrayOf(0, 1, 2)) }
     val p = remember { Animatable(0f) }
 
-    LaunchedEffect(Unit) {
-        while (true) {
+    LaunchedEffect(4, pauseMillis, durationMillis, arcHeightMultiplier, dotSize, gap) {
+        repeat(4) { i ->
             p.animateTo(1f, animationSpec = tween(durationMillis, easing = LinearEasing))
-            p.snapTo(0f)
-            slotToDot = intArrayOf(slotToDot[1], slotToDot[2], slotToDot[0])
+            if (pauseMillis > 0) delay(pauseMillis)
+            if (i < 4 - 1) {
+                p.snapTo(0f)
+                slotToDot = intArrayOf(slotToDot[1], slotToDot[2], slotToDot[0])
+            }
         }
+
     }
 
     Canvas(modifier = modifier.width(widthDp).height(heightDp)) {
