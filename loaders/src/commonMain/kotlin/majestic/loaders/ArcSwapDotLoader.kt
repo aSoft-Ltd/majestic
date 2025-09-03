@@ -18,11 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.lerp
 import kotlinx.coroutines.delay
 import kotlin.math.PI
 import kotlin.math.sin
-
-private inline fun lerp(a: Float, b: Float, t: Float): Float = a + (b - a) * t
 
 private fun arcXYConstHeight(
     x0: Float,
@@ -43,7 +42,7 @@ fun ArcSwapDotLoader(
     dotSize: Dp = 5.dp,
     gap: Dp = 4.dp,
     durationMillis: Int = 1000,
-    arcHeightMultiplier: Float = 1.6f,
+    arcHeightMultiplier: Float = 1.0f,
     pauseMillis: Long = 1000
 ) {
     val widthDp = dotSize * 3 + gap * 2
@@ -63,16 +62,13 @@ fun ArcSwapDotLoader(
     var slotToDot by remember { mutableStateOf(intArrayOf(0, 1, 2)) }
     val p = remember { Animatable(0f) }
 
-    LaunchedEffect(4, pauseMillis, durationMillis, arcHeightMultiplier, dotSize, gap) {
-        repeat(4) { i ->
+    LaunchedEffect(pauseMillis, durationMillis, arcHeightMultiplier, dotSize, gap) {
+        while (true) {
             p.animateTo(1f, animationSpec = tween(durationMillis, easing = LinearEasing))
-            if (pauseMillis > 0) delay(pauseMillis)
-            if (i < 4 - 1) {
-                p.snapTo(0f)
-                slotToDot = intArrayOf(slotToDot[1], slotToDot[2], slotToDot[0])
-            }
+            delay(pauseMillis)
+            p.snapTo(0f)
+            slotToDot = intArrayOf(slotToDot[1], slotToDot[2], slotToDot[0])
         }
-
     }
 
     Canvas(modifier = modifier.width(widthDp).height(heightDp)) {
