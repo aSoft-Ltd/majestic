@@ -37,7 +37,7 @@ private fun arcXYConstHeight(
 }
 
 @Composable
-fun LoginLoader(
+fun ArcSwapDotLoader(
     modifier: Modifier = Modifier,
     dotColor: Color = Color(0xFF0D0D0D),
     dotSize: Dp = 5.dp,
