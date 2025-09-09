@@ -18,8 +18,7 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import majestic.ColorPair
+import majestic.tooling.onClick
 
 data class ChoiceColorGroup(
     val background: Color,
@@ -64,13 +63,15 @@ fun Modifier.choiceButton(selected: Boolean, colors: ChoiceColors = ChoiceColors
 fun ChoiceButton(
     label: String,
     selected: Boolean,
-    onSelect: () -> Unit = {}, // TODO: remove this later use modifier
+    onSelect: () -> Unit = {},
     colors: ChoiceColors = ChoiceColors(),
     modifier: Modifier = Modifier.choiceButton(selected, colors)
 ) {
     val color = if (selected) colors.selected else colors.unselected
     Row(
-        modifier = modifier,
+        modifier = modifier.onClick {
+            if (!selected) onSelect()
+        },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
