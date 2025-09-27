@@ -78,6 +78,19 @@ kotlin {
             api(compose.runtime)
             api(compose.foundation)
             api(kotlinx.serialization.core)
+            api(ktor.client.core)?.because("We need the HttpConnectionVerifier to make http calls to verify the connection")
+            api(libs.cinematic.live.core)?.because("Connection observer requires to communicate its state")
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(kotlin("test-junit5"))
+            implementation(libs.kommander.core)
+            implementation(libs.kommander.coroutines)
+        }
+
+        jvmTest.dependencies {
+            api(ktor.client.cio)?.because("We need to test if we can verify an active connection")
         }
     }
 }
