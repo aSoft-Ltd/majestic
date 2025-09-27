@@ -85,13 +85,13 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
-            implementation(kotlin("test-junit5"))
             implementation(libs.kommander.core)
             implementation(libs.kommander.coroutines)
         }
 
         jvmTest.dependencies {
             api(ktor.client.cio)?.because("We need to test if we can verify an active connection")
+            implementation(kotlin("test-junit5"))
         }
     }
 }

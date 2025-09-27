@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
-class PollingNetworkObserver(
+class HttpPollingConnectionObserver(
     hosts: List<String>,
     http: HttpClient,
     private val scope: CoroutineScope,
