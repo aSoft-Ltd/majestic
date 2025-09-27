@@ -1,3 +1,3 @@
 package kiota
 
-interface Connection
+sealed interface Connection

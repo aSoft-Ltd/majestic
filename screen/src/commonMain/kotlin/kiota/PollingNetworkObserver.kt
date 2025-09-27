@@ -15,7 +15,7 @@ class PollingNetworkObserver(
     private val scope: CoroutineScope,
     private val interval: Duration = 5.minutes
 ) : HttpRandomConnector(hosts, http), ConnectionObserver {
-    override val status by lazy { mutableLiveOf<Connection>(Disconnected) }
+    override val status by lazy { mutableLiveOf<Connection>(Connecting) }
 
     private var job: Job? = null
 
