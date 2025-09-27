@@ -78,6 +78,7 @@ kotlin {
             api(compose.runtime)
             api(compose.foundation)
             api(kotlinx.serialization.core)
+            api(kotlinx.coroutines.core)?.because("We need to setup the supervisor job for a http polling connection")
             api(ktor.client.core)?.because("We need the HttpConnectionVerifier to make http calls to verify the connection")
             api(libs.cinematic.live.core)?.because("Connection observer requires to communicate its state")
         }
