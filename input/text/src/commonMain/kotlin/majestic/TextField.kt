@@ -266,6 +266,7 @@ fun TextField(
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
+    readOnly: Boolean = false,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: ((String) -> Unit)? = null,
@@ -296,6 +297,7 @@ fun TextField(
         trailingIcon = trailingIcon,
         leadingIcon = leadingIcon,
         shape = shape,
+        readOnly = readOnly,
         textStyle = textStyle,
         hintSize = hintSize
     )
