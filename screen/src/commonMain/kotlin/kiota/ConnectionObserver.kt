@@ -1,8 +1,11 @@
 package kiota
 
-import androidx.compose.runtime.State
-import kiota.connectivity.Connection
+import cinematic.Live
 
 interface ConnectionObserver {
-    val status: State<Connection>
+    val status: Live<Connection>
+
+    fun start()
+
+    fun stop()
 }
