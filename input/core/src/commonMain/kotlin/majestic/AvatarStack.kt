@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.TextUnit
@@ -68,6 +69,8 @@ fun AvatarStack(
             ) {
                 Text(
                     text = "+${painters.size - maxVisible}",
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
                     color = overflowTextColor,
                     fontSize = overflowTextSize
                 )
