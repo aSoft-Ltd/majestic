@@ -19,7 +19,7 @@ class AndroidConnectionObserver(
 ) : ConnectionObserver {
 
     override val status by lazy { mutableLiveOf<Connection>(Connecting) }
-    
+
     private val manager by lazy { context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
 
     private var callback: ConnectivityManager.NetworkCallback? = null
@@ -54,12 +54,12 @@ class AndroidConnectionObserver(
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            manager.registerDefaultNetworkCallback(callback!!)
+            manager.registerDefaultNetworkCallback(cb)
         } else {
             val networkRequest = NetworkRequest.Builder()
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // Interested in internet capability
                 .build()
-            manager.registerNetworkCallback(networkRequest, callback!!)
+            manager.registerNetworkCallback(networkRequest, cb)
         }
 
         callback = cb
