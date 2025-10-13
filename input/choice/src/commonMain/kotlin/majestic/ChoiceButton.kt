@@ -65,6 +65,7 @@ fun ChoiceButton(
     selected: Boolean,
     onSelect: () -> Unit = {},
     colors: ChoiceColors = ChoiceColors(),
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Center,
     modifier: Modifier = Modifier.choiceButton(selected, colors)
 ) {
     val color = if (selected) colors.selected else colors.unselected
@@ -72,7 +73,7 @@ fun ChoiceButton(
         modifier = modifier.onClick {
             if (!selected) onSelect()
         },
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = horizontalArrangement,
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconCheckCircle(
