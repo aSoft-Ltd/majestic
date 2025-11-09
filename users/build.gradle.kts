@@ -41,17 +41,17 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(IR) {
-        browser()
-        nodejs()
-    }
+//    js(IR) {
+//        browser()
+//        nodejs()
+//    }
 
     wasmJs { browser() }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
-    macosArm64()
+//    macosX64()
+//    macosArm64()
 
     sourceSets {
         commonMain.dependencies {
@@ -63,6 +63,32 @@ kotlin {
             api(libs.cinematic.live.compose)?.because("We need to watchAsState")
             api(projects.majesticTheme)?.because("We need an instance of ColorPair")
             api(projects.majesticScreen)?.because("We need access to NoRippleInteractionSource")
+            api(compose.materialIconsExtended)
+            api(libs.kiota.file.manager.core)
+            api(libs.majestic.input.core)
+            api(libs.majestic.input.text)
+            api(libs.majestic.input.choice)
+            api(libs.majestic.input.color)
+            api(libs.majestic.input.phone)
+            api(libs.majestic.input.chrono)?.because("We need good ui for date, time and calendar pickers")
+            api(libs.majestic.table)
+            api(libs.majestic.graphs)
+            api(libs.majestic.screen)
+            api(libs.majestic.drawers)
+            api(libs.majestic.loaders)
+            api(libs.majestic.overlays)
+            api(libs.nation.flags.compose)
+            api(libs.nation.countries)
+            api(libs.nation.currencies)
+            api(libs.captain.router.compose.core)
+            api(github.compottie)
+            api(github.compottie.dot)
+            api(github.compottie.network)
+            api(github.compottie.resources)
+            api(kotlinx.datetime)?.because("Required for date time picker")
+            implementation(libs.cinematic.live.compose)
+            implementation(kotlinx.coroutines.core)
+            implementation(compose.components.resources)
         }
 
         commonTest.dependencies {
