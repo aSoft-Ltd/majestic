@@ -6,10 +6,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import composex.screen.orientation.ScreenOrientation
 import majestic.Cell
 import majestic.LazyTable
-import majestic.users.tools.UsersData
+import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.getSelectedRows
 import symphony.Table
 import symphony.columns.Column
