@@ -1,4 +1,4 @@
-package majestic.users.profile.tools.colors
+package majestic.users.tools.colors
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver

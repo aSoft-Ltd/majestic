@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.sp
 import majestic.tooling.onClick
 
 data class EmailLabels(
@@ -54,7 +53,6 @@ internal fun Email(
             text = props.labels.email,
             textDecoration = if (props.showFilters) decoration else TextDecoration.None,
             color = color,
-            lineHeight = 1.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )

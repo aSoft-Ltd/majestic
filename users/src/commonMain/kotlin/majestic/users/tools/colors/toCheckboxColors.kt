@@ -1,5 +1,11 @@
 package majestic.users.tools.colors
 
+import androidx.compose.ui.graphics.Color
+import majestic.CheckboxColors
+import majestic.CheckboxMicroColors
+import majestic.ColorPair
+import majestic.ThemeColor
+
 internal fun ThemeColor.toCheckboxColors() = CheckboxColors(
     selected = CheckboxMicroColors(
         background = Color.Transparent,

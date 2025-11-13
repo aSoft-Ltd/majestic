@@ -1,4 +1,4 @@
-package majestic.users.profile.tools.header
+package majestic.users.profile.tools.header.tools
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -33,6 +34,7 @@ internal fun FlowItem(
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(if (orientation is Landscape) 2.dp else 1.dp)
 ) {
     Icon(

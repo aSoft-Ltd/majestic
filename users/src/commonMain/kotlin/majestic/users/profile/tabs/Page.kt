@@ -9,4 +9,11 @@ data class Page(
     val icon: DrawableResource? = null
 )
 
-fun String.toPage(icon: DrawableResource? = null, endpoint: String) = Page(this, endpoint, icon)
+fun String.toPage(
+    icon: DrawableResource? = null,
+    endpoint: String
+) = Page(this, endpoint, icon)
+
+fun Page.isSelected(currentUrl: String): Boolean {
+    return this.path == currentUrl
+}

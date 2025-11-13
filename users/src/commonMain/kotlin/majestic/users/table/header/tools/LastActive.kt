@@ -32,7 +32,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
 import majestic.tooling.onClick
@@ -84,7 +83,6 @@ internal fun LastActive(
                 .hoverable(interactionSource = interactionSource)
                 .onClick { expanded = !expanded },
             text = props.labels.lastActive,
-            lineHeight = 1.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textDecoration = if (props.showFilters) decoration else TextDecoration.None,
