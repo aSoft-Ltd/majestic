@@ -63,7 +63,7 @@ data class ProfileHeaderLabels(
 )
 
 @Composable
-internal fun DetailHeader(
+fun DetailHeader(
     labels: ProfileHeaderLabels,
     user: UsersData,
     theme: ThemeColor,
