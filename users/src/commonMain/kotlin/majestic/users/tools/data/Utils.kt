@@ -2,9 +2,14 @@ package majestic.users.tools.data
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import kollections.Set
-import majestic.users.tools.UsersData
+import majestic.users.tools.ColumnLabels
 import symphony.Table
 import symphony.columns.Column
 import symphony.selected.LinearSelected
@@ -13,22 +18,10 @@ import symphony.selected.LinearSelectedItem
 import symphony.selected.LinearSelectedItems
 import symphony.selected.LinearSelectedNone
 
-data class HeaderLabels(
-    val checkbox: String,
-    val name: String,
-    val email: String,
-    val id: String,
-    val dateJoined: String,
-    val lastActive: String,
-    val roles: String,
-    val permission: String,
-    val status: String,
-)
-
 @Composable
 fun getWeights(
     columns: Set<Column<UsersData>>,
-    labels: HeaderLabels
+    labels: ColumnLabels
 ): Map<Column<UsersData>, Float> = remember(columns) {
     buildMap {
         for (column in columns) {
@@ -92,3 +85,13 @@ fun getSelectedRows(table: Table<UsersData>): Int =
 //)
 //
 //
+
+internal fun Modifier.separator(isLast: Boolean, color: Color) = drawBehind {
+    val strokeWidth = 1.dp.toPx()
+    drawLine(
+        color = if (isLast) Color.Transparent else color,
+        start = Offset(0f, size.height - strokeWidth / 2),
+        end = Offset(size.width, size.height - strokeWidth / 2),
+        strokeWidth = strokeWidth
+    )
+}

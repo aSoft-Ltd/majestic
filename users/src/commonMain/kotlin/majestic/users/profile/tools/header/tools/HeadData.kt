@@ -1,0 +1,10 @@
+package majestic.users.profile.tools.header.tools
+
+import org.jetbrains.compose.resources.DrawableResource
+
+data class HeadData(
+    val avatar: DrawableResource?,
+    val name: String,
+    val gender: String,
+    val list: List<FlowItemData>
+)
