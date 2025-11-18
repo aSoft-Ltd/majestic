@@ -27,6 +27,7 @@ android {
 }
 
 kotlin {
+    androidTarget { }
     jvm {
         tasks.withType<Test> {
             useJUnitPlatform()
