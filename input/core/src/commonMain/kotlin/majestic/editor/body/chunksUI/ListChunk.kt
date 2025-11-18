@@ -1,6 +1,7 @@
 package majestic.editor.body.chunksUI
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +37,7 @@ import majestic.editor.body.chunksUI.tools.lists.ListAction
 import majestic.editor.body.chunksUI.tools.lists.ListUtilities
 import majestic.editor.body.chunksUI.tools.lists.actionButton
 import majestic.editor.tools.EditorColors
+import majestic.tooling.onClick
 
 data class ListChunkResources(
     val remove: ImageVector,
@@ -123,14 +125,12 @@ internal fun ListChunk(
                 ListAction(
                     modifier = Modifier
                         .padding(vertical = 4.dp)
-                        .actionButton(colors),
-                    onClick = {
-                        if (chunk.list.size == 1) controller.remove(chunk) else controller.removeListItem(chunk, index)
-                    },
+                        .hoverable(interactionSource = itemInteractionSource)
+                        .actionButton(colors)
+                        .onClick { if (chunk.list.size == 1) controller.remove(chunk) else controller.removeListItem(chunk, index) },
                     colors = colors,
                     resource = resource.remove,
                     hovered = isHovered,
-                    interactionSource = itemInteractionSource,
                 )
             }
         }
@@ -139,14 +139,12 @@ internal fun ListChunk(
         val hovered by addInteractionSource.collectIsHoveredAsState()
 
         ListAction(
-            modifier = Modifier.actionButton(colors, hovered = hovered),
+            modifier = Modifier.hoverable(interactionSource = addInteractionSource)
+                .actionButton(colors, hovered = hovered)
+                .onClick { controller.addListItem(chunk) },
             colors = colors,
-            onClick = {
-                controller.addListItem(chunk)
-            },
             resource = resource.add,
-            hovered = hovered,
-            interactionSource = addInteractionSource
+            hovered = hovered
         )
     }
 }
