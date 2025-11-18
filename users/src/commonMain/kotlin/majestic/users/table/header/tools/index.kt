@@ -46,6 +46,7 @@ data class HeaderProperties(
 @Composable
 fun RowScope.UsersTableHeader(
     column: Column<UsersData>,
+    count: Int,
     weight: Map<Column<UsersData>, Float>,
     props: HeaderProperties,
     table: Table<UsersData>,
@@ -53,12 +54,12 @@ fun RowScope.UsersTableHeader(
     "checkbox" -> Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .clip(RoundedCornerShape(topStart = 20.dp))
+            .clip(RoundedCornerShape(topStart = if (count == 0) 20.dp else 0.dp))
             .weight(weight.getValue(column))
-            .background(props.colors.mainColor, RoundedCornerShape(topStart = 20.dp))
+            .background(props.colors.mainColor, RoundedCornerShape(topStart = if (count == 0) 20.dp else 0.dp))
             .background(
                 props.colors.innerColors.theme.dominant.actual.color.copy(alpha = 0.1f),
-                shape = RoundedCornerShape(topStart = 20.dp)
+                shape = RoundedCornerShape(topStart = if (count == 0) 20.dp else 0.dp)
             )
             .separator(true, props.colors.separator)
             .padding(vertical = 24.dp, horizontal = 12.dp),
@@ -210,12 +211,16 @@ fun RowScope.UsersTableHeader(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
-                .clip(if (column.key == "action") RoundedCornerShape(topEnd = 20.dp) else RoundedCornerShape(0.dp))
+                .clip(
+                    if (column.key == "action") RoundedCornerShape(topEnd = if (count == 0) 20.dp else 0.dp) else
+                        RoundedCornerShape(0.dp)
+                )
                 .weight(weight.getValue(column))
                 .background(props.colors.mainColor)
                 .background(
                     props.colors.innerColors.theme.dominant.actual.color.copy(alpha = 0.1f),
-                    shape = if (column.key == "action") RoundedCornerShape(topEnd = 20.dp) else RoundedCornerShape(0.dp)
+                    shape = if (column.key == "action") RoundedCornerShape(topEnd = if (count == 0) 20.dp else 0.dp) else
+                        RoundedCornerShape(0.dp)
                 )
                 .separator(true, props.colors.separator)
                 .padding(vertical = 20.dp, horizontal = 12.dp),

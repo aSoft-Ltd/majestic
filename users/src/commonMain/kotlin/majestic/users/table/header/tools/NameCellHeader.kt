@@ -101,7 +101,8 @@ internal fun NameCellHeader(
 
     Row(
         modifier = modifier.onPlaced { container = it.boundsInParent() },
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         val popColors = props.colors.compPopColors
         val color = if (expanded || isHovered) popColors.foreground else popColors.foreground.copy(0.6f)

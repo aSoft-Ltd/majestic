@@ -3,6 +3,7 @@ package majestic.users.table.header.tools.filters
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -67,7 +68,7 @@ internal fun SearchFilter(
         ),
         icon = {
             Icon(
-                modifier = Modifier.size(12.dp),
+                modifier = Modifier.padding(4.dp).size(12.dp),
                 painter = painterResource(icon),
                 tint = popColors.foreground,
                 contentDescription = "search icon"

@@ -50,41 +50,6 @@ fun getSelectedRows(table: Table<UsersData>): Int =
         is LinearSelectedNone -> 0
     }
 
-//internal fun getEnrolledData(
-//    cell: Cell<EnrolledData>,
-//    labels: BulkLabels,
-//    table: Table<EnrolledData>,
-//    selected: Boolean,
-//    theme: ThemeColor,
-//    hovered: Color
-//) = Data(
-//    item = DataItem(
-//        title = cell.row.item.title,
-//        campus = cell.row.item.campus,
-//        count = cell.row.item.enrolledCount,
-//        status = cell.row.item.status.getLabel(labels.table.enrolled.body.status),
-//        actions = listOf(
-//            OptionMenu(
-//                BulkMenuAction.Recall.getLabel(labels.table.enrolled.body.bulkActions),
-//                BulkMenuAction.Recall
-//            ),
-//            OptionMenu(
-//                BulkMenuAction.Select.getLabel(labels.table.enrolled.body.bulkActions),
-//                BulkMenuAction.Select
-//            )
-//        ),
-//        isLast = cell.row.index == table.rows.lastIndex,
-//        selected = selected
-//    ),
-//    colors = Colors(
-//        title = theme.surface.actual.color,
-//        campus = theme.surface.contra.color,
-//        status = cell.row.item.status.getColor(theme),
-//        hovered = hovered
-//    )
-//)
-//
-//
 
 internal fun Modifier.separator(isLast: Boolean, color: Color) = drawBehind {
     val strokeWidth = 1.dp.toPx()
