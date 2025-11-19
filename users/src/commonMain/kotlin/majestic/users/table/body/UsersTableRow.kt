@@ -1,0 +1,132 @@
+package majestic.users.table.body
+
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import majestic.Cell
+import majestic.Checkbox
+import majestic.ThemeColor
+import majestic.tooling.onClick
+import majestic.users.table.header.NameCell
+import majestic.users.table.header.tools.getStatusLabels
+import majestic.users.tools.colors.toCheckboxColors
+import majestic.users.tools.data.UsersData
+import majestic.users.tools.data.separator
+import symphony.Table
+import symphony.columns.Column
+
+@Composable
+internal fun RowScope.UsersTableRow(
+    cell: Cell<UsersData>,
+    cellHeight: Dp,
+    weight: Map<Column<UsersData>, Float>,
+    selected: Boolean,
+    hovered: Color,
+    table: Table<UsersData>,
+    separator: Color,
+    theme: ThemeColor,
+    labels: UserTableLabels,
+    onItemClick: () -> Unit,
+    menuAction: @Composable () -> Unit
+) = when (cell.column.key) {
+    "checkbox" -> Box(
+        modifier = Modifier.height(cellHeight)
+            .weight(weight.getValue(cell.column))
+            .background(if (selected) hovered else Color.Transparent)
+            .separator(cell.row.index == table.rows.lastIndex, separator)
+            .padding(horizontal = 12.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        val checkboxColors =
+            if (selected) theme.toCheckboxColors().selected else theme.toCheckboxColors().unselected
+        Checkbox(
+            selected = selected,
+            colors = checkboxColors,
+            shape = RoundedCornerShape(5.dp),
+            modifier = Modifier.size(16.dp)
+                .clip(RoundedCornerShape(5.dp))
+                .background(checkboxColors.background)
+                .border(1.dp, color = checkboxColors.border, RoundedCornerShape(5.dp))
+                .onClick {
+                    if (selected) table.selector.unSelectRowInCurrentPage(row = cell.row.number)
+                    else table.selector.addSelection(row = cell.row.number)
+                }
+        )
+    }
+
+    labels.columns.name -> NameCell(
+        modifier = Modifier.height(cellHeight)
+            .weight(weight.getValue(cell.column))
+            .background(if (selected) hovered else Color.Transparent)
+            .separator(cell.row.index == table.rows.lastIndex, separator)
+            .pointerHoverIcon(PointerIcon.Hand)
+            .onClick(onItemClick)
+            .padding(horizontal = 12.dp),
+        theme = theme,
+        resource = cell.row.item.userAvatar,
+        fullName = cell.row.item.fullName,
+    )
+
+    labels.columns.email, labels.columns.id, labels.columns.dateJoined, labels.columns.lastActive, labels.columns.roles, labels.columns.permission -> Box(
+        modifier = Modifier.height(cellHeight)
+            .weight(weight.getValue(cell.column))
+            .background(if (selected) hovered else Color.Transparent)
+            .separator(cell.row.index == table.rows.lastIndex, separator)
+            .onClick(onItemClick)
+            .padding(horizontal = 12.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Text(
+            modifier = Modifier.onClick(onItemClick),
+            text = getLabels(cell, labels.columns).toString(),
+            color = theme.surface.contra.color,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            softWrap = false,
+        )
+    }
+
+    labels.columns.status -> Box(
+        modifier = Modifier.height(cellHeight)
+            .weight(weight.getValue(cell.column))
+            .background(if (selected) hovered else Color.Transparent)
+            .separator(cell.row.index == table.rows.lastIndex, separator)
+            .onClick(onItemClick)
+            .padding(horizontal = 12.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Text(
+            modifier = Modifier.onClick(onItemClick),
+            text = cell.row.item.status.getLabels(getStatusLabels(labels.status)),
+            color = cell.row.item.status.getColors()
+        )
+    }
+
+    else -> Box(
+        modifier = Modifier.height(cellHeight)
+            .weight(weight.getValue(cell.column))
+            .background(if (selected) hovered else Color.Transparent)
+            .separator(cell.row.index == table.rows.lastIndex, separator)
+            .padding(horizontal = 12.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        menuAction()
+    }
+}
