@@ -83,7 +83,7 @@ fun SelectionBar(
     }
     Row(
         modifier = Modifier.wrapContentWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
+        horizontalArrangement = Arrangement.spacedBy(if (props.iconBackground) 8.dp else 16.dp, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically
     ) {
         props.actions.forEach { item ->

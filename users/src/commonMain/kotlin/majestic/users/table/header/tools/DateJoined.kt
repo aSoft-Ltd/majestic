@@ -79,12 +79,15 @@ internal fun DateJoined(
             if (expanded || isHovered) TextDecoration.Underline else TextDecoration.None
 
         Text(
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+            modifier = Modifier
+                .weight(1f)
+                .pointerHoverIcon(PointerIcon.Hand)
                 .hoverable(interactionSource = interactionSource)
                 .onClick { expanded = !expanded },
             text = props.labels.dateJoined,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
+            softWrap = false,
             textDecoration = if (props.showFilters) decoration else TextDecoration.None,
             color = color
         )

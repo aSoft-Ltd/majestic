@@ -38,7 +38,7 @@ internal fun Email(
 
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.CenterStart
     ) {
         val popColors = props.colors.compPopColors
         val color =

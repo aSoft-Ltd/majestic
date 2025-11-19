@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import majestic.Cell
@@ -83,7 +84,7 @@ internal fun RowScope.UsersTableRow(
         fullName = cell.row.item.fullName,
     )
 
-    labels.columns.email, labels.columns.id, labels.columns.id, labels.columns.dateJoined, labels.columns.lastActive, labels.columns.roles, labels.columns.permission -> Box(
+    labels.columns.email, labels.columns.id, labels.columns.dateJoined, labels.columns.lastActive, labels.columns.roles, labels.columns.permission -> Box(
         modifier = Modifier.height(cellHeight)
             .weight(weight.getValue(cell.column))
             .background(if (selected) hovered else Color.Transparent)
@@ -95,7 +96,10 @@ internal fun RowScope.UsersTableRow(
         Text(
             modifier = Modifier.onClick(onItemClick),
             text = getLabels(cell, labels.columns).toString(),
-            color = theme.surface.contra.color
+            color = theme.surface.contra.color,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            softWrap = false,
         )
     }
 
