@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ThemeColor
-import majestic.users.tools.UsersData
+import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.UsersStatusLabels
 import org.jetbrains.compose.resources.painterResource
 
