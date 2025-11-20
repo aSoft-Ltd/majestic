@@ -16,13 +16,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.payments.tools.labels.SummaryLabels
+import org.jetbrains.compose.resources.painterResource
+import tz.co.asoft.majestic_payments.generated.resources.Res
+import tz.co.asoft.majestic_payments.generated.resources.ic_arrow_up_02
 
 data class SummaryCardColors(
     val text: Color,
@@ -31,15 +34,15 @@ data class SummaryCardColors(
 
 @Composable
 fun SummaryCard(
-    label: String,
+    labels: SummaryLabels,
+    type: SummaryType,
     value: String,
-    icon: Painter,
     percentage: Float,
     colors: SummaryCardColors,
     orientation: ScreenOrientation,
     wallet: Int? = null,
+    onView: () -> Unit = {},
     modifier: Modifier = Modifier,
-    trailing: (@Composable () -> Unit)? = null
 ) = Column(modifier = modifier, verticalArrangement = Arrangement.SpaceBetween) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
@@ -48,12 +51,12 @@ fun SummaryCard(
                     .clip(RoundedCornerShape(10.dp))
                     .background(colors.icon.copy(0.05f))
                     .padding(8.dp),
-                painter = icon,
+                painter = painterResource(type.icon),
                 tint = colors.icon,
                 contentDescription = null,
             )
             if (orientation is Landscape) Text(
-                text = label,
+                text = type.getLabel(labels),
                 color = colors.text.copy(0.3f),
                 fontSize = 12.sp,
                 lineHeight = 1.sp
@@ -65,13 +68,13 @@ fun SummaryCard(
                 .padding(vertical = 5.dp, horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(text = "${percentage.toInt()}%", color = Color(0xFF46C362), fontSize = 12.sp, lineHeight = 0.1.sp)
-//            Icon(
-//                modifier = Modifier.size(20.dp),
-//                painter = painterResource(summaryIcon),
-//                tint = Color(0xFF46C362),
-//                contentDescription = null,
-//            )
+            Text(text = "${percentage}%", color = Color(0xFF46C362), fontSize = 12.sp, lineHeight = 0.1.sp)
+            Icon(
+                modifier = Modifier.size(16.dp),
+                painter = painterResource(Res.drawable.ic_arrow_up_02),
+                tint = Color(0xFF46C362),
+                contentDescription = null,
+            )
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
@@ -83,25 +86,25 @@ fun SummaryCard(
                 Text(
                     text = "TZS",
                     color = colors.text.copy(0.3f),
-                    fontSize = if (wallet == null && trailing == null && orientation is Landscape) 16.sp else 12.sp,
+                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 16.sp else 12.sp,
                     lineHeight = 1.sp
                 )
                 Text(
                     text = value,
                     color = colors.icon,
                     fontWeight = FontWeight.Bold,
-                    fontSize = if (wallet == null && trailing == null && orientation is Landscape) 24.sp else 18.sp,
+                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 24.sp else 18.sp,
                     lineHeight = 1.sp
                 )
             }
             if (orientation is Portrait) Text(
-                text = label,
+                text = type.getLabel(labels),
                 color = colors.text.copy(0.3f),
                 fontSize = 12.sp,
                 lineHeight = 1.sp
             )
         }
-        if (wallet != null) Column(
+        if (type == SummaryType.BALANCE) Column(
             verticalArrangement = Arrangement.spacedBy(3.dp),
             horizontalAlignment = Alignment.End
         ) {
@@ -113,11 +116,13 @@ fun SummaryCard(
                 lineHeight = 1.sp
             )
             Text(
-                text = "Wallets",
+                text = labels.wallet,
                 color = colors.text.copy(0.3f),
                 fontSize = 12.sp,
                 lineHeight = 1.sp
             )
-        } else trailing?.invoke()
+        } else if (type != SummaryType.COLLECTED) {
+            ViewButton(label = labels.view, color = colors.text, onClick = onView)
+        }
     }
 }
