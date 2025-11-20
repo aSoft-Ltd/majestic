@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
@@ -44,8 +45,12 @@ fun SummaryCard(
     onView: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) = Column(modifier = modifier, verticalArrangement = Arrangement.SpaceBetween) {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.weight(1f),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
             Icon(
                 modifier = Modifier.size(34.dp)
                     .clip(RoundedCornerShape(10.dp))
@@ -58,6 +63,8 @@ fun SummaryCard(
             if (orientation is Landscape) Text(
                 text = type.getLabel(labels),
                 color = colors.text.copy(0.3f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 fontSize = 12.sp,
                 lineHeight = 1.sp
             )
@@ -77,8 +84,9 @@ fun SummaryCard(
             )
         }
     }
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Column(
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(3.dp),
             horizontalAlignment = Alignment.Start
         ) {
@@ -86,14 +94,15 @@ fun SummaryCard(
                 Text(
                     text = "TZS",
                     color = colors.text.copy(0.3f),
-                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 16.sp else 12.sp,
-                    lineHeight = 1.sp
+                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 16.sp else 12.sp
                 )
                 Text(
                     text = value,
                     color = colors.icon,
                     fontWeight = FontWeight.Bold,
-                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 24.sp else 18.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 32.sp else 20.sp,
                     lineHeight = 1.sp
                 )
             }
