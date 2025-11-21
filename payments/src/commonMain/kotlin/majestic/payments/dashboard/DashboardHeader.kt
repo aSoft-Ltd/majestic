@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
-import majestic.payments.tools.labels.SectionLabels
+import majestic.payments.tools.labels.DashboardHeaderLabels
 
 @Composable
 fun DashboardHeader(
-    labels: SectionLabels,
+    labels: DashboardHeaderLabels,
     colors: ColorPair,
     modifier: Modifier = Modifier,
 ) = Row(
@@ -24,13 +24,13 @@ fun DashboardHeader(
 ) {
     Column {
         Text(
-            text = labels.label,
+            text = labels.section.label,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = colors.foreground,
         )
         Text(
-            text = labels.description,
+            text = labels.section.description,
             fontSize = 14.sp,
             color = colors.foreground.copy(0.3f),
         )
