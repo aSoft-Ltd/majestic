@@ -17,6 +17,7 @@ fun DashboardHeader(
     labels: DashboardHeaderLabels,
     colors: ColorPair,
     modifier: Modifier = Modifier,
+    trailing: @Composable (() -> Unit)? = null
 ) = Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically,
@@ -35,4 +36,5 @@ fun DashboardHeader(
             color = colors.foreground.copy(0.3f),
         )
     }
+    trailing?.invoke()
 }

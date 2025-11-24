@@ -57,6 +57,7 @@ kotlin {
             api(projects.majesticTheme)
             api(projects.majesticScreen)
             api(libs.majestic.input.core)
+            api(libs.majestic.input.choice)
         }
 
         commonTest.dependencies {
