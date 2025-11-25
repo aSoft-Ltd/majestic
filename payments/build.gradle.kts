@@ -27,6 +27,7 @@ android {
 }
 
 kotlin {
+    androidTarget { }
     jvm {
         tasks.withType<Test> {
             useJUnitPlatform()
@@ -48,12 +49,15 @@ kotlin {
         commonMain.dependencies {
             api(compose.runtime)
             api(compose.foundation)
+            api(compose.components.resources)
             api(compose.material3)?.because("We need to access LocalContentColor")
             api(compose.materialIconsExtended)?.because("We need default icons")
             api(libs.symphony.table)?.because("We need a table manager of some sorts")
             api(libs.cinematic.live.compose)?.because("We need to watchAsState")
             api(projects.majesticTheme)
             api(projects.majesticScreen)
+            api(libs.majestic.input.core)
+            api(libs.majestic.input.choice)
         }
 
         commonTest.dependencies {
