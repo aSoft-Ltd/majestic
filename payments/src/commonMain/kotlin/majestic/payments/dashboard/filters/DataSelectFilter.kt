@@ -25,21 +25,26 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.ChoiceColors
 import majestic.ColorPair
 import majestic.IconCheckCircle
 import majestic.IconCheckColors
 import majestic.SmartSelect
-import majestic.ThemeColor
-import majestic.payments.tools.colors.toChoiceColors
-import majestic.payments.tools.colors.toPopMainColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_arrow_down_01_solid
 
+data class SelectFilterColors(
+    val default: ColorPair,
+    val choice: ChoiceColors,
+    val popMain: ColorPair,
+    val popComp: ColorPair,
+)
+
 @Composable
 fun DataSelectFilter(
-    theme: ThemeColor,
+    colors: SelectFilterColors,
     selected: List<String>,
     items: List<String>,
     icon: DrawableResource,
@@ -47,24 +52,23 @@ fun DataSelectFilter(
     modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-    val popColors = theme.toPopMainColors()
 
     SmartSelect(
         modifier = modifier,
         items = items,
         item = { item: String ->
             Item(
-                theme = theme,
+                colors = colors,
                 name = item,
                 icon = icon,
                 isSelected = selected.contains(item)
             )
         },
-        selected = { SelectedItem(colors = popColors, selected = selected, icon = icon, isExpanded = isExpanded) },
-        placeholder = { SelectedItem(colors = popColors, selected = selected, icon = icon, isExpanded = isExpanded) },
+        selected = { SelectedItem(colors = colors.popMain, selected = selected, icon = icon, isExpanded = isExpanded) },
+        placeholder = { SelectedItem(colors = colors.popMain, selected = selected, icon = icon, isExpanded = isExpanded) },
         onChange = { it?.let(onChange) },
         onExpanded = { isExpanded = it },
-        drawerContainerColor = popColors.background,
+        drawerContainerColor = colors.popMain.background,
         shape = RoundedCornerShape(12.dp),
         dropDownShape = RoundedCornerShape(12.dp),
         dropdownModifier = Modifier.width(IntrinsicSize.Max)
@@ -124,7 +128,7 @@ private fun SelectedItem(
 
 @Composable
 private fun Item(
-    theme: ThemeColor,
+    colors: SelectFilterColors,
     name: String,
     icon: DrawableResource,
     isSelected: Boolean
@@ -133,17 +137,16 @@ private fun Item(
     horizontalArrangement = Arrangement.spacedBy(10.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    val c = theme.toChoiceColors()
-    val color = if (isSelected) c.selected else c.unselected
+    val color = if (isSelected) colors.choice.selected else colors.choice.unselected
 
     Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         Icon(
             modifier = Modifier.size(16.dp),
             painter = painterResource(icon),
-            tint = theme.surface.contra.color.copy(0.7f),
+            tint = colors.default.foreground.copy(0.7f),
             contentDescription = null,
         )
-        Text(text = name, fontSize = 14.sp, color = theme.surface.contra.color)
+        Text(text = name, fontSize = 14.sp, color = colors.default.foreground)
     }
     IconCheckCircle(
         size = 16.dp,
