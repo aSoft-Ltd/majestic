@@ -1,6 +1,6 @@
 package majestic.payments.dashboard.summary
 
-import majestic.payments.tools.labels.SummaryLabels
+import majestic.payments.labels.SummaryLabels
 import org.jetbrains.compose.resources.DrawableResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_coins_01

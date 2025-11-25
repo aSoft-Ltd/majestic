@@ -1,4 +1,4 @@
-package majestic.payments.tools.labels
+package majestic.payments.labels
 
 data class SummaryLabels(
     val collected: String,

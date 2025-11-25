@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
-import majestic.payments.tools.labels.DashboardHeaderLabels
+import majestic.payments.labels.DashboardHeaderLabels
 
 @Composable
 fun DashboardHeader(
