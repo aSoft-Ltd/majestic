@@ -43,7 +43,7 @@ import tz.co.asoft.majestic_payments.generated.resources.ic_arrow_down_01_solid
 data class FilterColors(
     val default: ColorPair,
     val check: Color,
-    val popup: ColorPair,
+    val popup: ColorPair
 )
 
 @Composable

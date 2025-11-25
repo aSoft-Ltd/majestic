@@ -43,8 +43,7 @@ import tz.co.asoft.majestic_payments.generated.resources.ic_arrow_down_01_solid
 data class SelectFilterColors(
     val default: ColorPair,
     val choice: ChoiceColors,
-    val popMain: ColorPair,
-    val popComp: ColorPair,
+    val popup: ColorPair
 )
 
 @Composable
@@ -73,7 +72,7 @@ fun DataSelectFilter(
         placeholder = { SelectedItem(colors = colors.default, selected = selected, icon = icon, isExpanded = isExpanded) },
         onChange = { it?.let(onChange) },
         onExpanded = { isExpanded = it },
-        drawerContainerColor = colors.popMain.background,
+        drawerContainerColor = colors.popup.background,
         shape = RoundedCornerShape(12.dp),
         dropDownShape = RoundedCornerShape(12.dp),
         dropdownModifier = Modifier.width(IntrinsicSize.Max)
