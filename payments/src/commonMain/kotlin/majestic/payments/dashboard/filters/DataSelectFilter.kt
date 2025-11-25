@@ -3,6 +3,9 @@ package majestic.payments.dashboard.filters
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -22,6 +25,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -64,8 +69,8 @@ fun DataSelectFilter(
                 isSelected = selected.contains(item)
             )
         },
-        selected = { SelectedItem(colors = colors.popMain, selected = selected, icon = icon, isExpanded = isExpanded) },
-        placeholder = { SelectedItem(colors = colors.popMain, selected = selected, icon = icon, isExpanded = isExpanded) },
+        selected = { SelectedItem(colors = colors.default, selected = selected, icon = icon, isExpanded = isExpanded) },
+        placeholder = { SelectedItem(colors = colors.default, selected = selected, icon = icon, isExpanded = isExpanded) },
         onChange = { it?.let(onChange) },
         onExpanded = { isExpanded = it },
         drawerContainerColor = colors.popMain.background,
@@ -82,6 +87,10 @@ private fun SelectedItem(
     icon: DrawableResource,
     isExpanded: Boolean = false,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
+    val color = if (isHovered) colors.foreground else colors.foreground.copy(0.7f)
+    val bgColor = if (isHovered) colors.foreground.copy(0.1f) else colors.foreground.copy(0.05f)
     val animateRotation by animateFloatAsState(
         targetValue = if (isExpanded) -180f else 0f,
         animationSpec = tween(durationMillis = 300)
@@ -95,7 +104,9 @@ private fun SelectedItem(
     Row(
         modifier = Modifier.fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
-            .background(colors.background)
+            .background(bgColor)
+            .pointerHoverIcon(PointerIcon.Hand)
+            .hoverable(interactionSource)
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(
@@ -106,13 +117,13 @@ private fun SelectedItem(
         Icon(
             modifier = Modifier.size(16.dp),
             painter = painterResource(icon),
-            tint = colors.foreground,
+            tint = color,
             contentDescription = null,
         )
         Text(
             text = label,
             fontSize = 14.sp,
-            color = colors.foreground,
+            color = color,
             lineHeight = 0.1.sp,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1
