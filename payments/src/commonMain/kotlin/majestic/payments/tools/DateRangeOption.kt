@@ -6,4 +6,6 @@ enum class DateRangeOption(val label: String) {
     THIS_YEAR("This Year"),
     PAST_YEAR("Past Year"),
     CUSTOM("Custom Range");
+
+    companion object
 }
