@@ -59,6 +59,7 @@ fun Modifier.choiceButton(selected: Boolean, colors: ChoiceColors = ChoiceColors
     border = if (selected) colors.selected.border else colors.unselected.border,
 )
 
+@Deprecated("Use the one that has no onSelect()")
 @Composable
 fun ChoiceButton(
     label: String,
@@ -117,5 +118,38 @@ fun ChoiceButton(
             )
         )
         label(selected)
+    }
+}
+
+@Composable
+fun ChoiceButton(
+    label: String,
+    selected: Boolean,
+    colors: ChoiceColors = ChoiceColors(),
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Center,
+    modifier: Modifier = Modifier.choiceButton(selected, colors)
+) {
+    val color = if (selected) colors.selected else colors.unselected
+    Row(
+        modifier = modifier,
+        horizontalArrangement = horizontalArrangement,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconCheckCircle(
+            selected = selected,
+            colors = IconCheckColors(
+                background = color.icon.background,
+                border = color.border,
+                icon = color.icon
+            )
+        )
+        Spacer(Modifier.width(5.dp))
+        Text(
+            modifier = Modifier.padding(end = 5.dp),
+            text = label,
+            color = color.label,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1
+        )
     }
 }
