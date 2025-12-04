@@ -153,7 +153,7 @@ fun SummaryCard(
                     fontSize = if (orientation is Landscape) 24.sp else 16.sp,
                 )
                 Text(
-                    label,
+                    text = label,
                     fontSize = if (orientation is Landscape) 16.sp else 12.sp,
                     color = props.colors.foreground.copy(0.5f)
                 )
