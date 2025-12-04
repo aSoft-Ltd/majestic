@@ -1,4 +1,4 @@
-package majestic.users.profile.tools.header.tools
+package majestic.users.profile.details.tools.header.tools
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

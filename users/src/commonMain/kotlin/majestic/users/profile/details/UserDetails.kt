@@ -1,4 +1,4 @@
-package majestic.users.profile
+package majestic.users.profile.details
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,7 @@ import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
-import majestic.users.profile.tools.ProfileDestinationMapper
+import majestic.users.profile.details.tools.ProfileDestinationMapper
 import majestic.users.tools.colors.background
 import majestic.users.tools.colors.barColors
 import majestic.users.tools.data.UsersData

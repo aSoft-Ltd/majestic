@@ -1,4 +1,4 @@
-package majestic.users.profile
+package majestic.users.profile.details
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -24,11 +24,11 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.Light
 import majestic.ThemeColor
 import majestic.tooling.onClick
+import majestic.users.profile.details.tools.ProfileDestinationMapper
+import majestic.users.profile.details.tools.header.Head
+import majestic.users.profile.details.tools.header.tools.HeadData
+import majestic.users.profile.details.tools.toProfileData
 import majestic.users.profile.tabs.ProfileTabs
-import majestic.users.profile.tools.ProfileDestinationMapper
-import majestic.users.profile.tools.header.Head
-import majestic.users.profile.tools.header.tools.HeadData
-import majestic.users.profile.tools.toProfileData
 import majestic.users.tools.colors.background
 import majestic.users.tools.data.GenderLabels
 import majestic.users.tools.data.UsersData
