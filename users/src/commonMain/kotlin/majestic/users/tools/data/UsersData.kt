@@ -44,6 +44,7 @@ data class UsersData(
     val dob: Pair<String, DrawableResource>,
     val lastActive: Pair<String, DrawableResource>,
     val gender: Gender,
+    val flag: DrawableResource,
     val rolesCount: Int,
     val permissionsCount: Int,
     val permissions: List<Permission>,
@@ -77,7 +78,8 @@ data class UsersData(
                 permissions = randomPermissions,
                 status = UserStatus.entries.random(),
                 gender = gender,
-                phone = Pair(buildString { append("07"); repeat(8) { append((0..9).random()) } }, headerIcons.phone)
+                phone = Pair(buildString { append("07"); repeat(8) { append((0..9).random()) } }, headerIcons.phone),
+                flag = headerIcons.flag
             )
         }
 

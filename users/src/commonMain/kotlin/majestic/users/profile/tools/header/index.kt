@@ -2,19 +2,22 @@ package majestic.users.profile.tools.header
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,13 +45,26 @@ fun Head(
     val contentColor = if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
     else theme.surface.contra.color
 
-    if (data.avatar != null) Image(
-        modifier = Modifier
-            .size(if (orientation is Landscape) 140.dp else 70.dp)
-            .clip(RoundedCornerShape(if (orientation is Landscape) 10.dp else 5.dp)),
-        painter = painterResource(data.avatar),
-        contentDescription = null,
-    )
+    if (data.avatar != null) Box(modifier = Modifier.size(if (orientation is Landscape) 100.dp else 70.dp)) {
+        Image(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CircleShape),
+            painter = painterResource(data.avatar),
+            contentDescription = null,
+        )
+        if (orientation is Portrait) Image(
+            modifier = Modifier
+                .padding(start = 15.dp, bottom = 10.dp)
+                .align(Alignment.BottomEnd)
+                .border(1.dp, theme.surface.contra.color, CircleShape)
+                .clip(CircleShape)
+                .size(15.dp),
+            contentScale = ContentScale.Crop,
+            painter = painterResource(data.flag),
+            contentDescription = null,
+        )
+    }
     else Box(
         modifier = Modifier
             .size(if (orientation is Landscape) 140.dp else 70.dp)

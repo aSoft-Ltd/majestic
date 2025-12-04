@@ -10,10 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,15 +33,14 @@ fun UserDetails(
     navigator: Navigator,
     labels: ProfileHeaderLabels,
     backIcon: DrawableResource,
-    contextMenu: DrawableResource,
+    menuOption: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    bars: @Composable (Boolean) -> Unit = {},
+    bars: @Composable () -> Unit = {},
     content: @Composable (() -> Unit) = {},
 ) = Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
 
     val barColors = theme.barColors(orientation)
-    var recall by remember { mutableStateOf(false) }
-    bars(recall)
+    bars()
     Column(
         modifier = Modifier
             .fillMaxWidth(if (orientation is Landscape) .85f else 1f)
@@ -66,10 +61,8 @@ fun UserDetails(
             navigator = navigator,
             endpoint = endpoint,
             back = backIcon,
-            contextMenu = contextMenu,
-        ) {
-            recall = true
-        }
+            menuOption = menuOption,
+        )
         Box(modifier = Modifier.fillMaxSize()) {
             content()
         }
