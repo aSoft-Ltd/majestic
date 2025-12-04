@@ -40,7 +40,7 @@ fun SummaryCardList(
     val orientation = props.orientation
 
     if (orientation == Landscape) Row(
-        modifier = modifier.horizontalScroll(rememberScrollState()),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         props.summaryList.forEach {
