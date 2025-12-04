@@ -3,6 +3,7 @@ package majestic.users.profile.tools.header.tools
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,8 +15,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composex.screen.orientation.Landscape
-import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
@@ -27,7 +26,6 @@ internal fun FlowItem(
     theme: ThemeColor,
     resource: DrawableResource,
     resourceSize: Dp,
-    orientation: ScreenOrientation,
     titleSize: TextUnit = 16.sp,
     subtitleSize: TextUnit = 14.sp,
     fontWeight: FontWeight = FontWeight.Bold,
@@ -35,14 +33,29 @@ internal fun FlowItem(
 ) = Column(
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.spacedBy(if (orientation is Landscape) 2.dp else 1.dp)
+    verticalArrangement = Arrangement.spacedBy(2.dp)
 ) {
-    Icon(
-        modifier = Modifier.size(resourceSize),
-        imageVector = vectorResource(resource),
-        contentDescription = null,
-        tint = theme.surface.contra.color.copy(.3f)
-    )
+    Column(
+        modifier = Modifier.wrapContentSize(),
+        verticalArrangement = Arrangement.spacedBy(1.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            modifier = Modifier.size(resourceSize),
+            imageVector = vectorResource(resource),
+            contentDescription = null,
+            tint = theme.surface.contra.color.copy(.3f)
+        )
+
+        Text(
+            text = description,
+            fontWeight = fontWeight,
+            fontSize = subtitleSize,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = theme.surface.contra.color.copy(alpha = 0.5f)
+        )
+    }
     Text(
         text = title,
         fontWeight = fontWeight,
@@ -50,13 +63,5 @@ internal fun FlowItem(
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         color = theme.surface.contra.color
-    )
-    Text(
-        text = description,
-        fontWeight = fontWeight,
-        fontSize = subtitleSize,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        color = theme.surface.contra.color.copy(alpha = 0.5f)
     )
 }

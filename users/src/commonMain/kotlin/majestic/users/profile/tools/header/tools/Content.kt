@@ -95,7 +95,6 @@ internal fun Content(
                     subtitleSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.wrapContentSize(),
-                    orientation = orientation,
                     resource = item.icon,
                     resourceSize = 20.dp
                 )
@@ -109,7 +108,7 @@ internal fun Content(
             Text(
                 modifier = Modifier
                     .clip(RoundedCornerShape(5.dp))
-                    .background(theme.surface.contra.color.copy(.3f))
+                    .background(theme.surface.contra.color.copy(.05f))
                     .padding(horizontal = 5.dp, vertical = 2.dp),
                 text = data.gender,
                 overflow = TextOverflow.Ellipsis,
@@ -127,7 +126,7 @@ internal fun Content(
                 Text(
                     modifier = Modifier
                         .clip(RoundedCornerShape(2.dp))
-                        .background(theme.surface.contra.color.copy(.3f))
+                        .background(theme.surface.contra.color.copy(.05f))
                         .padding(horizontal = 5.dp, vertical = 2.dp),
                     text = if (item.title.equals("joined", true)) {
                         "${item.title} ${item.description.drop(2)}"
