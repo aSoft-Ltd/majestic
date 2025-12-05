@@ -13,11 +13,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-data class TransactionSeries(
-    val label: String,
-    val color: Color
-)
+import majestic.payments.dashboard.tools.Series
 
 data class TransactionGroup(
     val label: String,
@@ -30,7 +26,7 @@ internal fun GraphCanvas(
     textColor: Color,
     steps: Int,
     stepSymbol: String,
-    series: List<TransactionSeries>,
+    series: List<Series>,
     groups: List<TransactionGroup>,
     modifier: Modifier = Modifier
 ) {

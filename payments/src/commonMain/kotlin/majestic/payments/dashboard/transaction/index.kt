@@ -13,13 +13,15 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
+import majestic.payments.dashboard.tools.GraphLegend
+import majestic.payments.dashboard.tools.Series
 
 @Composable
 fun TransactionGraph(
     theme: ThemeColor,
     axisColor: Color,
     textColor: Color,
-    series: List<TransactionSeries>,
+    series: List<Series>,
     groups: List<TransactionGroup>,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier

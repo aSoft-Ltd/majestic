@@ -1,4 +1,4 @@
-package majestic.payments.dashboard.transaction
+package majestic.payments.dashboard.tools
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
@@ -12,15 +12,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ThemeColor
 
+data class Series(
+    val label: String,
+    val color: Color
+)
+
 @Composable
-internal fun GraphLegend(
+fun GraphLegend(
     theme: ThemeColor,
-    series: List<TransactionSeries>,
+    series: List<Series>,
     dotSize: Dp = 12.dp,
     modifier: Modifier = Modifier
 ) {
