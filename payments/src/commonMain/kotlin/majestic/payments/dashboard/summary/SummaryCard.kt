@@ -94,7 +94,8 @@ fun SummaryCard(
                 Text(
                     text = "TZS",
                     color = colors.text.copy(0.3f),
-                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 16.sp else 12.sp
+                    lineHeight = 1.sp,
+                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 16.sp else 10.sp
                 )
                 Text(
                     text = value,
@@ -102,7 +103,12 @@ fun SummaryCard(
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    fontSize = if (type == SummaryType.COLLECTED && orientation is Landscape) 32.sp else 20.sp,
+                    fontSize = when (type) {
+                        SummaryType.COLLECTED if orientation is Landscape -> 24.sp
+                        SummaryType.COLLECTED if orientation is Portrait -> 18.sp
+                        else if orientation is Landscape -> 18.sp
+                        else -> 14.sp
+                    },
                     lineHeight = 1.sp
                 )
             }
