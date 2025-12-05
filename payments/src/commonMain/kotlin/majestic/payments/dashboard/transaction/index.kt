@@ -27,8 +27,8 @@ fun TransactionGraph(
     modifier: Modifier = Modifier
 ) {
     val maxPackages = when (orientation) {
-        is Portrait -> 4
-        is Landscape -> 7
+        is Portrait -> 5
+        is Landscape -> 10
     }
     val visibleGroups = groups.take(maxPackages.coerceAtMost(groups.size))
 
@@ -41,7 +41,7 @@ fun TransactionGraph(
             textColor = textColor,
             series = series,
             steps = 10,
-            stepSymbol = "K",
+            stepSymbol = "M",
             groups = visibleGroups,
             modifier = Modifier.fillMaxWidth().fillMaxHeight(.9f)
         )
