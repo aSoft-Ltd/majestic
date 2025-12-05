@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import majestic.payments.dashboard.wallet.chart.BarChart
 import majestic.payments.dashboard.wallet.chart.tools.BarData
 import majestic.payments.dashboard.wallet.chart.tools.BarShape
+import majestic.payments.tools.formatWithCommas
 
 @Composable
 fun WalletBar(
@@ -46,7 +47,7 @@ fun WalletBar(
         )
         Text(
             modifier = Modifier.weight(1f),
-            text = "${item.value}",
+            text = "${item.value.formatWithCommas()}/=",
             fontSize = 14.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
