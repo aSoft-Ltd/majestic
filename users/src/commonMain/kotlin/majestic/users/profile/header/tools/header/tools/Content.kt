@@ -1,4 +1,4 @@
-package majestic.users.profile.details.tools.header.tools
+package majestic.users.profile.header.tools.header.tools
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

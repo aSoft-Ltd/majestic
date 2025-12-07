@@ -10,8 +10,8 @@ import captain.Navigator
 import cinematic.watchAsState
 import kollections.map
 import majestic.ThemeColor
-import majestic.users.profile.details.TabsLabels
-import majestic.users.profile.details.tools.ProfileDestinationMapper
+import majestic.users.profile.header.TabsLabels
+import majestic.users.profile.header.tools.ProfileDestinationMapper
 
 fun profileRoutes(endpoint: ProfileDestinationMapper, labels: TabsLabels) = listOf(
     labels.permissions.toPage(endpoint = endpoint.permissions),

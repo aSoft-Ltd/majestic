@@ -1,4 +1,4 @@
-package majestic.users.profile.details.tools
+package majestic.users.profile.header.tools
 
 data class ProfileDestinationMapper(
     val permissions: String,

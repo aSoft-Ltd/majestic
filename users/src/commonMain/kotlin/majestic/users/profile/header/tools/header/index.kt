@@ -1,4 +1,4 @@
-package majestic.users.profile.details.tools.header
+package majestic.users.profile.header.tools.header
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,8 +26,8 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.Light
 import majestic.ThemeColor
-import majestic.users.profile.details.tools.header.tools.Content
-import majestic.users.profile.details.tools.header.tools.HeadData
+import majestic.users.profile.header.tools.header.tools.Content
+import majestic.users.profile.header.tools.header.tools.HeadData
 import org.jetbrains.compose.resources.painterResource
 
 
