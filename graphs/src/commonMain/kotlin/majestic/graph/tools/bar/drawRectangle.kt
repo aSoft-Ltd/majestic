@@ -1,4 +1,4 @@
-package majestic.payments.dashboard.wallet.chart
+package majestic.graph.tools.bar
 
 import androidx.annotation.FloatRange
 import androidx.compose.ui.geometry.CornerRadius
@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope.Companion.DefaultBlendMode
 import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Fill
-import majestic.payments.dashboard.wallet.chart.tools.RoundedRectangleShape
 
 internal fun Size.offsetSize(offset: Offset): Size {
     return Size(

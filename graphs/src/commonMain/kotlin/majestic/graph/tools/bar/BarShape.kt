@@ -1,4 +1,4 @@
-package majestic.payments.dashboard.wallet.chart.tools
+package majestic.graph.tools.bar
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

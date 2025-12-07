@@ -1,4 +1,4 @@
-package majestic.payments.dashboard.transaction
+package majestic.graph
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -13,7 +13,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.payments.dashboard.tools.Series
+import majestic.graph.tools.Series
 
 data class TransactionGroup(
     val label: String,
@@ -21,7 +21,7 @@ data class TransactionGroup(
 )
 
 @Composable
-internal fun GraphCanvas(
+fun GraphCanvas(
     axisColor: Color,
     textColor: Color,
     steps: Int,

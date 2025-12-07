@@ -14,9 +14,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.payments.dashboard.wallet.chart.BarChart
-import majestic.payments.dashboard.wallet.chart.tools.BarData
-import majestic.payments.dashboard.wallet.chart.tools.BarShape
+import majestic.graph.BarGraph
+import majestic.graph.tools.bar.BarShape
 import majestic.payments.tools.formatWithCommas
 
 @Composable
@@ -38,7 +37,7 @@ fun WalletBar(
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        BarChart(
+        BarGraph(
             value = item.percent,
             color = item.color,
             shape = shape,

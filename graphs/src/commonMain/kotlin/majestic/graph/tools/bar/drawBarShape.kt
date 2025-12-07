@@ -1,15 +1,10 @@
-package majestic.payments.dashboard.wallet.chart
+package majestic.graph.tools.bar
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import majestic.payments.dashboard.wallet.chart.tools.BarShape
-import majestic.payments.dashboard.wallet.chart.tools.Circle
-import majestic.payments.dashboard.wallet.chart.tools.Diamond
-import majestic.payments.dashboard.wallet.chart.tools.Rectangle
-import majestic.payments.dashboard.wallet.chart.tools.RoundedRectangleShape
 import kotlin.math.min
 
 internal fun DrawScope.drawBarShape(

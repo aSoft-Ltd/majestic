@@ -1,4 +1,4 @@
-package majestic.payments.dashboard.wallet.chart
+package majestic.graph
 
 import androidx.compose.animation.core.EaseOutCubic
 import androidx.compose.animation.core.animateFloatAsState
@@ -14,16 +14,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import majestic.payments.dashboard.wallet.chart.tools.BarShape
-import majestic.payments.dashboard.wallet.chart.tools.ChartOrientation
+import majestic.graph.tools.bar.BarOrientation
+import majestic.graph.tools.bar.BarShape
+import majestic.graph.tools.bar.drawHorizontalBar
+import majestic.graph.tools.bar.drawVerticalBar
 
 @Composable
-fun BarChart(
+fun BarGraph(
     value: Float,
     color: Color,
     shape: BarShape,
     animationDuration: Int = 2000,
-    orientation: ChartOrientation = ChartOrientation.Horizontal,
+    orientation: BarOrientation = BarOrientation.Horizontal,
     modifier: Modifier = Modifier
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
@@ -44,7 +46,7 @@ fun BarChart(
             if (canvasWidth <= 0 || canvasHeight <= 0) return@Canvas
 
             when (orientation) {
-                ChartOrientation.Horizontal -> drawHorizontalBar(
+                BarOrientation.Horizontal -> drawHorizontalBar(
                     value = value,
                     width = canvasWidth,
                     height = canvasHeight,
@@ -53,7 +55,7 @@ fun BarChart(
                     shape = shape
                 )
 
-                ChartOrientation.Vertical -> drawVerticalBar(
+                BarOrientation.Vertical -> drawVerticalBar(
                     value = value,
                     width = canvasWidth,
                     height = canvasHeight,

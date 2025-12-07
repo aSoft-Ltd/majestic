@@ -1,4 +1,4 @@
-package majestic.payments.dashboard.tools
+package majestic.graph.tools
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement

@@ -1,12 +1,11 @@
-package majestic.payments.dashboard.wallet.chart
+package majestic.graph.tools.bar
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import majestic.payments.dashboard.wallet.chart.tools.BarShape
 
-internal fun DrawScope.drawVerticalBar(
+internal fun DrawScope.drawHorizontalBar(
     width: Float,
     height: Float,
     value: Float,
@@ -14,13 +13,11 @@ internal fun DrawScope.drawVerticalBar(
     shape: BarShape,
     animation: Float,
 ) {
-    val barHeight = height * (value / 100f) * animation
-    val barTop = size.height - barHeight
-
+    val barWidth = width * (value / 100) * animation
     drawBarShape(
         shape = shape,
         color = color,
-        topLeft = Offset(0f, barTop),
-        size = Size(width, barHeight)
+        topLeft = Offset(0f, 0f),
+        size = Size(barWidth, height)
     )
 }

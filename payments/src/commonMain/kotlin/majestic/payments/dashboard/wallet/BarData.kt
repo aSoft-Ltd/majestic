@@ -1,4 +1,4 @@
-package majestic.payments.dashboard.wallet.chart.tools
+package majestic.payments.dashboard.wallet
 
 import androidx.compose.ui.graphics.Color
 
@@ -6,7 +6,7 @@ data class BarData(
     val label: String,
     val value: Int,
     val percent: Float,
-    val color: Color = Color.Blue
+    val color: Color = Color.Companion.Blue
 ) {
     companion object {
         fun normalizeTo100(value: Double, max: Double): Float {
