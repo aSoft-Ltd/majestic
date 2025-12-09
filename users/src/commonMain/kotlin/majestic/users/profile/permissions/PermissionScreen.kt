@@ -12,7 +12,7 @@ internal object Main : PermissionScreenState
 internal object Detailed : PermissionScreenState
 
 internal class PermissionScreen() {
-    var view by mutableStateOf<PermissionScreenState?>(Main)
+    var view by mutableStateOf<PermissionScreenState?>(Detailed)
     var activeObj by mutableStateOf<Permissions?>(null)
     fun main() {
         view = Main
