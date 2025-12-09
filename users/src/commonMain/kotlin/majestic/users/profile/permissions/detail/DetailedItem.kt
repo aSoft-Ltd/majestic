@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -76,14 +77,28 @@ fun DetailedItem(
             fontWeight = FontWeight.Normal
         )
     }
-    ToggleSwitch(
-        checked = props.itemState,
-        onCheckedChange = onSwitching,
-        height = 20.dp,
-        circleSize = 15.dp,
-        width = 40.dp,
-        circlePadding = 0.dp,
-        shape = RoundedCornerShape(10.dp),
-        colors = props.colors.switch
-    )
+    Row(
+        modifier = Modifier.wrapContentSize(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = if (props.itemState) props.item.switch.first else props.item.switch.second,
+            fontSize = 16.sp,
+            maxLines = 3,
+            color = props.colors.description,
+            overflow = TextOverflow.Ellipsis,
+            fontWeight = FontWeight.Normal
+        )
+        ToggleSwitch(
+            checked = props.itemState,
+            onCheckedChange = onSwitching,
+            height = 20.dp,
+            circleSize = 15.dp,
+            width = 40.dp,
+            circlePadding = 0.dp,
+            shape = RoundedCornerShape(10.dp),
+            colors = props.colors.switch
+        )
+    }
 }

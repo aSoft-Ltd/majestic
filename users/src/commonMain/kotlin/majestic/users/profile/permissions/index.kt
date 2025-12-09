@@ -1,25 +1,26 @@
 package majestic.users.profile.permissions
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.tooling.onClick
 import majestic.users.profile.permissions.detail.DetailedColors
 import majestic.users.profile.permissions.detail.Details
+import majestic.users.profile.permissions.detail.Permissions
 import majestic.users.profile.permissions.detail.toDetailProperties
 import majestic.users.tools.data.Permissions
 import org.jetbrains.compose.resources.DrawableResource
@@ -31,13 +32,24 @@ data class PermissionsColors(
 
 data class PermissionsProps(
     val permissions: List<Permissions>,
+    val leadIcon: DrawableResource,
     val trailIcon: DrawableResource,
     val rightAngle: DrawableResource,
     val colors: PermissionsColors
 )
 
+internal fun Modifier.generalStyles(orientation: ScreenOrientation, props: PermissionsProps) = this
+    .clip(RoundedCornerShape(if (orientation is Landscape) 20.dp else 0.dp))
+    .fillMaxSize()
+    .then(if (orientation is Landscape) Modifier.wrapContentHeight() else Modifier.fillMaxHeight())
+    .background(
+        color = if (orientation is Landscape) props.colors.permission.background else Color.Transparent,
+        shape = RoundedCornerShape(20.dp)
+    )
+    .padding(20.dp)
+
 @Composable
-fun Permissions(
+fun GeneralPermissions(
     orientation: ScreenOrientation,
     props: PermissionsProps,
     modifier: Modifier = Modifier
@@ -48,41 +60,21 @@ fun Permissions(
 ) {
     val current = rememberPermissionScreenState()
     when (current.view) {
-        Main -> {
-            props.permissions.forEachIndexed { index, item ->
-                Permission(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .onClick {
-                            current.set(item)
-                            current.detailed()
-                        }
-                        .padding(if (orientation is Landscape) 20.dp else 10.dp),
-                    props = PermissionProperties(
-                        colors = props.colors.permission,
-                        item = PermissionData(
-                            permission = item,
-                            trailIcon = props.trailIcon
-                        ),
-                    )
-                )
-                if (index != props.permissions.lastIndex) Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                        .background(props.colors.permission.separator.copy(.05f))
-                )
-            }
-        }
+        Main -> Permissions(
+            modifier = Modifier
+                .generalStyles(orientation, props)
+                .verticalScroll(rememberScrollState()),
+            props = props,
+            current = current,
+            orientation = orientation
+        )
 
-        else -> {
+        else -> current.activeObj?.let { activePermission ->
             Details(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .border(1.dp, Color.Red),
+                modifier = Modifier.generalStyles(orientation, props),
+                current = current,
                 orientation = orientation,
-                props = props.toDetailProperties(props.permissions.first())
+                props = props.toDetailProperties(activePermission)
             )
         }
     }

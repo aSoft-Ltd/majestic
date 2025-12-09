@@ -8,7 +8,7 @@ internal fun PermissionsProps.toDetailProperties(
     permissions: Permissions
 ): DetailedProperties = DetailedProperties(
     drawables = DetailedDrawables(
-        leadingIcon = permissions.resource,
+        leadingIcon = leadIcon,
         rightAngle = rightAngle,
         trailIcon = trailIcon
     ),

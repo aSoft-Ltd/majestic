@@ -1,17 +1,20 @@
 package majestic.users.profile.permissions.detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +27,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
+import majestic.tooling.onClick
+import majestic.users.profile.permissions.PermissionScreen
 import majestic.users.tools.data.Permission
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
@@ -39,7 +44,8 @@ data class DetailedColors(
     val breadCrumbTab: BreadCrumbTabColors,
     val detailedItem: DetailedItemColors,
     val border: Color,
-    val container: Color
+    val container: Color,
+    val separator: Color
 )
 
 data class DetailedLabels(
@@ -64,10 +70,11 @@ private fun Modifier.breadCrumbTab(container: Color) = this
     .padding(horizontal = 15.dp, vertical = 8.dp)
 
 @Composable
-fun Details(
+internal fun Details(
     orientation: ScreenOrientation,
     props: DetailedProperties,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    current: PermissionScreen
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -79,7 +86,9 @@ fun Details(
         verticalAlignment = Alignment.CenterVertically
     ) {
         BreadCrumbTab(
-            modifier = Modifier.breadCrumbTab( container = props.colors.container),
+            modifier = Modifier.breadCrumbTab(container = props.colors.container).onClick {
+                current.main()
+            },
             orientation = orientation,
             icon = props.drawables.leadingIcon,
             label = props.labels.leadTitle,
@@ -92,7 +101,7 @@ fun Details(
             modifier = Modifier.size(40.dp)
         )
         BreadCrumbTab(
-            modifier = Modifier.breadCrumbTab( container = props.colors.container),
+            modifier = Modifier.breadCrumbTab(container = props.colors.container),
             orientation = orientation,
             icon = props.drawables.leadingIcon,
             label = props.labels.leadTitle,
@@ -100,15 +109,18 @@ fun Details(
         )
     }
     Column(
-        modifier = Modifier.fillMaxWidth(.5f).fillMaxHeight(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        props.permissions.forEach { permission ->
+        props.permissions.forEachIndexed { index, permission ->
             var switch by remember { mutableStateOf(permission.active) }
-            println("$permission")
             DetailedItem(
                 modifier = Modifier
+                    .padding(vertical = 20.dp)
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(10.dp),
@@ -120,6 +132,12 @@ fun Details(
                 onSwitching = {
                     switch = it
                 }
+            )
+            if (index != props.permissions.lastIndex) Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(props.colors.separator.copy(.05f))
             )
         }
     }

@@ -44,7 +44,7 @@ internal fun BreadCrumbTab(
         modifier = Modifier
             .background(color = colors.background, shape = RoundedCornerShape(8.dp))
             .padding(10.dp)
-            .size(40.dp)
+            .size(30.dp)
     )
     if (orientation is Landscape) Text(
         text = label,
