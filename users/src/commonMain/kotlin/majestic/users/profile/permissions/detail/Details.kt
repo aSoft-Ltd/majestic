@@ -5,9 +5,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -52,15 +54,14 @@ data class DetailedProperties(
     val permissions: List<Permission>
 )
 
-private fun Modifier.breadCrumbTab(border: Color, container: Color) = this
+private fun Modifier.breadCrumbTab(container: Color) = this
     .clip(RoundedCornerShape(10.dp))
     .wrapContentSize()
-    .border(1.dp, color = border, shape = RoundedCornerShape(10.dp))
     .background(
         shape = RoundedCornerShape(10.dp),
         color = container
     )
-    .padding(horizontal = 10.dp, vertical = 5.dp)
+    .padding(horizontal = 15.dp, vertical = 8.dp)
 
 @Composable
 fun Details(
@@ -78,7 +79,7 @@ fun Details(
         verticalAlignment = Alignment.CenterVertically
     ) {
         BreadCrumbTab(
-            modifier = Modifier.breadCrumbTab(border = props.colors.border, container = props.colors.container),
+            modifier = Modifier.breadCrumbTab( container = props.colors.container),
             orientation = orientation,
             icon = props.drawables.leadingIcon,
             label = props.labels.leadTitle,
@@ -91,7 +92,7 @@ fun Details(
             modifier = Modifier.size(40.dp)
         )
         BreadCrumbTab(
-            modifier = Modifier.breadCrumbTab(border = props.colors.border, container = props.colors.container),
+            modifier = Modifier.breadCrumbTab( container = props.colors.container),
             orientation = orientation,
             icon = props.drawables.leadingIcon,
             label = props.labels.leadTitle,
@@ -99,16 +100,18 @@ fun Details(
         )
     }
     Column(
-        modifier = Modifier
-            .weight(1f)
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(.5f).fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         props.permissions.forEach { permission ->
             var switch by remember { mutableStateOf(permission.active) }
+            println("$permission")
             DetailedItem(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(10.dp),
                 props = DetailedItemProperties(
                     colors = props.colors.detailedItem,
                     item = permission,

@@ -45,7 +45,7 @@ fun DetailedItem(
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
-    verticalAlignment = Alignment.CenterVertically
+    verticalAlignment = Alignment.Top
 ) {
 
     Icon(
@@ -79,10 +79,10 @@ fun DetailedItem(
     ToggleSwitch(
         checked = props.itemState,
         onCheckedChange = onSwitching,
-        height = 10.dp,
-        circleSize = 10.dp,
-        width = 50.dp,
-        circlePadding = 8.dp,
+        height = 20.dp,
+        circleSize = 15.dp,
+        width = 40.dp,
+        circlePadding = 0.dp,
         shape = RoundedCornerShape(10.dp),
         colors = props.colors.switch
     )
