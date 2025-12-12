@@ -19,15 +19,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.AvatarStack
+import majestic.payments.wallet.tools.Avatar
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
-import tz.co.asoft.majestic_payments.generated.resources.ic_arrow_up_02
-import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02
+import tz.co.asoft.majestic_payments.generated.resources.ic_more_horizontal
+import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid
 
 data class WalletCardColors(
     val text: Color,
-    val icon: Color
+    val icon: Color,
+    val background: Color
 )
 
 @Composable
@@ -38,7 +41,10 @@ fun WalletCard(
     transactions: List<DrawableResource>,
     colors: WalletCardColors,
     modifier: Modifier = Modifier,
-) = Column(modifier = modifier, verticalArrangement = Arrangement.SpaceBetween) {
+) = Column(
+    modifier = modifier,
+    verticalArrangement = Arrangement.spacedBy(20.dp),
+) {
     Row(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.weight(1f),
@@ -46,11 +52,11 @@ fun WalletCard(
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             Icon(
-                modifier = Modifier.size(34.dp)
+                modifier = Modifier.size(46.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .background(colors.icon.copy(0.05f))
-                    .padding(8.dp),
-                painter = painterResource(Res.drawable.ic_wallet_02),
+                    .padding(12.dp),
+                painter = painterResource(Res.drawable.ic_wallet_02_solid),
                 tint = colors.icon,
                 contentDescription = null,
             )
@@ -60,25 +66,41 @@ fun WalletCard(
                     color = colors.text,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 14.sp,
                     lineHeight = 1.sp
+                )
+                Avatar(
+                    color = colors.background,
+                    images = accounts,
+                    size = 24.dp,
+                    shape = RoundedCornerShape(3.dp)
                 )
             }
         }
         Icon(
-            modifier = Modifier.size(16.dp),
-            painter = painterResource(Res.drawable.ic_arrow_up_02),
-            tint = Color(0xFF46C362),
+            modifier = Modifier.size(24.dp),
+            painter = painterResource(Res.drawable.ic_more_horizontal),
+            tint = colors.text,
             contentDescription = null,
         )
     }
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        val avatarPainters = transactions.map { image -> painterResource(image) }
+        AvatarStack(
+            painters = avatarPainters.slice(indices = 0..3),
+            avatarSize = 28.dp,
+            overlapFraction = 0.4f,
+            maxVisible = 4,
+            borderColor = colors.background,
+            borderWidth = 3.dp,
+            overflowTextColor = colors.text
+        )
         Text(
             text = "${transactions.size} Transactions",
             color = colors.text.copy(0.7f),
             lineHeight = 1.sp,
-            fontSize = 16.sp,
+            fontSize = 12.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -95,7 +117,7 @@ fun WalletCard(
             fontSize = 12.sp
         )
         Text(
-            text = amount,
+            text = "$amount/=",
             color = colors.text,
             lineHeight = 1.sp,
             fontSize = 16.sp,
