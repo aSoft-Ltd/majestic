@@ -1,4 +1,4 @@
-package majestic.users.table.header.tools
+package majestic.users.tools
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -17,7 +17,7 @@ import majestic.ColorPair
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun Tooltip(
+fun Tooltip(
     text: String,
     colors: ColorPair,
     modifier: Modifier = Modifier,
