@@ -70,7 +70,7 @@ internal fun Modifier.selectionBar(
         RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
     )
     .background(
-        theme.dominant.actual.color.copy(alpha = 0.1f),
+        color = theme.dominant.actual.color.copy(alpha = 0.1f),
         shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
     )
     .padding(vertical = 10.dp, horizontal = 12.dp)
