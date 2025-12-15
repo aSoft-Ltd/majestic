@@ -19,22 +19,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
 import majestic.AvatarStack
+import majestic.payments.labels.WalletLabels
+import majestic.payments.tools.menu.MenuOption
+import majestic.payments.tools.menu.MenuOptionColors
 import majestic.payments.wallet.tools.Avatar
+import majestic.payments.wallet.tools.WalletMenuAction
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
-import tz.co.asoft.majestic_payments.generated.resources.ic_more_horizontal
 import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid
 
 data class WalletCardColors(
     val text: Color,
     val icon: Color,
-    val background: Color
+    val background: Color,
+    val menu: MenuOptionColors
 )
 
 @Composable
 fun WalletCard(
+    labels: WalletLabels,
     title: String,
     amount: String,
     accounts: List<DrawableResource>,
@@ -78,11 +84,11 @@ fun WalletCard(
                 )
             }
         }
-        Icon(
-            modifier = Modifier.size(24.dp),
-            painter = painterResource(Res.drawable.ic_more_horizontal),
-            tint = colors.text,
-            contentDescription = null,
+        MenuOption(
+            colors = colors.menu,
+            orientation = Landscape,
+            actions = WalletMenuAction.getMenus(labels.menu),
+            onAction = { /* TODO */ }
         )
     }
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -97,7 +103,7 @@ fun WalletCard(
             overflowTextColor = colors.text
         )
         Text(
-            text = "${transactions.size} Transactions",
+            text = "${transactions.size} ${labels.transactions}",
             color = colors.text.copy(0.7f),
             lineHeight = 1.sp,
             fontSize = 12.sp,

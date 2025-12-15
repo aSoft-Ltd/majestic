@@ -1,7 +1,9 @@
 package majestic.payments.labels
 
 data class WalletLabels(
-    val emptyList: SectionLabels
+    val emptyList: SectionLabels,
+    val transactions: String,
+    val menu: MenuLabels,
 ) {
     companion object {
         val english by lazy {
@@ -9,7 +11,9 @@ data class WalletLabels(
                 emptyList = SectionLabels(
                     label = "Payment Wallet",
                     description = "There are no payment wallets yet. Create a new wallet by clicking the add button."
-                )
+                ),
+                transactions = "Transactions",
+                menu = MenuLabels.english
             )
         }
 
@@ -18,7 +22,9 @@ data class WalletLabels(
                 emptyList = SectionLabels(
                     label = "Kifuko cha Malipo",
                     description = "Hakuna mifuko ya malipo bado. Unda kifuko kipya kwa kubofya kitufe cha kuongeza."
-                )
+                ),
+                transactions = "Miamala",
+                menu = MenuLabels.swahili
             )
         }
     }
