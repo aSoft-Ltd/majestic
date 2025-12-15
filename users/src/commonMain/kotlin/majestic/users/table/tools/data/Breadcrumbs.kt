@@ -34,7 +34,7 @@ internal fun Breadcrumbs(
 
             if (index < breadcrumbs.lastIndex) {
                 Text(
-                    " / ",
+                    text = " / ",
                     color = if (index == breadcrumbs.lastIndex - 1) {
                         theme.surface.contra.color
                     } else {
