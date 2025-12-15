@@ -82,7 +82,7 @@ internal fun FilterRange(
         icon = icon
     ) {
         if (from.isNotEmpty() && to.isNotEmpty()) Text(
-            "$from - $to",
+            text = "$from - $to",
             color = popCompColors.foreground,
             fontSize = 12.sp
         )
