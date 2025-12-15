@@ -86,7 +86,7 @@ internal fun FilterRange(
             color = popCompColors.foreground,
             fontSize = 12.sp
         )
-        else Text(hint, color = popCompColors.foreground.copy(0.5f), fontSize = 12.sp)
+        else Text(text = hint, color = popCompColors.foreground.copy(0.5f), fontSize = 12.sp)
     }
 
     if (expanded) Row(
