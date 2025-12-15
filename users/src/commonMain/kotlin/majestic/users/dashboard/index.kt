@@ -17,6 +17,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.ThemeColor
 import majestic.editor.toolbar.underline
+import majestic.users.dashboard.stickybar.StickyBar
 import majestic.users.dashboard.stickybar.filters.FilterDefault
 import majestic.users.dashboard.summary.SummaryCardColorProps
 import majestic.users.dashboard.summary.SummaryCardList

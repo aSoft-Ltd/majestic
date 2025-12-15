@@ -36,7 +36,7 @@ import majestic.users.table.header.SelectionBarProperties
 import majestic.users.table.header.tools.HeaderProperties
 import majestic.users.table.header.tools.UsersTableHeader
 import majestic.users.table.header.tools.getHeaderLabels
-import majestic.users.table.tools.data.UserTableActionBar
+import majestic.users.table.tools.UserTableActionBar
 import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
 import majestic.users.table.tools.data.permissions

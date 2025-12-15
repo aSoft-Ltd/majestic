@@ -1,4 +1,4 @@
-package majestic.users.table.tools.data
+package majestic.users.table.tools
 
 
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package majestic.users.dashboard
+package majestic.users.dashboard.stickybar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -55,18 +55,3 @@ internal fun StickyBar(
         )
     }
 }
-
-//fun ThemeColor.toFilterDefault() = FilterDefault(
-//    drawerColor = toPopCompColors().background,
-//    colors = SelectFilterColors(
-//        background = toPopMainColors().background,
-//        text = toPopMainColors().foreground,
-//        icon = toPopMainColors().foreground,
-//    ),
-//    containerShape = RoundedCornerShape(8.dp),
-//    drawerShape = RoundedCornerShape(8.dp),
-//    item = ColorPair(
-//        foreground = toPopMainColors().foreground.copy(.8f),
-//        background = toPopMainColors().foreground
-//    )
-//)

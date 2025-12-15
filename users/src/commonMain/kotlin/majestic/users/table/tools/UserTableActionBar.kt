@@ -1,4 +1,4 @@
-package majestic.users.table.tools.data
+package majestic.users.table.tools
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

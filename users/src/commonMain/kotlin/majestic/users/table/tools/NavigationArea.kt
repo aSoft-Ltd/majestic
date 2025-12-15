@@ -1,10 +1,8 @@
-package majestic.users.table.tools.data
+package majestic.users.table.tools
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
+import majestic.users.table.tools.data.Breadcrumbs
 import majestic.users.tools.dialogs.Flex
 
 @Composable
@@ -22,9 +21,7 @@ internal fun ActionBar(
     modifier: Modifier = Modifier,
     content: (@Composable RowScope.(ScreenOrientation, ThemeColor) -> Unit)? = null
 ) = Flex(
-    modifier = modifier
-        .fillMaxWidth()
-        .padding(vertical = 12.dp, horizontal = 20.dp),
+    modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(20.dp),
     horizontalArrangement = Arrangement.SpaceBetween,
     alignment = Alignment.CenterVertically,
