@@ -42,6 +42,28 @@ fun getWeights(
 }
 
 @Composable
+fun getDashboardWeights(
+    columns: Set<Column<UsersData>>,
+    labels: ColumnLabels
+): Map<Column<UsersData>, Float> = remember(columns) {
+    buildMap {
+        for (column in columns) {
+            this[column] = when (column.key) {
+                labels.checkbox -> 2f
+                labels.name -> 4.5f
+                labels.email -> 6f
+                labels.dateJoined -> 4f
+                labels.lastActive -> 4f
+                labels.roles -> 4f
+                labels.permission -> 4f
+                labels.status -> 4f
+                else -> 2f
+            }
+        }
+    }
+}
+
+@Composable
 fun getSelectedRows(table: Table<UsersData>): Int =
     when (val selection = table.selector.selected.watchAsState() as LinearSelected) {
         is LinearSelectedGlobal<*> -> table.rows.size

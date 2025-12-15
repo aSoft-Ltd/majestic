@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 import majestic.users.labels.UsersLabels
 
 @Composable
-internal fun observeUsersLabels(
+fun observeUsersLabels(
     languageController: LanguageController
 ): State<UsersLabels> {
     return remember(languageController) {

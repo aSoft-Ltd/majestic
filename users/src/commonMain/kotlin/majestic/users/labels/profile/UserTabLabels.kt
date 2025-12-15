@@ -3,21 +3,27 @@ package majestic.users.labels.profile
 import majestic.users.labels.profile.contact.ContactLabels
 import majestic.users.labels.profile.security.SecurityLabels
 
-data class UserProfile(
+data class UserTabLabels(
+    val permissions: String,
     val contact: ContactLabels,
-    val security: SecurityLabels
+    val security: SecurityLabels,
+    val roles: String,
 ) {
     companion object {
         val english by lazy {
-            UserProfile(
+            UserTabLabels(
+                permissions = "Permissions",
                 contact = ContactLabels.english,
-                security = SecurityLabels.english
+                security = SecurityLabels.english,
+                roles = "Roles",
             )
         }
         val swahili by lazy {
-            UserProfile(
+            UserTabLabels(
+                permissions = "Ruhusa",
                 contact = ContactLabels.swahili,
-                security = SecurityLabels.swahili
+                security = SecurityLabels.swahili,
+                roles = "Majukumu",
             )
         }
     }

@@ -39,7 +39,8 @@ fun Security(
 ) {
     val theme = colors.theme
 
-    val labels by observeUsersLabels(language)
+    val language by observeUsersLabels(language)
+    val labels = language.profile.tabs.security
     val rowModifier = Modifier.padding(top = 30.dp).separator(
         true,
         color = theme.surface.contra.color.copy(0.03f)
@@ -60,26 +61,26 @@ fun Security(
             ChangePassword(
                 modifier = rowModifier,
                 orientation = orientation,
-                labels = labels.profile.security,
+                labels = labels,
                 colors = colors.changePassword
             )
             LogoutDevices(
                 modifier = rowModifier,
                 orientation = orientation,
-                labels = labels.profile.security,
+                labels = labels,
                 colors = colors.logoutDevices
             )
             TwoFactor(
                 modifier = rowModifier,
                 orientation = orientation,
-                labels = labels.profile.security,
+                labels = labels,
                 colors = colors.twoFactor
             )
             DeleteAccount(
                 modifier = Modifier.padding(top = 30.dp),
                 theme = theme,
                 orientation = orientation,
-                labels = labels.profile.security,
+                labels = labels,
             )
         }
     }
