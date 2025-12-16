@@ -60,7 +60,7 @@ fun WalletCard(
             Icon(
                 modifier = Modifier.size(46.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(colors.icon.copy(0.05f))
+                    .background(colors.icon.copy(0.1f))
                     .padding(12.dp),
                 painter = painterResource(Res.drawable.ic_wallet_02_solid),
                 tint = colors.icon,
@@ -80,7 +80,7 @@ fun WalletCard(
                     color = colors.background,
                     images = accounts,
                     size = 24.dp,
-                    shape = RoundedCornerShape(3.dp)
+                    shape = RoundedCornerShape(5.dp)
                 )
             }
         }

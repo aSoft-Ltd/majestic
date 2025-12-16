@@ -24,6 +24,7 @@ internal fun Avatar(
     color: Color,
     images: List<DrawableResource>,
     size: Dp = 30.dp,
+    border: Dp = 2.dp,
     shape: Shape = CircleShape,
     overlapPercent: Float = 0.3f,
     modifier: Modifier = Modifier
@@ -41,7 +42,7 @@ internal fun Avatar(
                     .offset(x = overlapOffset * index)
                     .zIndex(images.size.toFloat() - index)
                     .clip(shape)
-                    .border(width = 1.dp, color = color, shape = shape)
+                    .border(width = border, color = color, shape = shape)
             )
         }
     }
