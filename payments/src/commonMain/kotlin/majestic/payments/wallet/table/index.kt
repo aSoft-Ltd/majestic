@@ -3,6 +3,7 @@ package majestic.payments.wallet.table
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,26 +14,44 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
+import composex.screen.orientation.Landscape
 import kollections.iterator
+import kollections.last
+import majestic.AvatarStack
 import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.ColorPair
 import majestic.LazyTable
 import majestic.payments.labels.WalletLabels
+import majestic.payments.tools.menu.MenuOption
+import majestic.payments.tools.menu.MenuOptionColors
 import majestic.payments.tools.separator
+import majestic.payments.wallet.table.tools.CreatedCell
+import majestic.payments.wallet.table.tools.NameCell
+import majestic.payments.wallet.table.tools.RecentCell
+import majestic.payments.wallet.tools.Avatar
+import majestic.payments.wallet.tools.WalletMenuAction
 import majestic.tooling.onClick
+import org.jetbrains.compose.resources.painterResource
 import symphony.Table
+import tz.co.asoft.majestic_payments.generated.resources.Res
+import tz.co.asoft.majestic_payments.generated.resources.user_avatar
 
 data class TableColors(
     val background: Color,
     val foreground: Color,
     val separator: Color,
     val hovered: Color,
+    val icon: Color,
     val header: ColorPair,
-    val checkbox: CheckboxColors
+    val checkbox: CheckboxColors,
+    val menu: MenuOptionColors
 )
 
 @Composable
@@ -48,7 +67,8 @@ fun WalletTable(
             for (column in columns) {
                 this[column] = when (column.key) {
                     labels.table.checkbox -> 2f
-                    labels.table.transactions -> 7f
+                    labels.table.wallet -> 5f
+                    labels.table.transactions -> 5f
                     labels.table.recent -> 7f
                     "" -> 2f
                     else -> 4f
@@ -97,5 +117,132 @@ fun WalletTable(
     ) { cell ->
         val cellHeight = 70.dp
         val selected = table.selector.isRowSelectedOnCurrentPage(cell.row.number)
+
+        when (cell.column.key) {
+            labels.table.checkbox -> Box(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator),
+                contentAlignment = Alignment.Center
+            ) {
+                val checkboxColors = if (selected) colors.checkbox.selected else colors.checkbox.unselected
+                Checkbox(
+                    selected = selected,
+                    colors = checkboxColors,
+                    shape = RoundedCornerShape(5.dp),
+                    modifier = Modifier.size(16.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                        .background(checkboxColors.background)
+                        .border(1.dp, color = checkboxColors.border, RoundedCornerShape(5.dp))
+                        .onClick {
+                            if (selected) table.selector.unSelectRowInCurrentPage(row = cell.row.number)
+                            else table.selector.addSelection(row = cell.row.number)
+                        }
+                )
+            }
+
+            labels.table.wallet -> NameCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                name = cell.row.item.name,
+                colors = colors
+            )
+
+            labels.table.transactions -> {
+                val avatarPainters = cell.row.item.transactions.map { image -> painterResource(image) }
+                AvatarStack(
+                    modifier = Modifier.height(cellHeight)
+                        .weight(weight.getValue(cell.column))
+                        .background(if (selected) colors.hovered else Color.Transparent)
+                        .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                        .pointerHoverIcon(PointerIcon.Hand)
+                        .padding(horizontal = 12.dp),
+                    painters = avatarPainters,
+                    avatarSize = 28.dp,
+                    overlapFraction = 0.4f,
+                    maxVisible = 4,
+                    borderColor = colors.background,
+                    borderWidth = 3.dp,
+                    overflowTextColor = colors.foreground
+                )
+            }
+
+            labels.table.accounts -> Avatar(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                color = colors.background,
+                images = cell.row.item.accounts,
+                size = 32.dp,
+                shape = RoundedCornerShape(5.dp)
+            )
+
+            labels.table.created -> CreatedCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                title = cell.row.item.createdBy,
+                datetime = cell.row.item.createdAt,
+                colors = colors,
+                image = Res.drawable.user_avatar
+            )
+
+            labels.table.recent -> RecentCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                detail = cell.row.item.recent,
+                colors = colors
+            )
+
+            labels.table.amount -> Box(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                Text(
+                    text = "${cell.row.item.amount}/=",
+                    color = colors.foreground,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    fontSize = 14.sp,
+                    lineHeight = 1.sp
+                )
+            }
+
+            "" -> Box(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand),
+                contentAlignment = Alignment.Center
+            ) {
+                MenuOption(
+                    colors = colors.menu,
+                    orientation = Landscape,
+                    actions = WalletMenuAction.getMenus(labels.menu),
+                    onAction = { /* TODO */ }
+                )
+            }
+        }
     }
 }

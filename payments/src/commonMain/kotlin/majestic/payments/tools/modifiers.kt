@@ -28,10 +28,10 @@ internal fun Modifier.addIcon(
     .rotate(iconRotation)
     .padding(10.dp)
 
-internal fun Modifier.separator(color: Color, width: Dp = 1.dp) = drawBehind {
+internal fun Modifier.separator(color: Color, width: Dp = 1.dp, isLast: Boolean = false) = drawBehind {
     val strokeWidth = width.toPx()
     drawLine(
-        color = color,
+        color = if (isLast) Color.Transparent else color,
         start = Offset(0f, size.height + strokeWidth / 2),
         end = Offset(size.width, size.height + strokeWidth / 2),
         strokeWidth = strokeWidth
