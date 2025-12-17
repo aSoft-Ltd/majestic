@@ -52,11 +52,11 @@ fun Permission(modifier: Modifier, props: PermissionProperties) = Row(
     Icon(
         imageVector = vectorResource(props.item.permission.resource),
         contentDescription = null,
-        tint = props.colors.leadIcon.foreground,
+        tint = props.colors.leadIcon.foreground.copy(.7f),
         modifier = Modifier
             .background(color = props.colors.leadIcon.background, shape = RoundedCornerShape(8.dp))
             .padding(10.dp)
-            .size(40.dp)
+            .size(30.dp)
     )
     Column(
         modifier = Modifier.wrapContentHeight().weight(1f),
@@ -85,6 +85,6 @@ fun Permission(modifier: Modifier, props: PermissionProperties) = Row(
         imageVector = vectorResource(props.item.trailIcon),
         contentDescription = null,
         tint = props.colors.trailIcon,
-        modifier = Modifier.size(40.dp)
+        modifier = Modifier.size(24.dp)
     )
 }
