@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,8 +27,8 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import majestic.Light
 import majestic.ThemeColor
+import majestic.users.tools.colors.contentColor
 import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalTime::class)
@@ -52,8 +51,7 @@ internal fun Content(
     ) {
         Text(
             text = data.name,
-            color = if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
-            else theme.surface.contra.color,
+            color = theme.contentColor(orientation),
             fontSize = if (orientation is Landscape) 20.sp else 14.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 1.sp,

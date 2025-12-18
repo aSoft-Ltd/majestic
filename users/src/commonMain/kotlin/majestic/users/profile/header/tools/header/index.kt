@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.Light
 import majestic.ThemeColor
 import majestic.users.profile.header.tools.header.tools.Content
 import majestic.users.profile.header.tools.header.tools.HeadData
+import majestic.users.tools.colors.contentColor
 import org.jetbrains.compose.resources.painterResource
 
 
@@ -72,8 +72,7 @@ fun Head(
     ) {
         Text(
             text = data.name.firstOrNull()?.uppercase() ?: "",
-            color = if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
-            else theme.surface.contra.color,
+            color = theme.contentColor(orientation),
             fontSize = if (orientation is Landscape) 40.sp else 20.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1
@@ -84,7 +83,7 @@ fun Head(
         modifier = Modifier.wrapContentHeight().fillMaxWidth(),
         orientation = orientation,
         data = data,
-        theme
+        theme = theme
     )
 }
 
