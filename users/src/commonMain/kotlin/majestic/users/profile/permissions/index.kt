@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,7 +39,7 @@ data class PermissionsProps(
 
 internal fun Modifier.generalStyles(orientation: ScreenOrientation, props: PermissionsProps) = this
     .clip(RoundedCornerShape(if (orientation is Landscape) 20.dp else 0.dp))
-    .fillMaxSize()
+    .fillMaxWidth()
     .then(if (orientation is Landscape) Modifier.wrapContentHeight() else Modifier.fillMaxHeight())
     .background(
         color = if (orientation is Landscape) props.colors.permission.background.copy(.5f) else Color.Transparent,

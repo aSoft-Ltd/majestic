@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import captain.Navigator
+import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
@@ -30,6 +31,14 @@ data class SecurityColors(
     val twoFactor: TwoFactorColors,
 )
 
+private fun Modifier.security(lastItem: Boolean = false, theme: ThemeColor) = this
+    .padding(top = 30.dp)
+    .separator(
+        isLast = lastItem,
+        color = theme.surface.contra.color.copy(0.05f)
+    )
+
+
 @Composable
 fun Security(
     colors: SecurityColors,
@@ -40,12 +49,12 @@ fun Security(
     val theme = colors.theme
 
     val labels by observeUsersLabels(language)
-    val rowModifier = Modifier.padding(top = 30.dp).separator(
-        true,
-        color = theme.surface.contra.color.copy(0.03f)
-    )
-
-    Column {
+    Column(
+        modifier = Modifier.background(
+            color = if (orientation is Landscape) colors.background.copy(.5f) else Color.Transparent,
+            shape = RoundedCornerShape(20.dp)
+        )
+    ) {
         if (orientation is Portrait) ProfilePortraitHeader(
             title = "",
             navigator = navigator,
@@ -53,24 +62,22 @@ fun Security(
         )
 
         Column(
-            modifier = Modifier
-                .background(colors.background, RoundedCornerShape(20.dp))
-                .verticalScroll(rememberScrollState())
+            modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
             ChangePassword(
-                modifier = rowModifier,
+                modifier = Modifier.security(theme = theme),
                 orientation = orientation,
                 labels = labels.profile.security,
                 colors = colors.changePassword
             )
             LogoutDevices(
-                modifier = rowModifier,
+                modifier = Modifier.security(theme = theme),
                 orientation = orientation,
                 labels = labels.profile.security,
                 colors = colors.logoutDevices
             )
             TwoFactor(
-                modifier = rowModifier,
+                modifier = Modifier.security(theme = theme),
                 orientation = orientation,
                 labels = labels.profile.security,
                 colors = colors.twoFactor

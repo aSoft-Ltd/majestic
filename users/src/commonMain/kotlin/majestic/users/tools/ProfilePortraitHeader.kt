@@ -60,7 +60,6 @@ internal fun ProfilePortraitHeader(
     content: @Composable () -> Unit = {},
     modifier: Modifier = Modifier
         .fillMaxWidth()
-        .contactBackground(colors.background, colors.theme, orientation = Portrait)
         .padding(10.dp)
 ) = Row(
     modifier = modifier,

@@ -33,6 +33,8 @@ internal fun ProfileTabs(
     horizontalArrangement = Arrangement.spacedBy(16.dp)
 ) {
     val url = navigator.route.watchAsState()
+    println("current active path is $url")
+    println("active route is $endpoint")
     profileRoutes(endpoint, labels).map { page ->
         Item(
             label = page.label,

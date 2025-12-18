@@ -29,11 +29,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
+import androidx.compose.ui.zIndex
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
@@ -56,6 +59,7 @@ import majestic.users.tools.ProfilePortraitHeader
 import majestic.users.tools.buttons.ButtonAnimate
 import majestic.users.tools.buttons.FlatButton
 import majestic.users.tools.colors.profileBackground
+import majestic.users.tools.colors.toBackground
 import majestic.users.tools.data.separator
 import majestic.users.tools.dialogs.Modal
 import tz.co.asoft.majestic_users.generated.resources.Res
@@ -64,22 +68,31 @@ import tz.co.asoft.majestic_users.generated.resources.ic_add
 @Composable
 private fun Modifier.contact(
     orientation: ScreenOrientation,
-    separator: Color,
     theme: ThemeColor,
+    lastItem: Boolean = false,
+    shape: Shape = RoundedCornerShape(0.dp),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ): Modifier {
     val isHovered by interactionSource.collectIsHoveredAsState()
     return height(80.dp).fillMaxWidth().then(
-        if (orientation is Landscape) Modifier.separator(false, separator)
-            .profileBackground(
-                theme = theme,
-                orientation = orientation
+        if (orientation is Landscape) Modifier
+            .separator(lastItem, theme.surface.contra.color.copy(0.05f))
+            .background(
+                color = when (isHovered) {
+                    true -> theme
+                        .toBackground.copy(alpha = .3f)
+                        .compositeOver(theme.surface.contra.color.copy(.05f))
+
+                    else -> Color.Transparent
+                },
+                shape = shape
             )
             .padding(horizontal = 30.dp)
             .hoverable(interactionSource = interactionSource)
         else Modifier.clip(RoundedCornerShape(12.dp))
             .profileBackground(
                 theme = theme,
+                isHovered = isHovered,
                 orientation = orientation
             )
             .padding(horizontal = 20.dp)
@@ -95,7 +108,6 @@ fun Contacts(
     orientation: ScreenOrientation
 ) {
     val theme = colors.theme
-    val separatorColor = theme.surface.contra.color.copy(0.03f)
     val labels by observeUsersLabels(language)
 
     var verifyEmailDialogOpened by remember { mutableStateOf(false) }
@@ -175,7 +187,7 @@ fun Contacts(
         var buttonBox by remember { mutableStateOf(Rect(Offset.Zero, Size.Zero)) }
 
 
-        if (orientation is Landscape) Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
+        if (orientation is Landscape) Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp).zIndex(10f)) {
             Box(modifier = Modifier.onPlaced { buttonBox = it.boundsInParent() }) {
                 ButtonAnimate(
                     label = labels.profile.contact.addButton,
@@ -251,7 +263,13 @@ fun Contacts(
             )
         }
 
-        Column(modifier = if (orientation is Portrait) Modifier.fillMaxSize() else Modifier) {
+        Column(
+            modifier = if (orientation is Portrait) Modifier.fillMaxSize()
+            else Modifier.background(
+                color = if (orientation is Landscape) colors.background.copy(.5f) else Color.Transparent,
+                shape = RoundedCornerShape(20.dp)
+            )
+        ) {
             if (orientation is Portrait) ProfilePortraitHeader(
                 title = labels.profile.contact.heading,
                 colors = colors.profileHeader,
@@ -259,7 +277,6 @@ fun Contacts(
             )
             Column(
                 modifier = Modifier
-                    .background(colors.background, RoundedCornerShape(20.dp))
                     .verticalScroll(rememberScrollState())
                     .then(
                         if (orientation is Landscape) Modifier else Modifier.padding(20.dp)
@@ -274,7 +291,6 @@ fun Contacts(
                 Email(
                     modifier = Modifier.contact(
                         orientation,
-                        separatorColor,
                         theme = theme
                     ),
                     text = "amanihamduni@gmail.com",
@@ -286,7 +302,6 @@ fun Contacts(
                 Email(
                     modifier = Modifier.contact(
                         orientation,
-                        separatorColor,
                         theme = theme
                     ),
                     text = "amani45@gmail.com",
@@ -298,7 +313,6 @@ fun Contacts(
                 Phone(
                     modifier = Modifier.contact(
                         orientation,
-                        separatorColor,
                         theme = theme
                     ),
                     text = "+255 745 147 852",
@@ -312,8 +326,9 @@ fun Contacts(
                 Phone(
                     modifier = Modifier.contact(
                         orientation,
-                        separatorColor,
-                        theme = theme
+                        theme = theme,
+                        lastItem = true,
+                        shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
                     ),
                     text = "+255 755 005 600",
                     isPrimary = false,

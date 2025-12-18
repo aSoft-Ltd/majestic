@@ -15,5 +15,11 @@ fun String.toPage(
 ) = Page(this, endpoint, icon)
 
 fun Page.isSelected(currentUrl: String): Boolean {
-    return this.path == currentUrl
+    // Remove leading/trailing slashes for comparison
+    val normalizedCurrent = currentUrl.trim('/').split('?')[0] // Remove query params
+    val normalizedPath = this.path.trim('/')
+
+    // Check if current URL starts with this path
+    return normalizedCurrent == normalizedPath ||
+            normalizedCurrent.startsWith("$normalizedPath/")
 }
