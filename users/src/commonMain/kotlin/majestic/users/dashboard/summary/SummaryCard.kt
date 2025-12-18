@@ -1,4 +1,4 @@
-package majestic.users.dashboard
+package majestic.users.dashboard.summary
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -41,16 +41,13 @@ import majestic.tooling.animateAsState
 import majestic.tooling.onClick
 import majestic.users.dashboard.tools.UserDetailsStatus
 import majestic.users.dashboard.tools.graphVector
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import tz.co.asoft.majestic_users.generated.resources.Res
+import tz.co.asoft.majestic_users.generated.resources.ic_arrow_down_01_solid
+import tz.co.asoft.majestic_users.generated.resources.ic_arrow_up_02
 
-data class ArrowICons(
-    val arrowUp: DrawableResource,
-    val arrowDown: DrawableResource
-)
 
-data class SummaryCardProps(
-    val icons: ArrowICons,
+data class SummaryCardColorProps(
     val colors: ColorPair = ColorPair(
         foreground = Color.White,
         background = Color.Black
@@ -71,7 +68,7 @@ fun SummaryCard(
     onClick: (() -> Unit)? = null,
     width: Dp = 300.dp,
     height: Dp = 170.dp,
-    props: SummaryCardProps,
+    props: SummaryCardColorProps,
     shape: Shape = RoundedCornerShape(20.dp),
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -85,8 +82,8 @@ fun SummaryCard(
         else -> Color(0xFFF44336)
     }
     val summaryIcon = when (summaryStatus) {
-        SummaryStatus.GOOD -> props.icons.arrowUp
-        else -> props.icons.arrowDown
+        SummaryStatus.GOOD -> Res.drawable.ic_arrow_up_02
+        else -> Res.drawable.ic_arrow_down_01_solid
     }
 
     Column(

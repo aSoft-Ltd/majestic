@@ -91,7 +91,8 @@ fun Contacts(
 ) {
     val theme = colors.theme
     val separatorColor = theme.surface.contra.color.copy(0.03f)
-    val labels by observeUsersLabels(language)
+    val language by observeUsersLabels(language)
+    val labels = language.profile.tabs.contact
 
     var verifyEmailDialogOpened by remember { mutableStateOf(false) }
     var addEmailDialogOpened by remember { mutableStateOf(false) }
@@ -104,7 +105,7 @@ fun Contacts(
         EmailForm(
             modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
             colors = colors.emailForm,
-            labels = labels.profile.contact.forms.email.add,
+            labels = labels.forms.email.add,
             onSubmit = {
                 addEmailDialogOpened = false
                 verifyEmailDialogOpened = true
@@ -120,7 +121,7 @@ fun Contacts(
         EmailVerificationForm(
             modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
             theme = theme,
-            labels = labels.profile.contact.forms.email.verify,
+            labels = labels.forms.email.verify,
             onVerify = { verifyEmailDialogOpened = false },
             onChangeEmail = {
                 verifyEmailDialogOpened = false
@@ -138,7 +139,7 @@ fun Contacts(
         onDismiss = { addPhoneDialogOpened = false }
     ) {
         PhoneForm(
-            labels = labels.profile.contact.forms.phone.add,
+            labels = labels.forms.phone.add,
             modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
             onSubmit = {
                 addPhoneDialogOpened = false
@@ -155,7 +156,7 @@ fun Contacts(
     ) {
         PhoneVerificationForm(
             theme = theme,
-            labels = labels.profile.contact.forms.phone.verify,
+            labels = labels.forms.phone.verify,
             modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
             onVerify = { verifyPhoneDialogOpened = false },
             onChangePhone = {
@@ -173,7 +174,7 @@ fun Contacts(
         if (orientation is Landscape) Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
             Box(modifier = Modifier.onPlaced { buttonBox = it.boundsInParent() }) {
                 ButtonAnimate(
-                    label = labels.profile.contact.addButton,
+                    label = labels.addButton,
                     icon = Res.drawable.ic_add,
                     isOpen = isOpen,
                     colors = colors.buttonAnimate,
@@ -248,7 +249,7 @@ fun Contacts(
 
         Column(modifier = if (orientation is Portrait) Modifier.fillMaxSize() else Modifier) {
             if (orientation is Portrait) ProfilePortraitHeader(
-                title = labels.profile.contact.heading,
+                title = labels.heading,
                 colors = colors.profileHeader,
                 navigator = navigator
             )
@@ -263,7 +264,7 @@ fun Contacts(
             ) {
                 if (orientation is Landscape) Text(
                     modifier = Modifier.padding(vertical = 20.dp, horizontal = 30.dp),
-                    text = labels.profile.contact.heading,
+                    text = labels.heading,
                     color = theme.surface.contra.color.copy(0.5f),
                 )
                 Email(
@@ -274,7 +275,7 @@ fun Contacts(
                     ),
                     text = "amanihamduni@gmail.com",
                     isPrimary = true,
-                    labels = labels.profile.contact,
+                    labels = labels,
                     orientation = orientation,
                     colors = colors.email
                 )
@@ -286,7 +287,7 @@ fun Contacts(
                     ),
                     text = "amani45@gmail.com",
                     isPrimary = false,
-                    labels = labels.profile.contact,
+                    labels = labels,
                     orientation = orientation,
                     colors = colors.email
                 )
@@ -301,7 +302,7 @@ fun Contacts(
                     isPrimary = true,
                     isWhatsapp = true,
                     isNormal = true,
-                    labels = labels.profile.contact,
+                    labels = labels,
                     orientation = orientation,
                 )
                 Phone(
@@ -314,7 +315,7 @@ fun Contacts(
                     isPrimary = false,
                     isWhatsapp = false,
                     isNormal = true,
-                    labels = labels.profile.contact,
+                    labels = labels,
                     orientation = orientation,
                     colors = colors.phone
                 )

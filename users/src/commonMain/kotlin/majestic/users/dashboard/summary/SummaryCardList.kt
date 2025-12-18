@@ -1,13 +1,11 @@
-package majestic.users.dashboard
+package majestic.users.dashboard.summary
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,18 +14,16 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.users.dashboard.tools.UserDetailsStatus
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import tz.co.asoft.majestic_users.generated.resources.Res
+import tz.co.asoft.majestic_users.generated.resources.ic_alert
+import tz.co.asoft.majestic_users.generated.resources.ic_labor
+import tz.co.asoft.majestic_users.generated.resources.ic_patient
+import tz.co.asoft.majestic_users.generated.resources.ic_travel_bag
+import tz.co.asoft.majestic_users.generated.resources.ic_user_group
 
-data class Summary(
-    val label: String,
-    val value: Int,
-    val percentage: Float,
-    val userDetailsStatus: UserDetailsStatus? = null,
-    val summaryStatus: SummaryStatus? = null,
-    val icon: DrawableResource,
-)
 
 data class SummaryCardListProps(
-    val summaryCardProps: SummaryCardProps,
+    val summaryCardProps: SummaryCardColorProps,
     val summaryList: List<Summary>,
     val orientation: ScreenOrientation
 )
