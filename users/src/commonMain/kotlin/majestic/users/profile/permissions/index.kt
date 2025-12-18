@@ -42,7 +42,7 @@ internal fun Modifier.generalStyles(orientation: ScreenOrientation, props: Permi
     .fillMaxSize()
     .then(if (orientation is Landscape) Modifier.wrapContentHeight() else Modifier.fillMaxHeight())
     .background(
-        color = if (orientation is Landscape) props.colors.permission.background else Color.Transparent,
+        color = if (orientation is Landscape) props.colors.permission.background.copy(.5f) else Color.Transparent,
         shape = RoundedCornerShape(20.dp)
     )
 
@@ -53,7 +53,7 @@ fun GeneralPermissions(
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
-    verticalArrangement = Arrangement.spacedBy(20.dp),
+    verticalArrangement = Arrangement.Top,
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
     val current = rememberPermissionScreenState()
