@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +24,6 @@ import cinematic.watchAsState
 import composex.screen.orientation.Landscape
 import kollections.iterator
 import kollections.last
-import majestic.AvatarStack
 import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.ColorPair
@@ -36,9 +36,9 @@ import majestic.payments.wallet.table.tools.CreatedCell
 import majestic.payments.wallet.table.tools.NameCell
 import majestic.payments.wallet.table.tools.RecentCell
 import majestic.payments.wallet.tools.Avatar
+import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
 import majestic.tooling.onClick
-import org.jetbrains.compose.resources.painterResource
 import symphony.Table
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.user_avatar
@@ -154,21 +154,28 @@ fun WalletTable(
             )
 
             labels.table.transactions -> {
-                val avatarPainters = cell.row.item.transactions.map { image -> painterResource(image) }
-                AvatarStack(
+                Avatar(
+                    color = colors.background,
+                    images = cell.row.item.transactions,
+                    size = 28.dp,
+                    border = 3.dp,
+                    maxVisible = 4,
+                    overlapPercent = 0.4f,
+                    overflow = AvatarOverflow(
+                        size = 28.dp,
+                        fontSize = 6.sp,
+                        shape = CircleShape,
+                        color = ColorPair(
+                            background = colors.foreground.copy(0.1f),
+                            foreground = colors.foreground
+                        )
+                    ),
                     modifier = Modifier.height(cellHeight)
                         .weight(weight.getValue(cell.column))
                         .background(if (selected) colors.hovered else Color.Transparent)
                         .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                         .pointerHoverIcon(PointerIcon.Hand)
                         .padding(horizontal = 12.dp),
-                    painters = avatarPainters,
-                    avatarSize = 28.dp,
-                    overlapFraction = 0.4f,
-                    maxVisible = 4,
-                    borderColor = colors.background,
-                    borderWidth = 3.dp,
-                    overflowTextColor = colors.foreground
                 )
             }
 

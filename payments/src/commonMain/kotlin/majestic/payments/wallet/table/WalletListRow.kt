@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -17,10 +19,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Portrait
-import majestic.AvatarStack
+import majestic.ColorPair
 import majestic.payments.labels.WalletLabels
 import majestic.payments.tools.menu.MenuOption
 import majestic.payments.wallet.tools.Avatar
+import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
@@ -63,22 +66,29 @@ fun WalletListRow(
                 color = colors.background,
                 images = detail.accounts,
                 size = 20.dp,
-                shape = RoundedCornerShape(5.dp)
+                shape = RoundedCornerShape(5.dp),
+                modifier = Modifier.width(44.dp)
             )
             Text(
-                text = " • ",
+                text = "•",
                 color = colors.foreground.copy(0.6f),
                 lineHeight = 1.sp
             )
-            val avatarPainters = detail.transactions.map { image -> painterResource(image) }
-            AvatarStack(
-                painters = avatarPainters.slice(0..2),
-                avatarSize = 18.dp,
-                overlapFraction = 0.3f,
+            Avatar(
+                color = colors.background,
+                images = detail.transactions,
+                size = 18.dp,
                 maxVisible = 3,
-                borderColor = colors.background,
-                borderWidth = 1.dp,
-                overflowTextColor = colors.foreground
+                overflow = AvatarOverflow(
+                    size = 18.dp,
+                    fontSize = 5.sp,
+                    shape = CircleShape,
+                    color = ColorPair(
+                        background = colors.background,
+                        foreground = colors.foreground
+                    )
+                ),
+                modifier = Modifier.width(56.dp)
             )
             Text(
                 text = "•",
