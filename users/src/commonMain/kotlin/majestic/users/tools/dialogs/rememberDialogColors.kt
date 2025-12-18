@@ -11,7 +11,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.Dark
 import majestic.Light
 import majestic.ThemeColor
-import majestic.users.tools.colors.background
+import majestic.users.tools.colors.toBackground
 
 internal data class DialogColors(
     val containerColor: Color,
@@ -24,8 +24,8 @@ internal data class DialogColors(
 @Composable
 internal fun rememberDialogColors(theme: ThemeColor, background: Color, orientation: ScreenOrientation): DialogColors {
     val background = when (theme.mode) {
-        is Dark -> theme.background
-        is Light -> theme.background.copy(.1f).compositeOver(theme.surface.actual.color)
+        is Dark -> theme.toBackground
+        is Light -> theme.toBackground.copy(.1f).compositeOver(theme.surface.actual.color)
     }
     val foreground = theme.surface.contra.color
     val interactionSource = remember { MutableInteractionSource() }

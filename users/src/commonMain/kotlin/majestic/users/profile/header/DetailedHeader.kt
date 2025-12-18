@@ -29,7 +29,7 @@ import majestic.users.profile.header.tools.header.Head
 import majestic.users.profile.header.tools.header.tools.HeadData
 import majestic.users.profile.header.tools.toProfileData
 import majestic.users.profile.tabs.ProfileTabs
-import majestic.users.tools.colors.background
+import majestic.users.tools.colors.toBackground
 import majestic.users.tools.data.GenderLabels
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
@@ -110,7 +110,7 @@ fun DetailHeader(
         modifier = Modifier
             .height(if (orientation is Landscape) 50.dp else 40.dp)
             .fillMaxWidth()
-            .background(color = theme.background)
+            .background(color = theme.toBackground)
             .padding(horizontal = if (orientation is Landscape) 30.dp else 10.dp)
             .horizontalScroll(rememberScrollState()),
         labels = labels.tabs,

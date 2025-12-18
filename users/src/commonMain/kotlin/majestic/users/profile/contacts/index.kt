@@ -38,9 +38,9 @@ import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
 import majestic.ExpandDirection
 import majestic.FloatingActionButton
+import majestic.ThemeColor
 import majestic.floatActionButton
 import majestic.tooling.onClick
 import majestic.users.labels.settings.LanguageController
@@ -52,10 +52,10 @@ import majestic.users.profile.contacts.phone.Phone
 import majestic.users.profile.contacts.phone.PhoneForm
 import majestic.users.profile.contacts.phone.PhoneVerificationForm
 import majestic.users.profile.contacts.tools.ContactsColors
-import majestic.users.profile.contacts.tools.toListCardColors
 import majestic.users.tools.ProfilePortraitHeader
 import majestic.users.tools.buttons.ButtonAnimate
 import majestic.users.tools.buttons.FlatButton
+import majestic.users.tools.colors.profileBackground
 import majestic.users.tools.data.separator
 import majestic.users.tools.dialogs.Modal
 import tz.co.asoft.majestic_users.generated.resources.Res
@@ -65,18 +65,23 @@ import tz.co.asoft.majestic_users.generated.resources.ic_add
 private fun Modifier.contact(
     orientation: ScreenOrientation,
     separator: Color,
-    colors: ColorPair,
+    theme: ThemeColor,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ): Modifier {
     val isHovered by interactionSource.collectIsHoveredAsState()
-    val bgColor = if (isHovered) colors.foreground.copy(alpha = 0.05f) else Color.Transparent
     return height(80.dp).fillMaxWidth().then(
         if (orientation is Landscape) Modifier.separator(false, separator)
-            .background(bgColor)
+            .profileBackground(
+                theme = theme,
+                orientation = orientation
+            )
             .padding(horizontal = 30.dp)
             .hoverable(interactionSource = interactionSource)
         else Modifier.clip(RoundedCornerShape(12.dp))
-            .background(colors.background)
+            .profileBackground(
+                theme = theme,
+                orientation = orientation
+            )
             .padding(horizontal = 20.dp)
     )
 }
@@ -270,7 +275,7 @@ fun Contacts(
                     modifier = Modifier.contact(
                         orientation,
                         separatorColor,
-                        colors = theme.toListCardColors(colors.background)
+                        theme = theme
                     ),
                     text = "amanihamduni@gmail.com",
                     isPrimary = true,
@@ -282,7 +287,7 @@ fun Contacts(
                     modifier = Modifier.contact(
                         orientation,
                         separatorColor,
-                        colors = theme.toListCardColors(colors.background)
+                        theme = theme
                     ),
                     text = "amani45@gmail.com",
                     isPrimary = false,
@@ -294,7 +299,7 @@ fun Contacts(
                     modifier = Modifier.contact(
                         orientation,
                         separatorColor,
-                        colors = theme.toListCardColors(colors.background)
+                        theme = theme
                     ),
                     text = "+255 745 147 852",
                     colors = colors.phone,
@@ -308,7 +313,7 @@ fun Contacts(
                     modifier = Modifier.contact(
                         orientation,
                         separatorColor,
-                        colors = theme.toListCardColors(colors.background)
+                        theme = theme
                     ),
                     text = "+255 755 005 600",
                     isPrimary = false,
