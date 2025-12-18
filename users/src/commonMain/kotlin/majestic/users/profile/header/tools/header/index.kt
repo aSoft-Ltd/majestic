@@ -42,8 +42,6 @@ fun Head(
     horizontalArrangement = Arrangement.spacedBy(10.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    val contentColor = if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
-    else theme.surface.contra.color
 
     if (data.avatar != null) Box(modifier = Modifier.size(if (orientation is Landscape) 100.dp else 70.dp)) {
         Image(
@@ -74,7 +72,8 @@ fun Head(
     ) {
         Text(
             text = data.name.firstOrNull()?.uppercase() ?: "",
-            color = contentColor,
+            color = if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
+            else theme.surface.contra.color,
             fontSize = if (orientation is Landscape) 40.sp else 20.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1
@@ -85,7 +84,6 @@ fun Head(
         modifier = Modifier.wrapContentHeight().fillMaxWidth(),
         orientation = orientation,
         data = data,
-        contentColor,
         theme
     )
 }

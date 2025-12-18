@@ -28,6 +28,7 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import majestic.Light
 import majestic.ThemeColor
 import org.jetbrains.compose.resources.painterResource
 
@@ -37,7 +38,6 @@ internal fun Content(
     modifier: Modifier,
     orientation: ScreenOrientation,
     data: HeadData,
-    contentColor: Color,
     theme: ThemeColor
 ) = Column(
     modifier = modifier,
@@ -52,7 +52,8 @@ internal fun Content(
     ) {
         Text(
             text = data.name,
-            color = contentColor,
+            color = if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
+            else theme.surface.contra.color,
             fontSize = if (orientation is Landscape) 20.sp else 14.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 1.sp,
