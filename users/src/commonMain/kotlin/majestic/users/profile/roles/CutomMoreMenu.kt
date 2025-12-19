@@ -20,7 +20,10 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import com.example.demo.icons.MoreIcon
+import majestic.IconButton
+import org.jetbrains.compose.resources.painterResource
+import tz.co.asoft.majestic_users.generated.resources.Res
+import tz.co.asoft.majestic_users.generated.resources.ic_more_horizontal
 
 data class MenuItem(
     val label: String,
@@ -29,7 +32,7 @@ data class MenuItem(
 )
 
 @Composable
-fun CustomMoreMenu(items: List<MenuItem>, menuWidth: Dp = 180.dp, modifier: Modifier = Modifier) {
+fun CustomMoreMenu(items: List<@Composable () -> Unit>, menuWidth: Dp = 180.dp, modifier: Modifier = Modifier) {
     var showPopup by remember { mutableStateOf(false) }
 
     val base = Color(0xFF191F29)
@@ -39,7 +42,10 @@ fun CustomMoreMenu(items: List<MenuItem>, menuWidth: Dp = 180.dp, modifier: Modi
 
 //    I am using box to anchor the popup to this location
     Box(modifier = modifier) {
-        IconButton(icon = IconSource.Vector(MoreIcon), contentDescription = "More Icon", onClick = { showPopup = true })
+        IconButton(
+            icon = painterResource(Res.drawable.ic_more_horizontal),
+            contentDescription = "More Icon",
+            onClick = { showPopup = true })
 
         if (showPopup) {
             val yOffset = with(LocalDensity.current) { 48.dp.roundToPx() }
@@ -58,13 +64,7 @@ fun CustomMoreMenu(items: List<MenuItem>, menuWidth: Dp = 180.dp, modifier: Modi
                 ) {
                     Column {
                         items.forEach { item ->
-                            CustomMenuItem(
-                                text = item.label,
-                                color = item.color
-                            ) {
-                                showPopup = false
-                                item.onClick()
-                            }
+                            item()
                         }
                     }
                 }

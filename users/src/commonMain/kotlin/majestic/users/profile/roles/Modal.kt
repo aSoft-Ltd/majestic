@@ -19,10 +19,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import demo.composeapp.generated.resources.Res
-import demo.composeapp.generated.resources.account_setting_filled
-import demo.composeapp.generated.resources.cancel_icon
+import majestic.IconButton
 import org.jetbrains.compose.resources.painterResource
+import tz.co.asoft.majestic_users.generated.resources.Res
+import tz.co.asoft.majestic_users.generated.resources.ic_access
+import tz.co.asoft.majestic_users.generated.resources.ic_square_lock
 
 data class ModalAction(
     val name: String, val onClick: () -> Unit, val enabled: Boolean = true
@@ -58,7 +59,7 @@ fun Modal(
                 ) {
 
                     Icon(
-                        painter = painterResource(Res.drawable.account_setting_filled),
+                        painter = painterResource(Res.drawable.ic_access),
                         contentDescription = "Account Settings Filled",
                         tint = Color(0xFFD18C27),
                         modifier = Modifier.clip(RoundedCornerShape(6.dp))
@@ -73,7 +74,7 @@ fun Modal(
                 }
 
                 IconButton(
-                    icon = IconSource.Resource(painterResource(Res.drawable.cancel_icon)),
+                    icon = painterResource(Res.drawable.ic_square_lock),
                     contentDescription = "Cancel Icon",
                     onClick = onDismiss
                 )

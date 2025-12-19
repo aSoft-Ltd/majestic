@@ -42,7 +42,8 @@ fun IconButton(
     icon: Painter,
     size: Dp = 32.dp,
     shape: Shape = CircleShape,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    contentDescription: String = "Icon"
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
@@ -59,7 +60,7 @@ fun IconButton(
             modifier = Modifier.size(size).padding(6.dp),
             painter = icon,
             tint = color.foreground,
-            contentDescription = "Icon"
+            contentDescription = contentDescription
         )
     }
 }
