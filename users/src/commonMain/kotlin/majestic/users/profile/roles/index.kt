@@ -1,128 +1,149 @@
 package majestic.users.profile.roles
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.demo.icons.PlusIcon
-import com.example.demo.icons.SchoolIcon
+import com.example.demo.roles.*
 import composex.screen.orientation.ScreenOrientation
 
-fun Modifier.bottomBorder(width: Float, color: Color) = this.drawBehind {
-    drawLine(
-        color = color, start = Offset(0f, size.height), end = Offset(size.width, size.height), strokeWidth = width
-    )
-}
+val Campuses = listOf(
+    CampusData(campusName = "Sunrise Campus", rolesCount = 25),
+    CampusData(campusName = "Riverfront Campus", rolesCount = 33),
+    CampusData(campusName = "Mountain View Campus", rolesCount = 17),
+    CampusData(campusName = "Oceanfront Campus", rolesCount = 21),
+    CampusData(campusName = "Forest Hill Campus", rolesCount = 14),
+    CampusData(campusName = "Urban Center", rolesCount = 46)
+)
+
+val sampleRoles = listOf(
+    Role(
+        name = "Subject Teacher",
+        description = "Deliver lessons, Assess student performance, Prepare lesson plans, Manage classroom behavior, Communicate with parents about progress",
+        assignment = UnAssigned,
+        actionType = ActionType.SETUP
+    ),
+    Role(
+        name = "Headmaster",
+        description = "Oversee school operations, Implement educational policies, Manage staff, Budget allocation, Handle disciplinary issues, Communicate with parents and stakeholders"
+    ),
+    Role(
+        name = "School Chef",
+        description = "Plan and prepare meals, Ensure nutritional standards, Manage kitchen staff, Maintain kitchen hygiene, Budget for food supplies"
+    ),
+    Role(
+        name = "Matron",
+        description = "Oversee student welfare, Manage dormitory, Handle student issues, Provide support to students, Liaise with parents"
+    ),
+    Role(
+        name = "Bus Driver",
+        description = "Transport students safely, Maintain vehicle cleanliness, Follow designated routes, Ensure student discipline on bus, Report any incidents"
+    ),
+    Role(
+        name = "Librarian",
+        description = "Manage library resources, Assist students with research, Organize books and materials, Maintain catalog system, Promote reading culture"
+    ),
+    Role(
+        name = "Security Guard",
+        description = "Monitor school premises, Control entry and exit points, Ensure safety of students and staff, Report security incidents, Conduct regular patrols"
+    ),
+    Role(
+        name = "Groundskeeper",
+        description = "Maintain school grounds, Manage landscaping, Handle minor repairs, Ensure cleanliness of outdoor areas, Manage waste disposal"
+    ),
+)
 
 @Composable
-fun Campus(
-    campusName: String,
-    rolesCount: Int,
-    onClick: () -> Unit,
-    onClickPlus: () -> Unit,
-    onClickMore: () -> Unit,
-    orientation: ScreenOrientation,
-    modifier: Modifier = Modifier
-) {
-    BoxWithConstraints {
-        val isSm = maxWidth < Breakpoints.sm // use screen orientation, go into it to see how it works
-        val horizontalPadding = if (isSm) 20.dp else 40.dp
-        val verticalPadding = 15.dp
+fun Roles(orientation: ScreenOrientation, modifier: Modifier = Modifier) {
+    var showModal by remember { mutableStateOf(false) }
 
-        var isHovered by remember { mutableStateOf(false) }
-
-        val backgroundColor by animateColorAsState(
-            targetValue = if (isHovered) Color.White.copy(alpha = 0.03f) else Color.Transparent,
-            animationSpec = tween(durationMillis = 300, easing = EaseOut)
-        )
-
-        val items = buildList {
-            if (isSm) {
-                add(
-                    MenuItem("Add Role") { onClickPlus() },
-                )
+    Box(modifier = modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.background(Color(0xFF161616)).safeContentPadding().fillMaxSize()
+                .then(if (showModal) Modifier.blur(7.5.dp) else Modifier),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Column(modifier = Modifier.padding(8.dp).background(Color(0xFF191F29))) {
+                Campuses.forEach { (campusName, rolesCount) ->
+                    Campus(
+                        campusName = campusName,
+                        rolesCount = rolesCount,
+                        onClick = {},
+                        onClickMore = {},
+                        onClickPlus = { showModal = true },
+                        orientation = orientation,
+                        modifier = Modifier
+                    )
+                }
             }
-            add(MenuItem("View Role") { })
-            add(MenuItem("Edit Role") { })
-            add(MenuItem("Delete Role", color = Color(0xFFF87171)) { })
         }
 
-        Row(
-            modifier = modifier.fillMaxWidth().bottomBorder(0.2f, Color.White) // check youtube tutorial on how to use majestic colors
-                .bottomBorder(0.2f, Color.White.copy(alpha = 0.2f)).background(
-                    backgroundColor
-                ).clickable { onClick() }.pointerInput(Unit) {
-                    awaitPointerEventScope {
-                        while (true) {
-                            val event = awaitPointerEvent()
-                            when (event.type) {
-                                PointerEventType.Enter -> isHovered = true
-                                PointerEventType.Exit -> isHovered = false
-                            }
-                        }
-                    }
-                }.padding(horizontal = horizontalPadding, vertical = verticalPadding),
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(
-                modifier = Modifier.weight(1f),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+        if (showModal) {
+            var totalSelected by remember { mutableStateOf(sampleRoles.filter { it.assignment == Assigned }.size) }
+
+            Modal(
+                onDismiss = { showModal = false },
+                title = "Assign Roles to Amani Hamduni",
+                primaryAction = ModalAction(
+                    name = "Assign Selected" + if (totalSelected > 0) " ($totalSelected)" else "",
+                    onClick = {},
+                    enabled = totalSelected > 0
+                ),
+                secondaryAction = ModalAction(name = "Cancel", onClick = { showModal = false }),
             ) {
-                Box(
-                    modifier = Modifier.size(44.dp).clip(RoundedCornerShape(6.dp)).background(Color(0xFF1D2430))
-                        .background(Color(0xFF000000).copy(alpha = 0.10f)).border(
-                            1.dp, Color(0xFF1D2430), RoundedCornerShape(6.dp)
-                        ), contentAlignment = Alignment.Center
+
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(1.dp), modifier = Modifier.fillMaxWidth().verticalScroll(
+                        rememberScrollState()
+                    )
                 ) {
-                    Icon(imageVector = SchoolIcon, contentDescription = "School Icon", tint = Color(0xFF4DB6AC))
+                    sampleRoles.forEachIndexed { index, (name, description, assignment, actionType) ->
+                        var isRoleItemHovered by remember { mutableStateOf(false) }
+                        var isRoleItemAssigned by remember { mutableStateOf(assignment) }
+
+                        RoleItem(
+                            index = index,
+                            name = name,
+                            description = description,
+                            onPermissionsClick = {},
+                            onClick = {
+                                if (actionType == ActionType.ASSIGNMENT) {
+                                    isRoleItemAssigned = when (isRoleItemAssigned) {
+                                        is Assigned -> UnAssigned
+                                        is UnAssigned -> Assigned
+                                    }
+
+                                    if (isRoleItemAssigned == Assigned) totalSelected += 1 else totalSelected -= 1
+                                }
+
+                            },
+                            isRoleAssignment = isRoleItemAssigned,
+                            actionType = actionType,
+                            modifier = Modifier.fillMaxWidth().bottomBorder(0.2f, Color.White)
+                                .bottomBorder(0.2f, Color.White.copy(alpha = 0.3f))
+                                .background(if (isRoleItemHovered) Color(0xFF1E2530) else Color(0xFF191f29))
+                                .padding(16.dp).pointerInput(Unit) {
+                                    awaitPointerEventScope {
+                                        while (true) {
+                                            val event = awaitPointerEvent()
+                                            when (event.type) {
+                                                PointerEventType.Enter -> isRoleItemHovered = true
+                                                PointerEventType.Exit -> isRoleItemHovered = false
+                                            }
+                                        }
+                                    }
+                                })
+                    }
                 }
-
-                Column {
-                    Text(
-                        text = campusName,
-                        color = Color.White,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium,
-                        lineHeight = 25.2.sp,
-                    )
-                    Text(
-                        text = "$rolesCount ${if (rolesCount > 1) "Roles" else "Role"}",
-                        color = Color.White.copy(alpha = 0.30f),
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight(450),
-                        lineHeight = 19.6.sp,
-                    )
-                }
-            }
-
-            Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
-                if (!isSm) IconButton(
-                    icon = IconSource.Vector(PlusIcon), contentDescription = "Plus Icon", onClick = onClickPlus
-                )
-
-                CustomMoreMenu(
-                    items = items, modifier = Modifier.wrapContentSize(Alignment.TopEnd)
-                )
             }
         }
     }
