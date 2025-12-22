@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
@@ -114,7 +115,8 @@ fun Roles(
             }
 
             Column(
-                modifier = Modifier.background(colors.background, RoundedCornerShape(20.dp))
+                modifier = Modifier.clip(RoundedCornerShape(20.dp))
+                    .background(colors.background)
                     .verticalScroll(rememberScrollState())
                     .then(if (orientation is Landscape) Modifier else Modifier.padding(20.dp)),
                 verticalArrangement = if (orientation is Landscape) Arrangement.Top else Arrangement.spacedBy(10.dp)
