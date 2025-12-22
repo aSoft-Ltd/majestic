@@ -1,94 +1,132 @@
-package com.example.demo.roles
+package majestic.users.profile.roles
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.tooling.onClick
+import majestic.users.labels.profile.roles.RolesLabels
+import majestic.users.tools.data.separator
 
-sealed interface Assignment
-object Assigned : Assignment
-object UnAssigned : Assignment
 
-val assignments = listOf(Assigned, UnAssigned)
+sealed class RoleAssignment {
+    object Assigned : RoleAssignment()
+    object UnAssigned : RoleAssignment()
+}
 
-data class Role(
-    val name: String,
-    val description: String,
-    val assignment: Assignment = assignments.random(),
-    val actionType: ActionType = ActionType.ASSIGNMENT
-)
+enum class RoleActionType {
+    SETUP, ASSIGNMENT
+}
 
-enum class ActionType {
-    ASSIGNMENT, SETUP
+@Composable
+private fun Modifier.roleItem(
+    separator: Color,
+    colors: RoleItemColors,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+): Modifier {
+    val isHovered by interactionSource.collectIsHoveredAsState()
+    val bgColor = if (isHovered) colors.theme.surface.contra.color.copy(alpha = 0.05f) else colors.background
+    return fillMaxWidth()
+        .separator(false, separator)
+        .background(bgColor)
+        .padding(16.dp)
+        .hoverable(interactionSource = interactionSource)
 }
 
 @Composable
 fun RoleItem(
-    index: Int,
     name: String,
     description: String,
-    isRoleAssignment: Assignment = Assigned,
+    assignment: RoleAssignment,
+    actionType: RoleActionType,
+    labels: RolesLabels.RoleItemLabels,
+    colors: RoleItemColors,
     onPermissionsClick: () -> Unit,
     onClick: () -> Unit,
-    actionType: ActionType = ActionType.ASSIGNMENT,
     modifier: Modifier = Modifier
 ) {
+    val theme = colors.theme
+    val separatorColor = theme.surface.contra.color.copy(0.03f)
+    val interactionSource = remember { MutableInteractionSource() }
+
     Row(
-        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.roleItem(separatorColor, colors, interactionSource).onClick { onClick() },
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth(0.7f)) {
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
-                    text = (index + 1).toString() + ".", fontSize = 16.sp, color = Color.White.copy(alpha = 0.5f)
+                    text = name,
+                    color = theme.surface.contra.color,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    lineHeight = 22.4.sp
                 )
-                Text(
-                    text = name, fontSize = 16.sp, color = Color.White
-                )
+
+                if (actionType == RoleActionType.SETUP) {
+                    Text(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .background(colors.setupBadgeBackground)
+                            .padding(horizontal = 8.dp, vertical = 2.dp),
+                        text = labels.setupBadge,
+                        fontSize = 12.sp,
+                        lineHeight = 16.8.sp,
+                        color = colors.setupBadgeText,
+                    )
+                }
             }
+
             Text(
-                text = description, fontSize = 14.sp, color = Color.White.copy(alpha = 0.5f)
-            )
-            Text(
-                text = "View Permissions",
+                text = description,
+                color = theme.surface.contra.color.copy(alpha = 0.50f),
                 fontSize = 14.sp,
-                color = Color.White,
-                textDecoration = TextDecoration.Underline,
-                modifier = Modifier.clickable { onPermissionsClick() })
+                lineHeight = 19.6.sp
+            )
         }
 
-        Button(
-            onClick = onClick,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White.copy(alpha = 0.20f), contentColor = when (isRoleAssignment) {
-                    is UnAssigned -> Color.White
-                    is Assigned -> Color.Red
-                }
-            ),
-            border = if (actionType == ActionType.SETUP) {
-                BorderStroke(1.dp, Color.White)
-            } else null,
-            modifier = Modifier.width(120.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            Text(
-                text = if (actionType == ActionType.SETUP) "Setup" else {
-                    when (isRoleAssignment) {
-                        is UnAssigned -> "Assign"
-                        is Assigned -> "UnAssign"
-                    }
-                }
-            )
+        when (actionType) {
+            RoleActionType.SETUP -> {
+                Text(
+                    text = labels.setupAction,
+                    color = theme.surface.contra.color,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.onClick { onClick() }
+                )
+            }
+
+            RoleActionType.ASSIGNMENT -> {
+                Text(
+                    text = if (assignment is RoleAssignment.Assigned) "Unassign" else "Assign",
+                    color = if (assignment is RoleAssignment.Assigned)
+                        theme.surface.contra.color
+                    else
+                        theme.surface.contra.color.copy(0.5f),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
         }
     }
 }

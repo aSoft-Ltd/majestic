@@ -13,7 +13,7 @@ import majestic.Light
 import majestic.ThemeColor
 import majestic.users.tools.colors.background
 
-internal data class DialogColors(
+data class DialogColors(
     val containerColor: Color,
     val contentColor: Color,
     val cancelContent: Color,
