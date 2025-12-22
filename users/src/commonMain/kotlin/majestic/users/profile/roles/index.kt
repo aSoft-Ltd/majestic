@@ -3,146 +3,144 @@ package majestic.users.profile.roles
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerEventType
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import com.example.demo.roles.*
+import captain.Navigator
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.ColorPair
+import majestic.ExpandDirection
+import majestic.FloatingActionButton
+import majestic.floatActionButton
+import majestic.tooling.onClick
+import majestic.users.labels.settings.LanguageController
+import majestic.users.labels.settings.observeUsersLabels
+import majestic.users.tools.ProfilePortraitHeader
+import majestic.users.tools.buttons.ButtonAnimate
+import majestic.users.tools.buttons.FlatButton
+import tz.co.asoft.majestic_users.generated.resources.Res
+import tz.co.asoft.majestic_users.generated.resources.ic_add
 
-val Campuses = listOf(
-    CampusData(campusName = "Sunrise Campus", rolesCount = 25),
-    CampusData(campusName = "Riverfront Campus", rolesCount = 33),
-    CampusData(campusName = "Mountain View Campus", rolesCount = 17),
-    CampusData(campusName = "Oceanfront Campus", rolesCount = 21),
-    CampusData(campusName = "Forest Hill Campus", rolesCount = 14),
-    CampusData(campusName = "Urban Center", rolesCount = 46)
+data class CampusData(
+    val id: String, val name: String, val rolesCount: Int
 )
 
-val sampleRoles = listOf(
-    Role(
-        name = "Subject Teacher",
-        description = "Deliver lessons, Assess student performance, Prepare lesson plans, Manage classroom behavior, Communicate with parents about progress",
-        assignment = UnAssigned,
-        actionType = ActionType.SETUP
-    ),
-    Role(
-        name = "Headmaster",
-        description = "Oversee school operations, Implement educational policies, Manage staff, Budget allocation, Handle disciplinary issues, Communicate with parents and stakeholders"
-    ),
-    Role(
-        name = "School Chef",
-        description = "Plan and prepare meals, Ensure nutritional standards, Manage kitchen staff, Maintain kitchen hygiene, Budget for food supplies"
-    ),
-    Role(
-        name = "Matron",
-        description = "Oversee student welfare, Manage dormitory, Handle student issues, Provide support to students, Liaise with parents"
-    ),
-    Role(
-        name = "Bus Driver",
-        description = "Transport students safely, Maintain vehicle cleanliness, Follow designated routes, Ensure student discipline on bus, Report any incidents"
-    ),
-    Role(
-        name = "Librarian",
-        description = "Manage library resources, Assist students with research, Organize books and materials, Maintain catalog system, Promote reading culture"
-    ),
-    Role(
-        name = "Security Guard",
-        description = "Monitor school premises, Control entry and exit points, Ensure safety of students and staff, Report security incidents, Conduct regular patrols"
-    ),
-    Role(
-        name = "Groundskeeper",
-        description = "Maintain school grounds, Manage landscaping, Handle minor repairs, Ensure cleanliness of outdoor areas, Manage waste disposal"
-    ),
+data class RoleData(
+    val id: String,
+    val name: String,
+    val description: String,
+    val assignment: RoleAssignment = RoleAssignment.UnAssigned,
+    val actionType: RoleActionType = RoleActionType.ASSIGNMENT
 )
 
 @Composable
-fun Roles(orientation: ScreenOrientation, modifier: Modifier = Modifier) {
-    var showModal by remember { mutableStateOf(false) }
+fun Roles(
+    colors: RolesColors,
+    navigator: Navigator,
+    language: LanguageController,
+    orientation: ScreenOrientation,
+    campuses: List<CampusData> = emptyList(),
+    roles: List<RoleData> = emptyList()
+) {
+    val theme = colors.theme
+    val labels by observeUsersLabels(language)
 
-    Box(modifier = modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier.background(Color(0xFF161616)).safeContentPadding().fillMaxSize()
-                .then(if (showModal) Modifier.blur(7.5.dp) else Modifier),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Column(modifier = Modifier.padding(8.dp).background(Color(0xFF191F29))) {
-                Campuses.forEach { (campusName, rolesCount) ->
-                    Campus(
-                        campusName = campusName,
-                        rolesCount = rolesCount,
-                        onClick = {},
-                        onClickMore = {},
-                        onClickPlus = { showModal = true },
-                        orientation = orientation,
-                        modifier = Modifier
-                    )
-                }
+    var showAssignRoleModal by remember { mutableStateOf(false) }
+    var selectedCampusId by remember { mutableStateOf<String?>(null) }
+
+    if (showAssignRoleModal) {
+        AssignRoleModal(
+            userName = "Amani Hamduni",
+            availableRoles = roles,
+            colors = colors,
+            labels = labels.profile.roles,
+            orientation = orientation,
+            onDismiss = { showAssignRoleModal = false },
+            onAssign = { selectedRoleIds ->
+                showAssignRoleModal = false
+            })
+    }
+
+    Box(contentAlignment = if (orientation is Landscape) Alignment.TopEnd else Alignment.BottomEnd) {
+        var isOpen by remember { mutableStateOf(false) }
+
+        if (orientation is Landscape) {
+            Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
+                ButtonAnimate(
+                    label = labels.profile.roles.addButton,
+                    icon = Res.drawable.ic_add,
+                    isOpen = isOpen,
+                    colors = colors.buttonAnimate,
+                    onClick = { isOpen = !isOpen })
             }
         }
 
-        if (showModal) {
-            var totalSelected by remember { mutableStateOf(sampleRoles.filter { it.assignment == Assigned }.size) }
+        if (orientation is Portrait) {
+            Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
+                FloatingActionButton(
+                    modifier = Modifier.floatActionButton(colors.background).onClick { isOpen = !isOpen },
+                    direction = ExpandDirection.UP,
+                    expanded = isOpen,
+                    color = ColorPair(
+                        background = theme.surface.contra.color,
+                        foreground = theme.surface.actual.color,
+                    ),
+                    content = {
+                        Column(
+                            modifier = Modifier.padding(vertical = 10.dp),
+                            horizontalAlignment = Alignment.End,
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            FlatButton(
+                                colors = colors.flatButton,
+                                label = labels.profile.roles.addCampus,
+                                onClick = { isOpen = false })
+                        }
+                    })
+            }
+        }
 
-            Modal(
-                onDismiss = { showModal = false },
-                title = "Assign Roles to Amani Hamduni",
-                primaryAction = ModalAction(
-                    name = "Assign Selected" + if (totalSelected > 0) " ($totalSelected)" else "",
-                    onClick = {},
-                    enabled = totalSelected > 0
-                ),
-                secondaryAction = ModalAction(name = "Cancel", onClick = { showModal = false }),
+        Column(modifier = if (orientation is Portrait) Modifier.fillMaxSize() else Modifier) {
+            if (orientation is Portrait) {
+                ProfilePortraitHeader(
+                    title = labels.profile.roles.heading, colors = colors.profileHeader, navigator = navigator
+                )
+            }
+
+            Column(
+                modifier = Modifier.background(colors.background, RoundedCornerShape(20.dp))
+                    .verticalScroll(rememberScrollState())
+                    .then(if (orientation is Landscape) Modifier else Modifier.padding(20.dp)),
+                verticalArrangement = if (orientation is Landscape) Arrangement.Top else Arrangement.spacedBy(10.dp)
             ) {
-
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(1.dp), modifier = Modifier.fillMaxWidth().verticalScroll(
-                        rememberScrollState()
+                if (orientation is Landscape) {
+                    Text(
+                        modifier = Modifier.padding(vertical = 20.dp, horizontal = 30.dp),
+                        text = labels.profile.roles.heading,
+                        color = theme.surface.contra.color.copy(0.5f),
                     )
-                ) {
-                    sampleRoles.forEachIndexed { index, (name, description, assignment, actionType) ->
-                        var isRoleItemHovered by remember { mutableStateOf(false) }
-                        var isRoleItemAssigned by remember { mutableStateOf(assignment) }
+                }
 
-                        RoleItem(
-                            index = index,
-                            name = name,
-                            description = description,
-                            onPermissionsClick = {},
-                            onClick = {
-                                if (actionType == ActionType.ASSIGNMENT) {
-                                    isRoleItemAssigned = when (isRoleItemAssigned) {
-                                        is Assigned -> UnAssigned
-                                        is UnAssigned -> Assigned
-                                    }
-
-                                    if (isRoleItemAssigned == Assigned) totalSelected += 1 else totalSelected -= 1
-                                }
-
-                            },
-                            isRoleAssignment = isRoleItemAssigned,
-                            actionType = actionType,
-                            modifier = Modifier.fillMaxWidth().bottomBorder(0.2f, Color.White)
-                                .bottomBorder(0.2f, Color.White.copy(alpha = 0.3f))
-                                .background(if (isRoleItemHovered) Color(0xFF1E2530) else Color(0xFF191f29))
-                                .padding(16.dp).pointerInput(Unit) {
-                                    awaitPointerEventScope {
-                                        while (true) {
-                                            val event = awaitPointerEvent()
-                                            when (event.type) {
-                                                PointerEventType.Enter -> isRoleItemHovered = true
-                                                PointerEventType.Exit -> isRoleItemHovered = false
-                                            }
-                                        }
-                                    }
-                                })
-                    }
+                campuses.forEach { campus ->
+                    Campus(
+                        campusName = campus.name,
+                        rolesCount = campus.rolesCount,
+                        labels = labels.profile.roles,
+                        colors = colors.campus,
+                        orientation = orientation,
+                        onAddRole = {
+                            selectedCampusId = campus.id
+                            showAssignRoleModal = true
+                        },
+                        onViewRole = { /* TODO */ },
+                        onEditRole = { /* TODO */ },
+                        onDeleteRole = { /* TODO */ })
                 }
             }
         }
