@@ -1,10 +1,12 @@
 package majestic.users.profile.roles
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -15,19 +17,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.IconButton
 import majestic.users.labels.profile.roles.RolesLabels
 import majestic.users.tools.data.separator
 import majestic.users.tools.menu.MenuOption
 import majestic.users.tools.menu.OptionMenu
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_add
+import tz.co.asoft.majestic_users.generated.resources.ic_more_horizontal
+import tz.co.asoft.majestic_users.generated.resources.ic_plus_sign
 import tz.co.asoft.majestic_users.generated.resources.ic_square_lock
 
 enum class CampusMenuAction {
@@ -43,9 +47,7 @@ private fun Modifier.campusItem(
 ): Modifier {
     val isHovered by interactionSource.collectIsHoveredAsState()
     val bgColor = if (isHovered) colors.theme.surface.contra.color.copy(alpha = 0.03f) else Color.Transparent
-    return height(80.dp).fillMaxWidth()
-        .separator(false, separator)
-        .background(bgColor)
+    return height(80.dp).fillMaxWidth().separator(false, separator).background(bgColor)
         .padding(horizontal = if (orientation is Landscape) 30.dp else 20.dp)
         .hoverable(interactionSource = interactionSource)
 }
@@ -78,12 +80,8 @@ fun Campus(
             modifier = Modifier.weight(1f)
         ) {
             Box(
-                modifier = Modifier
-                    .size(44.dp)
-                    .clip(RoundedCornerShape(6.dp))
-                    .background(colors.iconBackground)
-                    .background(theme.surface.contra.color.copy(alpha = 0.10f)),
-                contentAlignment = Alignment.Center
+                modifier = Modifier.size(44.dp).clip(RoundedCornerShape(6.dp)).background(colors.iconBackground)
+                    .background(theme.surface.contra.color.copy(alpha = 0.10f)), contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(Res.drawable.ic_square_lock),
@@ -112,25 +110,35 @@ fun Campus(
 
         Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
             if (orientation is Landscape) {
-                IconButton(
-                    icon = painterResource(Res.drawable.ic_add),
-                    contentDescription = labels.campus.addRoleButton,
-                    onClick = onAddRole
-                )
+                val interactionSource = remember { MutableInteractionSource() }
+                val isHovered by interactionSource.collectIsHoveredAsState()
+                val bgColor = if (isHovered) colors.menuOption.icon.background else Color.Transparent
+                val color =
+                    if (isHovered) colors.menuOption.icon.foreground else colors.menuOption.icon.foreground.copy(.9f)
+
+                Box(
+                    modifier = Modifier.size(32.dp).clip(CircleShape).background(bgColor)
+                        .pointerHoverIcon(PointerIcon.Hand).hoverable(interactionSource).clickable { onAddRole() },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        modifier = Modifier.size(20.dp),
+                        painter = painterResource(Res.drawable.ic_plus_sign),
+                        tint = color,
+                        contentDescription = labels.campus.addRoleButton,
+                    )
+                }
             }
 
             MenuOption(
-                colors = colors.menuOption,
-                orientation = orientation,
-                actions = buildList {
+                colors = colors.menuOption, orientation = orientation, actions = buildList {
                     if (orientation !is Landscape) {
                         add(OptionMenu(labels.actions.addRole, CampusMenuAction.AddRole))
                     }
                     add(OptionMenu(labels.actions.viewRole, CampusMenuAction.ViewRole))
                     add(OptionMenu(labels.actions.editRole, CampusMenuAction.EditRole))
                     add(OptionMenu(labels.actions.deleteRole, CampusMenuAction.DeleteRole))
-                }
-            ) { action ->
+                }) { action ->
                 when (action) {
                     CampusMenuAction.AddRole -> onAddRole()
                     CampusMenuAction.ViewRole -> onViewRole()
