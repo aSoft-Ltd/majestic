@@ -25,7 +25,7 @@ import majestic.users.tools.buttons.FlatButtonColors
 import majestic.users.tools.dialogs.Modal
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_call
+import tz.co.asoft.majestic_users.generated.resources.ic_account_settings_filled
 
 @Composable
 fun AssignRoleModal(
@@ -70,7 +70,7 @@ fun AssignRoleModal(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Icon(
-                        painter = painterResource(Res.drawable.ic_call),
+                        painter = painterResource(Res.drawable.ic_account_settings_filled),
                         contentDescription = "Account Settings Filled",
                         tint = Color(0xFFD18C27),
                         modifier = Modifier.clip(RoundedCornerShape(6.dp))

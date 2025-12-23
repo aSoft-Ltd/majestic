@@ -31,7 +31,7 @@ import majestic.users.tools.menu.OptionMenu
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_plus_sign
-import tz.co.asoft.majestic_users.generated.resources.ic_square_lock
+import tz.co.asoft.majestic_users.generated.resources.ic_school
 
 enum class CampusMenuAction {
     AddRole, ViewRole, EditRole, DeleteRole
@@ -83,7 +83,8 @@ fun Campus(
                     .background(theme.surface.contra.color.copy(alpha = 0.10f)), contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(Res.drawable.ic_square_lock),
+                    modifier = Modifier.size(28.dp),
+                    painter = painterResource(Res.drawable.ic_school),
                     contentDescription = null,
                     tint = colors.iconTint
                 )
