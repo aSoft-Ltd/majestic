@@ -102,7 +102,7 @@ fun <T> MenuOption(
                     onAction(item.action)
                 },
                 label = item.label,
-                colors = if (item.action.toString().equals("delete", ignoreCase = true)) colorRed else colorNormal,
+                colors = if (item.action.toString().contains("delete", ignoreCase = true)) colorRed else colorNormal,
             )
         }
     )

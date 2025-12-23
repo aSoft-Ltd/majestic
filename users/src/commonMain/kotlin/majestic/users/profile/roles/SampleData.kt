@@ -32,7 +32,8 @@ val sampleRoles = listOf(
     RoleData(
         id = "role-admin",
         name = "Administrator",
-        description = "Full access to manage users, roles, and system settings"
+        description = "Full access to manage users, roles, and system settings",
+        actionType = RoleActionType.SETUP
     ),
     RoleData(
         id = "role-manager",
@@ -53,5 +54,24 @@ val sampleRoles = listOf(
         id = "role-viewer",
         name = "Viewer",
         description = "Read-only access to campus information"
-    )
+    ),    RoleData(
+        id = "role-manager-2",
+        name = "Campus Manager",
+        description = "Manages campus operations and staff assignments"
+    ),
+    RoleData(
+        id = "role-instructor-2",
+        name = "Instructor",
+        description = "Responsible for teaching and course content delivery"
+    ),
+    RoleData(
+        id = "role-support-2",
+        name = "Support Staff",
+        description = "Provides administrative and technical support"
+    ),
+    RoleData(
+        id = "role-viewer-2",
+        name = "Viewer",
+        description = "Read-only access to campus information"
+    ),
 )
