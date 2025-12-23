@@ -46,7 +46,7 @@ internal fun Modal(
             // close button
             CloseButton(
                 modifier = Modifier
-                    .padding(top = 12.dp, end = 12.dp)
+                    .padding(top = 28.dp, end = 20.dp)
                     .align(Alignment.TopEnd)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick(onDismiss)

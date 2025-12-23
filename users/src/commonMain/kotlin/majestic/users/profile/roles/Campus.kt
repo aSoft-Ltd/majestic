@@ -30,7 +30,6 @@ import majestic.users.tools.menu.MenuOption
 import majestic.users.tools.menu.OptionMenu
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_more_horizontal
 import tz.co.asoft.majestic_users.generated.resources.ic_plus_sign
 import tz.co.asoft.majestic_users.generated.resources.ic_square_lock
 
