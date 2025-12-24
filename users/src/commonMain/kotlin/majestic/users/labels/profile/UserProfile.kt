@@ -1,8 +1,8 @@
 package majestic.users.labels.profile
 
 import majestic.users.labels.profile.contact.ContactLabels
-import majestic.users.labels.profile.roles.RolesLabels
 import majestic.users.labels.profile.security.SecurityLabels
+import majestic.users.labels.roles.RolesLabels
 
 data class UserProfile(
     val permission: PermissionLabels,

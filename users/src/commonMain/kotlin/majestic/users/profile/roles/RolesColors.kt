@@ -6,7 +6,6 @@ import majestic.users.profile.contacts.tools.DeleteFormColors
 import majestic.users.tools.ProfilePortraitHeaderColors
 import majestic.users.tools.buttons.ButtonAnimateColors
 import majestic.users.tools.buttons.FlatButtonColors
-import majestic.users.tools.dialogs.DialogColors
 import majestic.users.tools.menu.MenuOptionColors
 
 data class RolesColors(
@@ -16,10 +15,8 @@ data class RolesColors(
     val roleItem: RoleItemColors,
     val buttonAnimate: ButtonAnimateColors,
     val flatButton: FlatButtonColors,
-//    val modal: DialogColors,
     val deleteForm: DeleteFormColors,
     val profileHeader: ProfilePortraitHeaderColors
-
 )
 
 data class CampusColors(
