@@ -1,4 +1,4 @@
-package majestic.users.labels.profile.roles
+package majestic.users.labels.roles
 
 data class RolesLabels(
     val heading: String,
@@ -26,7 +26,9 @@ data class RolesLabels(
     data class RoleItemLabels(
         val setupBadge: String,
         val setupAction: String,
-        val permissions: String
+        val permissions: String,
+        val assignAction: String,
+        val unassignAction: String
     )
 
     data class AssignRoleModalLabels(
@@ -46,7 +48,7 @@ data class RolesLabels(
     internal companion object {
         val english by lazy {
             RolesLabels(
-                heading = "Roles",
+                heading = "Roles & Campuses",
                 addButton = "Add",
                 addCampus = "Add Campus",
                 campus = CampusLabels(
@@ -63,7 +65,9 @@ data class RolesLabels(
                 roleItem = RoleItemLabels(
                     setupBadge = "Setup Required",
                     setupAction = "Setup",
-                    permissions = "Permissions"
+                    permissions = "Permissions",
+                    assignAction = "Assign",
+                    unassignAction = "Unassign"
                 ),
                 assignModal = AssignRoleModalLabels(
                     title = "Assign Roles to",
@@ -82,7 +86,7 @@ data class RolesLabels(
 
         val swahili by lazy {
             RolesLabels(
-                heading = "Majukumu",
+                heading = "Majukumu na Kambi",
                 addButton = "Ongeza",
                 addCampus = "Ongeza Kambi",
                 campus = CampusLabels(
@@ -99,7 +103,9 @@ data class RolesLabels(
                 roleItem = RoleItemLabels(
                     setupBadge = "Inahitaji Usanidi",
                     setupAction = "Sanidi",
-                    permissions = "Ruhusa"
+                    permissions = "Ruhusa",
+                    assignAction = "Teua",
+                    unassignAction = "Ondoa"
                 ),
                 assignModal = AssignRoleModalLabels(
                     title = "Kabidhisha Majukumu kwa",
