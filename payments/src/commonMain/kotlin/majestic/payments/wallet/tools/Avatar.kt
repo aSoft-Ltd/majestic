@@ -64,7 +64,7 @@ internal fun Avatar(
             Image(
                 painter = painterResource(avatar),
                 contentDescription = "Student avatar ${index + 1}",
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Inside,
                 modifier = Modifier.size(size)
                     .offset(x = overlapOffset * index)
                     .zIndex(images.size.toFloat() - index)
