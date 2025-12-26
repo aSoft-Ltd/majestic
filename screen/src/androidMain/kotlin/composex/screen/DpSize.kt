@@ -37,6 +37,14 @@ actual fun rememberScreenSizeInDp(): DpSize {
     }
 }
 
+// @Composable
+// actual fun rememberScreenSizeInDp(): DpSize {
+//     val configuration = LocalConfiguration.current
+//     val width = configuration.screenWidthDp.dp
+//     val height = configuration.screenHeightDp.dp
+//     return DpSize(width, height)
+// }
+
 
 private tailrec fun Context.findActivity(): Activity? = when (this) {
     is Activity -> this
