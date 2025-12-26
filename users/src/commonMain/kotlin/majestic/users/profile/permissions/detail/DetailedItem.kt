@@ -4,10 +4,10 @@ package majestic.users.profile.permissions.detail
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,8 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
+import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.ToggleSwitch
 import majestic.ToggleSwitchColors
 import majestic.users.tools.data.Permission
 import org.jetbrains.compose.resources.vectorResource
@@ -42,63 +44,56 @@ data class DetailedItemProperties(
 fun DetailedItem(
     modifier: Modifier,
     props: DetailedItemProperties,
+    orientation: ScreenOrientation,
     onSwitching: (Boolean) -> Unit
-) = Row(
+) = Column(
     modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
-    verticalAlignment = Alignment.Top
+    horizontalAlignment = Alignment.End,
+    verticalArrangement = if (orientation is Landscape) Arrangement.Top else Arrangement.Center
 ) {
-
-    Icon(
-        imageVector = vectorResource(props.item.resource),
-        contentDescription = null,
-        tint = props.colors.leadIcon.foreground,
-        modifier = Modifier.size(24.dp)
-    )
-    Column(
-        modifier = Modifier.wrapContentHeight().weight(1f),
-        verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.Top),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = props.item.title,
-            fontSize = 16.sp,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            color = props.colors.title,
-            fontWeight = FontWeight.SemiBold
-        )
-        Text(
-            text = props.item.description,
-            fontSize = 14.sp,
-            maxLines = 3,
-            color = props.colors.description,
-            overflow = TextOverflow.Ellipsis,
-            fontWeight = FontWeight.Normal
-        )
-    }
     Row(
-        modifier = Modifier.wrapContentSize(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.Top
     ) {
-        Text(
-            text = if (props.itemState) props.item.switch.first else props.item.switch.second,
-            fontSize = 16.sp,
-            maxLines = 3,
-            color = props.colors.description,
-            overflow = TextOverflow.Ellipsis,
-            fontWeight = FontWeight.Normal
+
+        Icon(
+            imageVector = vectorResource(props.item.resource),
+            contentDescription = null,
+            tint = props.colors.leadIcon.foreground,
+            modifier = Modifier.size(24.dp)
         )
-        ToggleSwitch(
-            checked = props.itemState,
-            onCheckedChange = onSwitching,
-            height = 20.dp,
-            circleSize = 15.dp,
-            width = 40.dp,
-            circlePadding = 0.dp,
-            shape = RoundedCornerShape(10.dp),
-            colors = props.colors.switch
+        Column(
+            modifier = Modifier.wrapContentHeight().weight(1f),
+            verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.Top),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = props.item.title,
+                fontSize = 16.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = props.colors.title,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = props.item.description,
+                fontSize = 14.sp,
+                maxLines = 3,
+                color = props.colors.description,
+                overflow = TextOverflow.Ellipsis,
+                fontWeight = FontWeight.Normal
+            )
+        }
+        if (orientation is Landscape) PermissionSwitch(
+            modifier = Modifier.wrapContentSize(),
+            props = props,
+            onSwitching = onSwitching
         )
     }
+    if (orientation is Portrait) PermissionSwitch(
+        modifier = Modifier.wrapContentSize(),
+        props = props,
+        onSwitching = onSwitching
+    )
 }

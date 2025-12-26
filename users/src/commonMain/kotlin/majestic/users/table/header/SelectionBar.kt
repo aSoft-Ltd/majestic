@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
 import majestic.tooling.onClick
-import majestic.users.table.header.tools.Tooltip
+import majestic.users.tools.Tooltip
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 

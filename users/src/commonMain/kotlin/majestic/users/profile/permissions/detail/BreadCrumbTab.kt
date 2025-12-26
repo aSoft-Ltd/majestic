@@ -14,8 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composex.screen.orientation.Landscape
-import composex.screen.orientation.ScreenOrientation
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
@@ -31,10 +29,10 @@ internal fun BreadCrumbTab(
     icon: DrawableResource,
     label: String,
     colors: BreadCrumbTabColors,
-    orientation: ScreenOrientation
+    showLabel: Boolean
 ) = Row(
     modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(16.dp),
+    horizontalArrangement = Arrangement.spacedBy(8.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
     Icon(
@@ -44,9 +42,9 @@ internal fun BreadCrumbTab(
         modifier = Modifier
             .background(color = colors.background, shape = RoundedCornerShape(8.dp))
             .padding(10.dp)
-            .size(30.dp)
+            .size(24.dp)
     )
-    if (orientation is Landscape) Text(
+    if (showLabel) Text(
         text = label,
         color = colors.label,
         fontSize = 16.sp,

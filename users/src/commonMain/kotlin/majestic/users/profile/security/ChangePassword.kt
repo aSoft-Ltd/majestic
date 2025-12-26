@@ -1,0 +1,85 @@
+package majestic.users.profile.security
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.ScreenOrientation
+import majestic.ThemeColor
+import majestic.users.labels.profile.security.SecurityLabels
+import majestic.users.tools.buttons.FlatButton
+import majestic.users.tools.buttons.FlatButtonColors
+import majestic.users.tools.dialogs.Flex
+import majestic.users.tools.dialogs.Modal
+import tz.co.asoft.majestic_users.generated.resources.Res
+import tz.co.asoft.majestic_users.generated.resources.ic_square_lock
+
+data class ChangePasswordColors(
+    val background: Color,
+    val theme: ThemeColor,
+    val flatButton: FlatButtonColors,
+    val passwordForm: PasswordFormColors
+)
+
+@Composable
+internal fun ColumnScope.ChangePassword(
+    modifier: Modifier = Modifier,
+    colors: ChangePasswordColors,
+    orientation: ScreenOrientation,
+    labels: SecurityLabels,
+) = SecurityRow(
+    modifier = modifier,
+    icon = Res.drawable.ic_square_lock,
+    theme = colors.theme,
+) {
+    var modalOpened by remember { mutableStateOf(false) }
+    if (modalOpened) Modal(
+        theme = colors.theme,
+        orientation = orientation,
+        background = colors.background,
+        onDismiss = { modalOpened = false },
+    ) {
+        PasswordForm(
+            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
+            colors = colors.passwordForm,
+            labels = labels.forms.password,
+            onSubmit = { modalOpened = false }
+        )
+    }
+
+    Flex(
+        modifier = Modifier.padding(bottom = 30.dp),
+        alignment = Alignment.CenterVertically,
+        verticalArrangement = Arrangement.spacedBy(20.dp),
+        orientation = orientation,
+    ) {
+        SectionHeading(
+            modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(2f) else Modifier),
+            labels = labels.password,
+            color = colors.theme.surface.contra.color
+        )
+        Row(
+            modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            FlatButton(
+                modifier = Modifier.clip(CircleShape),
+                label = labels.btnNewPassword,
+                colors = colors.flatButton,
+                onClick = { modalOpened = true }
+            )
+        }
+    }
+}

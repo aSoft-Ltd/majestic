@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -19,6 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.users.tools.data.Permissions
 import org.jetbrains.compose.resources.DrawableResource
@@ -38,25 +39,25 @@ data class PermissionColors(
     val separator: Color
 )
 
-data class PermissionProperties(
-    val colors: PermissionColors,
-    val item: PermissionData
-)
-
 @Composable
-fun Permission(modifier: Modifier, props: PermissionProperties) = Row(
+internal fun Permission(
+    modifier: Modifier,
+    item: PermissionData,
+    orientation: ScreenOrientation,
+    colors: PermissionColors
+) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
     verticalAlignment = Alignment.CenterVertically
 ) {
     Icon(
-        imageVector = vectorResource(props.item.permission.resource),
+        imageVector = vectorResource(item.permission.resource),
         contentDescription = null,
-        tint = props.colors.leadIcon.foreground,
+        tint = colors.leadIcon.foreground.copy(.7f),
         modifier = Modifier
-            .background(color = props.colors.leadIcon.background, shape = RoundedCornerShape(8.dp))
-            .padding(10.dp)
-            .size(40.dp)
+            .background(color = colors.leadIcon.background, shape = RoundedCornerShape(8.dp))
+            .padding(if (orientation is Landscape) 16.dp else 8.dp)
+            .size(24.dp)
     )
     Column(
         modifier = Modifier.wrapContentHeight().weight(1f),
@@ -64,27 +65,27 @@ fun Permission(modifier: Modifier, props: PermissionProperties) = Row(
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = props.item.permission.title,
+            text = item.permission.title,
             fontSize = 16.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            color = props.colors.title,
+            color = colors.title,
             fontWeight = FontWeight.SemiBold
         )
         Text(
-            text = props.item.permission.description,
+            text = item.permission.description,
             fontSize = 14.sp,
             maxLines = 3,
-            color = props.colors.description,
+            color = colors.description,
             overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Normal
         )
     }
 
     Icon(
-        imageVector = vectorResource(props.item.trailIcon),
+        imageVector = vectorResource(item.trailIcon),
         contentDescription = null,
-        tint = props.colors.trailIcon,
-        modifier = Modifier.size(40.dp)
+        tint = colors.trailIcon,
+        modifier = Modifier.size(16.dp)
     )
 }

@@ -6,7 +6,7 @@ import majestic.Dark
 import majestic.Light
 import majestic.ThemeColor
 
-internal val ThemeColor.background: Color
+internal val ThemeColor.toBackground: Color
     get() {
         val alpha = when (this) {
             is Light -> 0.2f
