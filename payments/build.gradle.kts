@@ -59,6 +59,7 @@ kotlin {
             api(libs.majestic.input.core)
             api(libs.majestic.input.choice)
             api(libs.majestic.graphs)
+            api(libs.majestic.table)
         }
 
         commonTest.dependencies {

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -20,7 +21,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
-import majestic.AvatarStack
 import majestic.payments.labels.WalletLabels
 import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.menu.MenuOptionColors
@@ -92,15 +92,14 @@ fun WalletCard(
         )
     }
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        val avatarPainters = transactions.map { image -> painterResource(image) }
-        AvatarStack(
-            painters = avatarPainters.slice(indices = 0..3),
-            avatarSize = 28.dp,
-            overlapFraction = 0.4f,
+        Avatar(
+            images = transactions.slice(indices = 0..3),
+            color = colors.background,
+            overlapPercent = 0.4f,
+            border = 3.dp,
+            size = 28.dp,
             maxVisible = 4,
-            borderColor = colors.background,
-            borderWidth = 3.dp,
-            overflowTextColor = colors.text
+            modifier = Modifier.width(90.dp)
         )
         Text(
             text = "${transactions.size} ${labels.transactions}",
