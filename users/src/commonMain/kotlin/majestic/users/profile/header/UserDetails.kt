@@ -18,9 +18,8 @@ import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
-import majestic.users.profile.header.tools.ProfileDestinationMapper
-import majestic.users.tools.colors.toBackground
 import majestic.users.tools.colors.barColors
+import majestic.users.tools.colors.toBackground
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
 
@@ -29,7 +28,7 @@ fun UserDetails(
     orientation: ScreenOrientation,
     user: UsersData,
     theme: ThemeColor,
-    endpoint: ProfileDestinationMapper,
+    tabs: @Composable () -> Unit,
     navigator: Navigator,
     labels: ProfileHeaderLabels,
     backIcon: DrawableResource,
@@ -59,7 +58,7 @@ fun UserDetails(
             theme = theme,
             orientation = orientation,
             navigator = navigator,
-            endpoint = endpoint,
+            tabs = tabs,
             back = backIcon,
             menuOption = menuOption,
         )

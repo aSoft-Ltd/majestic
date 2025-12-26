@@ -22,69 +22,91 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
+import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.tooling.onClick
 import majestic.users.profile.permissions.Permission
 import majestic.users.profile.permissions.PermissionData
-import majestic.users.profile.permissions.PermissionProperties
 import majestic.users.profile.permissions.PermissionScreen
-import majestic.users.profile.permissions.PermissionsProps
+import majestic.users.profile.permissions.colors.toPermissionColors
+import majestic.users.tools.data.Permissions
+import tz.co.asoft.majestic_users.generated.resources.Res
+import tz.co.asoft.majestic_users.generated.resources.ic_arrow_right
 
+internal fun Modifier.permissionItem(
+    hovered: Boolean,
+    permissions: List<Permissions>,
+    theme: ThemeColor,
+    index: Int,
+    current: PermissionScreen,
+    item: Permissions,
+    interaction: MutableInteractionSource,
+    orientation: ScreenOrientation
+) = this
+    .fillMaxWidth()
+    .wrapContentHeight()
+    .pointerHoverIcon(PointerIcon.Hand)
+    .background(
+        color = if (hovered) theme.surface.contra.color.copy(.05f) else Color.Transparent,
+        shape = when (index) {
+            0 -> RoundedCornerShape(
+                topStart = if (orientation is Landscape) 20.dp else 0.dp,
+                topEnd = if (orientation is Landscape) 20.dp else 0.dp
+            )
+
+            permissions.lastIndex -> RoundedCornerShape(
+                bottomStart = if (orientation is Landscape) 20.dp else 0.dp,
+                bottomEnd = if (orientation is Landscape) 20.dp else 0.dp
+            )
+
+            else -> RoundedCornerShape(0.dp)
+        }
+    )
+    .onClick {
+        current.set(item)
+        current.detailed()
+    }
+    .hoverable(interaction)
+    .padding(if (orientation is Landscape) 20.dp else 10.dp)
 
 @Composable
 internal fun Permissions(
     modifier: Modifier,
-    props: PermissionsProps,
+    permissions: List<Permissions>,
     current: PermissionScreen,
+    theme: ThemeColor,
     orientation: ScreenOrientation
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top,
     horizontalAlignment = Alignment.Start
 ) {
-
-    props.permissions.forEachIndexed { index, item ->
+    permissions.forEachIndexed { index, item ->
         val interaction = remember(item) { MutableInteractionSource() }
         val hovered by interaction.collectIsHoveredAsState()
         Permission(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .pointerHoverIcon(PointerIcon.Hand)
-                .background(
-                    color = if (hovered) props.colors.permission.separator.copy(.05f) else Color.Transparent,
-                    shape = when (index) {
-                        0 -> RoundedCornerShape(
-                            topStart = 20.dp,
-                            topEnd = 20.dp
-                        )
+            modifier = Modifier.permissionItem(
+                hovered = hovered,
+                permissions = permissions,
+                index = index,
+                current = current,
+                item = item,
+                interaction = interaction,
+                orientation = orientation,
+                theme = theme
+            ),
+            item = PermissionData(
+                permission = item,
+                trailIcon = Res.drawable.ic_arrow_right
+            ),
 
-                        props.permissions.lastIndex -> RoundedCornerShape(
-                            bottomStart = 20.dp,
-                            bottomEnd = 20.dp
-                        )
-
-                        else -> RoundedCornerShape(0.dp)
-                    }
-                )
-                .onClick {
-                    current.set(item)
-                    current.detailed()
-                }
-                .hoverable(interaction)
-                .padding(if (orientation is Landscape) 20.dp else 10.dp),
-            props = PermissionProperties(
-                colors = props.colors.permission,
-                item = PermissionData(
-                    permission = item,
-                    trailIcon = props.trailIcon
-                ),
-            )
+            colors = theme.toPermissionColors(),
+            orientation = orientation
         )
-        if (index != props.permissions.lastIndex) Spacer(
+        if (index != permissions.lastIndex) Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .underline(props.colors.permission.separator.copy(.05f), 1.dp)
+                .underline(theme.surface.contra.color.copy(.05f), 1.dp)
         )
     }
 }

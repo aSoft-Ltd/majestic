@@ -10,12 +10,12 @@ import majestic.DarkMode
 import majestic.LightMode
 import majestic.ThemeColor
 
-private val ThemeColor.barBackgroundColor: Color
+val ThemeColor.barBackgroundColor: Color
     get() {
         return dominant.actual.color.copy(alpha = 0.06f).compositeOver(surface.actual.color)
     }
 
-internal fun ThemeColor.barColors(orientation: ScreenOrientation) = ColorPair(
+fun ThemeColor.barColors(orientation: ScreenOrientation) = ColorPair(
     background = when (orientation) {
         is Landscape -> barBackgroundColor
         is Portrait -> when (mode) {

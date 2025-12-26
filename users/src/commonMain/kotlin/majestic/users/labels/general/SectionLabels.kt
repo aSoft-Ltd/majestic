@@ -5,3 +5,8 @@ data class SectionLabels(
     val description: String,
     val placeholder: String? = null
 )
+
+data class TabSectionLabels<T>(
+    val tab: String,
+    val content: T
+)

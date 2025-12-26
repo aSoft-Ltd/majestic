@@ -1,7 +1,5 @@
 package majestic.users.profile.header
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -11,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,12 +21,10 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.Light
 import majestic.ThemeColor
 import majestic.tooling.onClick
-import majestic.users.profile.header.tools.ProfileDestinationMapper
+import majestic.users.labels.profile.TabLabels
 import majestic.users.profile.header.tools.header.Head
 import majestic.users.profile.header.tools.header.tools.HeadData
 import majestic.users.profile.header.tools.toProfileData
-import majestic.users.profile.tabs.ProfileTabs
-import majestic.users.tools.colors.toBackground
 import majestic.users.tools.data.GenderLabels
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
@@ -43,16 +38,11 @@ data class HeaderLabels(
     val gender: GenderLabels
 )
 
-data class TabsLabels(
-    val permissions: String,
-    val contacts: String,
-    val roles: String,
-    val security: String
-)
+
 
 data class ProfileHeaderLabels(
     val header: HeaderLabels,
-    val tabs: TabsLabels
+    val tabs: TabLabels
 )
 
 @Composable
@@ -62,14 +52,13 @@ fun DetailHeader(
     theme: ThemeColor,
     navigator: Navigator,
     back: DrawableResource,
-    endpoint: ProfileDestinationMapper,
+    tabs: @Composable () -> Unit = {},
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
     menuOption: @Composable () -> Unit = {}
 ) = Column(
     modifier = modifier
 ) {
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -106,16 +95,5 @@ fun DetailHeader(
 
         menuOption()
     }
-    ProfileTabs(
-        modifier = Modifier
-            .height(if (orientation is Landscape) 50.dp else 40.dp)
-            .fillMaxWidth()
-            .background(color = theme.toBackground)
-            .padding(horizontal = if (orientation is Landscape) 30.dp else 10.dp)
-            .horizontalScroll(rememberScrollState()),
-        labels = labels.tabs,
-        themes = theme,
-        navigator = navigator,
-        endpoint = endpoint
-    )
+    tabs()
 }

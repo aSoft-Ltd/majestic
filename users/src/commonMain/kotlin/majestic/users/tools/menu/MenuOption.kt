@@ -38,17 +38,17 @@ import org.jetbrains.compose.resources.vectorResource
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_more_horizontal
 
-internal enum class MenuAction { Edit, Duplicate, Delete }
+enum class MenuAction { Edit, Duplicate, Delete }
 
 
-internal data class OptionMenu<T>(
+data class OptionMenu<T>(
     val label: String,
     val action: T,
     val icon: DrawableResource? = null
 )
 
 @Composable
-internal fun <T> MenuOption(
+fun <T> MenuOption(
     colors: MenuOptionColors,
     icon: (@Composable (color: Color) -> Unit)? = null,
     orientation: ScreenOrientation,
