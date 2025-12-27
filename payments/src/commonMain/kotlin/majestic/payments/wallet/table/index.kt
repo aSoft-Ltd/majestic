@@ -59,6 +59,7 @@ fun WalletTable(
     labels: WalletLabels,
     colors: TableColors,
     table: Table<PaymentWallet>,
+    onAction: (WalletMenuAction, PaymentWallet) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val columns = table.columns.current.watchAsState()
@@ -247,7 +248,7 @@ fun WalletTable(
                     colors = colors.menu,
                     orientation = Landscape,
                     actions = WalletMenuAction.getMenus(labels.menu),
-                    onAction = { /* TODO */ }
+                    onAction = { action -> onAction(action, cell.row.item) }
                 )
             }
         }

@@ -46,6 +46,7 @@ fun WalletCard(
     accounts: List<DrawableResource>,
     transactions: List<DrawableResource>,
     colors: WalletCardColors,
+    onAction: (WalletMenuAction) -> Unit,
     modifier: Modifier = Modifier,
 ) = Column(
     modifier = modifier,
@@ -88,7 +89,7 @@ fun WalletCard(
             colors = colors.menu,
             orientation = Landscape,
             actions = WalletMenuAction.getMenus(labels.menu),
-            onAction = { /* TODO */ }
+            onAction = onAction
         )
     }
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
