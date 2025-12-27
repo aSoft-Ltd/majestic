@@ -34,6 +34,7 @@ fun WalletListRow(
     labels: WalletLabels,
     colors: TableColors,
     detail: PaymentWallet,
+    onAction: (WalletMenuAction) -> Unit,
     modifier: Modifier = Modifier
 ) = Row(
     modifier = modifier,
@@ -117,6 +118,6 @@ fun WalletListRow(
         colors = colors.menu,
         orientation = Portrait,
         actions = WalletMenuAction.getMenus(labels.menu),
-        onAction = { /* TODO */ }
+        onAction = onAction
     )
 }

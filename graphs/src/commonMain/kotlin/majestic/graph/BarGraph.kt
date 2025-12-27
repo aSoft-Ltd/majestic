@@ -28,14 +28,14 @@ fun BarGraph(
     orientation: BarOrientation = BarOrientation.Horizontal,
     modifier: Modifier = Modifier
 ) {
-    var animationPlayed by remember { mutableStateOf(false) }
+    var animationPlayed by remember(value) { mutableStateOf(false) }
     val animationProgress by animateFloatAsState(
         targetValue = if (animationPlayed) 1f else 0f,
         animationSpec = tween(animationDuration, easing = EaseOutCubic),
         label = "bar_animation"
     )
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(value) {
         animationPlayed = true
     }
 
