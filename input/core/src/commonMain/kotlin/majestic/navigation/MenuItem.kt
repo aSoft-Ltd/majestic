@@ -42,6 +42,7 @@ data class MenuItemColors(
 }
 
 
+// TODO: This is a bad architecture the exposed modifier should go to the parent not the child
 @Composable
 fun MenuItem(
     label: @Composable (style: TextStyle) -> Unit,
@@ -65,7 +66,7 @@ fun MenuItem(
     }
 
     Box(
-        modifier = modifier
+        modifier = Modifier
             .clip(shape)
             .border(
                 width = borderWidth,
@@ -77,6 +78,7 @@ fun MenuItem(
             .hoverable(interactionSource = interactionSource)
     ) {
         Row(
+            modifier = modifier,
             horizontalArrangement = arrangement,
             verticalAlignment = alignment,
         ) {

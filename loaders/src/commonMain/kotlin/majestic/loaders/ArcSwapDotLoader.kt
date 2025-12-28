@@ -48,20 +48,17 @@ fun ArcSwapDotLoader(
     val widthDp = dotSize * 3 + gap * 2
     val stepDp = dotSize + gap
     val density = LocalDensity.current
-
-    val radiusPx = remember(dotSize, density) { with(density) { (dotSize / 2).toPx() } }
-    val stepPx = remember(stepDp, density) { with(density) { stepDp.toPx() } }
-    val vertR = remember(stepPx, arcHeightMultiplier) { stepPx * arcHeightMultiplier }
-    val heightDp = remember(dotSize, vertR, density) { dotSize + with(density) { vertR.toDp() } }
-    val heightPx = remember(heightDp, density) { with(density) { heightDp.toPx() } }
-    val slotX = remember(radiusPx, stepPx) {
-        floatArrayOf(
-            radiusPx,
-            radiusPx + stepPx,
-            radiusPx + 2 * stepPx
-        )
-    }
-    val baseY = remember(heightPx, radiusPx) { heightPx - radiusPx }
+    val radiusPx = with(density) { (dotSize / 2).toPx() }
+    val stepPx = with(density) { stepDp.toPx() }
+    val vertR = stepPx * arcHeightMultiplier
+    val heightDp = dotSize + with(density) { vertR.toDp() }
+    val heightPx = with(density) { heightDp.toPx() }
+    val slotX = floatArrayOf(
+        radiusPx,
+        radiusPx + stepPx,
+        radiusPx + 2 * stepPx
+    )
+    val baseY = heightPx - radiusPx
     var slotToDot by remember { mutableStateOf(intArrayOf(0, 1, 2)) }
     val p = remember { Animatable(0f) }
 

@@ -314,58 +314,14 @@ private fun TextFieldColors.toMaterialTextFieldColors() = TextFieldDefaults.colo
 )
 
 
+// TODO: Seek out other arguments of OutlinedTextDefaults.colors to fill up
 @Composable
 private fun TextFieldColors.toMaterialTextFieldOutlinedColors() = OutlinedTextFieldDefaults.colors(
     focusedTextColor = focused.text,
     unfocusedTextColor = blurred.text,
-    disabledTextColor = blurred.text.copy(alpha = 0.38f),
-    errorTextColor = error.text,
-
     cursorColor = focused.text,
-    errorCursorColor = error.text,
-
     focusedContainerColor = Color.Transparent,
     unfocusedContainerColor = Color.Transparent,
-    disabledContainerColor = Color.Transparent,
-    errorContainerColor = Color.Transparent,
-
     focusedBorderColor = focused.border,
     unfocusedBorderColor = blurred.border,
-    disabledBorderColor = blurred.border.copy(alpha = 0.38f),
-    errorBorderColor = error.border,
-
-    focusedLabelColor = focused.border,
-    unfocusedLabelColor = blurred.text.copy(alpha = 0.6f),
-    disabledLabelColor = blurred.text.copy(alpha = 0.38f),
-    errorLabelColor = error.text,
-
-    focusedPlaceholderColor = focused.placeholder,
-    unfocusedPlaceholderColor = blurred.placeholder,
-    disabledPlaceholderColor = blurred.placeholder.copy(alpha = 0.38f),
-    errorPlaceholderColor = error.placeholder,
-
-    focusedSupportingTextColor = focused.text.copy(alpha = 0.6f),
-    unfocusedSupportingTextColor = blurred.text.copy(alpha = 0.6f),
-    disabledSupportingTextColor = blurred.text.copy(alpha = 0.38f),
-    errorSupportingTextColor = error.text,
-
-    focusedPrefixColor = focused.text.copy(alpha = 0.6f),
-    unfocusedPrefixColor = blurred.text.copy(alpha = 0.6f),
-    disabledPrefixColor = blurred.text.copy(alpha = 0.38f),
-    errorPrefixColor = error.text.copy(alpha = 0.6f),
-
-    focusedSuffixColor = focused.text.copy(alpha = 0.6f),
-    unfocusedSuffixColor = blurred.text.copy(alpha = 0.6f),
-    disabledSuffixColor = blurred.text.copy(alpha = 0.38f),
-    errorSuffixColor = error.text.copy(alpha = 0.6f),
-
-    focusedLeadingIconColor = focused.text.copy(alpha = 0.6f),
-    unfocusedLeadingIconColor = blurred.text.copy(alpha = 0.6f),
-    disabledLeadingIconColor = blurred.text.copy(alpha = 0.38f),
-    errorLeadingIconColor = error.text,
-
-    focusedTrailingIconColor = focused.text.copy(alpha = 0.6f),
-    unfocusedTrailingIconColor = blurred.text.copy(alpha = 0.6f),
-    disabledTrailingIconColor = blurred.text.copy(alpha = 0.38f),
-    errorTrailingIconColor = error.text,
 )
