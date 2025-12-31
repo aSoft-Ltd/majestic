@@ -33,17 +33,17 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(IR) {
-        browser()
-        nodejs()
-    }
+//    js(IR) {
+//        browser()
+//        nodejs()
+//    }
 
     wasmJs { browser() }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
-    macosArm64()
+//    macosX64()
+//    macosArm64()
 
     sourceSets {
         commonMain.dependencies {
@@ -59,6 +59,7 @@ kotlin {
             api(libs.majestic.input.core)
             api(libs.majestic.input.choice)
             api(libs.majestic.graphs)
+            api(libs.majestic.table)
         }
 
         commonTest.dependencies {
