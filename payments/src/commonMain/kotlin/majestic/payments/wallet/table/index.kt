@@ -22,8 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
 import composex.screen.orientation.Landscape
-import kollections.iterator
-import kollections.last
 import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.ColorPair
