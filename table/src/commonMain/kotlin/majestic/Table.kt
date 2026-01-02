@@ -17,8 +17,6 @@ import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import kollections.filter
-import kollections.mapIndexed
 import symphony.LinearTable
 import symphony.Row
 import symphony.Table
@@ -35,7 +33,7 @@ fun <D> LazyTable(
 ) {
     table as LinearTable
     val cols = table.columns.current.watchAsState().filter { it.visibility == VisibleVisibility }
-    val rows = table.paginator.current.watchAsState().data?.items ?: kollections.emptyList()
+    val rows = table.paginator.current.watchAsState().data?.items ?: emptyList()
     LazyTable(
         rows = rows,
         columns = Columns(cols, renderer = columns),

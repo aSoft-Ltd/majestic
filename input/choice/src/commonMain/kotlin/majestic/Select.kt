@@ -31,7 +31,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import kollections.toKList
 import majestic.popup.Inline
 import majestic.popup.Items
 import majestic.tooling.onClick
@@ -75,7 +74,7 @@ fun <T> Select(
 ) {
     val state = field.state.watchAsState()
     DumbSelect(
-        items = field.items.toKList(),
+        items = field.items,
         item = item,
         selected = selected,
         value = state.selectedItem,
