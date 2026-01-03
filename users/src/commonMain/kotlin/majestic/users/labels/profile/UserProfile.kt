@@ -5,6 +5,7 @@ import majestic.users.labels.profile.security.SecurityLabels
 import majestic.users.labels.roles.RolesLabels
 
 data class UserProfile(
+    val permission: PermissionLabels,
     val contact: ContactLabels,
     val security: SecurityLabels,
     val roles: RolesLabels
@@ -12,6 +13,7 @@ data class UserProfile(
     companion object {
         val english by lazy {
             UserProfile(
+                permission = PermissionLabels.english,
                 contact = ContactLabels.english,
                 security = SecurityLabels.english,
                 roles = RolesLabels.english
@@ -19,6 +21,7 @@ data class UserProfile(
         }
         val swahili by lazy {
             UserProfile(
+                permission = PermissionLabels.swahili,
                 contact = ContactLabels.swahili,
                 security = SecurityLabels.swahili,
                 roles = RolesLabels.swahili

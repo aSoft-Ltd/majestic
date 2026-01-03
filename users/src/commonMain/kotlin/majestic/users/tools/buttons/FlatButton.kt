@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import majestic.ColorPair
 import majestic.tooling.onClick
@@ -69,5 +70,5 @@ internal fun FlatButton(
     val isHovered by it.collectIsHoveredAsState()
     val textColor = if (isHovered) colors.hovered.foreground else colors.inactive.foreground
 
-    Text(text = label, color = textColor)
+    Text(text = label, color = textColor, overflow = TextOverflow.Ellipsis, maxLines = 1)
 }
