@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,17 +25,22 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.Light
-import majestic.ThemeColor
 import majestic.users.profile.header.tools.header.tools.Content
+import majestic.users.profile.header.tools.header.tools.FlowItemColors
+import majestic.users.profile.header.tools.header.tools.HeadContentColors
 import majestic.users.profile.header.tools.header.tools.HeadData
 import org.jetbrains.compose.resources.painterResource
 
+data class HeadColors(
+    val content: Color,
+    val whiteBackground: Color,
+    val flow: FlowItemColors
+)
 
 @Composable
 fun Head(
     data: HeadData,
-    theme: ThemeColor,
+    colors: HeadColors,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier
 ) = Row(
@@ -42,8 +48,7 @@ fun Head(
     horizontalArrangement = Arrangement.spacedBy(10.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    val contentColor = if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
-    else theme.surface.contra.color
+    val contentColor = colors.content
 
     if (data.avatar != null) Box(modifier = Modifier.size(if (orientation is Landscape) 100.dp else 70.dp)) {
         Image(
@@ -57,7 +62,7 @@ fun Head(
             modifier = Modifier
                 .padding(start = 15.dp, bottom = 10.dp)
                 .align(Alignment.BottomEnd)
-                .border(1.dp, theme.surface.contra.color, CircleShape)
+                .border(1.dp, colors.whiteBackground, CircleShape)
                 .clip(CircleShape)
                 .size(15.dp),
             contentScale = ContentScale.Crop,
@@ -69,7 +74,7 @@ fun Head(
         modifier = Modifier
             .size(if (orientation is Landscape) 140.dp else 70.dp)
             .clip(CircleShape)
-            .background(theme.surface.contra.color.copy(.7f)),
+            .background(colors.whiteBackground.copy(.7f)),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -85,8 +90,12 @@ fun Head(
         modifier = Modifier.wrapContentHeight().fillMaxWidth(),
         orientation = orientation,
         data = data,
-        contentColor,
-        theme
+        colors = HeadContentColors(
+            whiteBackground = colors.whiteBackground,
+            content = colors.content,
+            title = colors.whiteBackground,
+            flow = colors.flow
+        ),
     )
 }
 

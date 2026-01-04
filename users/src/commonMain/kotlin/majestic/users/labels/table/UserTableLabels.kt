@@ -1,18 +1,18 @@
 package majestic.users.labels.table
 
-data class UsersTableLabels(
+data class TableLabels(
     val head: UsersTableHeaderLabels,
     val body: UsersTableBodyLabels
 ) {
     companion object {
         val english by lazy {
-            UsersTableLabels(
+            TableLabels(
                 head = UsersTableHeaderLabels.english,
                 body = UsersTableBodyLabels.english
             )
         }
         val swahili by lazy {
-            UsersTableLabels(
+            TableLabels(
                 head = UsersTableHeaderLabels.swahili,
                 body = UsersTableBodyLabels.swahili
             )

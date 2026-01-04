@@ -1,5 +1,6 @@
 package majestic.users.profile.security
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import majestic.ThemeColor
 import majestic.users.labels.profile.security.SecurityLabels
 import majestic.users.tools.buttons.FlatButton
 import majestic.users.tools.buttons.FlatButtonColors
+import majestic.users.tools.dialogs.DialogColors
 import majestic.users.tools.dialogs.Flex
 import majestic.users.tools.dialogs.Modal
 import tz.co.asoft.majestic_users.generated.resources.Res
@@ -30,7 +32,8 @@ data class ChangePasswordColors(
     val background: Color,
     val theme: ThemeColor,
     val flatButton: FlatButtonColors,
-    val passwordForm: PasswordFormColors
+    val passwordForm: PasswordFormColors,
+    val dialog: DialogColors
 )
 
 @Composable
@@ -46,9 +49,8 @@ internal fun ColumnScope.ChangePassword(
 ) {
     var modalOpened by remember { mutableStateOf(false) }
     if (modalOpened) Modal(
-        theme = colors.theme,
-        orientation = orientation,
-        background = colors.background,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { modalOpened = false },
     ) {
         PasswordForm(

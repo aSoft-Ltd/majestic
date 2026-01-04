@@ -1,9 +1,9 @@
 package majestic.users.dashboard.tools
 
-import majestic.users.labels.table.UsersTableLabels
+import majestic.users.labels.table.TableLabels
 import majestic.users.table.header.tools.FiltersLabels
 
-internal fun UsersTableLabels.toFilterLabels(): FiltersLabels = FiltersLabels(
+internal fun TableLabels.toFilterLabels(): FiltersLabels = FiltersLabels(
     searchTitle = head.filters.search,
     dateTime = head.filters.date,
     letterRange = head.filters.letterRange,

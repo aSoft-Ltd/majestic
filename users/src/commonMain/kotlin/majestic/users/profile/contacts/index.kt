@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,12 +30,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
-import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
@@ -46,60 +47,106 @@ import majestic.tooling.onClick
 import majestic.users.labels.settings.LanguageController
 import majestic.users.labels.settings.observeUsersLabels
 import majestic.users.profile.contacts.email.Email
+import majestic.users.profile.contacts.email.EmailColors
 import majestic.users.profile.contacts.email.EmailForm
+import majestic.users.profile.contacts.email.EmailFormColors
 import majestic.users.profile.contacts.email.EmailVerificationForm
+import majestic.users.profile.contacts.email.EmailVerificationFormColors
 import majestic.users.profile.contacts.phone.Phone
+import majestic.users.profile.contacts.phone.PhoneColors
 import majestic.users.profile.contacts.phone.PhoneForm
+import majestic.users.profile.contacts.phone.PhoneFormColors
 import majestic.users.profile.contacts.phone.PhoneVerificationForm
-import majestic.users.profile.contacts.tools.ContactsColors
-import majestic.users.profile.contacts.tools.toListCardColors
-import majestic.users.tools.ProfilePortraitHeader
+import majestic.users.profile.contacts.phone.PhoneVerificationFormColors
 import majestic.users.tools.buttons.ButtonAnimate
+import majestic.users.tools.buttons.ButtonAnimateColors
 import majestic.users.tools.buttons.FlatButton
+import majestic.users.tools.buttons.FlatButtonColors
 import majestic.users.tools.data.separator
+import majestic.users.tools.dialogs.DialogColors
 import majestic.users.tools.dialogs.Modal
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_add
 
+data class ContactBackgroundColors(
+    val focused: Color,
+    val unfocused: Color
+)
+
+data class ProfileBackgroundColors(
+    val focused: Color,
+    val unfocused: Color
+)
+
+
+data class ContactsItemBackground(
+    val surfaceContra: Color,
+    val contact: ContactBackgroundColors,
+    val profile: ProfileBackgroundColors
+)
+
+data class ContactsColors(
+    val item: ContactsItemBackground,
+    val background: Color,
+    val dialog: DialogColors,
+    val phoneForm: PhoneFormColors,
+    val buttonAnimate: ButtonAnimateColors,
+    val flatButton: FlatButtonColors,
+    val floatingButton: ColorPair,
+    val email: EmailColors,
+    val emailForm: EmailFormColors,
+    val emailVerify: EmailVerificationFormColors,
+    val phoneVerify: PhoneVerificationFormColors,
+    val phone: PhoneColors
+)
+
 @Composable
 private fun Modifier.contact(
     orientation: ScreenOrientation,
-    separator: Color,
-    colors: ColorPair,
+    colors: ContactsItemBackground,
+    lastItem: Boolean = false,
+    shape: Shape = RoundedCornerShape(0.dp),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ): Modifier {
     val isHovered by interactionSource.collectIsHoveredAsState()
-    val bgColor = if (isHovered) colors.foreground.copy(alpha = 0.05f) else Color.Transparent
     return height(80.dp).fillMaxWidth().then(
-        if (orientation is Landscape) Modifier.separator(false, separator)
-            .background(bgColor)
+        if (orientation is Landscape) Modifier
+            .separator(lastItem, colors.surfaceContra.copy(0.05f))
+            .background(
+                color = when (isHovered) {
+                    true -> colors.contact.focused
+                    else -> colors.contact.unfocused
+                },
+                shape = shape
+            )
             .padding(horizontal = 30.dp)
             .hoverable(interactionSource = interactionSource)
         else Modifier.clip(RoundedCornerShape(12.dp))
-            .background(colors.background)
+            .background(
+                color = when (isHovered) {
+                    true -> colors.profile.focused
+                    else -> colors.profile.unfocused
+                },
+                shape = shape
+            )
             .padding(horizontal = 20.dp)
     )
 }
 
-
 @Composable
 fun Contacts(
     colors: ContactsColors,
-    navigator: Navigator,
     language: LanguageController,
     orientation: ScreenOrientation
 ) {
-    val theme = colors.theme
-    val separatorColor = theme.surface.contra.color.copy(0.03f)
     val language by observeUsersLabels(language)
-    val labels = language.profile.tabs.contact
+    val labels = language.profile.tabs.contacts.content
 
     var verifyEmailDialogOpened by remember { mutableStateOf(false) }
     var addEmailDialogOpened by remember { mutableStateOf(false) }
     if (addEmailDialogOpened) Modal(
-        theme = theme,
-        background = colors.background,
-        orientation = orientation,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { addEmailDialogOpened = false }
     ) {
         EmailForm(
@@ -113,14 +160,13 @@ fun Contacts(
         )
     }
     if (verifyEmailDialogOpened) Modal(
-        theme = theme,
-        background = colors.background,
-        orientation = orientation,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { verifyEmailDialogOpened = false }
     ) {
         EmailVerificationForm(
             modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            theme = theme,
+            colors = colors.emailVerify,
             labels = labels.forms.email.verify,
             onVerify = { verifyEmailDialogOpened = false },
             onChangeEmail = {
@@ -133,9 +179,8 @@ fun Contacts(
     var verifyPhoneDialogOpened by remember { mutableStateOf(false) }
     var addPhoneDialogOpened by remember { mutableStateOf(false) }
     if (addPhoneDialogOpened) Modal(
-        theme = theme,
-        background = colors.background,
-        orientation = orientation,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { addPhoneDialogOpened = false }
     ) {
         PhoneForm(
@@ -149,13 +194,12 @@ fun Contacts(
         )
     }
     if (verifyPhoneDialogOpened) Modal(
-        theme = theme,
-        orientation = orientation,
-        background = colors.background,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { verifyPhoneDialogOpened = false }
     ) {
         PhoneVerificationForm(
-            theme = theme,
+            colors = colors.phoneVerify,
             labels = labels.forms.phone.verify,
             modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
             onVerify = { verifyPhoneDialogOpened = false },
@@ -166,9 +210,90 @@ fun Contacts(
         )
     }
 
-    Box(contentAlignment = if (orientation is Landscape) Alignment.TopEnd else Alignment.BottomEnd) {
+    Box(
+        contentAlignment = if (orientation is Landscape) Alignment.TopEnd else Alignment.BottomEnd,
+        modifier = Modifier.fillMaxSize()
+    ) {
         var isOpen by remember { mutableStateOf(false) }
         var buttonBox by remember { mutableStateOf(Rect(Offset.Zero, Size.Zero)) }
+
+        Column(
+            modifier = Modifier
+                .then(
+                    other = when (orientation) {
+                        is Landscape -> Modifier
+                            .wrapContentSize()
+                            .background(
+                                color = colors.background.copy(.5f),
+                                shape = RoundedCornerShape(20.dp)
+                            )
+
+                        is Portrait -> Modifier
+                            .padding(10.dp)
+                            .fillMaxSize()
+                    }
+                )
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = if (orientation is Landscape) Arrangement.Top else Arrangement.spacedBy(
+                10.dp
+            )
+        ) {
+            if (orientation is Landscape) Text(
+                modifier = Modifier.padding(vertical = 20.dp, horizontal = 30.dp),
+                text = labels.heading,
+                color = colors.item.surfaceContra.copy(0.5f),
+            )
+            Email(
+                modifier = Modifier.contact(
+                    orientation,
+                    colors = colors.item
+                ),
+                text = "amanihamduni@gmail.com",
+                isPrimary = true,
+                labels = labels,
+                orientation = orientation,
+                colors = colors.email
+            )
+            Email(
+                modifier = Modifier.contact(
+                    orientation,
+                    colors = colors.item
+                ),
+                text = "amani45@gmail.com",
+                isPrimary = false,
+                labels = labels,
+                orientation = orientation,
+                colors = colors.email
+            )
+            Phone(
+                modifier = Modifier.contact(
+                    orientation,
+                    colors = colors.item
+                ),
+                text = "+255 745 147 852",
+                colors = colors.phone,
+                isPrimary = true,
+                isWhatsapp = true,
+                isNormal = true,
+                labels = labels,
+                orientation = orientation,
+            )
+            Phone(
+                modifier = Modifier.contact(
+                    orientation,
+                    colors = colors.item,
+                    lastItem = true,
+                    shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
+                ),
+                text = "+255 755 005 600",
+                isPrimary = false,
+                isWhatsapp = false,
+                isNormal = true,
+                labels = labels,
+                orientation = orientation,
+                colors = colors.phone
+            )
+        }
 
 
         if (orientation is Landscape) Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
@@ -245,81 +370,6 @@ fun Contacts(
                     }
                 }
             )
-        }
-
-        Column(modifier = if (orientation is Portrait) Modifier.fillMaxSize() else Modifier) {
-            if (orientation is Portrait) ProfilePortraitHeader(
-                title = labels.heading,
-                colors = colors.profileHeader,
-                navigator = navigator
-            )
-            Column(
-                modifier = Modifier
-                    .background(colors.background, RoundedCornerShape(20.dp))
-                    .verticalScroll(rememberScrollState())
-                    .then(
-                        if (orientation is Landscape) Modifier else Modifier.padding(20.dp)
-                    ),
-                verticalArrangement = if (orientation is Landscape) Arrangement.Top else Arrangement.spacedBy(10.dp)
-            ) {
-                if (orientation is Landscape) Text(
-                    modifier = Modifier.padding(vertical = 20.dp, horizontal = 30.dp),
-                    text = labels.heading,
-                    color = theme.surface.contra.color.copy(0.5f),
-                )
-                Email(
-                    modifier = Modifier.contact(
-                        orientation,
-                        separatorColor,
-                        colors = theme.toListCardColors(colors.background)
-                    ),
-                    text = "amanihamduni@gmail.com",
-                    isPrimary = true,
-                    labels = labels,
-                    orientation = orientation,
-                    colors = colors.email
-                )
-                Email(
-                    modifier = Modifier.contact(
-                        orientation,
-                        separatorColor,
-                        colors = theme.toListCardColors(colors.background)
-                    ),
-                    text = "amani45@gmail.com",
-                    isPrimary = false,
-                    labels = labels,
-                    orientation = orientation,
-                    colors = colors.email
-                )
-                Phone(
-                    modifier = Modifier.contact(
-                        orientation,
-                        separatorColor,
-                        colors = theme.toListCardColors(colors.background)
-                    ),
-                    text = "+255 745 147 852",
-                    colors = colors.phone,
-                    isPrimary = true,
-                    isWhatsapp = true,
-                    isNormal = true,
-                    labels = labels,
-                    orientation = orientation,
-                )
-                Phone(
-                    modifier = Modifier.contact(
-                        orientation,
-                        separatorColor,
-                        colors = theme.toListCardColors(colors.background)
-                    ),
-                    text = "+255 755 005 600",
-                    isPrimary = false,
-                    isWhatsapp = false,
-                    isNormal = true,
-                    labels = labels,
-                    orientation = orientation,
-                    colors = colors.phone
-                )
-            }
         }
     }
 }

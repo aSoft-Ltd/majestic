@@ -2,7 +2,7 @@ package majestic.users.table.tools.data
 
 import majestic.ColorPair
 import majestic.ThemeColor
-import majestic.users.labels.table.UsersTableLabels
+import majestic.users.labels.table.TableLabels
 import majestic.users.table.header.Action
 import majestic.users.table.header.Archive
 import majestic.users.table.header.Assign
@@ -26,14 +26,14 @@ import tz.co.asoft.majestic_users.generated.resources.ic_delete
 import tz.co.asoft.majestic_users.generated.resources.ic_export
 import tz.co.asoft.majestic_users.generated.resources.ic_send_email
 
-internal fun getMenuActionLabels(labels: UsersTableLabels) = MenuActionLabels(
+internal fun getMenuActionLabels(labels: TableLabels) = MenuActionLabels(
     view = labels.body.actions.view,
     block = labels.body.actions.block.action,
     reset = labels.body.actions.reset.action,
     delete = labels.body.actions.delete.action
 )
 
-internal fun getOptions(labels: UsersTableLabels): List<OptionMenu<MenuAction>> = listOf(
+internal fun getOptions(labels: TableLabels): List<OptionMenu<MenuAction>> = listOf(
     OptionMenu(
         MenuAction.View.getLabel(getMenuActionLabels(labels)),
         MenuAction.View
@@ -68,7 +68,7 @@ internal fun Table<UsersData>.toActions(): (CallBack) -> Unit = {
 
 internal fun ThemeColor.getSelectionProps(
     selectCount: Int,
-    labels: UsersTableLabels,
+    labels: TableLabels,
 ) = SelectionBarProperties(
     count = selectCount,
     label = labels.head.selected,
@@ -84,7 +84,7 @@ internal fun ThemeColor.getSelectionProps(
     actions = getActions(labels)
 )
 
-internal fun getActions(labels: UsersTableLabels): List<Action> = listOf(
+internal fun getActions(labels: TableLabels): List<Action> = listOf(
     Action(
         icon = Res.drawable.ic_delete,
         label = labels.head.actions.delete,

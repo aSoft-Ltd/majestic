@@ -1,10 +1,10 @@
 package majestic.users.dashboard.tools
 
-import majestic.users.labels.table.UsersTableLabels
+import majestic.users.labels.table.TableLabels
 import majestic.users.tools.ColumnLabels
 
 
-internal fun UsersTableLabels.toColumnLabels(): ColumnLabels = ColumnLabels(
+internal fun TableLabels.toColumnLabels(): ColumnLabels = ColumnLabels(
     name = head.name,
     email = head.email,
     id = head.id,

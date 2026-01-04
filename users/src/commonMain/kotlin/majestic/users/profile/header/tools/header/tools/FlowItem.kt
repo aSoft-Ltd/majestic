@@ -2,6 +2,7 @@ package majestic.users.profile.header.tools.header.tools
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
@@ -9,21 +10,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ThemeColor
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
+
+data class FlowItemColors(
+    val icon: Color,
+    val title: Color,
+    val summary: Color
+)
 
 @Composable
 internal fun FlowItem(
     title: String,
     description: String,
-    theme: ThemeColor,
+    colors: FlowItemColors,
     resource: DrawableResource,
     resourceSize: Dp,
     titleSize: TextUnit = 16.sp,
@@ -44,7 +51,7 @@ internal fun FlowItem(
             modifier = Modifier.size(resourceSize),
             imageVector = vectorResource(resource),
             contentDescription = null,
-            tint = theme.surface.contra.color.copy(.3f)
+            tint = colors.icon
         )
 
         Text(
@@ -53,7 +60,7 @@ internal fun FlowItem(
             fontSize = subtitleSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            color = theme.surface.contra.color.copy(alpha = 0.5f)
+            color = colors.title
         )
     }
     Text(
@@ -62,6 +69,6 @@ internal fun FlowItem(
         fontSize = titleSize,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        color = theme.surface.contra.color
+        color = colors.summary
     )
 }

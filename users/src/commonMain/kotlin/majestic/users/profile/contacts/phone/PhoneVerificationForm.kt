@@ -11,19 +11,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ActionButton
 import majestic.ActionText
 import majestic.ButtonColors
-import majestic.ThemeColor
 import majestic.users.labels.profile.contact.ContactVerificationFormLabels
 import majestic.users.profile.contacts.tools.OtpInput
+import majestic.users.profile.contacts.tools.OtpInputColors
+
+data class PhoneVerificationFormColors(
+    val surfaceActual: Color,
+    val surfaceContra: Color,
+    val otp: OtpInputColors
+)
 
 @Composable
 internal fun PhoneVerificationForm(
-    theme: ThemeColor,
+    colors: PhoneVerificationFormColors,
     labels: ContactVerificationFormLabels,
     onVerify: () -> Unit,
     onChangePhone: () -> Unit,
@@ -37,22 +44,22 @@ internal fun PhoneVerificationForm(
         text = labels.title,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
-        color = theme.surface.contra.color
+        color = colors.surfaceContra
     )
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = labels.sentCode,
-            color = theme.surface.contra.color
+            color = colors.surfaceContra
         )
         Text(
             text = "+255 752 988 988",
             fontWeight = FontWeight.Bold,
-            color = theme.surface.contra.color
+            color = colors.surfaceContra
         )
         Text(
             text = labels.enterCode,
-            color = theme.surface.contra.color
+            color = colors.surfaceContra
         )
     }
 
@@ -60,15 +67,15 @@ internal fun PhoneVerificationForm(
     OtpInput(
         value = otp,
         length = 5,
-        theme = theme,
+        colors = colors.otp,
         onValueChange = { otp = it }
     )
     ActionButton(
         modifier = Modifier.fillMaxWidth(),
         text = labels.submit,
         colors = ButtonColors(
-            contentColor = theme.surface.actual.color,
-            containerColor = theme.surface.contra.color
+            contentColor = colors.surfaceActual,
+            containerColor = colors.surfaceContra
         ),
         onClick = onVerify
     )

@@ -22,8 +22,6 @@ import captain.Navigator
 import cinematic.watchAsState
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import kollections.buildList
-import koncurrent.toLater
 import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.users.dashboard.tools.toColumnLabels
@@ -136,7 +134,7 @@ fun MainUsersTable(
                         )
                     )
                 }
-            }.toLater()
+            }
         }
     }
     val columns = table.columns.current.watchAsState()

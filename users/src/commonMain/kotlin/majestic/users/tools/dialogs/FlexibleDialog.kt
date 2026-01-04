@@ -12,17 +12,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.DialogProperties
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.users.tools.dialogs.flexibleDialog.DefaultBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun FlexibleDialog(
-    theme: ThemeColor,
-    background: Color,
+    colors: DialogColors,
     onDismiss: () -> Unit,
     title: String = "",
     modifier: Modifier,
@@ -44,8 +41,6 @@ internal fun FlexibleDialog(
     properties = DialogProperties(usePlatformDefaultWidth = false),
 ) {
 
-    val dialog = rememberDialogColors(theme, background = background, orientation = orientation)
-
     Column(
         modifier = Modifier.wrapContentSize(),
         verticalArrangement = Arrangement.Top
@@ -54,7 +49,7 @@ internal fun FlexibleDialog(
             modifier = Modifier.fillMaxWidth().wrapContentHeight(),
             contentAlignment = Alignment.TopCenter
         ) {
-            bar(dialog)
+            bar(colors)
         }
         content(title)
     }

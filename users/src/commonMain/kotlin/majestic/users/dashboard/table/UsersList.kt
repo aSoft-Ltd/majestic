@@ -2,7 +2,6 @@ package majestic.users.dashboard.table
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,6 +14,7 @@ import cinematic.watchAsState
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
 import majestic.users.dashboard.roles.Header
+import majestic.users.dashboard.roles.HeaderProps
 import majestic.users.dashboard.table.body.UsersTableBody
 import majestic.users.dashboard.table.header.tools.UsersTableHeader
 import majestic.users.table.body.UsersTableBodyProperties
@@ -25,6 +25,7 @@ import symphony.Table
 import symphony.columns.Column
 
 data class UserTableProps(
+    val header: HeaderProps,
     val head: HeaderProperties,
     val body: UsersTableBodyProperties
 )
@@ -33,13 +34,13 @@ data class UserTableProps(
 fun UsersTable(
     modifier: Modifier = Modifier,
     table: Table<UsersData>,
-    selectionBar: @Composable ColumnScope.(users: Int) -> Unit = {},
     orientation: ScreenOrientation,
     props: UserTableProps,
     onItemClick: () -> Unit,
     weight: Map<Column<UsersData>, Float>,
-
-    ) {
+    add: () -> Unit,
+    manage: () -> Unit
+) {
     val selectCount = getSelectedRows(table)
     val selectedAll = table.selector.isCurrentPageSelectedWholly()
     val cellHeight = 70.dp

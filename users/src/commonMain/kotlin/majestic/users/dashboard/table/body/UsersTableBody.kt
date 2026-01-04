@@ -42,7 +42,7 @@ fun RowScope.UsersTableBody(
         hovered = props.colors.hovered,
         table = table,
         separator = props.colors.separator,
-        theme = props.colors.theme,
+        colors = props.colors.row,
         labels = props.labels,
         onItemClick = onItemClick,
         menuAction = menuAction
@@ -51,11 +51,14 @@ fun RowScope.UsersTableBody(
     is Portrait -> {
         ListItem(
             user = cell.row.item,
-            theme = props.colors.theme,
+            colors = props.colors.listItem,
             modifier = Modifier
                 .fillMaxWidth()
                 .onClick(callback = onItemClick)
-                .separator(cell.row.index == table.rows.lastIndex, props.colors.theme.surface.contra.color.copy(0.05f))
+                .separator(
+                    isLast = cell.row.index == table.rows.lastIndex,
+                    color = props.colors.listItem.surfaceContra.copy(0.05f)
+                )
                 .padding(10.dp),
             menuAction = menuAction,
             labels = ListLabels(

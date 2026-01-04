@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,11 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.users.labels.profile.contact.ContactLabels
 import majestic.users.profile.contacts.tools.DeleteForm
 import majestic.users.profile.contacts.tools.DeleteFormColors
 import majestic.users.profile.contacts.tools.EmailMenuAction
+import majestic.users.tools.dialogs.DialogColors
 import majestic.users.tools.dialogs.Flex
 import majestic.users.tools.dialogs.Modal
 import majestic.users.tools.menu.MenuOption
@@ -38,8 +39,10 @@ import tz.co.asoft.majestic_users.generated.resources.ic_mail
 
 data class EmailColors(
     val background: Color,
-    val theme: ThemeColor,
+    val surfaceContra: Color,
+    val dialog: DialogColors,
     val emailForm: EmailFormColors,
+    val emailVerify: EmailVerificationFormColors,
     val menuOption: MenuOptionColors,
     val deleteForm: DeleteFormColors
 )
@@ -55,9 +58,10 @@ internal fun Email(
 ) {
     var deleteDialogOpened by remember { mutableStateOf(false) }
     if (deleteDialogOpened) Modal(
-        orientation = orientation,
-        theme = colors.theme,
-        background = colors.background,
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
+            .background(colors.background),
+        colors = colors.dialog,
         onDismiss = { deleteDialogOpened = false }
     ) {
         DeleteForm(
@@ -72,9 +76,10 @@ internal fun Email(
     var verifyDialogOpened by remember { mutableStateOf(false) }
     var editDialogOpened by remember { mutableStateOf(false) }
     if (editDialogOpened) Modal(
-        orientation = orientation,
-        theme = colors.theme,
-        background = colors.background,
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
+            .background(colors.background),
+        colors = colors.dialog,
         onDismiss = { editDialogOpened = false }
     ) {
         EmailForm(
@@ -89,9 +94,10 @@ internal fun Email(
     }
     var duplicateDialogOpened by remember { mutableStateOf(false) }
     if (duplicateDialogOpened) Modal(
-        orientation = orientation,
-        theme = colors.theme,
-        background = colors.background,
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
+            .background(colors.background),
+        colors = colors.dialog,
         onDismiss = { duplicateDialogOpened = false }
     ) {
         EmailForm(
@@ -105,14 +111,15 @@ internal fun Email(
         )
     }
     if (verifyDialogOpened) Modal(
-        orientation = orientation,
-        theme = colors.theme,
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
+            .background(colors.background),
+        colors = colors.dialog,
         onDismiss = { verifyDialogOpened = false },
-        background = colors.background,
     ) {
         EmailVerificationForm(
             modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            theme = colors.theme,
+            colors = colors.emailVerify,
             labels = labels.forms.email.verify,
             onVerify = { verifyDialogOpened = false },
             onChangeEmail = {
@@ -134,7 +141,7 @@ internal fun Email(
             Image(
                 modifier = Modifier.size(24.dp),
                 painter = painterResource(Res.drawable.ic_mail),
-                colorFilter = ColorFilter.tint(colors.theme.surface.contra.color.copy(0.5f)),
+                colorFilter = ColorFilter.tint(colors.surfaceContra.copy(0.5f)),
                 contentDescription = null,
             )
             Flex(
@@ -145,7 +152,7 @@ internal fun Email(
             ) {
                 Text(
                     text = text,
-                    color = colors.theme.surface.contra.color,
+                    color = colors.surfaceContra,
                 )
                 if (isPrimary) Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -153,17 +160,17 @@ internal fun Email(
                 ) {
                     if (orientation is Landscape) Text(
                         text = "•",
-                        color = colors.theme.surface.contra.color.copy(0.5f),
+                        color = colors.surfaceContra.copy(0.5f),
                     )
                     Text(
                         modifier = Modifier
                             .clip(CircleShape)
-                            .background(colors.theme.surface.contra.color.copy(0.2f))
+                            .background(colors.surfaceContra.copy(0.2f))
                             .padding(horizontal = 5.dp),
                         text = labels.primary,
                         fontSize = 12.sp,
                         lineHeight = 12.sp,
-                        color = colors.theme.surface.contra.color.copy(0.5f),
+                        color = colors.surfaceContra.copy(0.5f),
                     )
                 }
             }

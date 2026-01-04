@@ -20,8 +20,6 @@ import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import kollections.buildList
-import koncurrent.toLater
 import majestic.users.dashboard.roles.HeaderColors
 import majestic.users.dashboard.roles.HeaderProps
 import majestic.users.dashboard.roles.Labels
@@ -114,7 +112,7 @@ internal fun LandscapeView(
                         )
                     )
                 }
-            }.toLater()
+            }
         }
     }
 
@@ -134,18 +132,19 @@ internal fun LandscapeView(
             .height(500.dp))
             .clip(RoundedCornerShape(20.dp)),
         table = table,
-        selectionBar = {},
         orientation = orientation,
         props = props.table,
         onItemClick = onItemClick,
-        weight = weight
+        weight = weight,
+        add = { },
+        manage = {}
     )
     UsersRoles(
         modifier = (if (orientation == Landscape) Modifier
             .weight(1f)
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(props.roles.background,RoundedCornerShape(20.dp))
+            .background(props.roles.background, RoundedCornerShape(20.dp))
         else Modifier
             .height(500.dp))
             .clip(RoundedCornerShape(20.dp)),
