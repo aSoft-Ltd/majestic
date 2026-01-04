@@ -88,7 +88,8 @@ internal fun Content(
     }
     when (orientation) {
         is Landscape -> Row(
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            modifier = Modifier.padding(start = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(40.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             data.list.forEach { item ->
@@ -96,12 +97,12 @@ internal fun Content(
                     title = item.title,
                     description = item.description,
                     colors = colors.flow,
-                    titleSize = 14.sp,
-                    subtitleSize = 12.sp,
+                    titleSize = 12.sp,
+                    subtitleSize = 14.sp,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.wrapContentSize(),
                     resource = item.icon,
-                    resourceSize = 20.dp
+                    resourceSize = 18.dp
                 )
             }
         }

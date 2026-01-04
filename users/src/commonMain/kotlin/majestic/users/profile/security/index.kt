@@ -11,7 +11,6 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
 import majestic.users.labels.settings.LanguageController
 import majestic.users.labels.settings.observeUsersLabels
-import majestic.users.tools.ProfilePortraitHeaderColors
 import majestic.users.tools.data.separator
 
 data class SecurityColors(
@@ -19,7 +18,6 @@ data class SecurityColors(
     val theme: ThemeColor,
     val changePassword: ChangePasswordColors,
     val logoutDevices: LogoutDevicesColors,
-    val profileHeader: ProfilePortraitHeaderColors,
     val twoFactor: TwoFactorColors,
 )
 

@@ -58,7 +58,6 @@ import majestic.users.profile.contacts.phone.PhoneForm
 import majestic.users.profile.contacts.phone.PhoneFormColors
 import majestic.users.profile.contacts.phone.PhoneVerificationForm
 import majestic.users.profile.contacts.phone.PhoneVerificationFormColors
-import majestic.users.tools.ProfilePortraitHeaderColors
 import majestic.users.tools.buttons.ButtonAnimate
 import majestic.users.tools.buttons.ButtonAnimateColors
 import majestic.users.tools.buttons.FlatButton
@@ -90,7 +89,6 @@ data class ContactsColors(
     val item: ContactsItemBackground,
     val background: Color,
     val dialog: DialogColors,
-    val profileHeader: ProfilePortraitHeaderColors,
     val phoneForm: PhoneFormColors,
     val buttonAnimate: ButtonAnimateColors,
     val flatButton: FlatButtonColors,

@@ -78,11 +78,18 @@ fun DetailHeader(
             if (orientation is Portrait) Icon(
                 modifier = Modifier.size(24.dp).onClick { navigator.go(-1) },
                 painter = painterResource(back),
-                tint = colors.icon, //if (theme.mode is Light) theme.dominant.contra.color else theme.surface.contra.color
+                tint = colors.icon,
                 contentDescription = "Icon"
             )
             Head(
-                modifier = Modifier.height(IntrinsicSize.Max),
+                modifier = Modifier
+                    .height(IntrinsicSize.Max)
+                    .then(
+                        when (orientation) {
+                            is Landscape -> Modifier.padding(start = 10.dp)
+                            is Portrait -> Modifier
+                        }
+                    ),
                 data = HeadData(
                     avatar = user.userAvatar,
                     name = user.fullName,

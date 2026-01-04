@@ -2,6 +2,7 @@ package majestic.users.profile.header.tools.header.tools
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
@@ -50,7 +51,7 @@ internal fun FlowItem(
             modifier = Modifier.size(resourceSize),
             imageVector = vectorResource(resource),
             contentDescription = null,
-            tint = colors.icon //theme.surface.contra.color.copy(.3f)
+            tint = colors.icon
         )
 
         Text(
@@ -59,7 +60,7 @@ internal fun FlowItem(
             fontSize = subtitleSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            color = colors.title //theme.surface.contra.color.copy(alpha = 0.5f)
+            color = colors.title
         )
     }
     Text(
@@ -68,6 +69,6 @@ internal fun FlowItem(
         fontSize = titleSize,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        color = colors.summary // theme.surface.contra.color
+        color = colors.summary
     )
 }

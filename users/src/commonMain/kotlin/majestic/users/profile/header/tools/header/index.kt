@@ -49,8 +49,6 @@ fun Head(
     verticalAlignment = Alignment.CenterVertically
 ) {
     val contentColor = colors.content
-//        if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
-//    else theme.surface.contra.color
 
     if (data.avatar != null) Box(modifier = Modifier.size(if (orientation is Landscape) 100.dp else 70.dp)) {
         Image(
