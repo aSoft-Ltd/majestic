@@ -13,7 +13,7 @@ private fun StartWindow.toDpSize() = DpSize(width.dp, height.dp)
 
 private fun ClientConfig.toDpSize() = window?.toDpSize() ?: DpSize.Unspecified
 
-private fun ClientConfig.toPlacement() = if (window == null) WindowPlacement.Fullscreen else WindowPlacement.Floating
+private fun ClientConfig.toPlacement() = if (window == null) WindowPlacement.Maximized else WindowPlacement.Floating
 
 private fun ClientConfig.toPosition() = when (val w = window) {
     null -> WindowPosition(Alignment.Center)
