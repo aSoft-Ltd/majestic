@@ -13,21 +13,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
-import majestic.users.tools.colors.barColors
-import majestic.users.tools.colors.toBackground
+import majestic.ColorPair
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
+
+data class UserDetailColors(
+    val clientBackground: Color,
+    val barColors: ColorPair,
+    val detailHeader: DetailedHeaderColors
+)
 
 @Composable
 fun UserDetails(
     orientation: ScreenOrientation,
     user: UsersData,
-    theme: ThemeColor,
+    colors: UserDetailColors,
     tabs: @Composable () -> Unit,
     navigator: Navigator,
     labels: ProfileHeaderLabels,
@@ -38,7 +43,7 @@ fun UserDetails(
     content: @Composable (() -> Unit) = {},
 ) = Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
 
-    val barColors = theme.barColors(orientation)
+    val barColors = colors.barColors
     bars()
     Column(
         modifier = Modifier
@@ -52,10 +57,10 @@ fun UserDetails(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .clip(RoundedCornerShape(if (orientation is Landscape) 20.dp else 0.dp))
-                .background(if (orientation is Landscape) theme.toBackground.copy(.5f) else barColors.background),
+                .background(if (orientation is Landscape) colors.clientBackground.copy(.5f) else barColors.background),
             user = user,
             labels = labels,
-            theme = theme,
+            colors = colors.detailHeader,
             orientation = orientation,
             navigator = navigator,
             tabs = tabs,

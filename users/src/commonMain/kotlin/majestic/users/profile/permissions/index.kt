@@ -14,37 +14,46 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.users.labels.settings.LanguageController
 import majestic.users.labels.settings.observeUsersLabels
+import majestic.users.profile.permissions.detail.DetailColors
 import majestic.users.profile.permissions.detail.Details
 import majestic.users.profile.permissions.detail.Permissions
+import majestic.users.profile.permissions.detail.PermissionsColors
 import majestic.users.profile.permissions.detail.toDetailProperties
-import majestic.users.tools.colors.toBackground
 import majestic.users.tools.data.Permissions
 
-internal fun Modifier.generalStyles(orientation: ScreenOrientation, theme: ThemeColor) = when (orientation) {
-    is Landscape -> this
-        .clip(RoundedCornerShape(20.dp))
-        .fillMaxWidth()
-        .wrapContentHeight().background(
-            color = theme.toBackground.copy(.5f),
-            shape = RoundedCornerShape(20.dp)
-        )
+internal fun Modifier.generalStyles(orientation: ScreenOrientation, color: Color) =
+    when (orientation) {
+        is Landscape -> this
+            .clip(RoundedCornerShape(20.dp))
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .background(
+                color = color.copy(.5f),
+                shape = RoundedCornerShape(20.dp)
+            )
 
-    is Portrait -> this.fillMaxSize()
-}
+        is Portrait -> this.fillMaxSize()
+    }
 
+data class GeneralPermissionColors(
+    val whiteBackground: Color,
+    val clientBackground: Color,
+    val permission: PermissionColors,
+    val detail: DetailColors
+)
 
 @Composable
 fun GeneralPermissions(
     orientation: ScreenOrientation,
     permissions: List<Permissions>,
-    theme: ThemeColor,
+    colors: GeneralPermissionColors,
     language: LanguageController,
     modifier: Modifier = Modifier
 ) = Column(
@@ -57,22 +66,28 @@ fun GeneralPermissions(
     when (current.view) {
         Main -> Permissions(
             modifier = Modifier
-                .generalStyles(orientation = orientation, theme = theme)
+                .generalStyles(orientation = orientation, color = colors.clientBackground)
                 .verticalScroll(rememberScrollState()),
             current = current,
             orientation = orientation,
-            theme = theme,
-            permissions = permissions
+            permissions = permissions,
+            colors = PermissionsColors(
+                background = colors.whiteBackground,
+                permission = colors.permission
+            )
         )
 
         Detailed -> current.activeObj?.let { activePermissions ->
             Details(
-                modifier = Modifier.generalStyles(orientation = orientation, theme = theme),
+                modifier = Modifier.generalStyles(
+                    orientation = orientation,
+                    color = colors.clientBackground
+                ),
                 current = current,
                 orientation = orientation,
                 props = activePermissions.toDetailProperties(),
                 labels = labels.profile.tabs.permissions.content,
-                theme = theme
+                colors = colors.detail
             )
         }
     }

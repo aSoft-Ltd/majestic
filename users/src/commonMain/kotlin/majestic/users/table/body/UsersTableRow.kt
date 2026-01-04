@@ -22,15 +22,20 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import majestic.Cell
 import majestic.Checkbox
-import majestic.ThemeColor
+import majestic.CheckboxColors
 import majestic.tooling.onClick
 import majestic.users.table.header.NameCell
+import majestic.users.table.header.NameCellColors
 import majestic.users.table.header.tools.getStatusLabels
-import majestic.users.tools.colors.toCheckboxColors
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
+
+data class UsersTableRowColors(
+    val checkBox: CheckboxColors,
+    val name: NameCellColors
+)
 
 @Composable
 internal fun RowScope.UsersTableRow(
@@ -41,7 +46,7 @@ internal fun RowScope.UsersTableRow(
     hovered: Color,
     table: Table<UsersData>,
     separator: Color,
-    theme: ThemeColor,
+    colors: UsersTableRowColors,
     labels: UserTableLabels,
     onItemClick: () -> Unit,
     menuAction: @Composable () -> Unit
@@ -55,7 +60,7 @@ internal fun RowScope.UsersTableRow(
         contentAlignment = Alignment.Center
     ) {
         val checkboxColors =
-            if (selected) theme.toCheckboxColors().selected else theme.toCheckboxColors().unselected
+            if (selected) colors.checkBox.selected else colors.checkBox.unselected
         Checkbox(
             selected = selected,
             colors = checkboxColors,
@@ -79,7 +84,7 @@ internal fun RowScope.UsersTableRow(
             .pointerHoverIcon(PointerIcon.Hand)
             .onClick(onItemClick)
             .padding(horizontal = 12.dp),
-        theme = theme,
+        colors = colors.name,
         resource = cell.row.item.userAvatar,
         fullName = cell.row.item.fullName,
     )
@@ -96,7 +101,7 @@ internal fun RowScope.UsersTableRow(
         Text(
             modifier = Modifier.onClick(onItemClick),
             text = getLabels(cell, labels.columns).toString(),
-            color = theme.surface.contra.color,
+            color = colors.name.surfaceContra,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             softWrap = false,

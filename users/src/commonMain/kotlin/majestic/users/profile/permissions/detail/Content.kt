@@ -17,16 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
-import majestic.users.profile.permissions.colors.toDetailItemColors
+
 
 @Composable
-
 internal fun Content(
     modifier: Modifier,
     props: DetailedProperties,
     orientation: ScreenOrientation,
-    theme: ThemeColor
+    colors: DetailColors
 ) = Column(
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +39,7 @@ internal fun Content(
                 .wrapContentHeight()
                 .padding(10.dp),
             props = DetailedItemProperties(
-                colors = theme.toDetailItemColors(),
+                colors = colors.detail,
                 item = permission,
                 itemState = switch
             ),
@@ -55,7 +53,7 @@ internal fun Content(
                 .padding(end = 8.dp)
                 .fillMaxWidth()
                 .height(1.dp)
-                .background(theme.surface.contra.color.copy(.05f))
+                .background(colors.background.copy(.05f))
         )
     }
 }

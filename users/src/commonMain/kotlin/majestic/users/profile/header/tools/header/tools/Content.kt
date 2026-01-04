@@ -24,12 +24,18 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import majestic.ThemeColor
 import org.jetbrains.compose.resources.painterResource
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+
+data class HeadContentColors(
+    val whiteBackground: Color,
+    val content: Color,
+    val title: Color,
+    val flow: FlowItemColors
+)
 
 @OptIn(ExperimentalTime::class)
 @Composable
@@ -37,8 +43,7 @@ internal fun Content(
     modifier: Modifier,
     orientation: ScreenOrientation,
     data: HeadData,
-    contentColor: Color,
-    theme: ThemeColor
+    colors: HeadContentColors
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(if (orientation is Landscape) 10.dp else 5.dp)
@@ -52,7 +57,7 @@ internal fun Content(
     ) {
         Text(
             text = data.name,
-            color = contentColor,
+            color = colors.title,
             fontSize = if (orientation is Landscape) 20.sp else 14.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 1.sp,
@@ -71,14 +76,14 @@ internal fun Content(
         if (orientation is Landscape) Text(
             modifier = Modifier
                 .clip(RoundedCornerShape(5.dp))
-                .background(theme.surface.contra.color.copy(.3f))
+                .background(colors.whiteBackground.copy(.3f))
                 .padding(horizontal = 5.dp, vertical = 2.dp),
             text = data.gender,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
             fontSize = 10.sp,
             lineHeight = 1.sp,
-            color = theme.dominant.contra.color,
+            color = colors.content,
         )
     }
     when (orientation) {
@@ -90,7 +95,7 @@ internal fun Content(
                 FlowItem(
                     title = item.title,
                     description = item.description,
-                    theme = theme,
+                    colors = colors.flow,
                     titleSize = 14.sp,
                     subtitleSize = 12.sp,
                     fontWeight = FontWeight.Normal,
@@ -108,14 +113,14 @@ internal fun Content(
             Text(
                 modifier = Modifier
                     .clip(RoundedCornerShape(5.dp))
-                    .background(theme.surface.contra.color.copy(.05f))
+                    .background(colors.whiteBackground.copy(.05f))
                     .padding(horizontal = 5.dp, vertical = 2.dp),
                 text = data.gender,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 fontSize = 10.sp,
                 lineHeight = 1.sp,
-                color = theme.dominant.contra.color,
+                color = colors.content,
             )
             data.list.filter {
                 it.title.equals("Date of Birth", true) || it.title.equals(
@@ -126,7 +131,7 @@ internal fun Content(
                 Text(
                     modifier = Modifier
                         .clip(RoundedCornerShape(2.dp))
-                        .background(theme.surface.contra.color.copy(.05f))
+                        .background(colors.whiteBackground.copy(.05f))
                         .padding(horizontal = 5.dp, vertical = 2.dp),
                     text = if (item.title.equals("joined", true)) {
                         "${item.title} ${item.description.drop(2)}"
@@ -137,7 +142,7 @@ internal fun Content(
                     maxLines = 1,
                     fontSize = 10.sp,
                     lineHeight = 1.sp,
-                    color = theme.dominant.contra.color,
+                    color = colors.content,
                 )
             }
         }

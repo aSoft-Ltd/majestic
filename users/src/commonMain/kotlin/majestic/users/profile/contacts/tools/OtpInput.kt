@@ -33,10 +33,21 @@ fun isNumber(text: String): Boolean {
     return text.matches(pattern)
 }
 
+data class BorderColors(
+    val focused: Color,
+    val unFocused: Color
+)
+
+data class OtpInputColors(
+    val dominantActual: Color,
+    val dominantContra: Color,
+    val border: BorderColors
+)
+
 @Composable
 internal fun OtpInput(
     value: String,
-    theme: ThemeColor,
+    colors: OtpInputColors,
     onValueChange: (String) -> Unit,
     length: Int = 6
 ) {
@@ -68,25 +79,21 @@ internal fun OtpInput(
                             .size(40.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(
-                                if (char.isNotEmpty()) theme.dominant.actual.color.copy(alpha = 0.1f)
+                                if (char.isNotEmpty()) colors.dominantActual.copy(alpha = 0.1f)
                                 else Color.Transparent
                             )
                             .border(
                                 if (isFocused) 2.dp
                                 else 1.dp,
-                                if (isFocused) when (theme.mode) {
-                                    is Dark -> theme.dominant.contra.color
-                                    is Light -> theme.dominant.actual.color
-                                }
-                                else when (theme.mode) {
-                                    is Dark -> theme.dominant.contra.color.copy(alpha = 0.2f)
-                                    is Light -> theme.dominant.actual.color.copy(alpha = 0.2f)
+                                when (isFocused) {
+                                    true -> colors.border.focused
+                                    else -> colors.border.unFocused
                                 },
                                 RoundedCornerShape(8.dp)
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = char, fontSize = 20.sp, color = theme.dominant.contra.color)
+                        Text(text = char, fontSize = 20.sp, color = colors.dominantContra)
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                 }

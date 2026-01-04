@@ -13,15 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.tooling.onClick
 import majestic.users.labels.profile.PermissionLabels
 import majestic.users.profile.permissions.PermissionScreen
-import majestic.users.profile.permissions.colors.toBreadCrumbTabColors
 import org.jetbrains.compose.resources.vectorResource
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_access
@@ -46,12 +43,18 @@ private fun Modifier.breadCrumbTab(
         end = if (orientation is Landscape) paddings.end else 0.dp
     )
 
+data class NavigationColors(
+    val tinted: Color,
+    val breadCrumb: (tint: Color?) -> BreadCrumbTabColors,
+    val background: Color
+)
+
 @Composable
 internal fun Navigation(
     modifier: Modifier,
     props: DetailedProperties,
     orientation: ScreenOrientation,
-    theme: ThemeColor,
+    colors: NavigationColors,
     current: PermissionScreen,
     labels: PermissionLabels
 ) = Row(
@@ -59,11 +62,10 @@ internal fun Navigation(
     horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.Start),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    val permission = theme.dominant.actual.color.copy(alpha = 0.4f).compositeOver(theme.surface.contra.color)
     BreadCrumbTab(
         modifier = Modifier
             .breadCrumbTab(
-                container = theme.surface.contra.color.copy(.05f),
+                container = colors.background.copy(.05f),
                 orientation = orientation,
                 paddings = ContainerPadding(end = 50.dp)
             )
@@ -73,23 +75,23 @@ internal fun Navigation(
         showLabel = orientation is Landscape,
         icon = Res.drawable.ic_access,
         label = labels.breadcrumb,
-        colors = theme.toBreadCrumbTabColors()
+        colors = colors.breadCrumb(null)
     )
     if (orientation is Landscape) Icon(
         imageVector = vectorResource(Res.drawable.ic_arrow_right),
         contentDescription = null,
-        tint = theme.surface.contra.color,
+        tint = colors.background,
         modifier = Modifier.size(12.dp)
     )
     BreadCrumbTab(
         modifier = Modifier.breadCrumbTab(
-            container = theme.surface.contra.color.copy(.05f),
+            container = colors.background.copy(.05f),
             orientation = orientation,
             paddings = ContainerPadding(end = 10.dp)
         ),
         showLabel = true,
         icon = Res.drawable.ic_admission,
         label = props.trailingTitle,
-        colors = theme.toBreadCrumbTabColors(tint = permission)
+        colors = colors.breadCrumb(colors.tinted)
     )
 }

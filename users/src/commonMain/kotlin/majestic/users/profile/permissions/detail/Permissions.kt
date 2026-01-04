@@ -22,13 +22,12 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.tooling.onClick
 import majestic.users.profile.permissions.Permission
+import majestic.users.profile.permissions.PermissionColors
 import majestic.users.profile.permissions.PermissionData
 import majestic.users.profile.permissions.PermissionScreen
-import majestic.users.profile.permissions.colors.toPermissionColors
 import majestic.users.tools.data.Permissions
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_arrow_right
@@ -36,7 +35,7 @@ import tz.co.asoft.majestic_users.generated.resources.ic_arrow_right
 internal fun Modifier.permissionItem(
     hovered: Boolean,
     permissions: List<Permissions>,
-    theme: ThemeColor,
+    background: Color,
     index: Int,
     current: PermissionScreen,
     item: Permissions,
@@ -47,7 +46,7 @@ internal fun Modifier.permissionItem(
     .wrapContentHeight()
     .pointerHoverIcon(PointerIcon.Hand)
     .background(
-        color = if (hovered) theme.surface.contra.color.copy(.05f) else Color.Transparent,
+        color = if (hovered) background.copy(.05f) else Color.Transparent,
         shape = when (index) {
             0 -> RoundedCornerShape(
                 topStart = if (orientation is Landscape) 20.dp else 0.dp,
@@ -69,12 +68,17 @@ internal fun Modifier.permissionItem(
     .hoverable(interaction)
     .padding(if (orientation is Landscape) 20.dp else 10.dp)
 
+data class PermissionsColors(
+    val background: Color,
+    val permission: PermissionColors
+)
+
 @Composable
 internal fun Permissions(
     modifier: Modifier,
     permissions: List<Permissions>,
     current: PermissionScreen,
-    theme: ThemeColor,
+    colors: PermissionsColors,
     orientation: ScreenOrientation
 ) = Column(
     modifier = modifier,
@@ -93,20 +97,20 @@ internal fun Permissions(
                 item = item,
                 interaction = interaction,
                 orientation = orientation,
-                theme = theme
+                background = colors.background
             ),
             item = PermissionData(
                 permission = item,
                 trailIcon = Res.drawable.ic_arrow_right
             ),
 
-            colors = theme.toPermissionColors(),
+            colors = colors.permission,
             orientation = orientation
         )
         if (index != permissions.lastIndex) Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .underline(theme.surface.contra.color.copy(.05f), 1.dp)
+                .underline(colors.background.copy(.05f), 1.dp)
         )
     }
 }

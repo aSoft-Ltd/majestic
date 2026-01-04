@@ -29,6 +29,7 @@ import majestic.users.profile.contacts.tools.DeleteForm
 import majestic.users.profile.contacts.tools.DeleteFormColors
 import majestic.users.profile.contacts.tools.PhoneMenuAction
 import majestic.users.tools.Tooltip
+import majestic.users.tools.dialogs.DialogColors
 import majestic.users.tools.dialogs.Flex
 import majestic.users.tools.dialogs.Modal
 import majestic.users.tools.menu.MenuOption
@@ -45,7 +46,9 @@ data class PhoneColors(
     val background: Color,
     val deleteForm: DeleteFormColors,
     val menuOption: MenuOptionColors,
-    val phoneForm: PhoneFormColors
+    val phoneForm: PhoneFormColors,
+    val dialog: DialogColors,
+    val verifyPhone: PhoneVerificationFormColors
 )
 
 @Composable
@@ -62,9 +65,8 @@ internal fun Phone(
     var deleteDialogOpened by remember { mutableStateOf(false) }
     val theme = colors.theme
     if (deleteDialogOpened) Modal(
-        theme = theme,
-        background = colors.background,
-        orientation = orientation,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { deleteDialogOpened = false }
     ) {
         DeleteForm(
@@ -78,9 +80,8 @@ internal fun Phone(
     var verifyDialogOpened by remember { mutableStateOf(false) }
     var editDialogOpened by remember { mutableStateOf(false) }
     if (editDialogOpened) Modal(
-        theme = theme,
-        orientation = orientation,
-        background = colors.background,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { editDialogOpened = false }
     ) {
         PhoneForm(
@@ -95,9 +96,8 @@ internal fun Phone(
     }
     var duplicateDialogOpened by remember { mutableStateOf(false) }
     if (duplicateDialogOpened) Modal(
-        theme = theme,
-        orientation = orientation,
-        background = colors.background,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { duplicateDialogOpened = false }
     ) {
         PhoneForm(
@@ -111,13 +111,12 @@ internal fun Phone(
         )
     }
     if (verifyDialogOpened) Modal(
-        theme = theme,
-        orientation = orientation,
-        background = colors.background,
+        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+        colors = colors.dialog,
         onDismiss = { verifyDialogOpened = false }
     ) {
         PhoneVerificationForm(
-            theme = theme,
+            colors = colors.verifyPhone,
             labels = labels.forms.phone.verify,
             modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
             onVerify = { verifyDialogOpened = false },

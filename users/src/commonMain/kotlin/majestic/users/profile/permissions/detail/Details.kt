@@ -12,12 +12,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.users.labels.profile.PermissionLabels
 import majestic.users.profile.permissions.PermissionScreen
 import majestic.users.tools.data.Permission
@@ -36,11 +36,18 @@ internal data class ContainerPadding(
     val top: Dp = 5.dp
 )
 
+data class DetailColors(
+    val tint: Color,
+    val background: Color,
+    val breadCrumb: (tint: Color?) -> BreadCrumbTabColors,
+    val detail: DetailedItemColors
+)
+
 @Composable
 internal fun Details(
     orientation: ScreenOrientation,
     props: DetailedProperties,
-    theme: ThemeColor,
+    colors: DetailColors,
     labels: PermissionLabels,
     modifier: Modifier = Modifier,
     current: PermissionScreen
@@ -56,7 +63,7 @@ internal fun Details(
                     is Landscape -> Modifier.wrapContentSize()
                     is Portrait -> Modifier
                         .fillMaxWidth()
-                        .background(color = theme.surface.contra.color.copy(.05f))
+                        .background(color = colors.background.copy(.05f))
                 }
             )
             .padding(horizontal = 20.dp, vertical = 10.dp),
@@ -64,7 +71,11 @@ internal fun Details(
         orientation = orientation,
         current = current,
         labels = labels,
-        theme = theme
+        colors = NavigationColors(
+            tinted = colors.tint,
+            breadCrumb = colors.breadCrumb,
+            background = colors.background
+        )
     )
     Content(
         modifier = Modifier
@@ -72,7 +83,7 @@ internal fun Details(
             .fillMaxHeight()
             .verticalScroll(rememberScrollState()),
         props = props,
-        theme = theme,
+        colors = colors,
         orientation = orientation
     )
 }

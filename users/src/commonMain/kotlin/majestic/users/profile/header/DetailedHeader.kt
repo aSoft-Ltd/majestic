@@ -13,16 +13,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.Light
-import majestic.ThemeColor
 import majestic.tooling.onClick
 import majestic.users.labels.profile.TabLabels
 import majestic.users.profile.header.tools.header.Head
+import majestic.users.profile.header.tools.header.HeadColors
 import majestic.users.profile.header.tools.header.tools.HeadData
 import majestic.users.profile.header.tools.toProfileData
 import majestic.users.tools.data.GenderLabels
@@ -39,17 +39,21 @@ data class HeaderLabels(
 )
 
 
-
 data class ProfileHeaderLabels(
     val header: HeaderLabels,
     val tabs: TabLabels
+)
+
+data class DetailedHeaderColors(
+    val icon: Color,
+    val head: HeadColors
 )
 
 @Composable
 fun DetailHeader(
     labels: ProfileHeaderLabels,
     user: UsersData,
-    theme: ThemeColor,
+    colors: DetailedHeaderColors,
     navigator: Navigator,
     back: DrawableResource,
     tabs: @Composable () -> Unit = {},
@@ -74,7 +78,7 @@ fun DetailHeader(
             if (orientation is Portrait) Icon(
                 modifier = Modifier.size(24.dp).onClick { navigator.go(-1) },
                 painter = painterResource(back),
-                tint = if (theme.mode is Light) theme.dominant.contra.color else theme.surface.contra.color,
+                tint = colors.icon, //if (theme.mode is Light) theme.dominant.contra.color else theme.surface.contra.color
                 contentDescription = "Icon"
             )
             Head(
@@ -88,7 +92,7 @@ fun DetailHeader(
                     list = user.toProfileData(labels),
                     flag = user.flag
                 ),
-                theme = theme,
+                colors = colors.head,
                 orientation = orientation,
             )
         }

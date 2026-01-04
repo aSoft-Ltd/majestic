@@ -24,6 +24,7 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.NoRippleInteractionSource
+import majestic.tooling.onClick
 import majestic.users.tools.dialogs.CloseButton
 import majestic.users.tools.dialogs.DialogColors
 
@@ -41,11 +42,7 @@ internal fun DefaultBar(
                     .padding(top = 20.dp, end = 20.dp)
                     .align(Alignment.TopEnd)
                     .pointerHoverIcon(PointerIcon.Hand)
-                    .clickable(
-                        interactionSource = NoRippleInteractionSource,
-                        indication = null,
-                        onClick = onDismiss
-                    )
+                    .onClick(onDismiss)
                     .hoverable(interactionSource = dialog.interactionSource)
                     .background(color = dialog.cancelBackground, shape = CircleShape),
                 tint = dialog.cancelContent,
@@ -65,11 +62,7 @@ internal fun DefaultBar(
                 modifier = Modifier
                     .padding(start = 8.dp, top = 20.dp, bottom = 20.dp)
                     .pointerHoverIcon(PointerIcon.Hand)
-                    .clickable(
-                        interactionSource = NoRippleInteractionSource,
-                        indication = null,
-                        onClick = onDismiss
-                    )
+                    .onClick(onDismiss)
                     .hoverable(interactionSource = dialog.interactionSource)
                     .background(color = Color.Transparent),
                 tint = dialog.cancelBackground,
