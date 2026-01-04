@@ -1,7 +1,7 @@
-package majestic.users.profile.tools
+package majestic.users.profile.header.tools
 
-import majestic.users.profile.ProfileHeaderLabels
-import majestic.users.profile.tools.header.tools.FlowItemData
+import majestic.users.profile.header.ProfileHeaderLabels
+import majestic.users.profile.header.tools.header.tools.FlowItemData
 import majestic.users.tools.data.UsersData
 
 

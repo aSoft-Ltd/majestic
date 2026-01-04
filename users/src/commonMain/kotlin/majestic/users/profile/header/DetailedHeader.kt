@@ -1,10 +1,7 @@
-package majestic.users.profile
+package majestic.users.profile.header
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.hoverable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -17,11 +14,8 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
@@ -30,17 +24,16 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.Light
 import majestic.ThemeColor
 import majestic.tooling.onClick
+import majestic.users.profile.header.tools.ProfileDestinationMapper
+import majestic.users.profile.header.tools.header.Head
+import majestic.users.profile.header.tools.header.tools.HeadData
+import majestic.users.profile.header.tools.toProfileData
 import majestic.users.profile.tabs.ProfileTabs
-import majestic.users.profile.tools.ProfileDestinationMapper
-import majestic.users.profile.tools.header.Head
-import majestic.users.profile.tools.header.tools.HeadData
-import majestic.users.profile.tools.toProfileData
 import majestic.users.tools.colors.background
 import majestic.users.tools.data.GenderLabels
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.vectorResource
 
 data class HeaderLabels(
     val joined: String,
@@ -69,16 +62,14 @@ fun DetailHeader(
     theme: ThemeColor,
     navigator: Navigator,
     back: DrawableResource,
-    contextMenu: DrawableResource,
     endpoint: ProfileDestinationMapper,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
-    onActionClick: () -> Unit = {}
+    menuOption: @Composable () -> Unit = {}
 ) = Column(
     modifier = modifier
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val hovered by interactionSource.collectIsHoveredAsState()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,22 +96,15 @@ fun DetailHeader(
                     gender = user.gender.getLabels(
                         labels.header.gender
                     ),
-                    list = user.toProfileData(labels)
+                    list = user.toProfileData(labels),
+                    flag = user.flag
                 ),
                 theme = theme,
                 orientation = orientation,
             )
         }
 
-        Icon(
-            modifier = Modifier
-                .rotate(90f)
-                .onClick(onActionClick)
-                .hoverable(interactionSource = interactionSource),
-            imageVector = vectorResource(contextMenu),
-            tint = if (hovered) theme.surface.contra.color else theme.surface.contra.color.copy(.5f),
-            contentDescription = "Waiting",
-        )
+        menuOption()
     }
     ProfileTabs(
         modifier = Modifier
