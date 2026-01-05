@@ -31,6 +31,7 @@ import majestic.users.dashboard.roles.UsersRolesProps
 import majestic.users.dashboard.roles.tools.getRoles
 import majestic.users.dashboard.table.UserTableProps
 import majestic.users.dashboard.table.UsersTable
+import majestic.users.dashboard.tools.portraitHeader.PortraitHeaderColors
 import majestic.users.dashboard.tools.toColumnLabels
 import majestic.users.labels.UsersLabels
 import majestic.users.table.header.tools.getHeaderLabels
@@ -51,9 +52,10 @@ import tz.co.asoft.majestic_users.generated.resources.ic_clock_01
 import tz.co.asoft.majestic_users.generated.resources.ic_laptop_phone
 import tz.co.asoft.majestic_users.generated.resources.tz_flag
 
-data class LandscapeViewProps(
+data class TableViewProps(
     val table: UserTableProps,
-    val roles: UserRoleColors
+    val roles: UserRoleColors,
+    val tabs: PortraitHeaderColors
 )
 
 data class UserRoleColors(
@@ -65,7 +67,7 @@ data class UserRoleColors(
 @Composable
 internal fun LandscapeView(
     orientation: ScreenOrientation,
-    props: LandscapeViewProps,
+    props: TableViewProps,
     labels: UsersLabels,
     onItemClick: () -> Unit = {},
     manage: () -> Unit = {},
@@ -160,7 +162,7 @@ internal fun LandscapeView(
             body = UserBodyProps(
                 colors = props.roles.roleCard,
                 labels = UserRoleBodyLabels(
-                    actions = labels.dashboard.roles.getRoles(),
+                    actions = labels.dashboard.roles.actions.getRoles(),
                     permission = "",
                     userAssigned = ""
                 )

@@ -2,6 +2,7 @@ package majestic.users.dashboard.roles.tools
 
 import androidx.compose.ui.graphics.Color
 import majestic.users.dashboard.roles.UsersRolesProps
+import majestic.users.labels.dashboard.RoleActionsLabels
 import majestic.users.labels.dashboard.RoleLabels
 import majestic.users.tools.menu.MenuOptionColors
 import majestic.users.tools.menu.OptionMenu
@@ -13,7 +14,7 @@ enum class RoleAction {
     View, Edit, Duplicate, Delete
 }
 
-internal fun RoleLabels.getRoles() = listOf(
+internal fun RoleActionsLabels.getRoles() = listOf(
     OptionMenu(view, RoleAction.View),
     OptionMenu(edit, RoleAction.Edit),
     OptionMenu(duplicate, RoleAction.Duplicate),

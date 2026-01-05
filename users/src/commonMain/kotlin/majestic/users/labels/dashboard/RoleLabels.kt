@@ -1,27 +1,24 @@
 package majestic.users.labels.dashboard
 
 data class RoleLabels(
-    val view: String,
-    val edit: String,
-    val duplicate:String,
-    val delete: String
-){
+    val manage: String,
+    val add: String,
+    val actions: RoleActionsLabels
+) {
     companion object {
         val english by lazy {
             RoleLabels(
-                view = "View Role",
-                edit = "Edit Role",
-                duplicate = "Duplicate Role",
-                delete = "Delete Role"
+                manage = "Manage",
+                add = "Add",
+                actions = RoleActionsLabels.english
             )
         }
 
         val swahili by lazy {
             RoleLabels(
-                view = "Angalia Jukumu",
-                edit = "Hariri Jukumu",
-                duplicate = "Rudufisha Jukumu",
-                delete = "Futa Jukumu"
+                manage = "Simamia",
+                add = "Ongeza",
+                actions = RoleActionsLabels.swahili
             )
         }
     }
