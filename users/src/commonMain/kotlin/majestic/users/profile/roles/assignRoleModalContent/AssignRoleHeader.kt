@@ -1,11 +1,7 @@
 package majestic.users.profile.roles.assignRoleModalContent
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -27,38 +23,34 @@ import tz.co.asoft.majestic_users.generated.resources.ic_account_settings_filled
 fun AssignRoleHeader(
     userName: String,
     labels: RolesLabels.AssignRoleModalLabels,
-    colors: RolesColors
+    colors: RolesColors,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .background(Color(0xFF202733))
-            .padding(20.dp),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Icon(
-                painter = painterResource(Res.drawable.ic_account_settings_filled),
-                contentDescription = "Account Settings Filled",
-                tint = Color(0xFFD18C27),
-                modifier = Modifier
-                    .clip(RoundedCornerShape(6.dp))
-                    .background(Color(0xFF000000).copy(alpha = 0.10f))
-                    .background(Color(0xFF1D2430))
-                    .padding(12.dp)
-                    .size(24.dp)
-            )
+            .padding(20.dp)
 
-            Text(
-                text = "${labels.title} $userName",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = colors.theme.surface.contra.color
-            )
-        }
+    ) {
+        Icon(
+            painter = painterResource(Res.drawable.ic_account_settings_filled),
+            contentDescription = "Account Settings Filled",
+            tint = Color(0xFFD18C27),
+            modifier = Modifier
+                .clip(RoundedCornerShape(6.dp))
+                .background(Color(0xFF000000).copy(alpha = 0.10f))
+                .background(Color(0xFF1D2430))
+                .padding(12.dp)
+                .size(24.dp)
+        )
+
+        Text(
+            text = "${labels.title} $userName",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = colors.theme.surface.contra.color
+        )
     }
 }

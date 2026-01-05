@@ -16,9 +16,9 @@ import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_school
 
 @Composable
-fun CampusIcon(colors: CampusColors) {
+fun CampusIcon(colors: CampusColors, modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(44.dp)
             .clip(RoundedCornerShape(6.dp))
             .background(colors.iconBackground)

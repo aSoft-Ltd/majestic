@@ -20,7 +20,8 @@ fun RoleItemButton(
     actionType: RoleActionType,
     assignment: RoleAssignment,
     labels: RolesLabels.RoleItemLabels,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier.width(200.dp),
 ) {
     val buttonLabel = when (actionType) {
         RoleActionType.SETUP -> labels.setupAction
@@ -65,17 +66,15 @@ fun RoleItemButton(
         )
     }
 
-    val buttonModifier = Modifier
-        .clip(CircleShape)
-        .width(200.dp)
-        .then(
-            if (actionType == RoleActionType.SETUP) {
-                Modifier.border(1.dp, Color.White.copy(0.5f), CircleShape)
-            } else Modifier
-        )
 
     FlatButton(
-        modifier = buttonModifier,
+        modifier = modifier
+            .clip(CircleShape)
+            .then(
+                if (actionType == RoleActionType.SETUP) {
+                    Modifier.border(1.dp, Color.White.copy(0.5f), CircleShape)
+                } else Modifier
+            ),
         label = buttonLabel,
         colors = buttonColors,
         onClick = onClick

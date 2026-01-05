@@ -14,10 +14,14 @@ import majestic.users.profile.roles.RoleItemColors
 
 @Composable
 fun RoleSetupBadge(
-    labels: RolesLabels.RoleItemLabels, colors: RoleItemColors
+    labels: RolesLabels.RoleItemLabels,
+    colors: RoleItemColors,
+    modifier: Modifier = Modifier,
 ) {
     Text(
-        modifier = Modifier.clip(CircleShape).background(colors.setupBadgeBackground)
+        modifier = modifier
+            .clip(CircleShape)
+            .background(colors.setupBadgeBackground)
             .padding(horizontal = 8.dp, vertical = 2.dp),
         text = labels.setupBadge,
         fontSize = 12.sp,

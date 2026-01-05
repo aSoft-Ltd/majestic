@@ -29,7 +29,8 @@ import tz.co.asoft.majestic_users.generated.resources.ic_plus_sign
 fun CampusAddButton(
     labels: RolesLabels.CampusLabels,
     colors: CampusColors,
-    onAddRole: () -> Unit
+    onAddRole: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
@@ -38,7 +39,7 @@ fun CampusAddButton(
     else colors.menuOption.icon.foreground.copy(.9f)
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(32.dp)
             .clip(CircleShape)
             .background(bgColor)

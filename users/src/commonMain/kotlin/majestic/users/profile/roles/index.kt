@@ -3,184 +3,23 @@ package majestic.users.profile.roles
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
-import majestic.ExpandDirection
-import majestic.FloatingActionButton
-import majestic.floatActionButton
-import majestic.tooling.onClick
-import majestic.users.labels.roles.RolesLabels
 import majestic.users.labels.settings.LanguageController
 import majestic.users.labels.settings.observeUsersLabels
-import majestic.users.profile.roles.assignRoleModalContent.AssignRoleModalContent
-import majestic.users.profile.roles.campus.Campus
+import majestic.users.profile.roles.assignRoleModalContent.AssignRoleFooter
+import majestic.users.profile.roles.assignRoleModalContent.AssignRoleHeader
 import majestic.users.profile.roles.campus.CampusMenuAction
-import majestic.users.tools.ProfilePortraitHeader
-import majestic.users.tools.buttons.ButtonAnimate
-import majestic.users.tools.buttons.FlatButton
+import majestic.users.profile.roles.roleItem.RoleItem
 import majestic.users.tools.dialogs.Modal
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_add
-
-@Composable
-private fun RolesHeader(
-    title: String,
-    colors: RolesColors,
-    orientation: ScreenOrientation
-) {
-    if (orientation is Landscape) {
-        Text(
-            modifier = Modifier.padding(vertical = 20.dp, horizontal = 30.dp),
-            text = title,
-            color = colors.theme.surface.contra.color.copy(0.5f),
-        )
-    }
-}
-
-@Composable
-private fun CampusesList(
-    campuses: List<CampusData>,
-    labels: RolesLabels,
-    colors: RolesColors,
-    orientation: ScreenOrientation,
-    onCampusAction: (String, CampusMenuAction) -> Unit
-) {
-    campuses.forEach { campus ->
-        Campus(
-            campusName = campus.name,
-            rolesCount = campus.rolesCount,
-            labels = labels,
-            colors = colors.campus,
-            orientation = orientation,
-            onAddRole = { onCampusAction(campus.id, CampusMenuAction.AddRole) },
-            onViewRole = { onCampusAction(campus.id, CampusMenuAction.ViewRole) },
-            onEditRole = { onCampusAction(campus.id, CampusMenuAction.EditRole) },
-            onDeleteRole = { onCampusAction(campus.id, CampusMenuAction.DeleteRole) }
-        )
-    }
-}
-
-@Composable
-private fun LandscapeAddButton(
-    label: String,
-    colors: majestic.users.tools.buttons.ButtonAnimateColors,
-    isOpen: Boolean,
-    onToggle: () -> Unit
-) {
-    Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
-        ButtonAnimate(
-            label = label,
-            icon = Res.drawable.ic_add,
-            isOpen = isOpen,
-            colors = colors,
-            onClick = onToggle
-        )
-    }
-}
-
-@Composable
-private fun PortraitFab(
-    label: String,
-    backgroundColor: androidx.compose.ui.graphics.Color,
-    theme: majestic.ThemeColor,
-    flatButtonColors: majestic.users.tools.buttons.FlatButtonColors,
-    isOpen: Boolean,
-    onToggle: () -> Unit,
-    onAddCampus: () -> Unit
-) {
-    Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
-        FloatingActionButton(
-            modifier = Modifier
-                .floatActionButton(backgroundColor)
-                .onClick { onToggle() },
-            direction = ExpandDirection.UP,
-            expanded = isOpen,
-            color = ColorPair(
-                background = theme.surface.contra.color,
-                foreground = theme.surface.actual.color,
-            ),
-            content = {
-                Column(
-                    modifier = Modifier.padding(vertical = 10.dp),
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    FlatButton(
-                        colors = flatButtonColors,
-                        label = label,
-                        onClick = {
-                            onToggle()
-                            onAddCampus()
-                        }
-                    )
-                }
-            }
-        )
-    }
-}
-
-@Composable
-private fun RolesContent(
-    campuses: List<CampusData>,
-    labels: RolesLabels,
-    colors: RolesColors,
-    orientation: ScreenOrientation,
-    navigator: Navigator,
-    onCampusAction: (String, CampusMenuAction) -> Unit
-) {
-    Column(
-        modifier = if (orientation is Portrait) Modifier.fillMaxSize() else Modifier
-    ) {
-        if (orientation is Portrait) {
-            ProfilePortraitHeader(
-                title = labels.heading,
-                colors = colors.profileHeader,
-                navigator = navigator
-            )
-        }
-
-        Column(
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-                .background(colors.background)
-                .verticalScroll(rememberScrollState())
-                .then(
-                    if (orientation is Landscape) Modifier
-                    else Modifier.padding(20.dp)
-                ),
-            verticalArrangement = if (orientation is Landscape) {
-                Arrangement.Top
-            } else {
-                Arrangement.spacedBy(10.dp)
-            }
-        ) {
-            RolesHeader(
-                title = labels.heading,
-                colors = colors,
-                orientation = orientation
-            )
-
-            CampusesList(
-                campuses = campuses,
-                labels = labels,
-                colors = colors,
-                orientation = orientation,
-                onCampusAction = onCampusAction
-            )
-        }
-    }
-}
 
 @Composable
 fun Roles(
@@ -209,18 +48,85 @@ fun Roles(
                 .fillMaxWidth(if (orientation is Portrait) 0.9f else 0.6f)
                 .fillMaxHeight(0.9f)
         ) {
-            AssignRoleModalContent(
-                userName = "Amani Hamduni",
-                availableRoles = roles,
-                colors = colors,
-                rolesLabels = rolesLabels,
-                orientation = orientation,
-                onDismiss = { showAssignRoleModal = false },
-                onAssign = { selectedRoleIds ->
-                    // TODO: Handle role assignment
-                    showAssignRoleModal = false
+            var roleStates by remember {
+                mutableStateOf(roles.associate { it.id to it.assignment })
+            }
+
+            val selectedCount = roleStates.values.count { it is RoleAssignment.Assigned }
+
+            Box(modifier = Modifier.fillMaxSize()) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    AssignRoleHeader(
+                        userName = "Julius Nyerere",
+                        labels = rolesLabels.assignModal,
+                        colors = colors,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    )
+
+
+                    val isPortrait = orientation == Portrait
+
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(bottom = if (isPortrait) 140.dp else 80.dp),
+                        verticalArrangement = Arrangement.spacedBy(1.dp)
+                    ) {
+                        roles.forEach { role ->
+                            val currentAssignment = roleStates[role.id] ?: RoleAssignment.UnAssigned
+
+                            RoleItem(
+                                name = role.name,
+                                description = role.description,
+                                assignment = currentAssignment,
+                                actionType = role.actionType,
+                                labels = labels.profile.roles.roleItem,
+                                colors = colors.roleItem,
+                                orientation = orientation,
+                                onPermissionsClick = { /* TODO: Show permissions */ },
+                                onClick = {
+                                    if (role.actionType == RoleActionType.ASSIGNMENT) {
+                                        val newAssignment = when (currentAssignment) {
+                                            is RoleAssignment.Assigned -> RoleAssignment.UnAssigned
+                                            is RoleAssignment.UnAssigned -> RoleAssignment.Assigned
+                                        }
+
+                                        roleStates = roleStates.toMutableMap().apply {
+                                            this[role.id] = newAssignment
+                                        }
+                                    }
+                                }
+                            )
+                        }
+                    }
                 }
-            )
+
+                AssignRoleFooter(
+                    selectedCount = selectedCount,
+                    labels = rolesLabels.assignModal,
+                    orientation = orientation,
+                    onDismiss = { showAssignRoleModal = false },
+                    onAssign = {
+                        val selectedRoleIds = roleStates
+                            .filter { it.value is RoleAssignment.Assigned }
+                            .keys
+                            .toList()
+
+                        showAssignRoleModal = false
+                    },
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .background(Color(0xFF1D2430))
+                        .padding(16.dp),
+                )
+            }
         }
     }
 
@@ -236,7 +142,8 @@ fun Roles(
                 label = rolesLabels.addButton,
                 colors = colors.buttonAnimate,
                 isOpen = isOpen,
-                onToggle = { isOpen = !isOpen }
+                onToggle = { isOpen = !isOpen },
+                modifier = Modifier.offset(x = (-30).dp, y = (-40).dp)
             )
         }
 
@@ -248,7 +155,8 @@ fun Roles(
                 flatButtonColors = colors.flatButton,
                 isOpen = isOpen,
                 onToggle = { isOpen = !isOpen },
-                onAddCampus = { /* TODO: Handle add campus */ }
+                onAddCampus = { /* TODO: Handle add campus */ },
+                modifier = Modifier.offset(x = (-30).dp, y = (-40).dp)
             )
         }
 
@@ -264,11 +172,18 @@ fun Roles(
                         selectedCampusId = campusId
                         showAssignRoleModal = true
                     }
-                    CampusMenuAction.ViewRole -> { /* TODO */ }
-                    CampusMenuAction.EditRole -> { /* TODO */ }
-                    CampusMenuAction.DeleteRole -> { /* TODO */ }
+
+                    CampusMenuAction.ViewRole -> { /* TODO */
+                    }
+
+                    CampusMenuAction.EditRole -> { /* TODO */
+                    }
+
+                    CampusMenuAction.DeleteRole -> { /* TODO */
+                    }
                 }
-            }
+            },
+            modifier = if (orientation is Portrait) Modifier.fillMaxSize() else Modifier
         )
     }
 }

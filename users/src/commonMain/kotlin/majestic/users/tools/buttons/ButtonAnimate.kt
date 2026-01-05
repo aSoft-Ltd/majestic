@@ -60,7 +60,8 @@ internal fun ButtonAnimate(
     animationSpec: FiniteAnimationSpec<IntSize> = spring(
         dampingRatio = Spring.DampingRatioMediumBouncy,
         stiffness = Spring.StiffnessLow,
-    )
+    ),
+    modifier: Modifier = Modifier,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
@@ -68,7 +69,7 @@ internal fun ButtonAnimate(
     val iconColor = if (isHovered) colors.hovered.foreground else colors.inactive.foreground
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .clip(CircleShape)
             .background(bgColor)
             .pointerHoverIcon(PointerIcon.Hand)

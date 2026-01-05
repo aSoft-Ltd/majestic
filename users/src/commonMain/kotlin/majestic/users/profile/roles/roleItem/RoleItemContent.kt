@@ -24,10 +24,11 @@ fun RoleItemContent(
     actionType: RoleActionType,
     labels: RolesLabels.RoleItemLabels,
     colors: RoleItemColors,
-    theme: ThemeColor
+    theme: ThemeColor,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier.widthIn(min = 300.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
+        modifier = modifier.widthIn(min = 300.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically
