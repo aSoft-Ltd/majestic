@@ -9,6 +9,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import majestic.ColorPair
+import majestic.users.labels.roles.RoleItemLabels
 import majestic.users.labels.roles.RolesLabels
 import majestic.users.profile.roles.RoleActionType
 import majestic.users.profile.roles.RoleAssignment
@@ -19,7 +20,7 @@ import majestic.users.tools.buttons.FlatButtonColors
 fun RoleItemButton(
     actionType: RoleActionType,
     assignment: RoleAssignment,
-    labels: RolesLabels.RoleItemLabels,
+    labels: RoleItemLabels,
     onClick: () -> Unit,
     modifier: Modifier = Modifier.width(200.dp),
 ) {

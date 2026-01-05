@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import majestic.users.labels.roles.CampusLabels
 import majestic.users.labels.roles.RolesLabels
 import majestic.users.profile.roles.CampusColors
 import org.jetbrains.compose.resources.painterResource
@@ -27,7 +28,7 @@ import tz.co.asoft.majestic_users.generated.resources.ic_plus_sign
 
 @Composable
 fun CampusAddButton(
-    labels: RolesLabels.CampusLabels,
+    labels: CampusLabels,
     colors: CampusColors,
     onAddRole: () -> Unit,
     modifier: Modifier = Modifier,

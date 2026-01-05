@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
+import majestic.users.labels.roles.RoleItemLabels
 import majestic.users.labels.roles.RolesLabels
 import majestic.users.profile.roles.RoleActionType
 import majestic.users.profile.roles.RoleAssignment
@@ -18,7 +19,7 @@ internal fun RoleItem(
     description: String,
     assignment: RoleAssignment,
     actionType: RoleActionType,
-    labels: RolesLabels.RoleItemLabels,
+    labels: RoleItemLabels,
     colors: RoleItemColors,
     onPermissionsClick: () -> Unit,
     onClick: () -> Unit,

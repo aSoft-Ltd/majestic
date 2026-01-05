@@ -7,13 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.users.labels.roles.CampusLabels
 import majestic.users.labels.roles.RolesLabels
 
 @Composable
 fun CampusInfo(
     campusName: String,
     rolesCount: Int,
-    labels: RolesLabels.CampusLabels,
+    labels: CampusLabels,
     theme: majestic.ThemeColor
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {

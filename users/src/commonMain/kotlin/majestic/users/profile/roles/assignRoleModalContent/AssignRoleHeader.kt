@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.users.labels.roles.AssignRoleModalLabels
 import majestic.users.labels.roles.RolesLabels
 import majestic.users.profile.roles.RolesColors
 import org.jetbrains.compose.resources.painterResource
@@ -22,7 +23,7 @@ import tz.co.asoft.majestic_users.generated.resources.ic_account_settings_filled
 @Composable
 fun AssignRoleHeader(
     userName: String,
-    labels: RolesLabels.AssignRoleModalLabels,
+    labels: AssignRoleModalLabels,
     colors: RolesColors,
     modifier: Modifier = Modifier,
 ) {

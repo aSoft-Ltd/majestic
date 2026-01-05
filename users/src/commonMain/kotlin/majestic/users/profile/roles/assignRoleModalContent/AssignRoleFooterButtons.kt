@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import majestic.ColorPair
+import majestic.users.labels.roles.AssignRoleModalLabels
 import majestic.users.labels.roles.RolesLabels
 import majestic.users.tools.buttons.FlatButton
 import majestic.users.tools.buttons.FlatButtonColors
@@ -13,7 +14,7 @@ import majestic.users.tools.buttons.FlatButtonColors
 @Composable
 fun AssignRoleFooterButtons(
     selectedCount: Int,
-    labels: RolesLabels.AssignRoleModalLabels,
+    labels: AssignRoleModalLabels,
     onDismiss: () -> Unit,
     onAssign: () -> Unit,
     modifier: Modifier = Modifier

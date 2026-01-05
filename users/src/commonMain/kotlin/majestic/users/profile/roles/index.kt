@@ -40,13 +40,11 @@ fun Roles(
 
     if (showAssignRoleModal) {
         Modal(
-            theme = colors.theme,
-            background = colors.background,
-            orientation = orientation,
             onDismiss = { showAssignRoleModal = false },
             modifier = Modifier
                 .fillMaxWidth(if (orientation is Portrait) 0.9f else 0.6f)
-                .fillMaxHeight(0.9f)
+                .fillMaxHeight(0.9f),
+            colors = colors.dialog
         ) {
             var roleStates by remember {
                 mutableStateOf(roles.associate { it.id to it.assignment })

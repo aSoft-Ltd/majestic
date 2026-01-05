@@ -11,12 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.users.labels.roles.AssignRoleModalLabels
 import majestic.users.labels.roles.RolesLabels
 
 @Composable
  fun AssignRoleFooter(
     selectedCount: Int,
-    labels: RolesLabels.AssignRoleModalLabels,
+    labels: AssignRoleModalLabels,
     orientation: ScreenOrientation,
     onDismiss: () -> Unit,
     onAssign: () -> Unit,

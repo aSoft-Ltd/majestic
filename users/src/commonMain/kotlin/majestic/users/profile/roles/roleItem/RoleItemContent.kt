@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ThemeColor
+import majestic.users.labels.roles.RoleItemLabels
 import majestic.users.labels.roles.RolesLabels
 import majestic.users.profile.roles.RoleActionType
 import majestic.users.profile.roles.RoleItemColors
@@ -22,7 +23,7 @@ fun RoleItemContent(
     name: String,
     description: String,
     actionType: RoleActionType,
-    labels: RolesLabels.RoleItemLabels,
+    labels: RoleItemLabels,
     colors: RoleItemColors,
     theme: ThemeColor,
     modifier: Modifier = Modifier,

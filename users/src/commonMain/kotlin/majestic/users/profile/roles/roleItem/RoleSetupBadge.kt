@@ -9,12 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.users.labels.roles.RoleItemLabels
 import majestic.users.labels.roles.RolesLabels
 import majestic.users.profile.roles.RoleItemColors
 
 @Composable
 fun RoleSetupBadge(
-    labels: RolesLabels.RoleItemLabels,
+    labels: RoleItemLabels,
     colors: RoleItemColors,
     modifier: Modifier = Modifier,
 ) {
