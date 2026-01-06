@@ -256,7 +256,7 @@ fun Contacts(
             )
             Email(
                 modifier = Modifier.contact(
-                    orientation,
+                    orientation = orientation,
                     colors = colors.item
                 ),
                 text = "amani45@gmail.com",
@@ -267,7 +267,7 @@ fun Contacts(
             )
             Phone(
                 modifier = Modifier.contact(
-                    orientation,
+                    orientation = orientation,
                     colors = colors.item
                 ),
                 text = "+255 745 147 852",
@@ -280,7 +280,7 @@ fun Contacts(
             )
             Phone(
                 modifier = Modifier.contact(
-                    orientation,
+                    orientation = orientation,
                     colors = colors.item,
                     lastItem = true,
                     shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
