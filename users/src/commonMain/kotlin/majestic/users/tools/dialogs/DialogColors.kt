@@ -8,5 +8,5 @@ data class DialogColors(
     val contentColor: Color,
     val cancelContent: Color,
     val cancelBackground: Color,
-    val interactionSource: MutableInteractionSource,
+    val interactionSource: MutableInteractionSource, // TODO: Remove this because hii ni class ya rangi
 )
