@@ -3,7 +3,6 @@ package majestic.users.profile.roles
 import androidx.compose.ui.graphics.Color
 import majestic.ThemeColor
 import majestic.users.profile.contacts.tools.DeleteFormColors
-import majestic.users.tools.ProfilePortraitHeaderColors
 import majestic.users.tools.buttons.ButtonAnimateColors
 import majestic.users.tools.buttons.FlatButtonColors
 import majestic.users.tools.dialogs.DialogColors
@@ -18,7 +17,6 @@ data class RolesColors(
     val flatButton: FlatButtonColors,
     val deleteForm: DeleteFormColors,
     val dialog: DialogColors,
-    val profileHeader: ProfilePortraitHeaderColors
 )
 
 data class CampusColors(

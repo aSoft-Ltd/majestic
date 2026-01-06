@@ -163,7 +163,6 @@ fun Roles(
             labels = rolesLabels,
             colors = colors,
             orientation = orientation,
-            navigator = navigator,
             onCampusAction = { campusId, action ->
                 when (action) {
                     CampusMenuAction.AddRole -> {
@@ -181,7 +180,8 @@ fun Roles(
                     }
                 }
             },
-            modifier = if (orientation is Portrait) Modifier.fillMaxSize() else Modifier
+            modifier = if (orientation is Portrait) Modifier.fillMaxSize()
+                .rolesContent(orientation = orientation, colors = colors) else Modifier
         )
     }
 }
