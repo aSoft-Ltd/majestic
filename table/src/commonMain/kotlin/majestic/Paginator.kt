@@ -27,6 +27,7 @@ fun <T> Paginator(
     paginator: LinearPaginationManager<T>,
     modifier: Modifier = Modifier,
     colors: PaginatorColors = PaginatorColors(),
+    navColors: PaginatorColors? = null,
     icons: PaginatorIcons = PaginatorIcons()
 ) = Row(
     modifier = modifier,
@@ -38,7 +39,10 @@ fun <T> Paginator(
     val noOfPages = 7 // for demo purposes, later this will be handled by the paginator manager
     val currentPage = current.data?.number
         ?: 0 // for demo purposes, later this will be handled by the paginator manager
-    PaginatorItem(colors = colors) {
+
+    val navigationColors = navColors ?: colors
+
+    PaginatorItem(colors = navigationColors) {
         val color = when {
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.5f)
@@ -51,7 +55,7 @@ fun <T> Paginator(
         )
     }
     PaginatorItem(
-        colors = colors,
+        colors = navigationColors,
         onClick = {
             scope.launch { paginator.loadPage((currentPage - 1).coerceAtLeast(1)) }
         }) {
@@ -90,7 +94,7 @@ fun <T> Paginator(
     }
     // end of list pages
     PaginatorItem(
-        colors = colors,
+        colors = navigationColors,
         onClick = {
             scope.launch { paginator.loadPage((currentPage + 1).coerceAtMost(noOfPages)) }
         }) {
@@ -105,7 +109,7 @@ fun <T> Paginator(
             modifier = Modifier.size(24.dp)
         )
     }
-    PaginatorItem(colors = colors) {
+    PaginatorItem(colors = navigationColors) {
         val color = when {
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.5f)

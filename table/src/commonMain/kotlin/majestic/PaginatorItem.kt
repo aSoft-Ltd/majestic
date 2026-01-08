@@ -39,10 +39,20 @@ fun PaginatorItem(
         else -> colors.inactive.background
     }
 
+    val currentColorPair = when {
+        state.isActive -> colors.active
+        state.isHovered -> colors.hovered
+        else -> colors.inactive
+    }
+
+    val bgModifier = Modifier
+        .background(currentColorPair.background)
+        .then(currentColorPair.backgroundModifier)
+
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(7.dp))
-            .background(bgColor)
+            .then(bgModifier)
             .pointerHoverIcon(PointerIcon.Hand)
             .hoverable(interactionSource = interactionSource)
             .padding(5.dp)
