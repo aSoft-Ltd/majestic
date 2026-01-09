@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -78,24 +75,23 @@ fun SummaryCardList(
             )
         }
     } else {
-        val summary = props.summaryList.filterIndexed { index, _ -> index != 3 }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 10.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            // First row - 2 items
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                summary.take(2).forEach { item ->
+                props.summaryList.take(2).forEach { item ->
                     val interactionSource = remember { MutableInteractionSource() }
                     val isHovered by interactionSource.collectIsHoveredAsState()
                     val background = when (isHovered) {
                         true -> props.summaryCardProps.colors.foreground.copy(0.02f)
                             .compositeOver(props.summaryCardProps.colors.background)
+
                         false -> props.summaryCardProps.colors.background
                     }
 
@@ -120,22 +116,20 @@ fun SummaryCardList(
                     )
                 }
             }
-
-            // Second row - 3 items
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                println("summary is ${summary.size}")
-                summary.drop(2).take(3).forEach { item ->
+                props.summaryList.takeLast(3).forEach { item ->
+
                     val interactionSource = remember { MutableInteractionSource() }
                     val isHovered by interactionSource.collectIsHoveredAsState()
                     val background = when (isHovered) {
                         true -> props.summaryCardProps.colors.foreground.copy(0.02f)
                             .compositeOver(props.summaryCardProps.colors.background)
+
                         false -> props.summaryCardProps.colors.background
                     }
-
                     SummaryCard(
                         label = item.label,
                         value = item.value,

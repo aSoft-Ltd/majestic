@@ -1,5 +1,6 @@
 package majestic.users.dashboard.table
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,20 +14,25 @@ import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
+import majestic.editor.toolbar.underline
 import majestic.users.dashboard.roles.Header
 import majestic.users.dashboard.roles.HeaderProps
+import majestic.users.dashboard.roles.Labels
 import majestic.users.dashboard.table.body.UsersTableBody
+import majestic.users.dashboard.table.header.tools.UserTableHeaderProps
 import majestic.users.dashboard.table.header.tools.UsersTableHeader
+import majestic.users.labels.UsersLabels
 import majestic.users.table.body.UsersTableBodyProperties
-import majestic.users.table.header.tools.HeaderProperties
+import majestic.users.table.tools.data.getOptions
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.getSelectedRows
+import majestic.users.tools.menu.MenuOption
 import symphony.Table
 import symphony.columns.Column
 
 data class UserTableProps(
     val header: HeaderProps,
-    val head: HeaderProperties,
+    val head: UserTableHeaderProps,
     val body: UsersTableBodyProperties
 )
 
@@ -34,6 +40,7 @@ data class UserTableProps(
 fun UsersTable(
     modifier: Modifier = Modifier,
     table: Table<UsersData>,
+    labels: UsersLabels,
     orientation: ScreenOrientation,
     props: UserTableProps,
     onItemClick: () -> Unit,
@@ -54,10 +61,18 @@ fun UsersTable(
         Header(
             modifier = Modifier
                 .fillMaxWidth()
+                .background(props.header.colors.background)
+                .underline(color = props.header.colors.separator ?: props.header.colors.background)
                 .wrapContentHeight()
-                .padding(horizontal = 16.dp, vertical = 10.dp)
+                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .height(80.dp),
-            props = props.header,
+            props = HeaderProps(
+                labels = Labels(
+                    title = labels.dashboard.table.title,
+                    manage = labels.dashboard.table.manage
+                ),
+                colors = props.header.colors
+            ),
             add = add,
             manage = manage
         )
@@ -67,7 +82,6 @@ fun UsersTable(
             columns = { column ->
                 UsersTableHeader(
                     column = column,
-                    count = selectCount,
                     weight = weight,
                     props = props.head,
                     table = table
@@ -84,7 +98,13 @@ fun UsersTable(
                 props = props.body,
                 onItemClick = onItemClick,
                 weight = weight,
-                menuAction = {}
+                menuAction = {
+                    MenuOption(
+                        orientation = orientation,
+                        actions = getOptions(labels.table),
+                        colors = props.body.colors.row.menuOption,
+                    ) { action -> }
+                }
             )
         }
     }

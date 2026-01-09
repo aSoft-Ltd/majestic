@@ -1,6 +1,7 @@
 package majestic.users.dashboard
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,16 +24,15 @@ import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.users.dashboard.stickybar.StickyBar
 import majestic.users.dashboard.stickybar.filters.FilterDefault
-import majestic.users.dashboard.summary.SummaryCardColorProps
 import majestic.users.dashboard.summary.SummaryCardList
-import majestic.users.dashboard.summary.SummaryCardListProps
-import majestic.users.dashboard.summary.toSummary
+import majestic.users.dashboard.tools.toSummaryCardProps
 import majestic.users.labels.UsersLabels
 
 data class UserDashboardProps(
     val filterDefaults: FilterDefault,
     val view: TableViewProps,
-    val background: Color
+    val background: Color,
+    val summaryCard: ColorPair
 )
 
 @Composable
@@ -41,7 +42,11 @@ fun UsersDashboard(
     orientation: ScreenOrientation,
     theme: ThemeColor,
     labels: UsersLabels,
-    onItemClick: () -> Unit = {}
+    onItemClick: () -> Unit = {},
+    manageUsers: () -> Unit = {},
+    manageRoles: () -> Unit = {},
+    addUser: () -> Unit = {},
+    addRole: () -> Unit = {},
 ) = Column(modifier = modifier) {
     if (orientation is Landscape) StickyBar(
         theme = theme,
@@ -66,18 +71,8 @@ fun UsersDashboard(
         )
     ) {
         SummaryCardList(
-            modifier = Modifier.padding(top = 20.dp, bottom = 10.dp),
-            props = SummaryCardListProps(
-                summaryCardProps = SummaryCardColorProps(
-                    colors = ColorPair(
-                        foreground = theme.surface.contra.color,
-                        background = theme.surface.actual.color
-                    )
-
-                ),
-                summaryList = labels.dashboard.summary.toSummary(),
-                orientation = orientation
-            ),
+            modifier = Modifier.padding(top = 20.dp, bottom = 10.dp).horizontalScroll(rememberScrollState()),
+            props = labels.toSummaryCardProps(props, orientation),
         )
         when (orientation) {
             is Landscape -> LandscapeView(
