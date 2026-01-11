@@ -32,7 +32,6 @@ import majestic.users.dashboard.roles.tools.UserRole
 import majestic.users.dashboard.roles.tools.getRoles
 import majestic.users.dashboard.tools.Roles
 import majestic.users.dashboard.tools.Users
-import majestic.users.dashboard.tools.View
 import majestic.users.dashboard.tools.portraitHeader.PortraitHeader
 import majestic.users.dashboard.tools.rememberActiveView
 import majestic.users.dashboard.tools.toColumnLabels
@@ -82,9 +81,11 @@ internal fun PortraitView(
     props: TableViewProps,
     labels: UsersLabels,
     onItemClick: () -> Unit = {},
-    add: (view: View) -> Unit = {},
-    manage: (view: View) -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    manageUsers: () -> Unit,
+    manageRoles: () -> Unit,
+    addUser: () -> Unit,
+    addRole: () -> Unit
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top,
@@ -147,8 +148,18 @@ internal fun PortraitView(
             .height(65.dp)
             .padding(horizontal = 16.dp, vertical = 10.dp),
         colors = props.tabs,
-        add = add,
-        manage = manage,
+        add = {
+            when (it) {
+                Users -> addUser()
+                Roles -> addRole()
+            }
+        },
+        manage = {
+            when (it) {
+                Users -> manageUsers()
+                Roles -> manageRoles()
+            }
+        },
         labels = labels.dashboard,
         navigator = activeView
     )

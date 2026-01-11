@@ -71,7 +71,8 @@ fun UsersDashboard(
         )
     ) {
         SummaryCardList(
-            modifier = Modifier.padding(top = 20.dp, bottom = 10.dp).horizontalScroll(rememberScrollState()),
+            modifier = Modifier.padding(top = 20.dp, bottom = 10.dp)
+                .horizontalScroll(rememberScrollState()),
             props = labels.toSummaryCardProps(props, orientation),
         )
         when (orientation) {
@@ -80,20 +81,27 @@ fun UsersDashboard(
                 orientation = orientation,
                 props = props.view,
                 labels = labels,
-                onItemClick = onItemClick
+                onItemClick = onItemClick,
+                manageUsers = manageUsers,
+                manageRoles = manageRoles,
+                addUser = addUser,
+                addRole = addRole
             )
 
             is Portrait -> {
                 PortraitView(
+                    orientation = orientation,
+                    props = props.view,
+                    labels = labels,
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
                         .background(props.background.copy(.5f))
                         .padding(bottom = 10.dp),
-                    orientation = orientation,
-                    props = props.view,
-                    labels = labels,
-                    onItemClick = {},
-                    manage = {}
+                    manageUsers = manageUsers,
+                    manageRoles = manageRoles,
+                    addUser = addUser,
+                    onItemClick = onItemClick,
+                    addRole = addRole,
                 )
             }
         }
