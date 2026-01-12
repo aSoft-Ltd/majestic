@@ -43,6 +43,7 @@ import tz.co.asoft.majestic_payments.generated.resources.user_avatar
 
 data class TableColors(
     val background: Color,
+    val headerBackground: Color,
     val foreground: Color,
     val separator: Color,
     val hovered: Color,
@@ -58,7 +59,6 @@ fun WalletTable(
     colors: TableColors,
     table: Table<PaymentWallet>,
     modifier: Modifier = Modifier,
-    headerModifier: Modifier,
 ) {
     val columns = table.columns.current.watchAsState()
     val weight = remember(columns) {
@@ -88,7 +88,7 @@ fun WalletTable(
             if (column.key == labels.table.checkbox) Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.weight(weight.getValue(column))
-                    .then(headerModifier)
+                    .background(colors.headerBackground)
                     .separator(color = colors.separator)
                     .padding(vertical = 24.dp, horizontal = 12.dp),
             ) {
@@ -107,7 +107,7 @@ fun WalletTable(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(weight.getValue(column))
-                    .then(headerModifier)
+                    .background(colors.headerBackground)
                     .separator(color = colors.separator)
                     .padding(vertical = 20.dp, horizontal = 12.dp),
                 color = header.foreground.copy(0.6f)
