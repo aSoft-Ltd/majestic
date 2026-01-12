@@ -1,10 +1,10 @@
 package majestic
 
-import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
 
-data class PaginatorIcons(
-    val next: (@Composable () -> Unit)? = null,
-    val prev: (@Composable () -> Unit)? = null,
-    val first: (@Composable () -> Unit)? = null,
-    val last: (@Composable () -> Unit)? = null,
+class PaginatorIcons(
+    val next: Painter? = null,
+    val prev: Painter? = null,
+    val first: Painter? = null,
+    val last: Painter? = null,
 )
