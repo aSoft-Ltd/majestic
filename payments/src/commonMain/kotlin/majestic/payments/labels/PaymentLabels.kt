@@ -1,11 +1,14 @@
 package majestic.payments.labels
 
+import majestic.payments.labels.transaction.TransactionLabels
+
 data class PaymentLabels(
     val header: DashboardHeaderLabels,
     val summary: SummaryLabels,
     val filter: FilterLabels,
     val dashboard: DashboardLabels,
-    val wallet: WalletLabels
+    val wallet: WalletLabels,
+    val transaction: TransactionLabels
 ) {
     companion object {
         val english by lazy {
@@ -14,7 +17,8 @@ data class PaymentLabels(
                 summary = SummaryLabels.english,
                 filter = FilterLabels.english,
                 dashboard = DashboardLabels.english,
-                wallet = WalletLabels.english
+                wallet = WalletLabels.english,
+                transaction = TransactionLabels.english
             )
         }
 
@@ -24,7 +28,8 @@ data class PaymentLabels(
                 summary = SummaryLabels.swahili,
                 filter = FilterLabels.swahili,
                 dashboard = DashboardLabels.swahili,
-                wallet = WalletLabels.swahili
+                wallet = WalletLabels.swahili,
+                transaction = TransactionLabels.swahili
             )
         }
     }
