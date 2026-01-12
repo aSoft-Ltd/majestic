@@ -83,8 +83,13 @@ kotlin {
             api(libs.cinematic.live.core)?.because("Connection observer requires to communicate its state")
         }
 
+        androidMain.dependencies {
+            implementation("androidx.window:window:1.3.0")?.because("We need WindowMetricsCalculator for modern screen size calculation")
+        }
+
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(libs.kiota.connection.http)
             implementation(libs.kommander.core)
             implementation(libs.kommander.coroutines)
         }

@@ -4,7 +4,8 @@ data class PaymentLabels(
     val header: DashboardHeaderLabels,
     val summary: SummaryLabels,
     val filter: FilterLabels,
-    val dashboard: DashboardLabels
+    val dashboard: DashboardLabels,
+    val wallet: WalletLabels
 ) {
     companion object {
         val english by lazy {
@@ -12,7 +13,8 @@ data class PaymentLabels(
                 header = DashboardHeaderLabels.english,
                 summary = SummaryLabels.english,
                 filter = FilterLabels.english,
-                dashboard = DashboardLabels.english
+                dashboard = DashboardLabels.english,
+                wallet = WalletLabels.english
             )
         }
 
@@ -21,7 +23,8 @@ data class PaymentLabels(
                 header = DashboardHeaderLabels.swahili,
                 summary = SummaryLabels.swahili,
                 filter = FilterLabels.swahili,
-                dashboard = DashboardLabels.swahili
+                dashboard = DashboardLabels.swahili,
+                wallet = WalletLabels.swahili
             )
         }
     }

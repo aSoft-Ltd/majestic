@@ -12,12 +12,14 @@ import androidx.compose.material.icons.filled.KeyboardDoubleArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
+import kotlinx.coroutines.launch
 import symphony.LinearPaginationManager
 
 @Composable
@@ -31,6 +33,7 @@ fun <T> Paginator(
     horizontalArrangement = Arrangement.spacedBy(5.dp)
 ) {
     val current = paginator.current.watchAsState()
+    val scope = rememberCoroutineScope()
     // start of list pages
     val noOfPages = 7 // for demo purposes, later this will be handled by the paginator manager
     val currentPage = current.data?.number
@@ -49,7 +52,9 @@ fun <T> Paginator(
     }
     PaginatorItem(
         colors = colors,
-        onClick = { paginator.loadPage((currentPage - 1).coerceAtLeast(1)) }) {
+        onClick = {
+            scope.launch { paginator.loadPage((currentPage - 1).coerceAtLeast(1)) }
+        }) {
         val color = when {
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.7f)
@@ -64,7 +69,7 @@ fun <T> Paginator(
     for (page in 1..noOfPages) PaginatorItem(
         active = page == currentPage,
         colors = colors,
-        onClick = { paginator.loadPage(page) }
+        onClick = { scope.launch { paginator.loadPage(page) } }
     ) { state ->
         val color = when {
             state.isActive -> colors.active.foreground
@@ -86,7 +91,9 @@ fun <T> Paginator(
     // end of list pages
     PaginatorItem(
         colors = colors,
-        onClick = { paginator.loadPage((currentPage + 1).coerceAtMost(noOfPages)) }) {
+        onClick = {
+            scope.launch { paginator.loadPage((currentPage + 1).coerceAtMost(noOfPages)) }
+        }) {
         val color = when {
             it.isHovered -> colors.hovered.foreground
             else -> colors.inactive.foreground.copy(0.7f)

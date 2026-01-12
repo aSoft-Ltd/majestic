@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import cinematic.watchAsState
-import kollections.map
 import majestic.ThemeColor
 import majestic.users.profile.header.TabsLabels
 import majestic.users.profile.header.tools.ProfileDestinationMapper
