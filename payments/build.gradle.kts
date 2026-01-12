@@ -56,10 +56,10 @@ kotlin {
             api(libs.cinematic.live.compose)?.because("We need to watchAsState")
             api(projects.majesticTheme)
             api(projects.majesticScreen)
-            api(libs.majestic.input.core)
-            api(libs.majestic.input.choice)
-            api(libs.majestic.graphs)
-            api(libs.majestic.table)
+            api(projects.majesticInputText)
+            api(projects.majesticInputChoice)
+            api(projects.majesticGraphs)
+            api(projects.majesticTable)
         }
 
         commonTest.dependencies {
