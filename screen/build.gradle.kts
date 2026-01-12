@@ -89,6 +89,7 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(libs.kiota.connection.http)
             implementation(libs.kommander.core)
             implementation(libs.kommander.coroutines)
         }
