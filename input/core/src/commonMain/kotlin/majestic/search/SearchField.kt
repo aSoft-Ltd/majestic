@@ -31,7 +31,6 @@ private val ThemeColor.searchBackgroundColor: Color
         return dominant.actual.color.copy(alpha = alpha).compositeOver(surface.actual.color)
     }
 
-
 data class SearchColors(
     val background: Color,
     val text: Color,
