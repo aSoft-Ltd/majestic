@@ -77,10 +77,10 @@ fun <T> Select(
         items = field.items,
         item = item,
         selected = selected,
-        value = state.selectedItem,
+        value = state.selected?.item,
         placeholder = placeholder,
         onClick = {
-            if (it == state.selectedItem) {
+            if (it == state.selected?.item) {
                 field.unselect()
                 onUnSelected?.invoke(it)
             } else {
