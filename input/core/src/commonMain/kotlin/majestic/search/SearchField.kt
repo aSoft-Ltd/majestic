@@ -22,7 +22,6 @@ import majestic.Dark
 import majestic.Light
 import majestic.ThemeColor
 
-
 private val ThemeColor.searchBackgroundColor: Color
     get() {
         val alpha = when (this) {
@@ -70,38 +69,35 @@ fun SearchField(
     value: String?,
     onChange: (String) -> Unit,
     icon: @Composable () -> Unit
+) = Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically
 ) {
-
     var text by remember { mutableStateOf(value.orEmpty()) }
     var showHint by remember { mutableStateOf(false) }
 
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        BasicTextField(
-            value = text,
-            onValueChange = { new ->
-                text = new
-                onChange(new)
-            },
-            modifier = Modifier.weight(1f).onFocusChanged { showHint = it.isFocused },
-            singleLine = true,
-            cursorBrush = SolidColor(theme.toSearchColors().text),
-            textStyle = TextStyle(color = theme.toSearchColors().text, fontSize = 14.sp),
-            decorationBox = { inner ->
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    if (!showHint && text.isEmpty()) Text(
-                        text = hint,
-                        color = theme.toSearchColors().hint,
-                        fontSize = 14.sp
-                    ) else inner()
-                }
+    BasicTextField(
+        value = text,
+        onValueChange = { new ->
+            text = new
+            onChange(new)
+        },
+        modifier = Modifier.weight(1f).onFocusChanged { showHint = it.isFocused },
+        singleLine = true,
+        cursorBrush = SolidColor(theme.toSearchColors().text),
+        textStyle = TextStyle(color = theme.toSearchColors().text, fontSize = 14.sp),
+        decorationBox = { inner ->
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                if (!showHint && text.isEmpty()) Text(
+                    text = hint,
+                    color = theme.toSearchColors().hint,
+                    fontSize = 14.sp
+                ) else inner()
             }
-        )
-        icon()
-    }
+        }
+    )
+    icon()
 }
