@@ -49,18 +49,17 @@ fun UsersRoles(
 ) {
     Header(
         modifier = Modifier
+            .background(props.header.colors.background)
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = 16.dp, vertical = 10.dp)
+            .underline(
+                color = props.header.colors.separator?.copy(.03f) ?: props.header.colors.background
+            )
+            .padding(horizontal = 20.dp, vertical = 5.dp)
             .height(80.dp),
         props = props.header,
         add = add,
         manage = manage
-    )
-
-    Spacer(
-        modifier = Modifier.fillMaxWidth().height(.05.dp)
-            .underline(color = props.header.colors.add.copy(.05f), width = .5.dp)
     )
 
     Column(modifier = Modifier.weight(1f).fillMaxWidth()) {

@@ -78,7 +78,7 @@ data class MainUserTableProps(
     val barBackground: Color,
     val background: Color,
     val menuOption: MenuOptionColors,
-    val selection: SelectionBarProperties, //.getSelectionProps(it, labels)
+    val selection: SelectionBarProperties,
     val head: HeaderProperties,
     val body: UsersTableBodyProperties
 )

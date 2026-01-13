@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +17,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.users.dashboard.roles.HeaderColors
 import majestic.users.dashboard.roles.HeaderProps
@@ -70,7 +68,10 @@ internal fun LandscapeView(
     props: TableViewProps,
     labels: UsersLabels,
     onItemClick: () -> Unit = {},
-    manage: () -> Unit = {},
+    manageUsers: () -> Unit = {},
+    manageRoles: () -> Unit = {},
+    addUser: () -> Unit = {},
+    addRole: () -> Unit = {},
     modifier: Modifier = Modifier
 ) = Row(
     modifier = modifier,
@@ -88,7 +89,6 @@ internal fun LandscapeView(
                 column("checkbox", key = "checkbox") { it.item.selected }
                 column(labels.table.head.name) { it.item.fullName }
                 column(labels.table.head.email) { it.item.email }
-                column(labels.table.head.id) { it.item.id }
                 column(labels.table.head.dateJoined) { it.item.dateJoined }
                 column(labels.table.head.lastActive) { it.item.lastActive }
                 column(labels.table.head.status) { it.item.status }
@@ -126,36 +126,34 @@ internal fun LandscapeView(
     )
 
     UsersTable(
-        modifier = (if (orientation == Landscape) Modifier
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
             .weight(1f)
             .fillMaxWidth()
-            .fillMaxHeight()
-        else Modifier
-            .height(500.dp))
-            .clip(RoundedCornerShape(20.dp)),
+            .background(props.table.body.colors.background, RoundedCornerShape(20.dp))
+            .fillMaxHeight(),
         table = table,
         orientation = orientation,
         props = props.table,
         onItemClick = onItemClick,
         weight = weight,
-        add = { },
-        manage = {}
+        add = addUser,
+        manage = manageUsers,
+        labels = labels
     )
     UsersRoles(
-        modifier = (if (orientation == Landscape) Modifier
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
             .weight(1f)
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(props.roles.background, RoundedCornerShape(20.dp))
-        else Modifier
-            .height(500.dp))
-            .clip(RoundedCornerShape(20.dp)),
+            .background(props.roles.background, RoundedCornerShape(20.dp)),
         orientation = orientation,
         props = UsersRolesProps(
             header = HeaderProps(
                 labels = Labels(
-                    title = "Roles",
-                    manage = "Manage"
+                    title = labels.dashboard.roles.title,
+                    manage = labels.dashboard.roles.manage
                 ),
                 colors = props.roles.header
             ),
@@ -163,12 +161,12 @@ internal fun LandscapeView(
                 colors = props.roles.roleCard,
                 labels = UserRoleBodyLabels(
                     actions = labels.dashboard.roles.actions.getRoles(),
-                    permission = "",
-                    userAssigned = ""
+                    permission = labels.dashboard.roles.permissions,
+                    userAssigned = labels.dashboard.roles.assigned
                 )
             )
         ),
-        add = {},
-        manage = manage,
+        add = addRole,
+        manage = manageRoles,
     )
 }

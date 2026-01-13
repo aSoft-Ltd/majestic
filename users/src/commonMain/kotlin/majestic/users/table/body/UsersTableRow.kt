@@ -29,12 +29,14 @@ import majestic.users.table.header.NameCellColors
 import majestic.users.table.header.tools.getStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
+import majestic.users.tools.menu.MenuOptionColors
 import symphony.Table
 import symphony.columns.Column
 
 data class UsersTableRowColors(
     val checkBox: CheckboxColors,
-    val name: NameCellColors
+    val name: NameCellColors,
+    val menuOption: MenuOptionColors
 )
 
 @Composable

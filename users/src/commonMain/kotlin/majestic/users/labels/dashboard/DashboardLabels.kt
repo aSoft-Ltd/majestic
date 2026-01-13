@@ -6,6 +6,7 @@ data class DashboardLabels(
     val insights: InsightsLabels,
     val summary: SummaryCardLabels,
     val tabs: DashboardTabLabels,
+    val table:UserSummaryLabel,
     val roles: RoleLabels
 ) {
     companion object {
@@ -14,7 +15,8 @@ data class DashboardLabels(
                 insights = InsightsLabels.english,
                 summary = SummaryCardLabels.english,
                 roles = RoleLabels.english,
-                tabs = DashboardTabLabels.english
+                tabs = DashboardTabLabels.english,
+                table = UserSummaryLabel.english
             )
         }
         val swahili by lazy {
@@ -22,7 +24,8 @@ data class DashboardLabels(
                 insights = InsightsLabels.swahili,
                 summary = SummaryCardLabels.swahili,
                 roles = RoleLabels.swahili,
-                tabs = DashboardTabLabels.swahili
+                tabs = DashboardTabLabels.swahili,
+                table = UserSummaryLabel.swahili
             )
         }
     }

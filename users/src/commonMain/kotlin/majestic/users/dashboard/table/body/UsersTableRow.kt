@@ -84,7 +84,7 @@ internal fun RowScope.UsersTableRow(
         colors = colors.name
     )
 
-    labels.columns.email, labels.columns.dateJoined, labels.columns.lastActive, labels.columns.roles, labels.columns.permission -> Box(
+    labels.columns.email, labels.columns.dateJoined, labels.columns.lastActive-> Box(
         modifier = Modifier.height(cellHeight)
             .weight(weight.getValue(cell.column))
             .background(if (selected) hovered else Color.Transparent)
