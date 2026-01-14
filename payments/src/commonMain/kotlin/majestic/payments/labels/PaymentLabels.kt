@@ -1,6 +1,7 @@
 package majestic.payments.labels
 
 import majestic.payments.labels.transaction.TransactionLabels
+import majestic.payments.labels.wallet.WalletLabels
 
 data class PaymentLabels(
     val header: DashboardHeaderLabels,

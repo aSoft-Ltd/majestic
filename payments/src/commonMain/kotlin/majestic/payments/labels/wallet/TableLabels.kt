@@ -1,4 +1,4 @@
-package majestic.payments.labels
+package majestic.payments.labels.wallet
 
 data class TableLabels(
     val checkbox: String,

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import majestic.ColorPair
+import majestic.payments.labels.transaction.ActionLabels
 import majestic.payments.tools.ActionDropdown
 import majestic.payments.tools.ActionDropdownItem
 import majestic.payments.tools.filters.FilterByYear
@@ -20,6 +21,7 @@ import tz.co.asoft.majestic_payments.generated.resources.ic_cursor_rectangle_sel
 
 @Composable
 fun TransactionDataActions(
+    labels: ActionLabels,
     colors: ColorPair,
     filterDefault: FilterDefault,
     modifier: Modifier = Modifier,
@@ -27,18 +29,18 @@ fun TransactionDataActions(
     ActionDropdown(
         modifier = Modifier.width(IntrinsicSize.Max),
         colors = colors,
-        actions = TransactionProcess.getActions(),
+        actions = TransactionProcess.getActions(labels),
         placeholder = ActionDropdownItem(
-            label = "Process",
+            label = labels.process,
             icon = Res.drawable.ic_cursor_rectangle_selection_02
         ),
     )
     ActionDropdown(
         modifier = Modifier.width(IntrinsicSize.Max),
         colors = colors,
-        actions = TransactionReview.getActions(),
+        actions = TransactionReview.getActions(labels),
         placeholder = ActionDropdownItem(
-            label = "Review",
+            label = labels.review,
             icon = Res.drawable.ic_book_open_01
         ),
     )

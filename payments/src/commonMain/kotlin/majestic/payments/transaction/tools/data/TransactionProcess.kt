@@ -1,5 +1,6 @@
 package majestic.payments.transaction.tools.data
 
+import majestic.payments.labels.transaction.ActionLabels
 import majestic.payments.tools.ActionDropdownItem
 import org.jetbrains.compose.resources.DrawableResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
@@ -15,20 +16,19 @@ internal enum class TransactionProcess {
             REMINDER -> Res.drawable.ic_apple_reminder
         }
 
-    val label: String
-        get() = when (this) {
-            EXPORT -> "Exports"
-            REMINDER -> "Reminders"
-        }
+    fun getLabel(labels: ActionLabels): String = when (this) {
+        EXPORT -> labels.export
+        REMINDER -> labels.reminder
+    }
 
     companion object {
-        fun getActions() = listOf(
+        fun getActions(labels: ActionLabels) = listOf(
             ActionDropdownItem(
-                label = EXPORT.label,
+                label = EXPORT.getLabel(labels),
                 icon = Res.drawable.ic_share_05
             ),
             ActionDropdownItem(
-                label = REMINDER.label,
+                label = REMINDER.getLabel(labels),
                 icon = Res.drawable.ic_apple_reminder
             ),
         )

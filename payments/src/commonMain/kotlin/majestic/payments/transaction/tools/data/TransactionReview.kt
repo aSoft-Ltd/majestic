@@ -1,5 +1,6 @@
 package majestic.payments.transaction.tools.data
 
+import majestic.payments.labels.transaction.ActionLabels
 import majestic.payments.tools.ActionDropdownItem
 import org.jetbrains.compose.resources.DrawableResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
@@ -13,15 +14,14 @@ internal enum class TransactionReview {
             REMINDED -> Res.drawable.ic_apple_reminder
         }
 
-    val label: String
-        get() = when (this) {
-            REMINDED -> "Reminded"
-        }
+    fun getLabel(labels: ActionLabels): String = when (this) {
+        REMINDED -> labels.reminded
+    }
 
     companion object {
-        fun getActions() = listOf(
+        fun getActions(labels: ActionLabels) = listOf(
             ActionDropdownItem(
-                label = REMINDED.label,
+                label = REMINDED.getLabel(labels),
                 icon = Res.drawable.ic_apple_reminder
             ),
         )

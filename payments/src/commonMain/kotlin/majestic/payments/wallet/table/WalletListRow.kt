@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Portrait
 import majestic.ColorPair
-import majestic.payments.labels.WalletLabels
+import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.menu.MenuOption
 import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow

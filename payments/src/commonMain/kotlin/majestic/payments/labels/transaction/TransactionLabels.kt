@@ -2,12 +2,12 @@ package majestic.payments.labels.transaction
 
 import majestic.payments.labels.MenuLabels
 import majestic.payments.labels.SectionLabels
-import majestic.payments.labels.TableLabels
 
 data class TransactionLabels(
     val emptyList: SectionLabels,
     val transactions: String,
     val menu: MenuLabels,
+    val action: ActionLabels,
     val table: TableLabels
 ) {
     companion object {
@@ -19,6 +19,7 @@ data class TransactionLabels(
                 ),
                 transactions = "Transactions",
                 menu = MenuLabels.english,
+                action = ActionLabels.english,
                 table = TableLabels.english
             )
         }
@@ -31,6 +32,7 @@ data class TransactionLabels(
                 ),
                 transactions = "Miamala",
                 menu = MenuLabels.swahili,
+                action = ActionLabels.swahili,
                 table = TableLabels.swahili
             )
         }
