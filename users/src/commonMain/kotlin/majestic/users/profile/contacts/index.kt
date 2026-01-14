@@ -56,6 +56,7 @@ import majestic.users.profile.contacts.phone.PhoneColors
 import majestic.users.profile.contacts.phone.dialogs.PhoneDialogs
 import majestic.users.profile.contacts.phone.dialogs.rememberPhoneDialogState
 import majestic.users.profile.contacts.tools.dialogs.Add
+import majestic.users.profile.contacts.tools.dialogs.Duplicate
 import majestic.users.tools.buttons.ButtonAnimate
 import majestic.users.tools.buttons.ButtonAnimateColors
 import majestic.users.tools.buttons.FlatButton
@@ -131,7 +132,7 @@ fun Contacts(
 ) {
     val language by observeUsersLabels(language)
     val labels = language.profile.tabs.contacts.content
-    val emailDialog = rememberEmailDialogState()
+    val emailDialog = rememberEmailDialogState(Duplicate)
     val phoneDialog = rememberPhoneDialogState()
     EmailDialogs(
         state = emailDialog,

@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -15,8 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.ScreenOrientation
 import majestic.ActionButton
 import majestic.ButtonColors
 import org.jetbrains.compose.resources.painterResource
@@ -47,6 +51,7 @@ internal fun GeneralPrompt(
     colors: GeneralPromptColors,
     labels: GeneralPromptLabels,
     onDismiss: () -> Unit,
+    orientation: ScreenOrientation,
     contact: String? = null,
     modifier: Modifier = Modifier,
     onDelete: () -> Unit = {},
@@ -64,16 +69,19 @@ internal fun GeneralPrompt(
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = labels.description,
-            color = colors.description
+            color = colors.description,
+            textAlign = if (orientation is Landscape) TextAlign.Start else TextAlign.Center
         )
         Text(
             text = contact ?: "",
             fontWeight = FontWeight.Bold,
-            color = colors.contact
+            color = colors.contact,
+            textAlign = if (orientation is Landscape) TextAlign.Start else TextAlign.Center
         )
     }
     Row(
         modifier = Modifier
+            .then(if (orientation is Landscape) Modifier.fillMaxWidth() else Modifier)
             .clip(RoundedCornerShape(10.dp))
             .background(colors.warning.copy(0.04f))
             .padding(20.dp),
@@ -88,6 +96,7 @@ internal fun GeneralPrompt(
         Text(
             text = labels.info,
             color = colors.warning,
+            fontSize = if (orientation is Landscape) 15.sp else 14.sp
         )
     }
     Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {

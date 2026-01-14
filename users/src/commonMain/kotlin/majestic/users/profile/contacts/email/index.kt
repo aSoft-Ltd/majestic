@@ -27,6 +27,7 @@ import majestic.users.profile.contacts.tools.GeneralPromptColors
 import majestic.users.profile.contacts.tools.dialogs.Delete
 import majestic.users.profile.contacts.tools.dialogs.Duplicate
 import majestic.users.profile.contacts.tools.dialogs.Edit
+import majestic.users.profile.contacts.tools.dialogs.Verify
 import majestic.users.tools.dialogs.Flex
 import majestic.users.tools.menu.MenuOption
 import majestic.users.tools.menu.MenuOptionColors
@@ -41,11 +42,11 @@ data class PromptColors(
 )
 
 data class EmailColors(
-    val tint: Color,//colors.surfaceContra.copy(0.5f)
-    val title: Color,//colors.surfaceContra
-    val separator: Color,//colors.surfaceContra.copy(0.5f)
-    val primary: Color,//colors.surfaceContra.copy(0.5f)
-    val primaryBackground: Color,//colors.surfaceContra.copy(0.2f)
+    val tint: Color,
+    val title: Color,
+    val separator: Color,
+    val primary: Color,
+    val primaryBackground: Color,
     val dialog: EmailDialogsColors,
     val menuOption: MenuOptionColors
 )

@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
@@ -26,7 +27,6 @@ import majestic.ActionButton
 import majestic.ButtonColors
 import majestic.TextField
 import majestic.TextFieldColors
-import majestic.ThemeColor
 import majestic.users.labels.profile.contact.DedicatedFormLabels
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_users.generated.resources.Res
@@ -34,9 +34,9 @@ import tz.co.asoft.majestic_users.generated.resources.ic_info_circle
 
 data class EmailFormColors(
     val info: Color = Color(0xFFE5A134),
-    val label: Color,//theme.surface.contra.color.copy(alpha = 0.7f)
+    val label: Color,
     val field: TextFieldColors,
-    val button: ButtonColors //ButtonColors(contentColor = colors.theme.surface.actual.color,containerColor = colors.theme.surface.contra.color)
+    val button: ButtonColors
 )
 
 @Composable
@@ -54,13 +54,25 @@ internal fun EmailForm(
     },
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(30.dp)) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(30.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Row(
             modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
                 .background(colors.info.copy(0.04f))
-                .padding(20.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                .then(
+                    other = when (orientation) {
+                        is Landscape -> Modifier
+                            .clip(RoundedCornerShape(10.dp))
+                            .padding(20.dp)
+
+                        is Portrait -> Modifier
+                            .fillMaxWidth()
+                            .padding(15.dp)
+                    }
+                ),
+            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -71,12 +83,17 @@ internal fun EmailForm(
             Text(
                 text = labels.info,
                 color = colors.info,
+                fontSize = 15.sp
             )
         }
 
         var email by remember { mutableStateOf("") }
         TextField(
-            modifier = Modifier.padding(bottom = 20.dp),
+            modifier = Modifier.padding(
+                bottom = 20.dp,
+                start = if (orientation is Portrait) 20.dp else 0.dp,
+                end = if (orientation is Portrait) 20.dp else 0.dp
+            ),
             value = email,
             hint = labels.input.placeholder,
             colors = colors.field,
@@ -91,7 +108,9 @@ internal fun EmailForm(
         )
     }
     ActionButton(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .then(if (orientation is Portrait) Modifier.padding(horizontal = 20.dp) else Modifier)
+            .fillMaxWidth(),
         text = labels.submit,
         colors = colors.button,
         onClick = onSubmit

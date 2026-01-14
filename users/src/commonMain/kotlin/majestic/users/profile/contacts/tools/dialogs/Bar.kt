@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
@@ -55,25 +56,30 @@ internal fun Bar(
 
     Icon(
         modifier = Modifier
-            .padding(top = 12.dp, end = 12.dp)
+            .padding(top = 12.dp, end = 12.dp, bottom = 24.dp)
             .align(
                 when (orientation) {
                     Landscape -> Alignment.TopEnd
-                    Portrait -> Alignment.CenterEnd
+                    Portrait -> Alignment.CenterStart
                 }
             )
             .pointerHoverIcon(PointerIcon.Hand)
             .onClick(onDismiss)
             .hoverable(interactionSource = interaction)
             .background(
-                color = when (hovered) {
-                    true -> colors.iconBackground
-                    else -> colors.iconBackground.copy(.7f)
+                color = when (orientation) {
+                    is Landscape -> when (hovered) {
+                        true -> colors.iconBackground
+                        else -> colors.iconBackground.copy(.7f)
+                    }
+
+                    is Portrait -> Color.Transparent
                 },
                 shape = CircleShape
             )
+            .graphicsLayer { rotationZ = 45f }
             .padding(5.dp)
-            .size(35.dp),
+            .size(24.dp),
         painter = painterResource(Res.drawable.ic_plus_sign),
         tint = colors.tint,
         contentDescription = "Icon"

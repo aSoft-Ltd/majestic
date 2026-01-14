@@ -1,12 +1,13 @@
 package majestic.users.profile.contacts.email.dialogs
 
 import majestic.users.labels.profile.contact.ContactLabels
+import majestic.users.profile.contacts.tools.GeneralPromptLabels
+import majestic.users.profile.contacts.tools.dialogs.Add
 import majestic.users.profile.contacts.tools.dialogs.Delete
 import majestic.users.profile.contacts.tools.dialogs.Duplicate
 import majestic.users.profile.contacts.tools.dialogs.Edit
 import majestic.users.profile.contacts.tools.dialogs.GeneralDialogs
 import majestic.users.profile.contacts.tools.dialogs.Verify
-import majestic.users.profile.contacts.tools.GeneralPromptLabels
 
 internal fun ContactLabels.toEmailDeleteLabels(): GeneralPromptLabels = GeneralPromptLabels(
     title = forms.email.delete.title,
@@ -27,6 +28,7 @@ internal fun ContactLabels.toEmailDuplicateLabels() = GeneralPromptLabels(
 )
 
 internal fun GeneralDialogs.getTitle(labels: ContactLabels): String = when (this) {
+    is Add -> labels.forms.email.add.title
     is Verify -> labels.forms.email.verify.title
     is Duplicate -> labels.forms.email.dup.title
     is Edit -> labels.forms.email.edit.title

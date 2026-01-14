@@ -46,6 +46,7 @@ internal fun PhoneDialogs(
             colors = colors.dialog,
             onDismiss = { state.dismiss() },
             modifier = Modifier
+                .then(if (orientation is Portrait) Modifier.padding(10.dp) else Modifier)
                 .clip(RoundedCornerShape(20.dp))
                 .background(colors.backgrounds.landscape)
         ) {
@@ -75,10 +76,19 @@ internal fun PhoneDialogs(
                     title = state.active.getTitle(labels),
                     onDismiss = { state.dismiss() },
                     orientation = orientation,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(vertical = 20.dp, horizontal = 16.dp),
+                    modifier = when (orientation) {
+                        Landscape -> Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(vertical = 20.dp, horizontal = 16.dp)
+
+
+                        Portrait -> Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .background(colors.backgrounds.landscape)
+                            .padding(vertical = 5.dp, horizontal = 10.dp)
+                    },
                     colors = colors.bar
                 )
             },

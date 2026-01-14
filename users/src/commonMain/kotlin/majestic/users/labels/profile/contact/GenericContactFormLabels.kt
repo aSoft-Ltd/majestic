@@ -31,7 +31,7 @@ data class GenericContactFormLabels(
                 enterCode = "Please enter the code to proceed.",
                 submit = "Verify",
                 resendCode = "Resend Code",
-                changeEmail = "Change $context",
+                changeContact = "Change $context",
             )
         )
 
@@ -58,7 +58,7 @@ data class GenericContactFormLabels(
                 enterCode = "Tafadhali weka msimbo ili kuendelea.",
                 submit = "Thibitisha",
                 resendCode = "Tuma tena Msimbo",
-                changeEmail = "Badilisha ${context.lowercase()}",
+                changeContact = "Badilisha ${context.lowercase()}",
             )
         )
     }

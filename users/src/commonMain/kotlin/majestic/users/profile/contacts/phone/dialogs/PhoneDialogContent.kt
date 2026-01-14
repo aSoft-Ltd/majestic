@@ -1,10 +1,12 @@
 package majestic.users.profile.contacts.phone.dialogs
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
@@ -34,16 +36,16 @@ private fun Modifier.phoneForms(
     state: PhoneDialogState
 ) = when (orientation) {
     is Landscape -> this
-        .padding(vertical = 40.dp, horizontal = 30.dp)
+        .padding(vertical = 30.dp, horizontal = 30.dp)
         .wrapContentSize()
 
     is Portrait -> when (state.dialogType) {
         is Dialog -> this
-            .padding(vertical = 20.dp, horizontal = 30.dp)
+            .padding(bottom = 30.dp)
             .fillMaxSize()
 
         else -> this
-            .padding(vertical = 40.dp, horizontal = 30.dp)
+            .padding(vertical = 20.dp, horizontal = 20.dp)
             .wrapContentSize()
     }
 }
@@ -60,14 +62,16 @@ internal fun PhoneDialogContent(
         labels = labels.forms.email.edit,
         onSubmit = { state.open(Verify) },
         colors = colors.form,
+        orientation = orientation,
     )
 
     is Verify -> PhoneVerificationForm(
         modifier = Modifier.phoneForms(orientation = orientation, state = state),
         colors = colors.verification,
-        labels = labels.forms.email.verify,
+        labels = labels.forms.phone.verify,
         onVerify = { state.dismiss() },
-        onChangePhone = { state.open(Edit) }
+        onChangePhone = { state.open(Edit) },
+        orientation = orientation
     )
 
     is Duplicate -> GeneralPrompt(
@@ -77,6 +81,7 @@ internal fun PhoneDialogContent(
         contact = "",
         modifier = Modifier.phoneForms(orientation = orientation, state = state),
         onDelete = { state.dismiss() },
+        orientation = orientation
     )
 
     is Edit -> PhoneForm(
@@ -84,6 +89,7 @@ internal fun PhoneDialogContent(
         labels = labels.forms.email.edit,
         onSubmit = { state.open(Verify) },
         colors = colors.form,
+        orientation = orientation,
     )
 
     is Delete -> GeneralPrompt(
@@ -91,7 +97,8 @@ internal fun PhoneDialogContent(
         modifier = Modifier.phoneForms(orientation = orientation, state = state),
         onDismiss = { state.dismiss() },
         onDelete = { state.dismiss() },
-        colors = colors.prompts.delete
+        colors = colors.prompts.delete,
+        orientation = orientation
     )
 
     else -> {}

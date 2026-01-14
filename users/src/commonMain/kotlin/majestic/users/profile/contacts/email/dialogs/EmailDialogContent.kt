@@ -34,16 +34,16 @@ private fun Modifier.emailForms(
     state: EmailDialogState
 ) = when (orientation) {
     is Landscape -> this
-        .padding(vertical = 40.dp, horizontal = 30.dp)
+        .padding(vertical = 30.dp, horizontal = 30.dp)
         .wrapContentSize()
 
     is Portrait -> when (state.dialogType) {
         is Dialog -> this
-            .padding(vertical = 20.dp, horizontal = 30.dp)
+            .padding(bottom = 30.dp)
             .fillMaxSize()
 
         else -> this
-            .padding(vertical = 40.dp, horizontal = 30.dp)
+            .padding(vertical = 20.dp, horizontal = 20.dp)
             .wrapContentSize()
     }
 }
@@ -56,7 +56,7 @@ internal fun EmailDialogContent(
     state: EmailDialogState
 ) = when (state.active) {
     is Add -> EmailForm(
-        modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
+        modifier = Modifier.emailForms(orientation = orientation, state = state),
         colors = colors.form,
         labels = labels.forms.email.add,
         onSubmit = {
@@ -71,6 +71,7 @@ internal fun EmailDialogContent(
         labels = labels.forms.email.verify,
         onVerify = { state.dismiss() },
         onChangeEmail = { state.open(Edit) },
+        orientation = orientation,
     )
 
     is Duplicate -> GeneralPrompt(
@@ -80,6 +81,7 @@ internal fun EmailDialogContent(
         contact = "",
         modifier = Modifier.emailForms(orientation = orientation, state = state),
         onDelete = { state.dismiss() },
+        orientation = orientation,
     )
 
     is Edit -> EmailForm(
@@ -95,7 +97,8 @@ internal fun EmailDialogContent(
         modifier = Modifier.emailForms(orientation = orientation, state = state),
         onDismiss = { state.dismiss() },
         onDelete = { state.dismiss() },
-        colors = colors.prompts.delete
+        colors = colors.prompts.delete,
+        orientation = orientation,
     )
 
     else -> {}
