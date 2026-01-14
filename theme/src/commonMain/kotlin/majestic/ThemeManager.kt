@@ -6,6 +6,8 @@ import androidx.compose.ui.graphics.Color
 class ThemeManager(
     val dominants: List<ColorPack> = listOf(
         ColorPack(actual = ActualColor.of(0xFF0061FF), contra = ContraColor.light()),
+        ColorPack(actual = ActualColor.of(0xFF151A22), contra = ContraColor.light()),
+//        ColorPack(actual = ActualColor.of(0xFF0061FF), contra = ContraColor.light()),
         ColorPack(actual = ActualColor.of(0xFF673AB7), contra = ContraColor.light()),
         ColorPack(actual = ActualColor.of(0xFF26C6DA), contra = ContraColor.dark()),
         ColorPack(actual = ActualColor.of(0xFF26A69A), contra = ContraColor.light()),
@@ -14,9 +16,13 @@ class ThemeManager(
         ColorPack(actual = ActualColor.of(0xFFFFA000), contra = ContraColor.dark()),
         ColorPack(actual = ActualColor.of(0xFFF57C00), contra = ContraColor.dark()),
         ColorPack(actual = ActualColor.of(0xFFFF5722), contra = ContraColor.dark()),
+    ),
+    val surfaces: List<ColorPack> = listOf(
+        ColorPack(actual = ActualColor.of(0xFF161616), contra = ContraColor.light())
     )
 ) {
-    val state = mutableStateOf<ThemeColor>(DarkThemeColor(dominants.first(), ColorPack.surfaceDark()))
+//    val state = mutableStateOf<ThemeColor>(DarkThemeColor(dominants.first(), ColorPack.surfaceDark()))
+    val state = mutableStateOf<ThemeColor>(DarkThemeColor(dominants.first(), surfaces.first()))
 
     /**
      * Sets the theme mode to either Light or Dark.
