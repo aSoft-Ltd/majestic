@@ -31,7 +31,7 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 data class HeadContentColors(
-    val whiteBackground: Color,
+    val background: Color,
     val content: Color,
     val title: Color,
     val flow: FlowItemColors
@@ -76,7 +76,7 @@ internal fun Content(
         if (orientation is Landscape) Text(
             modifier = Modifier
                 .clip(RoundedCornerShape(5.dp))
-                .background(colors.whiteBackground.copy(.3f))
+                .background(colors.background.copy(.3f))
                 .padding(horizontal = 5.dp, vertical = 2.dp),
             text = data.gender,
             overflow = TextOverflow.Ellipsis,
@@ -114,7 +114,7 @@ internal fun Content(
             Text(
                 modifier = Modifier
                     .clip(RoundedCornerShape(5.dp))
-                    .background(colors.whiteBackground.copy(.05f))
+                    .background(colors.background.copy(.05f))
                     .padding(horizontal = 5.dp, vertical = 2.dp),
                 text = data.gender,
                 overflow = TextOverflow.Ellipsis,
@@ -132,7 +132,7 @@ internal fun Content(
                 Text(
                     modifier = Modifier
                         .clip(RoundedCornerShape(2.dp))
-                        .background(colors.whiteBackground.copy(.05f))
+                        .background(colors.background.copy(.05f))
                         .padding(horizontal = 5.dp, vertical = 2.dp),
                     text = if (item.title.equals("joined", true)) {
                         "${item.title} ${item.description.drop(2)}"

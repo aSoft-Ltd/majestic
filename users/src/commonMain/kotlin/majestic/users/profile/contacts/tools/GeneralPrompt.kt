@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ActionButton
 import majestic.ButtonColors
@@ -81,11 +82,11 @@ internal fun GeneralPrompt(
     }
     Row(
         modifier = Modifier
-            .then(if (orientation is Landscape) Modifier.fillMaxWidth() else Modifier)
+            .then(if (orientation is Portrait) Modifier.fillMaxWidth() else Modifier)
             .clip(RoundedCornerShape(10.dp))
-            .background(colors.warning.copy(0.04f))
+            .background(color = colors.warning.copy(0.04f), shape = RoundedCornerShape(10.dp))
             .padding(20.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
