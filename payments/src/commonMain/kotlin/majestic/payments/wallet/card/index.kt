@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
-import majestic.payments.labels.WalletLabels
+import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.menu.MenuOptionColors
 import majestic.payments.wallet.tools.Avatar

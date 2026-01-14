@@ -26,7 +26,7 @@ import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.ColorPair
 import majestic.LazyTable
-import majestic.payments.labels.WalletLabels
+import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.menu.MenuOptionColors
 import majestic.payments.tools.separator
