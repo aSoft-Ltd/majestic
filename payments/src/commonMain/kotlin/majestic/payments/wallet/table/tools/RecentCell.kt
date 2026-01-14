@@ -15,8 +15,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.table.PaymentWallet
-import majestic.payments.wallet.table.TableColors
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

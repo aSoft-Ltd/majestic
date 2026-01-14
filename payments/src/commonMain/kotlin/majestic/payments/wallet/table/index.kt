@@ -23,13 +23,12 @@ import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
 import composex.screen.orientation.Landscape
 import majestic.Checkbox
-import majestic.CheckboxColors
 import majestic.ColorPair
 import majestic.LazyTable
 import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.menu.MenuOption
-import majestic.payments.tools.menu.MenuOptionColors
 import majestic.payments.tools.separator
+import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.table.tools.CreatedCell
 import majestic.payments.wallet.table.tools.NameCell
 import majestic.payments.wallet.table.tools.RecentCell
@@ -40,18 +39,6 @@ import majestic.tooling.onClick
 import symphony.Table
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.user_avatar
-
-data class TableColors(
-    val background: Color,
-    val headerBackground: Color,
-    val foreground: Color,
-    val separator: Color,
-    val hovered: Color,
-    val icon: Color,
-    val header: ColorPair,
-    val checkbox: CheckboxColors,
-    val menu: MenuOptionColors
-)
 
 @Composable
 fun WalletTable(
