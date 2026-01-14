@@ -18,9 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
+import composex.screen.orientation.ScreenOrientation
 import majestic.ActionButton
 import majestic.ButtonColors
 import majestic.TextField
@@ -32,8 +33,10 @@ import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_info_circle
 
 data class EmailFormColors(
-    val theme: ThemeColor,
-    val field: TextFieldColors
+    val info: Color = Color(0xFFE5A134),
+    val label: Color,//theme.surface.contra.color.copy(alpha = 0.7f)
+    val field: TextFieldColors,
+    val button: ButtonColors //ButtonColors(contentColor = colors.theme.surface.actual.color,containerColor = colors.theme.surface.contra.color)
 )
 
 @Composable
@@ -41,59 +44,56 @@ internal fun EmailForm(
     colors: EmailFormColors,
     labels: DedicatedFormLabels,
     onSubmit: () -> Unit,
+    orientation: ScreenOrientation,
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
-    verticalArrangement = Arrangement.spacedBy(30.dp),
+    verticalArrangement = when (orientation) {
+        is Landscape -> Arrangement.spacedBy(30.dp)
+        is Portrait -> Arrangement.SpaceBetween
+    },
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
-    Text(
-        text = labels.title,
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
-        color = colors.theme.surface.contra.color
-    )
-    Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFFE5A134).copy(0.04f))
-            .padding(20.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            painter = painterResource(Res.drawable.ic_info_circle),
-            tint = Color(0xFFE5A134),
-            contentDescription = "Icon"
-        )
-        Text(
-            text = labels.info,
-            color = Color(0xFFE5A134),
+    Column(verticalArrangement = Arrangement.spacedBy(30.dp)) {
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .background(colors.info.copy(0.04f))
+                .padding(20.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(Res.drawable.ic_info_circle),
+                tint = colors.info,
+                contentDescription = "Icon"
+            )
+            Text(
+                text = labels.info,
+                color = colors.info,
+            )
+        }
+
+        var email by remember { mutableStateOf("") }
+        TextField(
+            modifier = Modifier.padding(bottom = 20.dp),
+            value = email,
+            hint = labels.input.placeholder,
+            colors = colors.field,
+            label = {
+                Text(
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    text = labels.input.label,
+                    color = colors.label
+                )
+            },
+            onChange = { email = it }
         )
     }
-
-    var email by remember { mutableStateOf("") }
-    TextField(
-        modifier = Modifier.padding(bottom = 20.dp),
-        value = email,
-        hint = labels.input.placeholder,
-        colors = colors.field,
-        label = {
-            Text(
-                modifier = Modifier.padding(bottom = 8.dp),
-                text = labels.input.label,
-                color = colors.theme.surface.contra.color.copy(alpha = 0.7f)
-            )
-        },
-        onChange = { email = it }
-    )
     ActionButton(
         modifier = Modifier.fillMaxWidth(),
         text = labels.submit,
-        colors = ButtonColors(
-            contentColor = colors.theme.surface.actual.color,
-            containerColor = colors.theme.surface.contra.color
-        ),
+        colors = colors.button,
         onClick = onSubmit
     )
 }

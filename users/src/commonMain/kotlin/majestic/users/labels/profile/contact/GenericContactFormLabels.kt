@@ -3,16 +3,22 @@ package majestic.users.labels.profile.contact
 data class GenericContactFormLabels(
     val add: DedicatedFormLabels,
     val edit: DedicatedFormLabels,
-    val dup: DedicatedFormLabels,
-    val delete: ContactDeleteFormLabels,
+    val dup: ContactPromptFormLabels,
+    val delete: ContactPromptFormLabels,
     val verify: ContactVerificationFormLabels
 ) {
     companion object {
         fun english(context: String) = GenericContactFormLabels(
             add = DedicatedFormLabels.english("Add", context),
-            dup = DedicatedFormLabels.english("Duplicate", context),
+            dup = ContactPromptFormLabels(
+                title = "Duplicate $context",
+                submit = "Duplicate",
+                cancel = "Cancel",
+                description = "Are you sure you want to duplicate this $context?",
+                info = "$context will be duplicated permanently"
+            ),
             edit = DedicatedFormLabels.english("Edit", context),
-            delete = ContactDeleteFormLabels(
+            delete = ContactPromptFormLabels(
                 title = "Delete $context",
                 submit = "Delete",
                 cancel = "Cancel",
@@ -31,9 +37,15 @@ data class GenericContactFormLabels(
 
         fun swahili(context: String) = GenericContactFormLabels(
             add = DedicatedFormLabels.swahili("Ongeza", context),
-            dup = DedicatedFormLabels.swahili("Nakili", context),
+            dup = ContactPromptFormLabels(
+                title = "Rudufisha $context",
+                submit = "Rudufisha",
+                cancel = "Ghairi",
+                description = "Una uhakika unataka kurudufisha $context hii?",
+                info = "$context hii itarudufishwa"
+            ),
             edit = DedicatedFormLabels.swahili("Badili", context),
-            delete = ContactDeleteFormLabels(
+            delete = ContactPromptFormLabels(
                 title = "Futa $context",
                 submit = "Futa",
                 cancel = "Ghairi",

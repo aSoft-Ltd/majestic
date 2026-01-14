@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,15 +19,16 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.ThemeColor
 import majestic.users.labels.profile.contact.ContactLabels
-import majestic.users.profile.contacts.tools.DeleteForm
-import majestic.users.profile.contacts.tools.DeleteFormColors
+import majestic.users.profile.contacts.phone.dialogs.PhoneDialogs
+import majestic.users.profile.contacts.phone.dialogs.PhoneDialogsColors
+import majestic.users.profile.contacts.phone.dialogs.rememberPhoneDialogState
 import majestic.users.profile.contacts.tools.PhoneMenuAction
+import majestic.users.profile.contacts.tools.dialogs.Delete
+import majestic.users.profile.contacts.tools.dialogs.Duplicate
+import majestic.users.profile.contacts.tools.dialogs.Edit
 import majestic.users.tools.Tooltip
-import majestic.users.tools.dialogs.DialogColors
 import majestic.users.tools.dialogs.Flex
-import majestic.users.tools.dialogs.Modal
 import majestic.users.tools.menu.MenuOption
 import majestic.users.tools.menu.MenuOptionColors
 import majestic.users.tools.menu.OptionMenu
@@ -41,14 +38,20 @@ import tz.co.asoft.majestic_users.generated.resources.ic_call
 import tz.co.asoft.majestic_users.generated.resources.ic_calling_solid
 import tz.co.asoft.majestic_users.generated.resources.ic_whatsapp_solid
 
+data class Backgrounds(
+    val portrait: Color,
+    val landscape: Color
+)
+
 data class PhoneColors(
-    val theme: ThemeColor,
-    val background: Color,
-    val deleteForm: DeleteFormColors,
+    val tint: Color,//theme.surface.contra.color.copy(0.5f)
+    val title: Color,//theme.surface.contra.color,
+    val separator: Color,//theme.surface.contra.color.copy(0.5f),
+    val primary: Color,//theme.surface.contra.color
+    val primaryBackground: Color,//theme.surface.contra.color.copy(0.2f)
+    val tooltip: ColorPair, //ColorPair(foreground = theme.surface.actual.color,  background = theme.surface.contra.color)
     val menuOption: MenuOptionColors,
-    val phoneForm: PhoneFormColors,
-    val dialog: DialogColors,
-    val verifyPhone: PhoneVerificationFormColors
+    val dialog: PhoneDialogsColors,
 )
 
 @Composable
@@ -62,70 +65,13 @@ internal fun Phone(
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier
 ) {
-    var deleteDialogOpened by remember { mutableStateOf(false) }
-    val theme = colors.theme
-    if (deleteDialogOpened) Modal(
-        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
+    val state = rememberPhoneDialogState()
+    PhoneDialogs(
+        state = state,
+        labels = labels,
         colors = colors.dialog,
-        onDismiss = { deleteDialogOpened = false }
-    ) {
-        DeleteForm(
-            labels = labels.forms.phone.delete,
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            onDismiss = { deleteDialogOpened = false },
-            colors = colors.deleteForm
-        )
-    }
-
-    var verifyDialogOpened by remember { mutableStateOf(false) }
-    var editDialogOpened by remember { mutableStateOf(false) }
-    if (editDialogOpened) Modal(
-        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
-        colors = colors.dialog,
-        onDismiss = { editDialogOpened = false }
-    ) {
-        PhoneForm(
-            labels = labels.forms.phone.edit,
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            onSubmit = {
-                editDialogOpened = false
-                verifyDialogOpened = true
-            },
-            colors = colors.phoneForm
-        )
-    }
-    var duplicateDialogOpened by remember { mutableStateOf(false) }
-    if (duplicateDialogOpened) Modal(
-        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
-        colors = colors.dialog,
-        onDismiss = { duplicateDialogOpened = false }
-    ) {
-        PhoneForm(
-            colors = colors.phoneForm,
-            labels = labels.forms.phone.dup,
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            onSubmit = {
-                duplicateDialogOpened = false
-                verifyDialogOpened = true
-            }
-        )
-    }
-    if (verifyDialogOpened) Modal(
-        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
-        colors = colors.dialog,
-        onDismiss = { verifyDialogOpened = false }
-    ) {
-        PhoneVerificationForm(
-            colors = colors.verifyPhone,
-            labels = labels.forms.phone.verify,
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            onVerify = { verifyDialogOpened = false },
-            onChangePhone = {
-                verifyDialogOpened = false
-                editDialogOpened = true
-            },
-        )
-    }
+        orientation = orientation
+    )
 
     Row(
         modifier = modifier,
@@ -139,7 +85,7 @@ internal fun Phone(
             Image(
                 modifier = Modifier.size(24.dp),
                 painter = painterResource(Res.drawable.ic_call),
-                colorFilter = ColorFilter.tint(theme.surface.contra.color.copy(0.5f)),
+                colorFilter = ColorFilter.tint(colors.tint),
                 contentDescription = null,
             )
             Flex(
@@ -150,7 +96,7 @@ internal fun Phone(
             ) {
                 Text(
                     text = text,
-                    color = theme.surface.contra.color,
+                    color = colors.title
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -158,24 +104,21 @@ internal fun Phone(
                 ) {
                     if (orientation is Landscape) Text(
                         text = "•",
-                        color = theme.surface.contra.color.copy(0.5f),
+                        color = colors.separator,
                     )
                     if (isPrimary) Text(
                         modifier = Modifier
                             .clip(CircleShape)
-                            .background(theme.surface.contra.color.copy(0.2f))
+                            .background(colors.primaryBackground)
                             .padding(horizontal = 5.dp),
                         text = labels.primary,
                         fontSize = 12.sp,
                         lineHeight = 12.sp,
-                        color = theme.surface.contra.color.copy(0.5f),
+                        color = colors.primary,
                     )
                     if (isNormal) Tooltip(
                         text = labels.availability.calls,
-                        colors = ColorPair(
-                            foreground = theme.surface.actual.color,
-                            background = theme.surface.contra.color
-                        ),
+                        colors = colors.tooltip,
                     ) {
                         Image(
                             modifier = Modifier.size(16.dp),
@@ -186,10 +129,7 @@ internal fun Phone(
                     }
                     if (isWhatsapp) Tooltip(
                         text = labels.availability.whatsapp,
-                        colors = ColorPair(
-                            foreground = theme.surface.actual.color,
-                            background = theme.surface.contra.color
-                        ),
+                        colors = colors.tooltip,
                         modifier = Modifier.padding(5.dp)
                     ) {
                         Image(
@@ -214,9 +154,9 @@ internal fun Phone(
         ) { action ->
             when (action) {
                 PhoneMenuAction.Primary -> {}
-                PhoneMenuAction.Edit -> editDialogOpened = true
-                PhoneMenuAction.Duplicate -> duplicateDialogOpened = true
-                PhoneMenuAction.Delete -> deleteDialogOpened = true
+                PhoneMenuAction.Edit -> state.open(Edit)
+                PhoneMenuAction.Duplicate -> state.open(Duplicate)
+                PhoneMenuAction.Delete -> state.open(Delete)
             }
         }
     }

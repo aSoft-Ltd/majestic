@@ -40,12 +40,7 @@ internal fun EmailVerificationForm(
     verticalArrangement = Arrangement.spacedBy(40.dp),
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
-    Text(
-        text = labels.title,
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
-        color = colors.surfaceContra
-    )
+
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(

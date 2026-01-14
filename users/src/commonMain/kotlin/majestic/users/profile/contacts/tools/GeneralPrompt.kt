@@ -19,22 +19,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ActionButton
 import majestic.ButtonColors
-import majestic.ThemeColor
-import majestic.users.labels.profile.contact.ContactDeleteFormLabels
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_info_circle
 
-data class DeleteFormColors(
-    val theme: ThemeColor,
+data class GeneralPromptColors(
+    val title: Color,
+    val description: Color,
+    val contact: Color,
+    val warning: Color = Color(0xFFE5A134),
+    val buttonBorder: Color,
     val cancel: ButtonColors,
     val submit: ButtonColors
 )
 
+internal data class GeneralPromptLabels(
+    val title: String,
+    val description: String,
+    val contact: String,
+    val info: String,
+    val submit: String,
+    val cancel: String
+)
+
 @Composable
-internal fun DeleteForm(
-    colors: DeleteFormColors,
-    labels: ContactDeleteFormLabels,
+internal fun GeneralPrompt(
+    colors: GeneralPromptColors,
+    labels: GeneralPromptLabels,
     onDismiss: () -> Unit,
     contact: String? = null,
     modifier: Modifier = Modifier,
@@ -48,35 +59,35 @@ internal fun DeleteForm(
         text = labels.title,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
-        color = colors.theme.surface.contra.color
+        color = colors.title
     )
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = labels.description,
-            color = colors.theme.surface.contra.color
+            color = colors.description
         )
         Text(
             text = contact ?: "",
             fontWeight = FontWeight.Bold,
-            color = colors.theme.surface.contra.color
+            color = colors.contact
         )
     }
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFFE5A134).copy(0.04f))
+            .background(colors.warning.copy(0.04f))
             .padding(20.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             painter = painterResource(Res.drawable.ic_info_circle),
-            tint = Color(0xFFE5A134),
+            tint = colors.warning,
             contentDescription = "Icon"
         )
         Text(
             text = labels.info,
-            color = Color(0xFFE5A134),
+            color = colors.warning,
         )
     }
     Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
@@ -91,7 +102,7 @@ internal fun DeleteForm(
             text = labels.cancel,
             border = BorderStroke(
                 width = 1.dp,
-                color = colors.theme.surface.contra.color.copy(alpha = 0.2f)
+                color = colors.buttonBorder.copy(alpha = 0.2f)
             ),
             colors = colors.cancel,
             onClick = onDismiss
