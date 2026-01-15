@@ -2,7 +2,7 @@ package majestic.payments.labels.transaction
 
 data class TableLabels(
     val checkbox: String,
-    val studentName: String,
+    val name: String,
     val payer: String,
     val purpose: String,
     val reference: String,
@@ -14,7 +14,7 @@ data class TableLabels(
         val english by lazy {
             TableLabels(
                 checkbox = "Checkbox",
-                studentName = "Student Name",
+                name = "Name",
                 payer = "Payer",
                 purpose = "Purpose",
                 reference = "Reference",
@@ -27,7 +27,7 @@ data class TableLabels(
         val swahili by lazy {
             TableLabels(
                 checkbox = "Checkbox",
-                studentName = "Jina la Mwanafunzi",
+                name = "Jina",
                 payer = "Mlipa",
                 purpose = "Madhumuni",
                 reference = "Rejea",

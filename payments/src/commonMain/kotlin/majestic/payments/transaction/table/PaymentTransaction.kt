@@ -1,7 +1,7 @@
 package majestic.payments.transaction.table
 
 data class PaymentTransaction(
-    val student: String,
+    val name: String,
     val payer: String,
     val purpose: String,
     val reference: String,

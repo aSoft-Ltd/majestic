@@ -26,9 +26,14 @@ import majestic.payments.labels.transaction.TransactionLabels
 import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.separator
 import majestic.payments.tools.table.TableColors
+import majestic.payments.transaction.table.tools.CommonCell
 import majestic.payments.transaction.tools.TransactionMenuAction
 import majestic.tooling.onClick
 import symphony.Table
+import tz.co.asoft.majestic_payments.generated.resources.Res
+import tz.co.asoft.majestic_payments.generated.resources.m_pesa_logo
+import tz.co.asoft.majestic_payments.generated.resources.nmb_logo
+import tz.co.asoft.majestic_payments.generated.resources.user_avatar
 
 @Composable
 fun TransactionTable(
@@ -43,7 +48,7 @@ fun TransactionTable(
             for (column in columns) {
                 this[column] = when (column.key) {
                     labels.table.checkbox -> 2f
-                    labels.table.studentName -> 5f
+                    labels.table.name -> 5f
                     labels.table.payer -> 5f
                     labels.table.amount -> 5f
                     "" -> 2f
@@ -118,58 +123,93 @@ fun TransactionTable(
                 )
             }
 
-            labels.table.studentName -> Box(
-                modifier = Modifier.height(cellHeight)
-                    .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
-                    .pointerHoverIcon(PointerIcon.Hand)
-                    .padding(horizontal = 12.dp)
-            )
-
-            labels.table.payer -> Box(
+            labels.table.name -> CommonCell(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
+                avatar = Res.drawable.user_avatar,
+                title = "Juma Karanja",
+                subtitle = "Male • Grade I",
+                colors = colors
             )
 
-            labels.table.purpose -> Box(
-                modifier = Modifier.height(cellHeight)
-                    .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
-                    .pointerHoverIcon(PointerIcon.Hand)
-                    .padding(horizontal = 12.dp)
-            )
-
-            labels.table.reference -> Box(
-                modifier = Modifier.height(cellHeight)
-                    .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
-                    .pointerHoverIcon(PointerIcon.Hand)
-                    .padding(horizontal = 12.dp),
-            )
-
-            labels.table.issued -> Box(
+            labels.table.payer -> CommonCell(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
+                avatar = Res.drawable.m_pesa_logo,
+                avatarShape = RoundedCornerShape(5.dp),
+                title = "Amani Kito Juma",
+                subtitle = "+255 712 345 678",
+                colors = colors
             )
 
-            labels.table.confirmed -> Box(
+            labels.table.purpose -> CommonCell(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
-                    .padding(horizontal = 12.dp)
+                    .padding(horizontal = 12.dp),
+                title = "Admission Fees",
+                subtitle = "27/04/2025",
+                colors = colors
+            )
+
+            labels.table.reference -> CommonCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                title = "INV-400-89",
+                subtitle = "TXN-003-45",
+                colors = colors
+            )
+
+            labels.table.issued -> CommonCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                title = "15/03/2025",
+                subtitle = "1100hrs",
+                colors = colors
+            )
+
+            labels.table.confirmed -> CommonCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                title = "15/03/2025",
+                subtitle = "1340hrs",
+                colors = colors
+            )
+
+            labels.table.amount -> CommonCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(horizontal = 12.dp),
+                avatar = Res.drawable.nmb_logo,
+                avatarShape = RoundedCornerShape(5.dp),
+                title = "Kilimo Kijani Schools",
+                subtitle = "TZS 30,000.00",
+                colors = colors
             )
 
             "" -> Box(
