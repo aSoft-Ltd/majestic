@@ -8,7 +8,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import kollections.Set
 import majestic.users.tools.ColumnLabels
 import symphony.Table
 import symphony.columns.Column
