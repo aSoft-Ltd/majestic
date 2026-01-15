@@ -73,7 +73,7 @@ fun DataSelectFilter(
         onChange = { it?.let(onChange) },
         onExpanded = { isExpanded = it },
         drawerContainerColor = colors.popup.background,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(20.dp),
         dropDownShape = RoundedCornerShape(12.dp),
         dropdownModifier = Modifier.width(IntrinsicSize.Max)
     )
