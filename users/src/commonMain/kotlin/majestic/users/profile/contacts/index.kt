@@ -56,8 +56,6 @@ import majestic.users.profile.contacts.phone.PhoneColors
 import majestic.users.profile.contacts.phone.dialogs.PhoneDialogs
 import majestic.users.profile.contacts.phone.dialogs.rememberPhoneDialogState
 import majestic.users.profile.contacts.tools.dialogs.Add
-import majestic.users.profile.contacts.tools.dialogs.Delete
-import majestic.users.profile.contacts.tools.dialogs.Duplicate
 import majestic.users.tools.buttons.ButtonAnimate
 import majestic.users.tools.buttons.ButtonAnimateColors
 import majestic.users.tools.buttons.FlatButton
@@ -127,6 +125,7 @@ private fun Modifier.contact(
 
 @Composable
 fun Contacts(
+    modifier: Modifier,
     colors: ContactsColors,
     language: LanguageController,
     orientation: ScreenOrientation
@@ -150,7 +149,7 @@ fun Contacts(
 
     Box(
         contentAlignment = if (orientation is Landscape) Alignment.TopEnd else Alignment.BottomEnd,
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
     ) {
         var isOpen by remember { mutableStateOf(false) }
         var buttonBox by remember { mutableStateOf(Rect(Offset.Zero, Size.Zero)) }
