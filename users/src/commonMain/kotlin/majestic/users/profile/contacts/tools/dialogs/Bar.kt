@@ -47,16 +47,41 @@ internal fun Bar(
     val interaction = remember { MutableInteractionSource() }
     val hovered by interaction.collectIsHoveredAsState()
     Text(
-        modifier = Modifier.align(Alignment.Center),
+        modifier = Modifier
+            .padding(
+                top = when (orientation) {
+                    Landscape -> 0.dp
+                    Portrait -> 12.dp
+                },
+                bottom = when (orientation) {
+                    Landscape -> 0.dp
+                    Portrait -> 12.dp
+                },
+                start = when (orientation) {
+                    Landscape -> 0.dp
+                    Portrait -> 50.dp
+                }
+            )
+            .align(
+                when (orientation) {
+                    Landscape -> Alignment.Center
+                    Portrait -> Alignment.CenterStart
+                }
+            ),
         text = title,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
+        fontSize = 16.sp,
         color = colors.title
     )
 
     Icon(
         modifier = Modifier
-            .padding(top = 12.dp, end = 12.dp, bottom = 24.dp)
+            .padding(
+                top = 12.dp, end = 12.dp, bottom = when (orientation) {
+                    Landscape -> 24.dp
+                    Portrait -> 12.dp
+                }
+            )
             .align(
                 when (orientation) {
                     Landscape -> Alignment.TopEnd

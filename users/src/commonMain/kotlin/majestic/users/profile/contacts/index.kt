@@ -133,7 +133,7 @@ fun Contacts(
 ) {
     val language by observeUsersLabels(language)
     val labels = language.profile.tabs.contacts.content
-    val emailDialog = rememberEmailDialogState()
+    val emailDialog = rememberEmailDialogState(Add)
     val phoneDialog = rememberPhoneDialogState()
     EmailDialogs(
         state = emailDialog,
