@@ -52,6 +52,7 @@ fun DataSelectFilter(
     selected: List<String>,
     items: List<String>,
     icon: DrawableResource,
+    shape: RoundedCornerShape = RoundedCornerShape(12.dp),
     onChange: (String) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
@@ -73,7 +74,7 @@ fun DataSelectFilter(
         onChange = { it?.let(onChange) },
         onExpanded = { isExpanded = it },
         drawerContainerColor = colors.popup.background,
-        shape = RoundedCornerShape(20.dp),
+        shape = shape,
         dropDownShape = RoundedCornerShape(12.dp),
         dropdownModifier = Modifier.width(IntrinsicSize.Max)
     )

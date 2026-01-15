@@ -54,6 +54,7 @@ fun SelectFilter(
     value: String? = null,
     icon: DrawableResource? = null,
     onChange: (String) -> Unit = {},
+    shape: RoundedCornerShape = RoundedCornerShape(12.dp),
     modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -74,7 +75,7 @@ fun SelectFilter(
         onChange = { it?.let(onChange) },
         onExpanded = { isExpanded = it },
         drawerContainerColor = colors.popup.background,
-        shape = RoundedCornerShape(20.dp),
+        shape = shape,
         dropDownShape = RoundedCornerShape(12.dp),
         dropdownModifier = Modifier.width(IntrinsicSize.Max)
     )
