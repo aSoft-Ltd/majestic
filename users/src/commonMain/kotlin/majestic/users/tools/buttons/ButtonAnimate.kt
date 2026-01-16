@@ -6,7 +6,6 @@ import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -29,7 +28,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
-import majestic.NoRippleInteractionSource
+import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -75,12 +74,7 @@ internal fun ButtonAnimate(
             .hoverable(interactionSource = interactionSource)
             .padding(10.dp)
             .animateContentSize(animationSpec)
-            .clickable(
-                interactionSource = NoRippleInteractionSource,
-                indication = null,
-                enabled = true,
-                onClick = onClick
-            ),
+            .onClick(onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(

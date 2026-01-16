@@ -33,7 +33,8 @@ import org.jetbrains.compose.resources.painterResource
 
 data class HeadColors(
     val content: Color,
-    val whiteBackground: Color,
+    val background: Color,
+    val title:Color,
     val flow: FlowItemColors
 )
 
@@ -48,8 +49,6 @@ fun Head(
     horizontalArrangement = Arrangement.spacedBy(10.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    val contentColor = colors.content
-
     if (data.avatar != null) Box(modifier = Modifier.size(if (orientation is Landscape) 100.dp else 70.dp)) {
         Image(
             modifier = Modifier
@@ -62,7 +61,7 @@ fun Head(
             modifier = Modifier
                 .padding(start = 15.dp, bottom = 10.dp)
                 .align(Alignment.BottomEnd)
-                .border(1.dp, colors.whiteBackground, CircleShape)
+                .border(1.dp, colors.background, CircleShape)
                 .clip(CircleShape)
                 .size(15.dp),
             contentScale = ContentScale.Crop,
@@ -74,12 +73,12 @@ fun Head(
         modifier = Modifier
             .size(if (orientation is Landscape) 140.dp else 70.dp)
             .clip(CircleShape)
-            .background(colors.whiteBackground.copy(.7f)),
+            .background(colors.background.copy(.7f)),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = data.name.firstOrNull()?.uppercase() ?: "",
-            color = contentColor,
+            color = colors.content,
             fontSize = if (orientation is Landscape) 40.sp else 20.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1
@@ -91,9 +90,9 @@ fun Head(
         orientation = orientation,
         data = data,
         colors = HeadContentColors(
-            whiteBackground = colors.whiteBackground,
+            background = colors.background,
             content = colors.content,
-            title = colors.whiteBackground,
+            title = colors.title,
             flow = colors.flow
         ),
     )
