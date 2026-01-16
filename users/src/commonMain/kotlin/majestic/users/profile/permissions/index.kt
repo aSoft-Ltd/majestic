@@ -24,6 +24,7 @@ import majestic.users.profile.permissions.detail.Permissions
 import majestic.users.profile.permissions.detail.toDetailProperties
 import majestic.users.tools.data.Permissions
 import org.jetbrains.compose.resources.DrawableResource
+import majestic.users.profile.permissions.PermissionState.*
 
 data class PermissionsColors(
     val permission: PermissionColors,
@@ -69,7 +70,7 @@ fun GeneralPermissions(
             orientation = orientation
         )
 
-        else -> current.activeObj?.let { activePermission ->
+        Detailed -> current.activeObj?.let { activePermission ->
             Details(
                 modifier = Modifier.generalStyles(orientation, props),
                 current = current,

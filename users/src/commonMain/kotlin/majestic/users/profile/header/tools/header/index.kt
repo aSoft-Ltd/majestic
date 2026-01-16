@@ -42,43 +42,64 @@ fun Head(
     horizontalArrangement = Arrangement.spacedBy(10.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    val contentColor = if (orientation is Portrait && theme.mode is Light) theme.dominant.contra.color
-    else theme.surface.contra.color
-
-    if (data.avatar != null) Box(modifier = Modifier.size(if (orientation is Landscape) 100.dp else 70.dp)) {
-        Image(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(CircleShape),
-            painter = painterResource(data.avatar),
-            contentDescription = null,
-        )
-        if (orientation is Portrait) Image(
-            modifier = Modifier
-                .padding(start = 15.dp, bottom = 10.dp)
-                .align(Alignment.BottomEnd)
-                .border(1.dp, theme.surface.contra.color, CircleShape)
-                .clip(CircleShape)
-                .size(15.dp),
-            contentScale = ContentScale.Crop,
-            painter = painterResource(data.flag),
-            contentDescription = null,
-        )
+    val contentColor = when {
+        orientation is Portrait && theme.mode is Light -> theme.dominant.contra.color
+        else -> theme.surface.contra.color
     }
-    else Box(
-        modifier = Modifier
-            .size(if (orientation is Landscape) 140.dp else 70.dp)
-            .clip(CircleShape)
-            .background(theme.surface.contra.color.copy(.7f)),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = data.name.firstOrNull()?.uppercase() ?: "",
-            color = contentColor,
-            fontSize = if (orientation is Landscape) 40.sp else 20.sp,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1
-        )
+
+    when (val avatar = data.avatar) {
+        null -> Box(
+            modifier = Modifier
+                .size(
+                    when (orientation) {
+                        is Landscape -> 140.dp
+                        is Portrait -> 70.dp
+                    }
+                )
+                .clip(CircleShape)
+                .background(theme.surface.contra.color.copy(.7f)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = data.name.firstOrNull()?.uppercase() ?: "",
+                color = contentColor,
+                fontSize = when (orientation) {
+                    is Landscape -> 40.sp
+                    is Portrait -> 20.sp
+                },
+                fontWeight = FontWeight.Bold,
+                maxLines = 1
+            )
+        }
+
+        else -> Box(
+            modifier = Modifier
+                .size(
+                    when (orientation) {
+                        is Landscape -> 100.dp
+                        is Portrait -> 70.dp
+                    }
+                )
+        ) {
+            Image(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(CircleShape),
+                painter = painterResource(avatar),
+                contentDescription = null,
+            )
+            if (orientation is Portrait) Image(
+                modifier = Modifier
+                    .padding(start = 15.dp, bottom = 10.dp)
+                    .align(Alignment.BottomEnd)
+                    .border(1.dp, theme.surface.contra.color, CircleShape)
+                    .clip(CircleShape)
+                    .size(15.dp),
+                contentScale = ContentScale.Crop,
+                painter = painterResource(data.flag),
+                contentDescription = null,
+            )
+        }
     }
 
     Content(
@@ -89,4 +110,3 @@ fun Head(
         theme
     )
 }
-

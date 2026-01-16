@@ -1,4 +1,4 @@
-package majestic.users.dashboard.tools
+package majestic.tools
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush.Companion.linearGradient

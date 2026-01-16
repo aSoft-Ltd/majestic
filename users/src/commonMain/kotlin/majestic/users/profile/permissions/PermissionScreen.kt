@@ -7,19 +7,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import majestic.users.tools.data.Permissions
 
-internal sealed interface PermissionScreenState
-internal object Main : PermissionScreenState
-internal object Detailed : PermissionScreenState
+internal enum class PermissionState {
+    Main, Detailed
+}
 
 internal class PermissionScreen() {
-    var view by mutableStateOf<PermissionScreenState>(Main)
+    var view by mutableStateOf(PermissionState.Main)
     var activeObj by mutableStateOf<Permissions?>(null)
     fun main() {
-        view = Main
+        view = PermissionState.Main
     }
 
     fun detailed() {
-        view = Detailed
+        view = PermissionState.Detailed
     }
 
     fun reset() {
