@@ -3,6 +3,7 @@ package majestic.users.labels.table
 data class UsersTableHeaderLabels(
     val users: String,
     val name: String,
+    val manage:String,
     val email: String,
     val selected: String,
     val id: String,
@@ -30,7 +31,8 @@ data class UsersTableHeaderLabels(
                 status = "Status",
                 export = "Export",
                 actions = UserSelectActionLabels.english,
-                filters = UserFilterLabels.english
+                filters = UserFilterLabels.english,
+                manage = "Manage"
             )
         }
         val swahili by lazy {
@@ -47,7 +49,8 @@ data class UsersTableHeaderLabels(
                 status = "Hali",
                 export = "Shusha",
                 actions = UserSelectActionLabels.swahili,
-                filters = UserFilterLabels.swahili
+                filters = UserFilterLabels.swahili,
+                manage = "Simamia"
             )
         }
     }
