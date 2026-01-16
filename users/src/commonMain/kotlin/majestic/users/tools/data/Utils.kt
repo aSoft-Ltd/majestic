@@ -26,11 +26,11 @@ fun getWeights(
         for (column in columns) {
             this[column] = when (column.key) {
                 labels.checkbox -> 2f
-                labels.name -> 4.5f
-                labels.email -> 6f
+                labels.name -> 6f
+                labels.email -> 6.5f
                 labels.id -> 8f
                 labels.dateJoined -> 4f
-                labels.lastActive -> 4f
+                labels.lastActive -> 5f
                 labels.roles -> 4f
                 labels.permission -> 4f
                 labels.status -> 4f

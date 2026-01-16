@@ -9,6 +9,6 @@ fun getLabels(cell: Cell<UsersData>, labels: ColumnLabels) = when (cell.column.k
     labels.id -> cell.row.item.id
     labels.dateJoined -> cell.row.item.dateJoined.first
     labels.lastActive -> cell.row.item.lastActive.first
-    labels.roles -> cell.row.item.roles
-    else -> cell.row.item.permissions
+    labels.roles -> cell.row.item.rolesCount
+    else -> cell.row.item.permissionsCount
 }
