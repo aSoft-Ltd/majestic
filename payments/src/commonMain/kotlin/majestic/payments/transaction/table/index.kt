@@ -30,10 +30,6 @@ import majestic.payments.transaction.table.tools.CommonCell
 import majestic.payments.transaction.tools.TransactionMenuAction
 import majestic.tooling.onClick
 import symphony.Table
-import tz.co.asoft.majestic_payments.generated.resources.Res
-import tz.co.asoft.majestic_payments.generated.resources.m_pesa_logo
-import tz.co.asoft.majestic_payments.generated.resources.nmb_logo
-import tz.co.asoft.majestic_payments.generated.resources.user_avatar
 
 @Composable
 fun TransactionTable(
@@ -130,9 +126,9 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
-                avatar = Res.drawable.user_avatar,
-                title = "Juma Karanja",
-                subtitle = "Male • Grade I",
+                avatar = cell.row.item.avatar,
+                title = cell.row.item.name,
+                subtitle = cell.row.item.info,
                 colors = colors
             )
 
@@ -143,10 +139,10 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
-                avatar = Res.drawable.m_pesa_logo,
+                avatar = cell.row.item.account,
                 avatarShape = RoundedCornerShape(5.dp),
-                title = "Amani Kito Juma",
-                subtitle = "+255 712 345 678",
+                title = cell.row.item.payer,
+                subtitle = cell.row.item.phone,
                 colors = colors
             )
 
@@ -157,8 +153,8 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
-                title = "Admission Fees",
-                subtitle = "27/04/2025",
+                title = cell.row.item.purpose,
+                subtitle = cell.row.item.date,
                 colors = colors
             )
 
@@ -169,8 +165,8 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
-                title = "INV-400-89",
-                subtitle = "TXN-003-45",
+                title = cell.row.item.reference,
+                subtitle = cell.row.item.receipt,
                 colors = colors
             )
 
@@ -181,8 +177,8 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
-                title = "15/03/2025",
-                subtitle = "1100hrs",
+                title = cell.row.item.date,
+                subtitle = cell.row.item.time,
                 colors = colors
             )
 
@@ -193,8 +189,8 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
-                title = "15/03/2025",
-                subtitle = "1340hrs",
+                title = cell.row.item.date,
+                subtitle = cell.row.item.time,
                 colors = colors
             )
 
@@ -205,10 +201,10 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
-                avatar = Res.drawable.nmb_logo,
+                avatar = cell.row.item.account,
                 avatarShape = RoundedCornerShape(5.dp),
-                title = "Kilimo Kijani Schools",
-                subtitle = "TZS 30,000.00",
+                title = cell.row.item.amountTitle,
+                subtitle = "TZS ${cell.row.item.amount}",
                 colors = colors
             )
 
