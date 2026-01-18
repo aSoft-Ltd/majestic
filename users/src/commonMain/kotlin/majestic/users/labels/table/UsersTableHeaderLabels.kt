@@ -12,43 +12,6 @@ data class UsersTableHeaderLabels(
     val permission: String,
     val status: String,
     val export: String,
-    val actions: UserSelectActionLabels,
-    val filters: UserFilterLabels
-) {
-    companion object {
-        val english by lazy {
-            UsersTableHeaderLabels(
-                users = "Users",
-                name = "Name",
-                email = "Email",
-                selected = "Selected",
-                id = "ID",
-                dateJoined = "Date Joined",
-                lastActive = "Last Active",
-                roles = "Roles",
-                permission = "Permission",
-                status = "Status",
-                export = "Export",
-                actions = UserSelectActionLabels.english,
-                filters = UserFilterLabels.english
-            )
-        }
-        val swahili by lazy {
-            UsersTableHeaderLabels(
-                users = "Watumiaji",
-                name = "Jina",
-                email = "Barua Pepe",
-                selected = "Wamechaguliwa",
-                id = "Kitambulisho",
-                dateJoined = "Tarehe Yakujiunga",
-                lastActive = "Mara Ya Mwisho Mtandaoni",
-                roles = "Wajibu",
-                permission = "Ruhusa",
-                status = "Hali",
-                export = "Shusha",
-                actions = UserSelectActionLabels.swahili,
-                filters = UserFilterLabels.swahili
-            )
-        }
-    }
-}
+    val actions: majestic.users.labels.table.UserSelectActionLabels,
+    val filters: majestic.users.labels.table.UserFilterLabels
+)

@@ -23,11 +23,11 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.users.labels.profile.contact.DedicatedFormLabels
 import majestic.ActionButton
 import majestic.ButtonColors
 import majestic.TextField
 import majestic.TextFieldColors
-import majestic.users.labels.profile.contact.DedicatedFormLabels
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_info_circle
