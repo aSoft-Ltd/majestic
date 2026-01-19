@@ -21,9 +21,9 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.tooling.onClick
 import majestic.users.labels.profile.TabLabels
-import majestic.users.profile.header.tools.header.Head
-import majestic.users.profile.header.tools.header.HeadColors
-import majestic.users.profile.header.tools.header.tools.HeadData
+import majestic.users.profile.Head
+import majestic.users.profile.HeadColors
+import majestic.users.profile.header.tools.HeadData
 import majestic.users.profile.header.tools.toProfileData
 import majestic.users.tools.data.GenderLabels
 import majestic.users.tools.data.UsersData

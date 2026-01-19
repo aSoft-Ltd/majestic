@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
@@ -24,7 +25,12 @@ import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_access
 import tz.co.asoft.majestic_users.generated.resources.ic_admission
 import tz.co.asoft.majestic_users.generated.resources.ic_arrow_right
-
+internal data class ContainerPadding(
+    val start: Dp = 5.dp,
+    val end: Dp = 5.dp,
+    val bottom: Dp = 5.dp,
+    val top: Dp = 5.dp
+)
 private fun Modifier.breadCrumbTab(
     container: Color,
     orientation: ScreenOrientation,
@@ -43,18 +49,24 @@ private fun Modifier.breadCrumbTab(
         end = if (orientation is Landscape) paddings.end else 0.dp
     )
 
-data class NavigationColors(
+data class DetailHeaderColors(
     val tinted: Color,
     val breadCrumb: (tint: Color?) -> BreadCrumbTabColors,
     val background: Color
 )
 
+internal fun DetailColors.toHeaderDetailColors(): DetailHeaderColors = DetailHeaderColors(
+    tinted = tint,
+    breadCrumb = breadCrumb,
+    background = background
+)
+
 @Composable
-internal fun Navigation(
+internal fun Header(
     modifier: Modifier,
     props: DetailedProperties,
     orientation: ScreenOrientation,
-    colors: NavigationColors,
+    colors: DetailHeaderColors,
     current: PermissionScreen,
     labels: PermissionLabels
 ) = Row(

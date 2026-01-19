@@ -40,7 +40,7 @@ import majestic.ColorPair
 import majestic.tooling.animateAsState
 import majestic.tooling.onClick
 import majestic.users.dashboard.tools.UserDetailsStatus
-import majestic.users.dashboard.tools.graphVector
+import majestic.tools.graphVector
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 

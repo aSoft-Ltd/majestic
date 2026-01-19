@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
@@ -23,17 +22,23 @@ import majestic.users.profile.permissions.PermissionScreen
 import majestic.users.tools.data.Permission
 import org.jetbrains.compose.resources.DrawableResource
 
+
+internal fun Modifier.header(
+    orientation: ScreenOrientation,
+    colors: DetailColors
+) = then(
+    other = when (orientation) {
+        is Landscape -> Modifier.wrapContentSize()
+        is Portrait -> Modifier
+            .fillMaxWidth()
+            .background(color = colors.background.copy(.05f))
+    }
+)
+    .padding(horizontal = 20.dp, vertical = 10.dp)
 internal data class DetailedProperties(
     val trailingIcon: DrawableResource,
     val trailingTitle: String,
     val permissions: List<Permission>
-)
-
-internal data class ContainerPadding(
-    val start: Dp = 5.dp,
-    val end: Dp = 5.dp,
-    val bottom: Dp = 5.dp,
-    val top: Dp = 5.dp
 )
 
 data class DetailColors(
@@ -56,26 +61,13 @@ internal fun Details(
     verticalArrangement = Arrangement.spacedBy(20.dp),
     horizontalAlignment = Alignment.Start
 ) {
-    Navigation(
-        modifier = Modifier
-            .then(
-                other = when (orientation) {
-                    is Landscape -> Modifier.wrapContentSize()
-                    is Portrait -> Modifier
-                        .fillMaxWidth()
-                        .background(color = colors.background.copy(.05f))
-                }
-            )
-            .padding(horizontal = 20.dp, vertical = 10.dp),
+    Header(
+        modifier = Modifier.header(orientation, colors),
         props = props,
         orientation = orientation,
         current = current,
         labels = labels,
-        colors = NavigationColors(
-            tinted = colors.tint,
-            breadCrumb = colors.breadCrumb,
-            background = colors.background
-        )
+        colors = colors.toHeaderDetailColors()
     )
     Content(
         modifier = Modifier

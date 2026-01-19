@@ -1,4 +1,4 @@
-package majestic.users.profile.header.tools.header.tools
+package majestic.users.profile.header.tools
 
 import org.jetbrains.compose.resources.DrawableResource
 
