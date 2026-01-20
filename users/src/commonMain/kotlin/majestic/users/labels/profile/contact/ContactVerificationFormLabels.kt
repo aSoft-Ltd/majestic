@@ -6,5 +6,5 @@ data class ContactVerificationFormLabels(
     val enterCode: String,
     val submit: String,
     val resendCode: String,
-    val changeEmail: String
+    val changeContact: String
 )

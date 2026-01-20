@@ -3,6 +3,7 @@ package majestic.users.profile.contacts.email
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,7 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
+import composex.screen.orientation.ScreenOrientation
 import majestic.ActionButton
 import majestic.ActionText
 import majestic.ButtonColors
@@ -25,69 +28,78 @@ import majestic.users.profile.contacts.tools.OtpInputColors
 data class EmailVerificationFormColors(
     val buttonColors: ButtonColors,
     val otp: OtpInputColors,
-    val surfaceContra: Color
+    val description: Color,
+    val email: Color,
+    val enterCode: Color
 )
 
 @Composable
 internal fun EmailVerificationForm(
     colors: EmailVerificationFormColors,
     labels: ContactVerificationFormLabels,
+    orientation: ScreenOrientation,
     onVerify: () -> Unit,
     onChangeEmail: () -> Unit,
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
-    verticalArrangement = Arrangement.spacedBy(40.dp),
+    verticalArrangement = if (orientation is Landscape) Arrangement.spacedBy(20.dp) else Arrangement.SpaceBetween,
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
-    Text(
-        text = labels.title,
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
-        color = colors.surfaceContra
-    )
+    Column(
+        modifier = Modifier
+            .then(if (orientation is Portrait) Modifier.padding(top = 20.dp) else Modifier)
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp)
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = labels.sentCode,
+                color = colors.description
+            )
+            Text(
+                text = "amanihamduni@gmail.com",
+                fontWeight = FontWeight.Bold,
+                color = colors.email
+            )
+            Text(
+                text = labels.enterCode,
+                color = colors.enterCode
+            )
+        }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = labels.sentCode,
-            color = colors.surfaceContra
+        var otp by remember { mutableStateOf("") }
+        OtpInput(
+            value = otp,
+            length = 5,
+            colors = colors.otp,
+            onValueChange = { otp = it }
         )
-        Text(
-            text = "amanihamduni@gmail.com",
-            fontWeight = FontWeight.Bold,
-            color = colors.surfaceContra
+        if (orientation is Landscape) ActionButton(
+            modifier = Modifier.fillMaxWidth(),
+            text = labels.submit,
+            colors = colors.buttonColors,
+            onClick = onVerify
         )
-        Text(
-            text = labels.enterCode,
-            color = colors.surfaceContra
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            ActionText(
+                label = labels.resendCode,
+                onClick = {}
+            )
+            ActionText(
+                label = labels.changeContact,
+                onClick = onChangeEmail
+            )
+        }
     }
 
-    var otp by remember { mutableStateOf("") }
-    OtpInput(
-        value = otp,
-        length = 5,
-        colors = colors.otp,
-        onValueChange = { otp = it }
-    )
-    ActionButton(
-        modifier = Modifier.fillMaxWidth(),
+    if (orientation is Portrait) ActionButton(
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .fillMaxWidth(),
         text = labels.submit,
         colors = colors.buttonColors,
-//            ButtonColors(
-//            contentColor = theme.surface.actual.color,
-//            containerColor = colors.surfaceContra
-//        ),
         onClick = onVerify
     )
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        ActionText(
-            label = labels.resendCode,
-            onClick = {}
-        )
-        ActionText(
-            label = labels.changeEmail,
-            onClick = onChangeEmail
-        )
-    }
 }

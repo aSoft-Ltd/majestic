@@ -44,27 +44,22 @@ import majestic.ExpandDirection
 import majestic.FloatingActionButton
 import majestic.floatActionButton
 import majestic.tooling.onClick
-import majestic.users.labels.settings.LanguageController
-import majestic.users.labels.settings.observeUsersLabels
+import majestic.users.labels.UsersLabels
 import majestic.users.profile.contacts.email.Email
 import majestic.users.profile.contacts.email.EmailColors
-import majestic.users.profile.contacts.email.EmailForm
-import majestic.users.profile.contacts.email.EmailFormColors
-import majestic.users.profile.contacts.email.EmailVerificationForm
-import majestic.users.profile.contacts.email.EmailVerificationFormColors
+import majestic.users.profile.contacts.email.dialogs.EmailDialogs
+import majestic.users.profile.contacts.email.dialogs.rememberEmailDialogState
+import majestic.users.profile.contacts.phone.Backgrounds
 import majestic.users.profile.contacts.phone.Phone
 import majestic.users.profile.contacts.phone.PhoneColors
-import majestic.users.profile.contacts.phone.PhoneForm
-import majestic.users.profile.contacts.phone.PhoneFormColors
-import majestic.users.profile.contacts.phone.PhoneVerificationForm
-import majestic.users.profile.contacts.phone.PhoneVerificationFormColors
+import majestic.users.profile.contacts.phone.dialogs.PhoneDialogs
+import majestic.users.profile.contacts.phone.dialogs.rememberPhoneDialogState
+import majestic.users.profile.contacts.tools.dialogs.Add
 import majestic.users.tools.buttons.ButtonAnimate
 import majestic.users.tools.buttons.ButtonAnimateColors
 import majestic.users.tools.buttons.FlatButton
 import majestic.users.tools.buttons.FlatButtonColors
 import majestic.users.tools.data.separator
-import majestic.users.tools.dialogs.DialogColors
-import majestic.users.tools.dialogs.Modal
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_add
 
@@ -78,25 +73,19 @@ data class ProfileBackgroundColors(
     val unfocused: Color
 )
 
-
 data class ContactsItemBackground(
-    val surfaceContra: Color,
+    val content: Color,
     val contact: ContactBackgroundColors,
     val profile: ProfileBackgroundColors
 )
 
 data class ContactsColors(
     val item: ContactsItemBackground,
-    val background: Color,
-    val dialog: DialogColors,
-    val phoneForm: PhoneFormColors,
     val buttonAnimate: ButtonAnimateColors,
     val flatButton: FlatButtonColors,
     val floatingButton: ColorPair,
+    val backgrounds: Backgrounds,
     val email: EmailColors,
-    val emailForm: EmailFormColors,
-    val emailVerify: EmailVerificationFormColors,
-    val phoneVerify: PhoneVerificationFormColors,
     val phone: PhoneColors
 )
 
@@ -111,7 +100,7 @@ private fun Modifier.contact(
     val isHovered by interactionSource.collectIsHoveredAsState()
     return height(80.dp).fillMaxWidth().then(
         if (orientation is Landscape) Modifier
-            .separator(lastItem, colors.surfaceContra.copy(0.05f))
+            .separator(lastItem, colors.content.copy(0.05f))
             .background(
                 color = when (isHovered) {
                     true -> colors.contact.focused
@@ -135,84 +124,29 @@ private fun Modifier.contact(
 
 @Composable
 fun Contacts(
+    modifier: Modifier,
     colors: ContactsColors,
-    language: LanguageController,
+    labels: UsersLabels,
     orientation: ScreenOrientation
 ) {
-    val language by observeUsersLabels(language)
-    val labels = language.profile.tabs.contacts.content
-
-    var verifyEmailDialogOpened by remember { mutableStateOf(false) }
-    var addEmailDialogOpened by remember { mutableStateOf(false) }
-    if (addEmailDialogOpened) Modal(
-        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
-        colors = colors.dialog,
-        onDismiss = { addEmailDialogOpened = false }
-    ) {
-        EmailForm(
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            colors = colors.emailForm,
-            labels = labels.forms.email.add,
-            onSubmit = {
-                addEmailDialogOpened = false
-                verifyEmailDialogOpened = true
-            },
-        )
-    }
-    if (verifyEmailDialogOpened) Modal(
-        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
-        colors = colors.dialog,
-        onDismiss = { verifyEmailDialogOpened = false }
-    ) {
-        EmailVerificationForm(
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            colors = colors.emailVerify,
-            labels = labels.forms.email.verify,
-            onVerify = { verifyEmailDialogOpened = false },
-            onChangeEmail = {
-                verifyEmailDialogOpened = false
-                addEmailDialogOpened = true
-            },
-        )
-    }
-
-    var verifyPhoneDialogOpened by remember { mutableStateOf(false) }
-    var addPhoneDialogOpened by remember { mutableStateOf(false) }
-    if (addPhoneDialogOpened) Modal(
-        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
-        colors = colors.dialog,
-        onDismiss = { addPhoneDialogOpened = false }
-    ) {
-        PhoneForm(
-            labels = labels.forms.phone.add,
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            onSubmit = {
-                addPhoneDialogOpened = false
-                verifyPhoneDialogOpened = true
-            },
-            colors = colors.phoneForm
-        )
-    }
-    if (verifyPhoneDialogOpened) Modal(
-        modifier = Modifier.background(colors.dialog.containerColor).padding(20.dp),
-        colors = colors.dialog,
-        onDismiss = { verifyPhoneDialogOpened = false }
-    ) {
-        PhoneVerificationForm(
-            colors = colors.phoneVerify,
-            labels = labels.forms.phone.verify,
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 30.dp),
-            onVerify = { verifyPhoneDialogOpened = false },
-            onChangePhone = {
-                verifyPhoneDialogOpened = false
-                addPhoneDialogOpened = true
-            },
-        )
-    }
+    val emailDialog = rememberEmailDialogState()
+    val phoneDialog = rememberPhoneDialogState()
+    EmailDialogs(
+        state = emailDialog,
+        labels = labels.profile.tabs.contacts.content,
+        colors = colors.email.dialog,
+        orientation = orientation
+    )
+    PhoneDialogs(
+        state = phoneDialog,
+        labels = labels.profile.tabs.contacts.content,
+        colors = colors.phone.dialog,
+        orientation = orientation
+    )
 
     Box(
         contentAlignment = if (orientation is Landscape) Alignment.TopEnd else Alignment.BottomEnd,
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
     ) {
         var isOpen by remember { mutableStateOf(false) }
         var buttonBox by remember { mutableStateOf(Rect(Offset.Zero, Size.Zero)) }
@@ -224,7 +158,7 @@ fun Contacts(
                         is Landscape -> Modifier
                             .wrapContentSize()
                             .background(
-                                color = colors.background.copy(.5f),
+                                color = colors.backgrounds.landscape.copy(.5f),
                                 shape = RoundedCornerShape(20.dp)
                             )
 
@@ -240,8 +174,8 @@ fun Contacts(
         ) {
             if (orientation is Landscape) Text(
                 modifier = Modifier.padding(vertical = 20.dp, horizontal = 30.dp),
-                text = labels.heading,
-                color = colors.item.surfaceContra.copy(0.5f),
+                text = labels.profile.tabs.contacts.content.heading,
+                color = colors.item.content.copy(0.5f),
             )
             Email(
                 modifier = Modifier.contact(
@@ -250,24 +184,24 @@ fun Contacts(
                 ),
                 text = "amanihamduni@gmail.com",
                 isPrimary = true,
-                labels = labels,
+                labels = labels.profile.tabs.contacts.content,
                 orientation = orientation,
                 colors = colors.email
             )
             Email(
                 modifier = Modifier.contact(
-                    orientation,
+                    orientation = orientation,
                     colors = colors.item
                 ),
                 text = "amani45@gmail.com",
                 isPrimary = false,
-                labels = labels,
+                labels = labels.profile.tabs.contacts.content,
                 orientation = orientation,
                 colors = colors.email
             )
             Phone(
                 modifier = Modifier.contact(
-                    orientation,
+                    orientation = orientation,
                     colors = colors.item
                 ),
                 text = "+255 745 147 852",
@@ -275,12 +209,12 @@ fun Contacts(
                 isPrimary = true,
                 isWhatsapp = true,
                 isNormal = true,
-                labels = labels,
+                labels = labels.profile.tabs.contacts.content,
                 orientation = orientation,
             )
             Phone(
                 modifier = Modifier.contact(
-                    orientation,
+                    orientation = orientation,
                     colors = colors.item,
                     lastItem = true,
                     shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
@@ -289,7 +223,7 @@ fun Contacts(
                 isPrimary = false,
                 isWhatsapp = false,
                 isNormal = true,
-                labels = labels,
+                labels = labels.profile.tabs.contacts.content,
                 orientation = orientation,
                 colors = colors.phone
             )
@@ -299,7 +233,7 @@ fun Contacts(
         if (orientation is Landscape) Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
             Box(modifier = Modifier.onPlaced { buttonBox = it.boundsInParent() }) {
                 ButtonAnimate(
-                    label = labels.addButton,
+                    label = labels.profile.tabs.contacts.content.addButton,
                     icon = Res.drawable.ic_add,
                     isOpen = isOpen,
                     colors = colors.buttonAnimate,
@@ -320,7 +254,7 @@ fun Contacts(
                         label = "Email",
                         onClick = {
                             isOpen = false
-                            addEmailDialogOpened = true
+                            emailDialog.open(Add)
                         }
                     )
                     FlatButton(
@@ -329,7 +263,7 @@ fun Contacts(
                         label = "Phone",
                         onClick = {
                             isOpen = false
-                            addPhoneDialogOpened = true
+                            phoneDialog.open(Add)
                         }
                     )
                 }
@@ -355,7 +289,7 @@ fun Contacts(
                             label = "Email",
                             onClick = {
                                 isOpen = false
-                                addEmailDialogOpened = true
+                                emailDialog.open(Add)
                             }
                         )
                         FlatButton(
@@ -364,7 +298,7 @@ fun Contacts(
                             label = "Phone",
                             onClick = {
                                 isOpen = false
-                                addPhoneDialogOpened = true
+                                phoneDialog.open(Add)
                             }
                         )
                     }

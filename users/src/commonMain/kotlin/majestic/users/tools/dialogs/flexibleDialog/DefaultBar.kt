@@ -1,7 +1,6 @@
 package majestic.users.tools.dialogs.flexibleDialog
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.NoRippleInteractionSource
 import majestic.tooling.onClick
 import majestic.users.tools.dialogs.CloseButton
 import majestic.users.tools.dialogs.DialogColors

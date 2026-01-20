@@ -26,7 +26,7 @@ import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.ColorPair
 import majestic.LazyTable
-import majestic.payments.labels.WalletLabels
+import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.menu.MenuOptionColors
 import majestic.payments.tools.separator
@@ -43,6 +43,7 @@ import tz.co.asoft.majestic_payments.generated.resources.user_avatar
 
 data class TableColors(
     val background: Color,
+    val headerBackground: Color,
     val foreground: Color,
     val separator: Color,
     val hovered: Color,
@@ -57,7 +58,7 @@ fun WalletTable(
     labels: WalletLabels,
     colors: TableColors,
     table: Table<PaymentWallet>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val columns = table.columns.current.watchAsState()
     val weight = remember(columns) {
@@ -87,7 +88,7 @@ fun WalletTable(
             if (column.key == labels.table.checkbox) Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.weight(weight.getValue(column))
-                    .background(header.background)
+                    .background(colors.headerBackground)
                     .separator(color = colors.separator)
                     .padding(vertical = 24.dp, horizontal = 12.dp),
             ) {
@@ -106,7 +107,7 @@ fun WalletTable(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(weight.getValue(column))
-                    .background(header.background)
+                    .background(colors.headerBackground)
                     .separator(color = colors.separator)
                     .padding(vertical = 20.dp, horizontal = 12.dp),
                 color = header.foreground.copy(0.6f)

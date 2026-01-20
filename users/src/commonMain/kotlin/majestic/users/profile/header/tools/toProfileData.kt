@@ -1,7 +1,6 @@
 package majestic.users.profile.header.tools
 
 import majestic.users.profile.header.ProfileHeaderLabels
-import majestic.users.profile.header.tools.header.tools.FlowItemData
 import majestic.users.tools.data.UsersData
 
 

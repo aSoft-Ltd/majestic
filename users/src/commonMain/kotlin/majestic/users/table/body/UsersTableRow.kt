@@ -3,6 +3,8 @@ package majestic.users.table.body
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
@@ -46,17 +48,21 @@ internal fun RowScope.UsersTableRow(
     weight: Map<Column<UsersData>, Float>,
     selected: Boolean,
     hovered: Color,
+    interactionSource: MutableInteractionSource,
     table: Table<UsersData>,
     separator: Color,
     colors: UsersTableRowColors,
     labels: UserTableLabels,
     onItemClick: () -> Unit,
-    menuAction: @Composable () -> Unit
+    menuAction: @Composable () -> Unit,
+    isHighlighted: Boolean
 ) = when (cell.column.key) {
     "checkbox" -> Box(
         modifier = Modifier.height(cellHeight)
             .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
+            .hoverable(interactionSource)
+            .pointerHoverIcon(PointerIcon.Hand)
+            .background(if (selected || isHighlighted) hovered else Color.Transparent)
             .separator(cell.row.index == table.rows.lastIndex, separator)
             .padding(horizontal = 12.dp),
         contentAlignment = Alignment.Center
@@ -81,8 +87,9 @@ internal fun RowScope.UsersTableRow(
     labels.columns.name -> NameCell(
         modifier = Modifier.height(cellHeight)
             .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
+            .background(if (selected || isHighlighted) hovered else Color.Transparent)
             .separator(cell.row.index == table.rows.lastIndex, separator)
+            .hoverable(interactionSource)
             .pointerHoverIcon(PointerIcon.Hand)
             .onClick(onItemClick)
             .padding(horizontal = 12.dp),
@@ -94,11 +101,16 @@ internal fun RowScope.UsersTableRow(
     labels.columns.email, labels.columns.id, labels.columns.dateJoined, labels.columns.lastActive, labels.columns.roles, labels.columns.permission -> Box(
         modifier = Modifier.height(cellHeight)
             .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
+            .background(if (selected || isHighlighted) hovered else Color.Transparent)
             .separator(cell.row.index == table.rows.lastIndex, separator)
+            .hoverable(interactionSource)
+            .pointerHoverIcon(PointerIcon.Hand)
             .onClick(onItemClick)
             .padding(horizontal = 12.dp),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = when (cell.column.key) {
+            labels.columns.permission, labels.columns.roles -> Alignment.Center
+            else -> Alignment.CenterStart
+        }
     ) {
         Text(
             modifier = Modifier.onClick(onItemClick),
@@ -113,8 +125,10 @@ internal fun RowScope.UsersTableRow(
     labels.columns.status -> Box(
         modifier = Modifier.height(cellHeight)
             .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
+            .background(if (selected || isHighlighted) hovered else Color.Transparent)
             .separator(cell.row.index == table.rows.lastIndex, separator)
+            .hoverable(interactionSource)
+            .pointerHoverIcon(PointerIcon.Hand)
             .onClick(onItemClick)
             .padding(horizontal = 12.dp),
         contentAlignment = Alignment.CenterStart
@@ -122,14 +136,19 @@ internal fun RowScope.UsersTableRow(
         Text(
             modifier = Modifier.onClick(onItemClick),
             text = cell.row.item.status.getLabels(getStatusLabels(labels.status)),
-            color = cell.row.item.status.getColors()
+            color = cell.row.item.status.getColors(),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            softWrap = false,
         )
     }
 
     else -> Box(
         modifier = Modifier.height(cellHeight)
             .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
+            .background(if (selected || isHighlighted) hovered else Color.Transparent)
+            .hoverable(interactionSource)
+            .pointerHoverIcon(PointerIcon.Hand)
             .separator(cell.row.index == table.rows.lastIndex, separator)
             .padding(horizontal = 12.dp),
         contentAlignment = Alignment.Center
