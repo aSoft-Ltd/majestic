@@ -3,14 +3,12 @@ package majestic.users.profile.security
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
-import majestic.users.labels.settings.LanguageController
-import majestic.users.labels.settings.observeUsersLabels
+import majestic.users.labels.profile.security.SecurityLabels
 import majestic.users.tools.data.separator
 
 data class SecurityColors(
@@ -34,13 +32,11 @@ fun Security(
     colors: SecurityColors,
     modifier: Modifier,
     orientation: ScreenOrientation,
-    language: LanguageController
+    labels: SecurityLabels
 ) = Column(
     modifier = modifier
 ) {
     val theme = colors.theme
-    val language by observeUsersLabels(language)
-    val labels = language.profile.tabs.security.content
 
     ChangePassword(
         modifier = Modifier.security(theme = theme),

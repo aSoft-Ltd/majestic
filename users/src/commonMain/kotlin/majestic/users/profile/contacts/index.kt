@@ -44,8 +44,7 @@ import majestic.ExpandDirection
 import majestic.FloatingActionButton
 import majestic.floatActionButton
 import majestic.tooling.onClick
-import majestic.users.labels.settings.LanguageController
-import majestic.users.labels.settings.observeUsersLabels
+import majestic.users.labels.UsersLabels
 import majestic.users.profile.contacts.email.Email
 import majestic.users.profile.contacts.email.EmailColors
 import majestic.users.profile.contacts.email.dialogs.EmailDialogs
@@ -127,22 +126,20 @@ private fun Modifier.contact(
 fun Contacts(
     modifier: Modifier,
     colors: ContactsColors,
-    language: LanguageController,
+    labels: UsersLabels,
     orientation: ScreenOrientation
 ) {
-    val language by observeUsersLabels(language)
-    val labels = language.profile.tabs.contacts.content
     val emailDialog = rememberEmailDialogState()
     val phoneDialog = rememberPhoneDialogState()
     EmailDialogs(
         state = emailDialog,
-        labels = labels,
+        labels = labels.profile.tabs.contacts.content,
         colors = colors.email.dialog,
         orientation = orientation
     )
     PhoneDialogs(
         state = phoneDialog,
-        labels = labels,
+        labels = labels.profile.tabs.contacts.content,
         colors = colors.phone.dialog,
         orientation = orientation
     )
@@ -177,7 +174,7 @@ fun Contacts(
         ) {
             if (orientation is Landscape) Text(
                 modifier = Modifier.padding(vertical = 20.dp, horizontal = 30.dp),
-                text = labels.heading,
+                text = labels.profile.tabs.contacts.content.heading,
                 color = colors.item.content.copy(0.5f),
             )
             Email(
@@ -187,7 +184,7 @@ fun Contacts(
                 ),
                 text = "amanihamduni@gmail.com",
                 isPrimary = true,
-                labels = labels,
+                labels = labels.profile.tabs.contacts.content,
                 orientation = orientation,
                 colors = colors.email
             )
@@ -198,7 +195,7 @@ fun Contacts(
                 ),
                 text = "amani45@gmail.com",
                 isPrimary = false,
-                labels = labels,
+                labels = labels.profile.tabs.contacts.content,
                 orientation = orientation,
                 colors = colors.email
             )
@@ -212,7 +209,7 @@ fun Contacts(
                 isPrimary = true,
                 isWhatsapp = true,
                 isNormal = true,
-                labels = labels,
+                labels = labels.profile.tabs.contacts.content,
                 orientation = orientation,
             )
             Phone(
@@ -226,7 +223,7 @@ fun Contacts(
                 isPrimary = false,
                 isWhatsapp = false,
                 isNormal = true,
-                labels = labels,
+                labels = labels.profile.tabs.contacts.content,
                 orientation = orientation,
                 colors = colors.phone
             )
@@ -236,7 +233,7 @@ fun Contacts(
         if (orientation is Landscape) Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
             Box(modifier = Modifier.onPlaced { buttonBox = it.boundsInParent() }) {
                 ButtonAnimate(
-                    label = labels.addButton,
+                    label = labels.profile.tabs.contacts.content.addButton,
                     icon = Res.drawable.ic_add,
                     isOpen = isOpen,
                     colors = colors.buttonAnimate,

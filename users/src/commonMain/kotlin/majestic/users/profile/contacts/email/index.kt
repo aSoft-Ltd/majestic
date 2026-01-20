@@ -27,7 +27,6 @@ import majestic.users.profile.contacts.tools.GeneralPromptColors
 import majestic.users.profile.contacts.tools.dialogs.Delete
 import majestic.users.profile.contacts.tools.dialogs.Duplicate
 import majestic.users.profile.contacts.tools.dialogs.Edit
-import majestic.users.profile.contacts.tools.dialogs.Verify
 import majestic.users.tools.dialogs.Flex
 import majestic.users.tools.menu.MenuOption
 import majestic.users.tools.menu.MenuOptionColors

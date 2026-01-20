@@ -44,12 +44,12 @@ data class Backgrounds(
 )
 
 data class PhoneColors(
-    val tint: Color,//theme.surface.contra.color.copy(0.5f)
-    val title: Color,//theme.surface.contra.color,
-    val separator: Color,//theme.surface.contra.color.copy(0.5f),
-    val primary: Color,//theme.surface.contra.color
-    val primaryBackground: Color,//theme.surface.contra.color.copy(0.2f)
-    val tooltip: ColorPair, //ColorPair(foreground = theme.surface.actual.color,  background = theme.surface.contra.color)
+    val tint: Color,
+    val title: Color,
+    val separator: Color,
+    val primary: Color,
+    val primaryBackground: Color,
+    val tooltip: ColorPair,
     val menuOption: MenuOptionColors,
     val dialog: PhoneDialogsColors,
 )

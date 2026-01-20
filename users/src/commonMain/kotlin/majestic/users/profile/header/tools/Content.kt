@@ -1,4 +1,4 @@
-package majestic.users.profile.header.tools.header.tools
+package majestic.users.profile.header.tools
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,6 +26,7 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import majestic.users.profile.HeadColors
 import org.jetbrains.compose.resources.painterResource
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -37,9 +38,16 @@ data class HeadContentColors(
     val flow: FlowItemColors
 )
 
+internal fun HeadColors.toHeadContentColors(): HeadContentColors = HeadContentColors(
+    background = background,
+    content = content,
+    title = title,
+    flow = flow
+)
+
 @OptIn(ExperimentalTime::class)
 @Composable
-internal fun Content(
+internal fun Body(
     modifier: Modifier,
     orientation: ScreenOrientation,
     data: HeadData,

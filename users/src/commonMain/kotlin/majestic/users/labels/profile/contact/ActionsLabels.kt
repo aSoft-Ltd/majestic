@@ -1,4 +1,4 @@
-package majestic.users.labels.profile.contact
+package academia.users.labels.profile.contact
 
 data class ActionsLabels(
     val primary: String,

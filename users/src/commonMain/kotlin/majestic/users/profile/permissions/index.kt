@@ -10,7 +10,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,8 +18,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.users.labels.settings.LanguageController
-import majestic.users.labels.settings.observeUsersLabels
+import majestic.users.labels.profile.PermissionLabels
 import majestic.users.profile.permissions.detail.DetailColors
 import majestic.users.profile.permissions.detail.Details
 import majestic.users.profile.permissions.detail.Permissions
@@ -54,7 +52,7 @@ fun GeneralPermissions(
     orientation: ScreenOrientation,
     permissions: List<Permissions>,
     colors: GeneralPermissionColors,
-    language: LanguageController,
+    labels: PermissionLabels,
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
@@ -62,7 +60,6 @@ fun GeneralPermissions(
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
     val current = rememberPermissionScreenState()
-    val labels by observeUsersLabels(language)
     when (current.view) {
         Main -> Permissions(
             modifier = Modifier
@@ -86,7 +83,7 @@ fun GeneralPermissions(
                 current = current,
                 orientation = orientation,
                 props = activePermissions.toDetailProperties(),
-                labels = labels.profile.tabs.permissions.content,
+                labels = labels,
                 colors = colors.detail
             )
         }
