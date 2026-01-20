@@ -5,6 +5,7 @@ package majestic
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.runtime.Composable
@@ -25,7 +26,7 @@ fun <T> Popup(
     items: Items<T>,
     inline: Inline,
     expanded: Boolean = false,
-    anchor: MenuAnchorType = MenuAnchorType.PrimaryEditable,
+    anchor: ExposedDropdownMenuAnchorType = ExposedDropdownMenuAnchorType.PrimaryNotEditable,
     modifier: Modifier = Modifier,
 ) = Popup(
     onDismissRequest = onDismissRequest,
@@ -40,8 +41,9 @@ fun <T> Popup(
                 indication = null,
                 enabled = true,
                 onClickLabel = null,
-                role = Role.ValuePicker
-            ) { items.item.onClick(item) }
+                role = Role.ValuePicker,
+                onClick = { items.item.onClick(item) }
+            )
         ) {
             items.item.content(item)
         }
@@ -53,36 +55,26 @@ fun Popup(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     expanded: Boolean = false,
-    anchor: MenuAnchorType = MenuAnchorType.PrimaryEditable,
+    anchor: ExposedDropdownMenuAnchorType = ExposedDropdownMenuAnchorType.PrimaryNotEditable,
     inline: Inline,
     overlay: Overlay,
+) = ExposedDropdownMenuBox(
+    expanded = expanded,
+    onExpandedChange = { },
+    modifier = modifier
 ) {
-    val scope = rememberCoroutineScope()
-    ExposedDropdownMenuBox(
+    Box(modifier = inline.modifier.menuAnchor(type = anchor), contentAlignment = inline.alignment) {
+        inline.content(this, expanded)
+    }
+    ExposedDropdownMenu(
         expanded = expanded,
-        onExpandedChange = { },
-        modifier = modifier
+        onDismissRequest = onDismissRequest,
+        modifier = overlay.modifier.clip(overlay.shape),
+        shape = overlay.shape,
+        containerColor = overlay.background,
+        shadowElevation = overlay.shadowElevation,
+        tonalElevation = overlay.tonalElevation
     ) {
-        Box(modifier = inline.modifier.menuAnchor(type = anchor), contentAlignment = inline.alignment) {
-            inline.content(this, expanded)
-        }
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = {
-                scope.launch {
-                    if (!expanded) return@launch
-                    // Debouncing the onDismissRequest so that the popup doesn't close and open
-                    delay(500.milliseconds)
-                    onDismissRequest()
-                }
-            },
-            modifier = overlay.modifier.clip(overlay.shape),
-            shape = overlay.shape,
-            containerColor = overlay.background,
-            shadowElevation = overlay.shadowElevation,
-            tonalElevation = overlay.tonalElevation
-        ) {
-            overlay.content(this)
-        }
+        overlay.content(this)
     }
 }
