@@ -71,7 +71,7 @@ fun Popup(
     ExposedDropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
-        modifier = overlay.modifier.clip(overlay.shape).heightIn(min = 100.dp),
+        modifier = overlay.modifier.clip(overlay.shape),
         shape = overlay.shape,
         containerColor = overlay.background,
         shadowElevation = overlay.shadowElevation,
