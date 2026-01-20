@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 
 class Inline(
     val modifier: Modifier = Modifier,
+    val tag: String? = null,
     val alignment: Alignment = Alignment.TopStart,
     val content: @Composable BoxScope.(expanded: Boolean) -> Unit
 )

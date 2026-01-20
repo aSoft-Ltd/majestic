@@ -1,7 +1,9 @@
 package majestic
 
-import androidx.compose.material3.MenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,11 +21,13 @@ fun <T> Dropdown(
     field: SingleChoiceField<T>,
     items: Items<T>,
     selected: Selected<T>,
-    anchor: MenuAnchorType = MenuAnchorType.PrimaryEditable,
+    anchor: ExposedDropdownMenuAnchorType = ExposedDropdownMenuAnchorType.PrimaryNotEditable,
     modifier: Modifier = Modifier,
 ) {
+
     var expanded by remember { mutableStateOf(false) }
     val state = field.state.watchAsState()
+
     Popup(
         expanded = expanded,
         modifier = modifier,
@@ -33,6 +37,7 @@ fun <T> Dropdown(
             item = Item(
                 modifier = items.item.modifier,
                 content = items.item.content,
+                tag = items.item.tag,
                 onClick = {
                     if (state.selected?.item == it) {
                         field.unselect()
@@ -45,6 +50,7 @@ fun <T> Dropdown(
         ),
         inline = Inline(
             modifier = selected.modifier.onClick { expanded = !expanded },
+            tag = selected.tag ?: field.name,
             alignment = selected.alignment
         ) {
             selected.content(this, Selected.SelectedItem(it, state.selected?.item))
