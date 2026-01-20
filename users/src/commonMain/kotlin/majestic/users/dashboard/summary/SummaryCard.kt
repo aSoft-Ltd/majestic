@@ -32,8 +32,8 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.tooling.animateAsState
+import majestic.tools.graphVector
 import majestic.users.dashboard.tools.UserDetailsStatus
-import majestic.users.dashboard.tools.graphVector
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_arrow_down_01_solid

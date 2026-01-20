@@ -53,7 +53,7 @@ data class PhoneFormColors(
 )
 
 @Composable
-internal fun PhoneForm(
+fun PhoneForm(
     colors: PhoneFormColors,
     labels: DedicatedFormLabels,
     onSubmit: () -> Unit,
