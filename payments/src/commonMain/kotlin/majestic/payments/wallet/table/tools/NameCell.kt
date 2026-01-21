@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.payments.wallet.table.TableColors
+import majestic.payments.tools.table.TableColors
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid

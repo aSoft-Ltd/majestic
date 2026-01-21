@@ -22,6 +22,7 @@ import composex.screen.orientation.Portrait
 import majestic.ColorPair
 import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.menu.MenuOption
+import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
