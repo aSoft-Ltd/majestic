@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.ColorPair
 import majestic.tooling.onClick
 
 data class IconButtonColors(
@@ -35,6 +34,10 @@ data class IconButtonColors(
         }
     }
 }
+
+/**
+ * If you are in academia please use Button Composable, it has option to pass icon only
+ */
 
 @Composable
 fun IconButton(
