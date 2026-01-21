@@ -12,10 +12,10 @@ plugins {
     alias(kotlinz.plugins.dokka)
 }
 
-description = "The users module"
+description = "The dashboards module - Reusable dashboard components"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.users"
+    namespace = "tz.co.asoft.academia.majestic.dashboards"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
@@ -79,8 +79,6 @@ kotlin {
             api(projects.majesticOverlays)
             api(libs.nation.flags.compose)
             api(libs.nation.countries)
-            api(libs.majestic.dashboards)?.because("We need to for shared dashboard components, reducing duplications")
-            api(libs.majestic.icons)?.because("We need to share icons with other ui modules")
             api(libs.nation.currencies)
             api(libs.captain.router.compose.core)
             api(github.compottie)
