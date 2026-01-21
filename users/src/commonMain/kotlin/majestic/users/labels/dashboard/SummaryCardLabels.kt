@@ -1,4 +1,4 @@
-package majestic.users.labels
+package majestic.users.labels.dashboard
 
 data class SummaryCardLabels(
     val totalUsers: String,

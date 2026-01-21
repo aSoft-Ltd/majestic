@@ -1,6 +1,6 @@
 package majestic.users.labels.dashboard
 
-data class RoleLabels(
+data class DashboardRoleTableLabels(
     val title: String,
     val manage: String,
     val add: String,

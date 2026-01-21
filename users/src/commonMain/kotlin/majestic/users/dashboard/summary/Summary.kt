@@ -1,7 +1,7 @@
 package majestic.users.dashboard.summary
 
 import majestic.users.dashboard.tools.UserDetailsStatus
-import majestic.users.labels.SummaryCardLabels
+import majestic.users.labels.dashboard.SummaryCardLabels
 import org.jetbrains.compose.resources.DrawableResource
 import tz.co.asoft.majestic_users.generated.resources.Res
 import tz.co.asoft.majestic_users.generated.resources.ic_alert

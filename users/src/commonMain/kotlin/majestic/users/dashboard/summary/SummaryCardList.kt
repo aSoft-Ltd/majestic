@@ -34,7 +34,7 @@ data class SummaryCardListProps(
 )
 
 @Composable
-fun SummaryCardList(
+internal fun SummaryCardList(
     props: SummaryCardListProps,
     modifier: Modifier = Modifier,
 ) {

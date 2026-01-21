@@ -3,7 +3,6 @@ package majestic.users.dashboard.roles.tools
 import androidx.compose.ui.graphics.Color
 import majestic.users.dashboard.roles.UsersRolesProps
 import majestic.users.labels.dashboard.RoleActionsLabels
-import majestic.users.labels.dashboard.RoleLabels
 import majestic.users.tools.menu.MenuOptionColors
 import majestic.users.tools.menu.OptionMenu
 import tz.co.asoft.majestic_users.generated.resources.Res
