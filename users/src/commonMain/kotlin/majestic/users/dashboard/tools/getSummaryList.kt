@@ -1,8 +1,8 @@
 package majestic.users.dashboard.tools
 
+import dashboards.Summary
 import kotlin.random.Random
-import majestic.users.dashboard.summary.Summary
-import majestic.users.dashboard.summary.SummaryStatus
+import dashboards.SummaryStatus
 import org.jetbrains.compose.resources.DrawableResource
 
 data class SummaryCardDrawables(

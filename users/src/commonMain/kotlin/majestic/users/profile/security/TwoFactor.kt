@@ -18,10 +18,10 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
 import majestic.ToggleSwitch
 import majestic.ToggleSwitchColors
-import majestic.users.labels.profile.security.SecurityLabels
-import majestic.users.tools.dialogs.Flex
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_access
+import majestic.dialogs.Flex
+import majestic.icons.Res
+import majestic.icons.ic_access
+import users.label.profile.security.SecurityLabels
 
 data class TwoFactorColors(
     val theme: ThemeColor,

@@ -17,12 +17,12 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.ThemeColor
-import majestic.users.labels.profile.security.SecurityLabels
-import majestic.users.tools.buttons.FlatButton
-import majestic.users.tools.buttons.FlatButtonColors
-import majestic.users.tools.dialogs.Flex
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_laptop_remove
+import majestic.buttons.FlatButton
+import majestic.buttons.FlatButtonColors
+import majestic.dialogs.Flex
+import majestic.icons.Res
+import majestic.icons.ic_laptop_remove
+import users.label.profile.security.SecurityLabels
 
 data class LogoutDevicesColors(
     val theme: ThemeColor,

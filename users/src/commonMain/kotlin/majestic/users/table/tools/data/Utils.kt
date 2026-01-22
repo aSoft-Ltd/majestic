@@ -2,7 +2,13 @@ package majestic.users.table.tools.data
 
 import majestic.ColorPair
 import majestic.ThemeColor
-import majestic.users.labels.table.TableLabels
+import majestic.icons.Res
+import majestic.icons.ic_archive
+import majestic.icons.ic_assign
+import majestic.icons.ic_cancel
+import majestic.icons.ic_delete
+import majestic.icons.ic_export
+import majestic.icons.ic_send_email
 import majestic.users.table.header.Action
 import majestic.users.table.header.Archive
 import majestic.users.table.header.Assign
@@ -16,15 +22,9 @@ import majestic.users.table.header.SendMail
 import majestic.users.tools.MenuAction
 import majestic.users.tools.MenuActionLabels
 import majestic.users.tools.data.UsersData
-import majestic.users.tools.menu.OptionMenu
+import menu.OptionMenu
 import symphony.Table
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_archive
-import tz.co.asoft.majestic_users.generated.resources.ic_assign
-import tz.co.asoft.majestic_users.generated.resources.ic_cancel
-import tz.co.asoft.majestic_users.generated.resources.ic_delete
-import tz.co.asoft.majestic_users.generated.resources.ic_export
-import tz.co.asoft.majestic_users.generated.resources.ic_send_email
+import users.label.table.TableLabels
 
 internal fun getMenuActionLabels(labels: TableLabels) = MenuActionLabels(
     view = labels.body.actions.view,

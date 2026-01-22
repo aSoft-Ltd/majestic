@@ -21,13 +21,12 @@ import majestic.users.table.ListItem
 import majestic.users.table.ListItemColors
 import majestic.users.table.ListLabels
 import majestic.users.table.LocalUsersRowInteractionSource
-import majestic.users.table.header.tools.TableStatus
 import majestic.users.table.header.tools.getStatusLabels
-import majestic.users.tools.ColumnLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
+import users.label.table.InnerTableBodyLabels
 
 data class UserTableBodyColors(
     val separator: Color,
@@ -37,13 +36,10 @@ data class UserTableBodyColors(
     val listItem: ListItemColors
 )
 
-data class UserTableLabels(
-    val columns: ColumnLabels,
-    val status: TableStatus
-)
+
 
 data class UsersTableBodyProperties(
-    val labels: UserTableLabels,
+    val labels: InnerTableBodyLabels,
     val colors: UserTableBodyColors
 )
 

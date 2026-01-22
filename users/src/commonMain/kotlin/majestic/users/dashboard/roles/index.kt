@@ -17,7 +17,7 @@ import majestic.editor.toolbar.underline
 import majestic.users.dashboard.roles.tools.RoleAction
 import majestic.users.dashboard.roles.tools.UserRole
 import majestic.users.dashboard.roles.tools.stats
-import majestic.users.tools.menu.OptionMenu
+import menu.OptionMenu
 
 data class UserBodyProps(
     val colors: RoleCardColors,
@@ -36,7 +36,7 @@ data class UsersRolesProps(
 )
 
 @Composable
-fun UsersRoles(
+internal fun UsersRoles(
     modifier: Modifier,
     orientation: ScreenOrientation,
     props: UsersRolesProps,

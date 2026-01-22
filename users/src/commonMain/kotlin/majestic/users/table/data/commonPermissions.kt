@@ -1,12 +1,11 @@
-package academia.users.labels.profile.data
+package users.data
 
-import majestic.users.labels.profile.data.switch
-import majestic.users.tools.data.Permission
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_edit_user
-import tz.co.asoft.majestic_users.generated.resources.ic_reminder
-import tz.co.asoft.majestic_users.generated.resources.ic_remove
-import tz.co.asoft.majestic_users.generated.resources.ic_student
+import majestic.icons.Res
+import majestic.icons.ic_edit_user
+import majestic.icons.ic_reminder
+import majestic.icons.ic_remove
+import majestic.icons.ic_student
+import profiles.Permission
 
 val switch = "On" to "Off"
 fun commonPermissions(): List<Permission> = listOf(

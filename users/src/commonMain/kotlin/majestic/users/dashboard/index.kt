@@ -1,6 +1,7 @@
 package majestic.users.dashboard
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -19,14 +21,14 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import dashboards.stickybar.StickyBar
+import dashboards.stickybar.filters.FilterDefault
 import majestic.ColorPair
 import majestic.ThemeColor
 import majestic.editor.toolbar.underline
-import majestic.users.dashboard.stickybar.StickyBar
-import majestic.users.dashboard.stickybar.filters.FilterDefault
 import majestic.users.dashboard.summary.SummaryCardList
 import majestic.users.dashboard.tools.toSummaryCardProps
-import majestic.users.labels.UsersLabels
+import users.UsersLabels
 
 data class UserDashboardProps(
     val filterDefaults: FilterDefault,
@@ -71,8 +73,16 @@ fun UsersDashboard(
         )
     ) {
         SummaryCardList(
-            modifier = Modifier.padding(top = 20.dp, bottom = 10.dp)
-                .horizontalScroll(rememberScrollState()),
+            modifier = when (orientation) {
+                is Landscape -> Modifier
+                    .border(12.dp, Color.Red)
+                    .padding(top = 20.dp, bottom = 10.dp)
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .horizontalScroll(rememberScrollState())
+
+                is Portrait -> Modifier.padding(8.dp).fillMaxWidth().wrapContentSize()
+            },
             props = labels.toSummaryCardProps(props, orientation),
         )
         when (orientation) {
@@ -88,22 +98,20 @@ fun UsersDashboard(
                 addRole = addRole
             )
 
-            is Portrait -> {
-                PortraitView(
-                    orientation = orientation,
-                    props = props.view,
-                    labels = labels,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(props.background.copy(.5f))
-                        .padding(bottom = 10.dp),
-                    manageUsers = manageUsers,
-                    manageRoles = manageRoles,
-                    addUser = addUser,
-                    onItemClick = onItemClick,
-                    addRole = addRole,
-                )
-            }
+            is Portrait -> PortraitView(
+                orientation = orientation,
+                props = props.view,
+                labels = labels,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(props.background.copy(.5f))
+                    .padding(bottom = 10.dp),
+                manageUsers = manageUsers,
+                manageRoles = manageRoles,
+                addUser = addUser,
+                onItemClick = onItemClick,
+                addRole = addRole,
+            )
         }
     }
 }

@@ -14,10 +14,10 @@ import androidx.compose.ui.unit.sp
 import majestic.ThemeColor
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.vectorResource
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_back
-import tz.co.asoft.majestic_users.generated.resources.ic_search
-import tz.co.asoft.majestic_users.generated.resources.ic_vertical_settings
+import majestic.icons.Res
+import majestic.icons.ic_back
+import majestic.icons.ic_search
+import majestic.icons.ic_vertical_settings
 
 @Composable
 internal fun PortraitActionBar(

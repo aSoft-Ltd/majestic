@@ -24,18 +24,18 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ActionButton
-import majestic.ButtonColors
 import majestic.NoRippleInteractionSource
 import majestic.TextField
 import majestic.TextFieldColors
 import majestic.ThemeColor
-import majestic.users.labels.profile.security.PasswordFormLabels
+import majestic.buttons.ActionButton
+import majestic.buttons.ButtonColors
+import majestic.icons.Res
+import majestic.icons.ic_info_circle
+import majestic.icons.ic_view
+import majestic.icons.ic_view_off
 import org.jetbrains.compose.resources.painterResource
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_info_circle
-import tz.co.asoft.majestic_users.generated.resources.ic_view
-import tz.co.asoft.majestic_users.generated.resources.ic_view_off
+import users.label.profile.security.PasswordFormLabels
 
 data class PasswordFormColors(
     val theme: ThemeColor,

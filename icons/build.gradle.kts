@@ -15,7 +15,7 @@ plugins {
 description = "The icons module - Reusable icons across all projects"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.icons"
+    namespace = "tz.co.asoft.majestic.icons"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
@@ -25,6 +25,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "majestic.icons"
 }
 
 kotlin {
@@ -47,19 +52,15 @@ kotlin {
 //    }
 
     wasmJs { browser() }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-//    macosX64()
-//    macosArm64()
-
+    iosTargets()
     sourceSets {
         commonMain.dependencies {
             api(compose.runtime)
             api(compose.foundation)
             api(compose.material3)?.because("We need to access LocalContentColor")
             api(compose.materialIconsExtended)?.because("We need default icons for table")
-            implementation(compose.components.resources)
+            api(libs.nation.flags.compose)
+            api(compose.components.resources)
         }
 
         commonTest.dependencies {

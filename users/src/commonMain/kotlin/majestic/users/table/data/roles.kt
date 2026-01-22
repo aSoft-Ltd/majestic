@@ -1,8 +1,8 @@
-package academia.users.labels.profile.data
+package users.data
 
 import majestic.users.tools.data.Role
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_student
+import majestic.icons.Res
+import majestic.icons.ic_student
 
 fun roles() = listOf(
     Role(

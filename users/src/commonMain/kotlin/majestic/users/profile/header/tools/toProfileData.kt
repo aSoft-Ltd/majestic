@@ -1,11 +1,11 @@
 package majestic.users.profile.header.tools
 
-import majestic.users.profile.header.ProfileHeaderLabels
 import majestic.users.tools.data.UsersData
+import users.label.profile.ProfileLabels
 
 
 internal fun UsersData.toProfileData(
-    labels: ProfileHeaderLabels
+    labels: ProfileLabels
 ): List<FlowItemData> = listOf(
     FlowItemData(
         icon = dateJoined.second,

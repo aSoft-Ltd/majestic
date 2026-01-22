@@ -1,30 +1,23 @@
 package majestic.users.dashboard.summary
 
+import dashboards.Summary
+import dashboards.SummaryStatus
+import majestic.icons.Res
+import majestic.icons.ic_alert
+import majestic.icons.ic_labor
+import majestic.icons.ic_patient
+import majestic.icons.ic_travel_bag
+import majestic.icons.ic_user_group
 import majestic.users.dashboard.tools.UserDetailsStatus
-import majestic.users.labels.dashboard.SummaryCardLabels
-import org.jetbrains.compose.resources.DrawableResource
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_alert
-import tz.co.asoft.majestic_users.generated.resources.ic_labor
-import tz.co.asoft.majestic_users.generated.resources.ic_patient
-import tz.co.asoft.majestic_users.generated.resources.ic_travel_bag
-import tz.co.asoft.majestic_users.generated.resources.ic_user_group
+import users.label.dashboard.SummaryCardLabels
 
-data class Summary(
-    val label: String,
-    val value: Int,
-    val percentage: Float,
-    val userDetailsStatus: UserDetailsStatus? = null,
-    val summaryStatus: SummaryStatus? = null,
-    val icon: DrawableResource,
-)
 
 internal fun SummaryCardLabels.toSummary() = listOf(
     Summary(
         label = totalUsers,
         value = 120,
         percentage = 0.023f,
-        userDetailsStatus = UserDetailsStatus.USERS,
+        dataStatus = UserDetailsStatus.USERS,
         summaryStatus = SummaryStatus.GOOD,
         icon = Res.drawable.ic_user_group
     ),
@@ -32,7 +25,7 @@ internal fun SummaryCardLabels.toSummary() = listOf(
         label = totalRoles,
         value = 50,
         percentage = 0.75f,
-        userDetailsStatus = UserDetailsStatus.ACTIVE,
+        dataStatus = UserDetailsStatus.ACTIVE,
         summaryStatus = SummaryStatus.GOOD,
         icon = Res.drawable.ic_labor
     ),
@@ -40,7 +33,7 @@ internal fun SummaryCardLabels.toSummary() = listOf(
         label = activeUsers,
         value = 45,
         percentage = 0.25f,
-        userDetailsStatus = UserDetailsStatus.PENDING,
+        dataStatus = UserDetailsStatus.PENDING,
         summaryStatus = SummaryStatus.BAD,
         icon = Res.drawable.ic_travel_bag
     ),
@@ -48,7 +41,7 @@ internal fun SummaryCardLabels.toSummary() = listOf(
         label = totalPermissions,
         value = 361,
         percentage = 0.25f,
-        userDetailsStatus = UserDetailsStatus.PENDING,
+        dataStatus = UserDetailsStatus.PENDING,
         summaryStatus = SummaryStatus.BAD,
         icon = Res.drawable.ic_patient
     ),
@@ -56,7 +49,7 @@ internal fun SummaryCardLabels.toSummary() = listOf(
         label = pendingInvites,
         value = 47,
         percentage = 0.10f,
-        userDetailsStatus = UserDetailsStatus.ROLES,
+        dataStatus = UserDetailsStatus.ROLES,
         summaryStatus = SummaryStatus.GOOD,
         icon = Res.drawable.ic_alert
     )

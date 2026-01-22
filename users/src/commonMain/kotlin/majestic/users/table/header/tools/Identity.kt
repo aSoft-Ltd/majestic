@@ -40,10 +40,12 @@ import majestic.users.table.header.tools.filters.SearchFilter
 import majestic.users.table.header.tools.filters.SearchFilterColors
 import majestic.users.table.header.tools.filters.searchFilter
 import org.jetbrains.compose.resources.DrawableResource
+import users.HeaderInnerColors
+import users.label.table.FilterLabels
 
 data class IdentityLabels(
     val id: String,
-    val filters: FiltersLabels
+    val filters: FilterLabels
 )
 
 data class IdentityCellProperties(
@@ -99,7 +101,7 @@ internal fun Identity(
                     modifier = Modifier.searchFilter(popColors.foreground.copy(0.2f)).focusRequester(focus),
                     colors = SearchFilterColors(props.colors.search, props.colors.compPopColors),
                     icon = props.icon,
-                    hint = props.labels.filters.searchTitle,
+                    hint = props.labels.filters.search,
                     focusRequester = focus,
                     onChange = {}
                 )

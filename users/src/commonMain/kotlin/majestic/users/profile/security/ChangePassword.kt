@@ -19,14 +19,14 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
-import majestic.users.labels.profile.security.SecurityLabels
-import majestic.users.tools.buttons.FlatButton
-import majestic.users.tools.buttons.FlatButtonColors
-import majestic.users.tools.dialogs.DialogColors
-import majestic.users.tools.dialogs.Flex
-import majestic.users.tools.dialogs.Modal
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_square_lock
+import majestic.buttons.FlatButton
+import majestic.buttons.FlatButtonColors
+import majestic.dialogs.DialogColors
+import majestic.dialogs.Flex
+import majestic.dialogs.Modal
+import majestic.icons.Res
+import majestic.icons.ic_square_lock
+import users.label.profile.security.SecurityLabels
 
 data class ChangePasswordColors(
     val background: Color,

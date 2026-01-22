@@ -4,7 +4,7 @@ import org.jetbrains.compose.resources.DrawableResource
 
 data class Stat(
     val icon: DrawableResource,
-    val iconContentDescription: String,
+    val description: String,
     val title: String,
     val value: Number
 )

@@ -1,8 +1,8 @@
 package majestic.users.table.tools.data
 
 import majestic.users.tools.data.Role
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_student
+import majestic.icons.Res
+import majestic.icons.ic_student
 
 internal fun roles() = listOf(
     Role(

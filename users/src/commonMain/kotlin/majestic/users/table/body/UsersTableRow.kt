@@ -31,9 +31,10 @@ import majestic.users.table.header.NameCellColors
 import majestic.users.table.header.tools.getStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
-import majestic.users.tools.menu.MenuOptionColors
+import menu.MenuOptionColors
 import symphony.Table
 import symphony.columns.Column
+import users.label.table.InnerTableBodyLabels
 
 data class UsersTableRowColors(
     val checkBox: CheckboxColors,
@@ -52,7 +53,7 @@ internal fun RowScope.UsersTableRow(
     table: Table<UsersData>,
     separator: Color,
     colors: UsersTableRowColors,
-    labels: UserTableLabels,
+    labels: InnerTableBodyLabels,
     onItemClick: () -> Unit,
     menuAction: @Composable () -> Unit,
     isHighlighted: Boolean

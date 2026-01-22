@@ -1,10 +1,10 @@
 package majestic.users.dashboard.table.body
 
 import majestic.Cell
-import majestic.users.tools.ColumnLabels
 import majestic.users.tools.data.UsersData
+import users.label.table.ColumnLabels
 
-fun getLabels(cell: Cell<UsersData>, labels: ColumnLabels) = when (cell.column.key) {
+internal fun getLabels(cell: Cell<UsersData>, labels: ColumnLabels) = when (cell.column.key) {
     labels.email -> cell.row.item.email
     labels.id -> cell.row.item.id
     labels.dateJoined -> cell.row.item.dateJoined.first

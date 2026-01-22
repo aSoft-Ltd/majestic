@@ -43,10 +43,12 @@ import majestic.users.table.header.tools.filters.SortColumnDataColors
 import majestic.users.table.header.tools.filters.SortColumnDataProps
 import majestic.users.table.header.tools.filters.searchFilter
 import org.jetbrains.compose.resources.DrawableResource
+import users.HeaderInnerColors
+import users.label.table.FilterLabels
 
 data class DateJoinedLabels(
     val dateJoined: String,
-    val filters: FiltersLabels
+    val filters: FilterLabels
 )
 
 data class DateJoinedCellProperties(
@@ -127,7 +129,7 @@ internal fun DateJoined(
                         .focusRequester(focus),
                     colors = SearchFilterColors(props.colors.search, props.colors.compPopColors),
                     icon = props.iconDownward,
-                    hint = props.labels.filters.dateTime,
+                    hint = props.labels.filters.date,
                     focusRequester = focus,
                     onChange = {}
                 )

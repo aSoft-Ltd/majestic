@@ -18,6 +18,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import composex.screen.orientation.ScreenOrientation
+import majestic.icons.Res
+import majestic.icons.allDrawableResources
+import majestic.icons.ic_calendar
+import majestic.icons.ic_clock_01
+import majestic.icons.ic_laptop_phone
+import majestic.icons.tz_flag
 import majestic.users.dashboard.roles.HeaderColors
 import majestic.users.dashboard.roles.HeaderProps
 import majestic.users.dashboard.roles.Labels
@@ -31,24 +37,20 @@ import majestic.users.dashboard.table.UserTableProps
 import majestic.users.dashboard.table.UsersTable
 import majestic.users.dashboard.tools.portraitHeader.PortraitHeaderColors
 import majestic.users.dashboard.tools.toColumnLabels
-import majestic.users.labels.UsersLabels
 import majestic.users.table.header.tools.getHeaderLabels
 import majestic.users.table.tools.data.avatars
+import majestic.users.table.tools.data.getOptions
 import majestic.users.table.tools.data.permissions
 import majestic.users.table.tools.data.roles
 import majestic.users.tools.data.HeaderIcons
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.getDashboardWeights
+import menu.MenuOption
 import nation.Country
 import symphony.columnsOf
 import symphony.linearPaginatorOf
 import symphony.tableOf
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.allDrawableResources
-import tz.co.asoft.majestic_users.generated.resources.ic_calendar
-import tz.co.asoft.majestic_users.generated.resources.ic_clock_01
-import tz.co.asoft.majestic_users.generated.resources.ic_laptop_phone
-import tz.co.asoft.majestic_users.generated.resources.tz_flag
+import users.UsersLabels
 
 data class TableViewProps(
     val table: UserTableProps,
@@ -140,7 +142,13 @@ internal fun LandscapeView(
         add = addUser,
         manage = manageUsers,
         labels = labels
-    )
+    ) {
+        MenuOption(
+            orientation = orientation,
+            actions = getOptions(labels.table),
+            colors = props.table.body.colors.row.menuOption,
+        ) { action -> }
+    }
     UsersRoles(
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))

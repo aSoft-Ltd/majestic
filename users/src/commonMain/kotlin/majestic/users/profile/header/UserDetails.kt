@@ -21,6 +21,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
+import users.label.profile.ProfileLabels
 
 data class UserDetailColors(
     val clientBackground: Color,
@@ -35,7 +36,7 @@ fun UserDetails(
     colors: UserDetailColors,
     tabs: @Composable () -> Unit,
     navigator: Navigator,
-    labels: ProfileHeaderLabels,
+    labels: ProfileLabels,
     backIcon: DrawableResource,
     menuOption: @Composable () -> Unit,
     modifier: Modifier = Modifier,

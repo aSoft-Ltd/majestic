@@ -1,13 +1,7 @@
 package majestic.users.tools.data
 
 import androidx.compose.ui.graphics.Color
-
-data class UsersStatusLabels(
-    val invited: String,
-    val active: String,
-    val declined: String,
-    val revoked: String
-)
+import users.label.table.UsersStatusLabels
 
 enum class UserStatus {
     Invited,

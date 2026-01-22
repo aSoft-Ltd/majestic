@@ -19,18 +19,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ActionButton
-import majestic.ButtonColors
+import majestic.buttons.ActionButton
+import majestic.buttons.ButtonColors
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.vectorResource
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_add
+import majestic.icons.Res
+import majestic.icons.ic_add
 
 data class HeaderColors(
     val background: Color,

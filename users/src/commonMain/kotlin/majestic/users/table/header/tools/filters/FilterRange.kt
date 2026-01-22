@@ -34,9 +34,9 @@ import majestic.ColorPair
 import majestic.SelectColors
 import majestic.ThemeColor
 import majestic.tooling.onClick
-import majestic.users.table.header.tools.FiltersLabels
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
+import users.label.table.FilterLabels
 
 data class FilterRangeColors(
     val selector: SelectColors,
@@ -54,7 +54,7 @@ fun RowScope.inputModifier(theme: ThemeColor) = Modifier
 internal fun FilterRange(
     from: String,
     to: String,
-    labels: FiltersLabels,
+    labels: FilterLabels,
     colors: FilterRangeColors,
     caretDown: DrawableResource,
     hint: String = "Range",

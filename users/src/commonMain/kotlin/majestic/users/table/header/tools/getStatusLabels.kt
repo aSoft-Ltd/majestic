@@ -1,15 +1,10 @@
 package majestic.users.table.header.tools
 
-import majestic.users.tools.data.UsersStatusLabels
+import users.label.table.TableStatusLabels
+import users.label.table.UsersStatusLabels
 
-data class TableStatus(
-    val invited: String,
-    val active: String,
-    val declined: String,
-    val revoked: String
-)
 
-fun getStatusLabels(labels: TableStatus): UsersStatusLabels = UsersStatusLabels(
+fun getStatusLabels(labels: TableStatusLabels): UsersStatusLabels = UsersStatusLabels(
     invited = labels.invited,
     active = labels.active,
     declined = labels.declined,

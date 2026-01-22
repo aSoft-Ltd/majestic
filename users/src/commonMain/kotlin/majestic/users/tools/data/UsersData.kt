@@ -1,6 +1,8 @@
 package majestic.users.tools.data
 
 import org.jetbrains.compose.resources.DrawableResource
+import profiles.Permission
+import profiles.Permissions
 
 private val dateJoined = listOf("24 Feb 2025", "28 Mar 2025", "30 Apr 2025", "26 May 2025")
 private val lastActive = listOf("24 Feb 2025", "28 Mar 2025", "30 Apr 2025", "26 May 2025")

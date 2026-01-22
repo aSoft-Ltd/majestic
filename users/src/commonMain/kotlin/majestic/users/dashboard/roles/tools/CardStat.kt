@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.users.dashboard.roles.tools.Stat
 import org.jetbrains.compose.resources.vectorResource
 
 data class CardStatColors(
@@ -33,7 +32,7 @@ fun CardStat(
 ) {
     Icon(
         imageVector = vectorResource(stat.icon),
-        contentDescription = stat.iconContentDescription,
+        contentDescription = stat.description,
         tint = colors.tint,
         modifier = Modifier.size(16.dp)
     )
@@ -41,13 +40,13 @@ fun CardStat(
     Text(
         text = stat.title,
         color = colors.title,
-        fontSize = 16.sp
+        fontSize = 14.sp
     )
 
     Text(
         text = "${stat.value}",
         color = colors.value,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
+        fontSize = 14.sp
     )
 }

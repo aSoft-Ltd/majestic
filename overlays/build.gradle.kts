@@ -43,17 +43,13 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(IR) {
-        browser()
-        nodejs()
-    }
+//    js(IR) {
+//        browser()
+//        nodejs()
+//    }
 
     wasmJs { browser() } // until coil and kotlinx-datetime supports this, we ain't gonna
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    macosX64()
-    macosArm64()
+    iosTargets()
 
     sourceSets {
         commonMain.dependencies {
@@ -61,6 +57,8 @@ kotlin {
             api(compose.runtime)
             api(compose.components.resources)?.because("We need to model menu items with action menus")
             api(compose.foundation)
+            api(projects.majesticIcons)
+            api(projects.majesticInputCore)
             api(compose.material3)?.because("We need to provide icons for default Navigation drawer header")
             api(compose.materialIconsExtended)?.because("We need to provide icons for default Navigation drawer header")
         }

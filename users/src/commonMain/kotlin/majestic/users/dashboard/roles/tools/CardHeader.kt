@@ -14,11 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
-import majestic.users.tools.menu.MenuOption
-import majestic.users.tools.menu.OptionMenu
+import menu.MenuOption
+import menu.OptionMenu
 import org.jetbrains.compose.resources.vectorResource
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_info_circle
+import majestic.icons.Res
+import majestic.icons.ic_info_circle
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +41,7 @@ internal fun CardHeader(
     ) {
         Text(
             text = title,
-            fontSize = 20.sp,
+            fontSize = 15.sp,
             color = colors.title
         )
         Icon(

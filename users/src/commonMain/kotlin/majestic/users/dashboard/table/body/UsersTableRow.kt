@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import majestic.Cell
 import majestic.Checkbox
 import majestic.tooling.onClick
-import majestic.users.table.body.UserTableLabels
 import majestic.users.table.body.UsersTableRowColors
 import majestic.users.table.header.NameCell
 import majestic.users.table.header.tools.getStatusLabels
@@ -31,6 +30,7 @@ import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
+import users.label.table.InnerTableBodyLabels
 
 @Composable
 internal fun RowScope.UsersTableRow(
@@ -42,7 +42,7 @@ internal fun RowScope.UsersTableRow(
     table: Table<UsersData>,
     separator: Color,
     colors: UsersTableRowColors,
-    labels: UserTableLabels,
+    labels: InnerTableBodyLabels,
     onItemClick: () -> Unit,
     menuAction: @Composable () -> Unit
 ) = when (cell.column.key) {
@@ -84,7 +84,7 @@ internal fun RowScope.UsersTableRow(
         colors = colors.name
     )
 
-    labels.columns.email, labels.columns.dateJoined, labels.columns.lastActive-> Box(
+    labels.columns.email, labels.columns.dateJoined, labels.columns.lastActive -> Box(
         modifier = Modifier.height(cellHeight)
             .weight(weight.getValue(cell.column))
             .background(if (selected) hovered else Color.Transparent)

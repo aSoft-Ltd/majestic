@@ -47,11 +47,7 @@ kotlin {
 //    }
 
     wasmJs { browser() }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-//    macosX64()
-//    macosArm64()
+    iosTargets()
 
     sourceSets {
         commonMain.dependencies {
@@ -77,10 +73,10 @@ kotlin {
             api(projects.majesticDrawers)
             api(projects.majesticLoaders)
             api(projects.majesticOverlays)
-            api(libs.nation.flags.compose)
             api(libs.nation.countries)
-            api(libs.majestic.dashboards)?.because("We need to for shared dashboard components, reducing duplications")
-            api(libs.majestic.icons)?.because("We need to share icons with other ui modules")
+            api(libs.nation.flags.compose)
+            api(projects.majesticShared)?.because("We need to for shared dashboard components, reducing duplications")
+            api(projects.majesticIcons)
             api(libs.nation.currencies)
             api(libs.captain.router.compose.core)
             api(github.compottie)
@@ -90,7 +86,6 @@ kotlin {
             api(kotlinx.datetime)?.because("Required for date time picker")
             implementation(libs.cinematic.live.compose)
             implementation(kotlinx.coroutines.core)
-            implementation(compose.components.resources)
         }
 
         commonTest.dependencies {

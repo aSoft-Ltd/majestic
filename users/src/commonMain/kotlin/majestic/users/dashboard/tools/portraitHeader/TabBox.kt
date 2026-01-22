@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import majestic.users.dashboard.tools.ActiveView
-import majestic.users.labels.dashboard.DashboardTabLabels
+import users.label.dashboard.DashboardTabLabels
 
 @Composable
 internal fun TabsBox(

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import majestic.users.labels.general.SectionLabels
+import users.label.general.SectionLabels
 
 @Composable
 internal fun SectionHeading(

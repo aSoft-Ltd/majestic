@@ -21,8 +21,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.users.tools.data.UsersData
-import majestic.users.tools.data.UsersStatusLabels
 import org.jetbrains.compose.resources.painterResource
+import users.label.table.UsersStatusLabels
 
 data class ListLabels(
     val role: String,
@@ -69,12 +69,13 @@ fun ListItem(
                 fontSize = 16.sp
             )
         }
-        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
                     text = user.fullName,
                     lineHeight = 1.sp,
                     maxLines = 1,
+                    fontSize = 15.sp,
                     overflow = TextOverflow.Ellipsis,
                     color = colors.surfaceContra
                 )
@@ -105,7 +106,7 @@ fun ListItem(
                     text = "${user.rolesCount} ${labels.role}",
                     lineHeight = 1.sp,
                     maxLines = 1,
-                    fontSize = 11.sp,
+                    fontSize = 13.sp,
                     overflow = TextOverflow.Ellipsis,
                     color = colors.surfaceContra.copy(.4f)
                 )
@@ -113,7 +114,7 @@ fun ListItem(
                     text = "${user.permissionsCount} ${labels.permission}",
                     lineHeight = 1.sp,
                     maxLines = 1,
-                    fontSize = 11.sp,
+                    fontSize = 13.sp,
                     overflow = TextOverflow.Ellipsis,
                     color = colors.surfaceContra.copy(.4f)
                 )

@@ -1,11 +1,11 @@
 package majestic.users.table.tools.data
 
-import majestic.users.tools.data.Permission
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_edit_user
-import tz.co.asoft.majestic_users.generated.resources.ic_reminder
-import tz.co.asoft.majestic_users.generated.resources.ic_student
-import tz.co.asoft.majestic_users.generated.resources.ic_user_remove
+import profiles.Permission
+import majestic.icons.Res
+import majestic.icons.ic_edit_user
+import majestic.icons.ic_reminder
+import majestic.icons.ic_student
+import majestic.icons.ic_user_remove
 
 val switch = "On" to "Off"
 internal fun commonPermissions(): List<Permission> = listOf(

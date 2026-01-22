@@ -20,29 +20,15 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.tooling.onClick
-import majestic.users.labels.profile.TabLabels
 import majestic.users.profile.Head
 import majestic.users.profile.HeadColors
 import majestic.users.profile.header.tools.HeadData
 import majestic.users.profile.header.tools.toProfileData
-import majestic.users.tools.data.GenderLabels
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import users.label.profile.ProfileLabels
 
-data class HeaderLabels(
-    val joined: String,
-    val phone: String,
-    val lastActive: String,
-    val dob: String,
-    val gender: GenderLabels
-)
-
-
-data class ProfileHeaderLabels(
-    val header: HeaderLabels,
-    val tabs: TabLabels
-)
 
 data class DetailedHeaderColors(
     val icon: Color,
@@ -51,7 +37,7 @@ data class DetailedHeaderColors(
 
 @Composable
 fun DetailHeader(
-    labels: ProfileHeaderLabels,
+    labels: ProfileLabels,
     user: UsersData,
     colors: DetailedHeaderColors,
     navigator: Navigator,

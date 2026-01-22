@@ -1,13 +1,13 @@
 package majestic.users.dashboard.roles.tools
 
 import androidx.compose.ui.graphics.Color
+import majestic.icons.Res
+import majestic.icons.ic_key
+import majestic.icons.ic_user_multiple
 import majestic.users.dashboard.roles.UsersRolesProps
-import majestic.users.labels.dashboard.RoleActionsLabels
-import majestic.users.tools.menu.MenuOptionColors
-import majestic.users.tools.menu.OptionMenu
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_key
-import tz.co.asoft.majestic_users.generated.resources.ic_user_multiple
+import menu.MenuOptionColors
+import menu.OptionMenu
+import users.label.dashboard.RoleActionsLabels
 
 enum class RoleAction {
     View, Edit, Duplicate, Delete
@@ -30,13 +30,13 @@ internal fun UsersRolesProps.stats(
 ) = listOf(
     Stat(
         icon = Res.drawable.ic_key,
-        iconContentDescription = "Key Icon",
+        description = "Key Icon",
         title = body.labels.permission,
         value = role.permissions
     ),
     Stat(
         icon = Res.drawable.ic_user_multiple,
-        iconContentDescription = "Users Icon",
+        description = "Users Icon",
         title = body.labels.userAssigned,
         value = role.usersAssigned
     )

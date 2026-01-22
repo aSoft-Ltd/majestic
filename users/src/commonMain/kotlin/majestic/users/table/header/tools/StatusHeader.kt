@@ -37,12 +37,14 @@ import majestic.users.table.header.tools.filters.FilterButtons
 import majestic.users.table.header.tools.filters.FilterSelect
 import majestic.users.table.header.tools.filters.FilterSelectColors
 import majestic.users.tools.data.UserStatus
-import majestic.users.tools.data.UsersStatusLabels
 import org.jetbrains.compose.resources.DrawableResource
+import users.HeaderInnerColors
+import users.label.table.FilterLabels
+import users.label.table.UsersStatusLabels
 
 data class StatusLabels(
     val status: String,
-    val filters: FiltersLabels,
+    val filters: FilterLabels,
     val filterStatus: UsersStatusLabels
 )
 

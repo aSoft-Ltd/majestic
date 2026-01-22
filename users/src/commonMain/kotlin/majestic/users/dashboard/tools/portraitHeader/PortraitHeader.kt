@@ -16,15 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import majestic.ActionButton
-import majestic.ButtonColors
+import majestic.buttons.ActionButton
+import majestic.buttons.ButtonColors
+import majestic.icons.Res
+import majestic.icons.ic_add
 import majestic.tooling.onClick
 import majestic.users.dashboard.tools.ActiveView
 import majestic.users.dashboard.tools.View
-import majestic.users.labels.dashboard.DashboardLabels
 import org.jetbrains.compose.resources.vectorResource
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_add
+import users.label.dashboard.DashboardLabels
 
 data class PortraitHeaderColors(
     val background: Color,

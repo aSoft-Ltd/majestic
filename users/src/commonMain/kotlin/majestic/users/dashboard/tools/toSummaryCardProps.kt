@@ -1,11 +1,11 @@
 package majestic.users.dashboard.tools
 
 import composex.screen.orientation.ScreenOrientation
+import dashboards.SummaryCardColorProps
 import majestic.users.dashboard.UserDashboardProps
-import majestic.users.dashboard.summary.SummaryCardColorProps
 import majestic.users.dashboard.summary.SummaryCardListProps
 import majestic.users.dashboard.summary.toSummary
-import majestic.users.labels.UsersLabels
+import users.UsersLabels
 
 
 internal fun UsersLabels.toSummaryCardProps(

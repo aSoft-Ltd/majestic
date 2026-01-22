@@ -1,23 +1,23 @@
 package majestic.users.table.tools.data
 
 
-import majestic.users.tools.data.Permission
-import majestic.users.tools.data.Permissions
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.ic_blog
-import tz.co.asoft.majestic_users.generated.resources.ic_calculate
-import tz.co.asoft.majestic_users.generated.resources.ic_desk
-import tz.co.asoft.majestic_users.generated.resources.ic_invoice
-import tz.co.asoft.majestic_users.generated.resources.ic_mail
-import tz.co.asoft.majestic_users.generated.resources.ic_megaphone
-import tz.co.asoft.majestic_users.generated.resources.ic_message
-import tz.co.asoft.majestic_users.generated.resources.ic_notification
-import tz.co.asoft.majestic_users.generated.resources.ic_payment_account
-import tz.co.asoft.majestic_users.generated.resources.ic_pencil
-import tz.co.asoft.majestic_users.generated.resources.ic_refund
-import tz.co.asoft.majestic_users.generated.resources.ic_report
-import tz.co.asoft.majestic_users.generated.resources.ic_student
-import tz.co.asoft.majestic_users.generated.resources.ic_web_preview
+import profiles.Permission
+import profiles.Permissions
+import majestic.icons.Res
+import majestic.icons.ic_blog
+import majestic.icons.ic_calculate
+import majestic.icons.ic_desk
+import majestic.icons.ic_invoice
+import majestic.icons.ic_mail
+import majestic.icons.ic_megaphone
+import majestic.icons.ic_message
+import majestic.icons.ic_notification
+import majestic.icons.ic_payment_account
+import majestic.icons.ic_pencil
+import majestic.icons.ic_refund
+import majestic.icons.ic_report
+import majestic.icons.ic_student
+import majestic.icons.ic_web_preview
 
 internal fun permissions() = buildList {
     this += Permissions(

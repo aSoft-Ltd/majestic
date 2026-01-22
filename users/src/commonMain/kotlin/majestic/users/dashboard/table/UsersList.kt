@@ -12,23 +12,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
 import majestic.editor.toolbar.underline
+import majestic.tooling.onClick
 import majestic.users.dashboard.roles.Header
 import majestic.users.dashboard.roles.HeaderProps
 import majestic.users.dashboard.roles.Labels
-import majestic.users.dashboard.table.body.UsersTableBody
+import majestic.users.dashboard.table.body.UsersTableRow
 import majestic.users.dashboard.table.header.tools.UserTableHeaderProps
 import majestic.users.dashboard.table.header.tools.UsersTableHeader
-import majestic.users.labels.UsersLabels
+import majestic.users.table.ListItem
+import majestic.users.table.ListLabels
 import majestic.users.table.body.UsersTableBodyProperties
-import majestic.users.table.tools.data.getOptions
+import majestic.users.table.header.tools.getStatusLabels
 import majestic.users.tools.data.UsersData
-import majestic.users.tools.data.getSelectedRows
-import majestic.users.tools.menu.MenuOption
+import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
+import users.UsersLabels
 
 data class UserTableProps(
     val header: HeaderProps,
@@ -46,10 +50,9 @@ fun UsersTable(
     onItemClick: () -> Unit,
     weight: Map<Column<UsersData>, Float>,
     add: () -> Unit,
-    manage: () -> Unit
+    manage: () -> Unit,
+    menuAction: @Composable () -> Unit
 ) {
-    val selectCount = getSelectedRows(table)
-    val selectedAll = table.selector.isCurrentPageSelectedWholly()
     val cellHeight = 70.dp
 
     table.selector.selected.watchAsState()
@@ -89,23 +92,43 @@ fun UsersTable(
             }
         ) { cell ->
             val selected = table.selector.isRowSelectedOnCurrentPage(cell.row.number)
-            UsersTableBody(
-                orientation = orientation,
-                cell = cell,
-                cellHeight = cellHeight,
-                selected = selected,
-                table = table,
-                props = props.body,
-                onItemClick = onItemClick,
-                weight = weight,
-                menuAction = {
-                    MenuOption(
-                        orientation = orientation,
-                        actions = getOptions(labels.table),
-                        colors = props.body.colors.row.menuOption,
-                    ) { action -> }
+            when (orientation) {
+                is Landscape -> UsersTableRow(
+                    cell = cell,
+                    cellHeight = cellHeight,
+                    weight = weight,
+                    selected = selected,
+                    hovered = props.body.colors.hovered,
+                    table = table,
+                    separator = props.body.colors.separator,
+                    colors = props.body.colors.row,
+                    labels = props.body.labels,
+                    onItemClick = onItemClick,
+                    menuAction = menuAction
+                )
+
+                is Portrait -> {
+                    ListItem(
+                        user = cell.row.item,
+                        colors = props.body.colors.listItem,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .onClick(callback = onItemClick)
+                            .separator(
+                                isLast = cell.row.index == table.rows.lastIndex,
+                                color = props.body.colors.listItem.surfaceContra.copy(0.05f)
+                            )
+                            .padding(10.dp),
+                        menuAction = menuAction,
+                        labels = ListLabels(
+                            role = props.body.labels.columns.roles,
+                            permission = props.body.labels.columns.permission,
+                            status = getStatusLabels(props.body.labels.status)
+                        )
+                    )
+
                 }
-            )
+            }
         }
     }
 }

@@ -1,9 +1,6 @@
 package majestic.users.tools.data
 
-data class GenderLabels(
-    val male: String,
-    val female: String
-)
+import users.label.general.GenderLabels
 
 enum class Gender {
     MALE, FEMALE;

@@ -1,7 +1,7 @@
 package majestic.users.table.body
 
 import majestic.Cell
-import majestic.users.tools.ColumnLabels
+import users.label.table.ColumnLabels
 import majestic.users.tools.data.UsersData
 
 fun getLabels(cell: Cell<UsersData>, labels: ColumnLabels) = when (cell.column.key) {

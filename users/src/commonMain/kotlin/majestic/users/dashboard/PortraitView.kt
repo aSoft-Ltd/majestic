@@ -22,6 +22,14 @@ import cinematic.watchAsState
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
 import majestic.editor.toolbar.underline
+import majestic.icons.Res
+import majestic.icons.allDrawableResources
+import majestic.icons.ic_calendar
+import majestic.icons.ic_clock_01
+import majestic.icons.ic_key
+import majestic.icons.ic_laptop_phone
+import majestic.icons.ic_user_multiple
+import majestic.icons.tz_flag
 import majestic.tooling.onClick
 import majestic.users.dashboard.roles.RoleCard
 import majestic.users.dashboard.roles.RoleCardData
@@ -35,41 +43,35 @@ import majestic.users.dashboard.tools.Users
 import majestic.users.dashboard.tools.portraitHeader.PortraitHeader
 import majestic.users.dashboard.tools.rememberActiveView
 import majestic.users.dashboard.tools.toColumnLabels
-import majestic.users.labels.UsersLabels
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
 import majestic.users.table.header.tools.getHeaderLabels
 import majestic.users.table.header.tools.getStatusLabels
 import majestic.users.table.tools.data.avatars
+import majestic.users.table.tools.data.getOptions
 import majestic.users.table.tools.data.permissions
 import majestic.users.table.tools.data.roles
 import majestic.users.tools.data.HeaderIcons
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.getDashboardWeights
 import majestic.users.tools.data.separator
+import menu.MenuOption
 import nation.Country
 import symphony.columnsOf
 import symphony.linearPaginatorOf
 import symphony.tableOf
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.allDrawableResources
-import tz.co.asoft.majestic_users.generated.resources.ic_calendar
-import tz.co.asoft.majestic_users.generated.resources.ic_clock_01
-import tz.co.asoft.majestic_users.generated.resources.ic_key
-import tz.co.asoft.majestic_users.generated.resources.ic_laptop_phone
-import tz.co.asoft.majestic_users.generated.resources.ic_user_multiple
-import tz.co.asoft.majestic_users.generated.resources.tz_flag
+import users.UsersLabels
 
 internal fun UserRole.stats(labels: UserRoleBodyLabels) = listOf(
     Stat(
         icon = Res.drawable.ic_key,
-        iconContentDescription = "Key Icon",
+        description = "Key Icon",
         title = labels.permission,
         value = permissions
     ),
     Stat(
         icon = Res.drawable.ic_user_multiple,
-        iconContentDescription = "Users Icon",
+        description = "Users Icon",
         title = labels.userAssigned,
         value = usersAssigned
     )
@@ -133,12 +135,6 @@ internal fun PortraitView(
         }
     }
 
-    val columns = table.columns.current.watchAsState()
-
-    val weight = getDashboardWeights(
-        columns = columns,
-        labels = getHeaderLabels(labels.table.toColumnLabels())
-    )
     PortraitHeader(
         modifier = Modifier
             .fillMaxWidth()
@@ -170,7 +166,6 @@ internal fun PortraitView(
             columns = { _ ->
             }
         ) { cell ->
-            val selected = table.selector.isRowSelectedOnCurrentPage(cell.row.number)
             ListItem(
                 user = cell.row.item,
                 colors = props.table.body.colors.listItem,
@@ -182,7 +177,13 @@ internal fun PortraitView(
                         color = props.table.body.colors.listItem.surfaceContra.copy(0.05f)
                     )
                     .padding(10.dp),
-                menuAction = { },
+                menuAction = {
+                    MenuOption(
+                        orientation = orientation,
+                        actions = getOptions(labels.table),
+                        colors = props.table.body.colors.row.menuOption,
+                    ) { action -> }
+                },
                 labels = ListLabels(
                     role = props.table.body.labels.columns.roles,
                     permission = props.table.body.labels.columns.permission,
@@ -209,8 +210,8 @@ internal fun PortraitView(
                             stats = role.stats(
                                 labels = UserRoleBodyLabels(
                                     actions = labels.dashboard.roles.actions.getRoles(),
-                                    permission = "",
-                                    userAssigned = ""
+                                    permission = labels.dashboard.roles.permissions,
+                                    userAssigned = labels.dashboard.roles.assigned
                                 )
                             )
                         )

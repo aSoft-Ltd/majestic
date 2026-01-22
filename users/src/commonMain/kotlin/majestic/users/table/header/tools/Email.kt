@@ -15,10 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import majestic.tooling.onClick
+import users.HeaderInnerColors
+import users.label.table.FilterLabels
 
 data class EmailLabels(
     val email: String,
-    val filters: FiltersLabels
+    val filters: FilterLabels
 )
 
 data class EmailCellProperties(
@@ -31,30 +33,33 @@ data class EmailCellProperties(
 internal fun Email(
     props: EmailCellProperties,
     modifier: Modifier = Modifier,
+) = Box(
+    modifier = modifier,
+    contentAlignment = Alignment.CenterStart
 ) {
     var expanded by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
+    val popColors = props.colors.compPopColors
 
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.CenterStart
-    ) {
-        val popColors = props.colors.compPopColors
-        val color =
-            if (expanded || isHovered) popColors.foreground else popColors.foreground.copy(0.6f)
-        val decoration =
-            if (expanded || isHovered) TextDecoration.Underline else TextDecoration.None
+    val color = when {
+        expanded || isHovered -> popColors.foreground
+        else -> popColors.foreground.copy(0.6f)
 
-        Text(
-            modifier = Modifier
-                .hoverable(interactionSource = interactionSource)
-                .onClick { expanded = !expanded },
-            text = props.labels.email,
-            textDecoration = if (props.showFilters) decoration else TextDecoration.None,
-            color = color,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
     }
+    val decoration = when {
+        expanded || isHovered -> TextDecoration.Underline
+        else -> TextDecoration.None
+    }
+
+    Text(
+        modifier = Modifier
+            .hoverable(interactionSource = interactionSource)
+            .onClick { expanded = !expanded },
+        text = props.labels.email,
+        textDecoration = if (props.showFilters) decoration else TextDecoration.None,
+        color = color,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+    )
 }

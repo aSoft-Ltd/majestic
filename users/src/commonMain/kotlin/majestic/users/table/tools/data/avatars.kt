@@ -1,13 +1,13 @@
 package majestic.users.table.tools.data
 
 import org.jetbrains.compose.resources.DrawableResource
-import tz.co.asoft.majestic_users.generated.resources.Res
-import tz.co.asoft.majestic_users.generated.resources.useravatar1
-import tz.co.asoft.majestic_users.generated.resources.useravatar2
-import tz.co.asoft.majestic_users.generated.resources.useravatar3
-import tz.co.asoft.majestic_users.generated.resources.useravatar4
-import tz.co.asoft.majestic_users.generated.resources.useravatar5
-import tz.co.asoft.majestic_users.generated.resources.useravatar6
+import majestic.icons.Res
+import majestic.icons.useravatar1
+import majestic.icons.useravatar2
+import majestic.icons.useravatar3
+import majestic.icons.useravatar4
+import majestic.icons.useravatar5
+import majestic.icons.useravatar6
 
 internal fun avatars() = listOf<DrawableResource?>(
     Res.drawable.useravatar1,

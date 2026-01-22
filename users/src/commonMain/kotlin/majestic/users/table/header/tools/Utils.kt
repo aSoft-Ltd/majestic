@@ -1,6 +1,7 @@
 package majestic.users.table.header.tools
 
-import majestic.users.tools.ColumnLabels
+import users.label.table.ColumnLabels
+import users.label.table.FilterLabels
 
 fun getHeaderLabels(labels: ColumnLabels) = ColumnLabels(
     checkbox = "checkbox",
@@ -13,15 +14,16 @@ fun getHeaderLabels(labels: ColumnLabels) = ColumnLabels(
     permission = labels.permission,
     status = labels.status,
     users = labels.users,
-    filter = FiltersLabels(
-        searchTitle = labels.filter.searchTitle,
-        dateTime = labels.filter.dateTime,
+    filter = FilterLabels(
+        search = labels.filter.search,
+        date = labels.filter.date,
         letterRange = labels.filter.letterRange,
         ascend = labels.filter.ascend,
         descend = labels.filter.descend,
         apply = labels.filter.apply,
         to = labels.filter.to,
         from = labels.filter.from,
-        cancel = labels.filter.cancel
+        cancel = labels.filter.cancel,
+        status = labels.filter.status
     )
 )

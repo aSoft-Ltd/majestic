@@ -1,16 +1,17 @@
 package majestic.users.dashboard.tools
 
-import majestic.users.labels.table.TableLabels
-import majestic.users.table.header.tools.FiltersLabels
+import users.label.table.FilterLabels
+import users.label.table.TableLabels
 
-internal fun TableLabels.toFilterLabels(): FiltersLabels = FiltersLabels(
-    searchTitle = head.filters.search,
-    dateTime = head.filters.date,
+internal fun TableLabels.toFilterLabels() = FilterLabels(
+    search = head.filters.search,
+    date = head.filters.date,
     letterRange = head.filters.letterRange,
     ascend = head.filters.ascend,
     descend = head.filters.descend,
     apply = head.filters.apply,
     to = head.filters.to,
     from = head.filters.from,
-    cancel = head.filters.cancel
+    cancel = head.filters.cancel,
+    status = head.status
 )
