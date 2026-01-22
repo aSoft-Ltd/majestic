@@ -1,5 +1,5 @@
 package majestic.payments.labels
 
-interface FilterLabels {
+data class FilterLabels(
     val dateRange: DateRangeLabels
-}
+)
