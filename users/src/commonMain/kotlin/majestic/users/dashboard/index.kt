@@ -1,7 +1,6 @@
 package majestic.users.dashboard
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -75,7 +74,6 @@ fun UsersDashboard(
         SummaryCardList(
             modifier = when (orientation) {
                 is Landscape -> Modifier
-                    .border(12.dp, Color.Red)
                     .padding(top = 20.dp, bottom = 10.dp)
                     .fillMaxWidth()
                     .wrapContentHeight()

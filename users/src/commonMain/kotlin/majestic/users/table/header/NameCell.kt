@@ -51,12 +51,13 @@ internal fun NameCell(
         Text(
             text = fullName,
             color = colors.surfaceContra,
-            fontSize = 16.sp
+            fontSize = 15.sp
         )
     }
     Text(
         text = fullName,
         lineHeight = 1.sp,
+        fontSize = 15.sp,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         color = colors.surfaceContra

@@ -12,6 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Portrait
+import composex.screen.orientation.ScreenOrientation
 import org.jetbrains.compose.resources.vectorResource
 
 data class CardStatColors(
@@ -23,6 +25,7 @@ data class CardStatColors(
 @Composable
 fun CardStat(
     stat: Stat,
+    orientation: ScreenOrientation,
     colors: CardStatColors,
     modifier: Modifier = Modifier
 ) = Row(
@@ -40,13 +43,13 @@ fun CardStat(
     Text(
         text = stat.title,
         color = colors.title,
-        fontSize = 14.sp
+        fontSize = if (orientation is Portrait) 14.sp else 15.sp
     )
 
     Text(
         text = "${stat.value}",
         color = colors.value,
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp
+        fontSize = if (orientation is Portrait) 14.sp else 15.sp
     )
 }

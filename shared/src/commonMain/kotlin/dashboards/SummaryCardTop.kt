@@ -3,7 +3,6 @@ package dashboards
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,19 +39,24 @@ internal fun SummaryCardTop(
     modifier = modifier,
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
-    Box(
+    Image(
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))
-            .background(props.colors.foreground.copy(0.05f)),
-    ) {
-        Image(
-            modifier = if (orientation is Portrait) Modifier.padding(5.dp)
-                .size(20.dp) else Modifier.padding(10.dp),
-            painter = icon,
-            colorFilter = ColorFilter.tint(props.colors.foreground),
-            contentDescription = null,
-        )
-    }
+            .background(props.colors.foreground.copy(0.05f))
+            .then(
+                when (orientation) {
+                    is Portrait -> Modifier
+                        .padding(5.dp)
+                        .size(10.dp)
+
+                    is Landscape -> Modifier.padding(10.dp)
+                }
+            ),
+        painter = icon,
+        colorFilter = ColorFilter.tint(props.colors.foreground),
+        contentDescription = null,
+    )
+
     percentage?.let {
         val pct by animateAsState(to = it * 100)
         Row(

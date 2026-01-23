@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.tooling.onClick
@@ -102,6 +103,7 @@ fun RowScope.UsersTableHeader(
                 props.labels.status -> props.labels.status
                 else -> ""
             },
+            fontSize = 15.sp,
             color = props.colors.label,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
@@ -112,6 +114,7 @@ fun RowScope.UsersTableHeader(
         Text(
             text = column.name,
             maxLines = 1,
+            fontSize = 15.sp,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .weight(weight.getValue(column))

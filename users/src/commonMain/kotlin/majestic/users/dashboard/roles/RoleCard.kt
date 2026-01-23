@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.users.dashboard.roles.tools.CardHeader
 import majestic.users.dashboard.roles.tools.CardStatColors
@@ -53,11 +54,12 @@ internal fun RoleCard(
     Text(
         text = props.data.body,
         color = props.colors.body,
-        fontSize = 13.sp,
+        fontSize = if (orientation is Portrait) 13.sp else 15.sp,
     )
     Footer(
         stats = props.data.stats,
         colors = props.colors.footer,
         modifier = Modifier.wrapContentSize(),
+        orientation = orientation,
     )
 }

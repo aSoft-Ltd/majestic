@@ -44,6 +44,7 @@ internal fun NameCellHeader(
         text = label,
         lineHeight = 1.sp,
         maxLines = 1,
+        fontSize = 15.sp,
         overflow = TextOverflow.Ellipsis,
         color = colors.label
     )

@@ -20,6 +20,7 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import majestic.Cell
 import majestic.Checkbox
 import majestic.tooling.onClick
@@ -98,6 +99,7 @@ internal fun RowScope.UsersTableRow(
             text = getLabels(cell, labels.columns).toString(),
             color = colors.name.surfaceContra,
             maxLines = 1,
+            fontSize = 15.sp,
             overflow = TextOverflow.Ellipsis,
             softWrap = false,
         )
@@ -114,6 +116,10 @@ internal fun RowScope.UsersTableRow(
     ) {
         Text(
             modifier = Modifier.onClick(onItemClick),
+            maxLines = 1,
+            fontSize = 15.sp,
+            overflow = TextOverflow.Ellipsis,
+            softWrap = false,
             text = cell.row.item.status.getLabels(getStatusLabels(labels.status)),
             color = cell.row.item.status.getColors()
         )

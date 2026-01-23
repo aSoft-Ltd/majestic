@@ -7,11 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import composex.screen.orientation.ScreenOrientation
 
 @Composable
 fun Footer(
     stats: List<Stat>,
     colors: CardStatColors,
+    orientation: ScreenOrientation,
     modifier: Modifier = Modifier
 ) = Row(
     horizontalArrangement = Arrangement.spacedBy(24.dp),
@@ -22,7 +24,8 @@ fun Footer(
         CardStat(
             modifier = Modifier.wrapContentSize(),
             colors = colors,
-            stat = stat
+            stat = stat,
+            orientation = orientation
         )
     }
 }
