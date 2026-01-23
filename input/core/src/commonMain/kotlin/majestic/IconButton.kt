@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.ColorPair
 import majestic.tooling.onClick
 
 data class IconButtonColors(
@@ -36,6 +35,8 @@ data class IconButtonColors(
     }
 }
 
+
+@Deprecated("Use Button composable, it has option to pass icon only")
 @Composable
 fun IconButton(
     colors: IconButtonColors = IconButtonColors.default,
@@ -64,6 +65,7 @@ fun IconButton(
     }
 }
 
+@Deprecated("Use Button composable, it has option to pass icon only")
 @Composable
 fun IconButton(
     modifier: Modifier = Modifier,
