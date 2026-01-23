@@ -1,5 +1,5 @@
 package profiles.contacts.tools.dialogs
 
 internal sealed interface DialogType
-internal interface Dialog : DialogType
-internal interface Prompt : DialogType
+internal sealed interface Dialog : DialogType
+internal sealed interface Prompt : DialogType

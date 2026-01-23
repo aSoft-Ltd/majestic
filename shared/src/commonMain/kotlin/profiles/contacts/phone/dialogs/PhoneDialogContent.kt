@@ -20,6 +20,7 @@ import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Dialog
 import profiles.contacts.tools.dialogs.Duplicate
 import profiles.contacts.tools.dialogs.Edit
+import profiles.contacts.tools.dialogs.None
 import profiles.contacts.tools.dialogs.Verify
 import users.label.contacts.ContactLabels
 
@@ -75,10 +76,10 @@ internal fun PhoneDialogContent(
     is Duplicate -> GeneralPrompt(
         colors = colors.prompts.warning,
         labels = labels.toPhoneDuplicateLabels(),
-        onDismiss = { state.dismiss() },
+        onRejected = { state.dismiss() },
         contact = "",
         modifier = Modifier.phoneForms(orientation = orientation, state = state),
-        onDelete = { state.dismiss() },
+        onApproved = { state.dismiss() },
         orientation = orientation
     )
 
@@ -93,11 +94,11 @@ internal fun PhoneDialogContent(
     is Delete -> GeneralPrompt(
         labels = labels.toPhoneDeleteLabels(),
         modifier = Modifier.phoneForms(orientation = orientation, state = state),
-        onDismiss = { state.dismiss() },
-        onDelete = { state.dismiss() },
+        onRejected = { state.dismiss() },
+        onApproved = { state.dismiss() },
         colors = colors.prompts.delete,
         orientation = orientation
     )
 
-    else -> {}
+    is None -> {}
 }

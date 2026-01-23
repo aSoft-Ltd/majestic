@@ -11,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,7 +21,6 @@ import majestic.ThemeColor
 import majestic.buttons.FlatButton
 import majestic.buttons.FlatButtonColors
 import majestic.dialogs.DialogColors
-import majestic.dialogs.Flex
 import majestic.dialogs.Modal
 import majestic.icons.Res
 import majestic.icons.ic_square_lock
@@ -46,6 +44,7 @@ internal fun ColumnScope.ChangePassword(
     modifier = modifier,
     icon = Res.drawable.ic_square_lock,
     theme = colors.theme,
+    orientation = orientation,
 ) {
     var modalOpened by remember { mutableStateOf(false) }
     if (modalOpened) Modal(
@@ -61,27 +60,21 @@ internal fun ColumnScope.ChangePassword(
         )
     }
 
-    Flex(
-        modifier = Modifier.padding(bottom = 30.dp),
-        alignment = Alignment.CenterVertically,
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-        orientation = orientation,
+
+    SectionHeading(
+        modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(2f) else Modifier),
+        labels = labels.password,
+        color = colors.theme.surface.contra.color
+    )
+    Row(
+        modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
+        horizontalArrangement = Arrangement.End,
     ) {
-        SectionHeading(
-            modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(2f) else Modifier),
-            labels = labels.password,
-            color = colors.theme.surface.contra.color
+        FlatButton(
+            modifier = Modifier.clip(CircleShape),
+            label = labels.btnNewPassword,
+            colors = colors.flatButton,
+            onClick = { modalOpened = true }
         )
-        Row(
-            modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
-            horizontalArrangement = Arrangement.End,
-        ) {
-            FlatButton(
-                modifier = Modifier.clip(CircleShape),
-                label = labels.btnNewPassword,
-                colors = colors.flatButton,
-                onClick = { modalOpened = true }
-            )
-        }
     }
 }

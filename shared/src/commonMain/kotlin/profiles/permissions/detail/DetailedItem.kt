@@ -41,7 +41,7 @@ data class DetailedItemProperties(
 )
 
 @Composable
-fun DetailedItem(
+internal fun DetailedItem(
     modifier: Modifier,
     props: DetailedItemProperties,
     orientation: ScreenOrientation,

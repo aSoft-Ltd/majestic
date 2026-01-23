@@ -9,12 +9,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
@@ -22,48 +25,64 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.tooling.onClick
-import majestic.dialogs.CloseButton
 import majestic.dialogs.DialogColors
+import majestic.icons.Res
+import majestic.icons.ic_plus_sign
+import majestic.tooling.onClick
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun DefaultBar(
     orientation: ScreenOrientation,
-    onDismiss: () -> Unit,
     dialog: DialogColors,
+    onDismiss: () -> Unit,
+    modifier: Modifier = when (orientation) {
+        is Landscape -> Modifier.fillMaxWidth()
+        is Portrait -> Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Max)
+            .background(dialog.containerColor)
+            .padding(horizontal = 8.dp)
+    },
     title: String
 ) {
     when (orientation) {
-        Landscape -> Box(modifier = Modifier.fillMaxWidth()) {
-            CloseButton(
+        Landscape -> Box(modifier = modifier) {
+            Icon(
                 modifier = Modifier
                     .padding(top = 20.dp, end = 20.dp)
                     .align(Alignment.TopEnd)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick(onDismiss)
                     .hoverable(interactionSource = dialog.interactionSource)
-                    .background(color = dialog.cancelBackground, shape = CircleShape),
+                    .background(color = dialog.cancelBackground, shape = CircleShape)
+                    .padding(5.dp)
+                    .size(35.dp)
+                    .graphicsLayer { rotationZ = 45f },
+                painter = painterResource(Res.drawable.ic_plus_sign),
+                contentDescription = "Icon",
                 tint = dialog.cancelContent,
             )
         }
 
         Portrait -> Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Max)
-                .background(dialog.containerColor)
-                .padding(horizontal = 8.dp),
+            modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CloseButton(
+            Icon(
                 modifier = Modifier
                     .padding(start = 8.dp, top = 20.dp, bottom = 20.dp)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick(onDismiss)
                     .hoverable(interactionSource = dialog.interactionSource)
-                    .background(color = Color.Transparent),
-                tint = dialog.cancelBackground,
+                    .background(color = Color.Transparent)
+                    .padding(5.dp)
+                    .size(35.dp)
+                    .graphicsLayer { rotationZ = 45f },
+                painter = painterResource(Res.drawable.ic_plus_sign),
+                contentDescription = "Icon",
+                tint = dialog.cancelContent,
             )
             Text(
                 text = title,

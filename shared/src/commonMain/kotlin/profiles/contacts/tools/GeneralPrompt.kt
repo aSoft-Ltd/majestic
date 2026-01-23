@@ -51,11 +51,11 @@ internal data class GeneralPromptLabels(
 internal fun GeneralPrompt(
     colors: GeneralPromptColors,
     labels: GeneralPromptLabels,
-    onDismiss: () -> Unit,
+    onRejected: () -> Unit,
     orientation: ScreenOrientation,
     contact: String? = null,
     modifier: Modifier = Modifier,
-    onDelete: () -> Unit = {},
+    onApproved: () -> Unit = {},
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(30.dp),
@@ -105,7 +105,7 @@ internal fun GeneralPrompt(
             modifier = Modifier.weight(1f),
             text = labels.submit,
             colors = colors.submit,
-            onClick = onDelete
+            onClick = onApproved
         )
         ActionButton(
             modifier = Modifier.weight(1f),
@@ -115,7 +115,7 @@ internal fun GeneralPrompt(
                 color = colors.buttonBorder.copy(alpha = 0.2f)
             ),
             colors = colors.cancel,
-            onClick = onDismiss
+            onClick = onRejected
         )
     }
 }

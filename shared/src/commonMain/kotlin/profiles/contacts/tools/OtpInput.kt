@@ -24,11 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.Dark
-import majestic.Light
-import majestic.ThemeColor
 
-fun isNumber(text: String): Boolean {
+internal fun isNumber(text: String): Boolean {
     val pattern = Regex("^\\d+\$")
     return text.matches(pattern)
 }

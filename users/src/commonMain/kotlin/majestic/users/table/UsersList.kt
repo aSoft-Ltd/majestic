@@ -22,7 +22,7 @@ import majestic.users.tools.data.getSelectedRows
 import symphony.Table
 import symphony.columns.Column
 
-val LocalUsersRowInteractionSource = compositionLocalOf<MutableInteractionSource?> { null }
+internal val LocalUsersRowInteractionSource = compositionLocalOf<MutableInteractionSource?> { null }
 
 @Composable
 fun UsersList(

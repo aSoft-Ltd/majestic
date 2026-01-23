@@ -28,9 +28,8 @@ import menu.MenuOption
 import menu.MenuOptionColors
 import menu.OptionMenu
 import org.jetbrains.compose.resources.painterResource
-import profiles.contacts.phone.dialogs.PhoneDialogs
+import profiles.contacts.phone.dialogs.PhoneDialogState
 import profiles.contacts.phone.dialogs.PhoneDialogsColors
-import profiles.contacts.phone.dialogs.rememberPhoneDialogState
 import profiles.contacts.tools.PhoneMenuAction
 import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Duplicate
@@ -61,103 +60,94 @@ internal fun Phone(
     colors: PhoneColors,
     isPrimary: Boolean,
     isWhatsapp: Boolean,
+    state: PhoneDialogState,
     isNormal: Boolean,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier
+) = Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
 ) {
-    val state = rememberPhoneDialogState()
-    PhoneDialogs(
-        state = state,
-        labels = labels,
-        colors = colors.dialog,
-        orientation = orientation
-    )
-
     Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
+        Image(
+            modifier = Modifier.size(24.dp),
+            painter = painterResource(Res.drawable.ic_call),
+            colorFilter = ColorFilter.tint(colors.tint),
+            contentDescription = null,
+        )
+        Flex(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+            alignment = Alignment.CenterVertically,
+            orientation = orientation
         ) {
-            Image(
-                modifier = Modifier.size(24.dp),
-                painter = painterResource(Res.drawable.ic_call),
-                colorFilter = ColorFilter.tint(colors.tint),
-                contentDescription = null,
+            Text(
+                text = text,
+                color = colors.title
             )
-            Flex(
+            Row(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp),
-                alignment = Alignment.CenterVertically,
-                orientation = orientation
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = text,
-                    color = colors.title
+                if (orientation is Landscape) Text(
+                    text = "•",
+                    color = colors.separator,
                 )
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                if (isPrimary) Text(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(colors.primaryBackground)
+                        .padding(horizontal = 5.dp),
+                    text = labels.primary,
+                    fontSize = 12.sp,
+                    lineHeight = 12.sp,
+                    color = colors.primary,
+                )
+                if (isNormal) Tooltip(
+                    text = labels.availability.calls,
+                    colors = colors.tooltip,
                 ) {
-                    if (orientation is Landscape) Text(
-                        text = "•",
-                        color = colors.separator,
+                    Image(
+                        modifier = Modifier.size(16.dp),
+                        painter = painterResource(Res.drawable.ic_calling_solid),
+                        colorFilter = ColorFilter.tint(Color(0xFF30C0F9)),
+                        contentDescription = null,
                     )
-                    if (isPrimary) Text(
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .background(colors.primaryBackground)
-                            .padding(horizontal = 5.dp),
-                        text = labels.primary,
-                        fontSize = 12.sp,
-                        lineHeight = 12.sp,
-                        color = colors.primary,
+                }
+                if (isWhatsapp) Tooltip(
+                    text = labels.availability.whatsapp,
+                    colors = colors.tooltip,
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Image(
+                        modifier = Modifier.size(16.dp),
+                        painter = painterResource(Res.drawable.ic_whatsapp_solid),
+                        colorFilter = ColorFilter.tint(Color(0xFF25D366)),
+                        contentDescription = null,
                     )
-                    if (isNormal) Tooltip(
-                        text = labels.availability.calls,
-                        colors = colors.tooltip,
-                    ) {
-                        Image(
-                            modifier = Modifier.size(16.dp),
-                            painter = painterResource(Res.drawable.ic_calling_solid),
-                            colorFilter = ColorFilter.tint(Color(0xFF30C0F9)),
-                            contentDescription = null,
-                        )
-                    }
-                    if (isWhatsapp) Tooltip(
-                        text = labels.availability.whatsapp,
-                        colors = colors.tooltip,
-                        modifier = Modifier.padding(5.dp)
-                    ) {
-                        Image(
-                            modifier = Modifier.size(16.dp),
-                            painter = painterResource(Res.drawable.ic_whatsapp_solid),
-                            colorFilter = ColorFilter.tint(Color(0xFF25D366)),
-                            contentDescription = null,
-                        )
-                    }
                 }
             }
         }
-        MenuOption(
-            colors = colors.menuOption,
-            orientation = orientation,
-            actions = listOf(
-                OptionMenu(labels.actions.primary, PhoneMenuAction.Primary),
-                OptionMenu(labels.actions.phone.edit, PhoneMenuAction.Edit),
-                OptionMenu(labels.actions.phone.duplicate, PhoneMenuAction.Duplicate),
-                OptionMenu(labels.actions.phone.delete, PhoneMenuAction.Delete)
-            ),
-        ) { action ->
-            when (action) {
-                PhoneMenuAction.Primary -> {}
-                PhoneMenuAction.Edit -> state.open(Edit)
-                PhoneMenuAction.Duplicate -> state.open(Duplicate)
-                PhoneMenuAction.Delete -> state.open(Delete)
-            }
+    }
+    MenuOption(
+        colors = colors.menuOption,
+        orientation = orientation,
+        actions = listOf(
+            OptionMenu(labels.actions.primary, PhoneMenuAction.Primary),
+            OptionMenu(labels.actions.phone.edit, PhoneMenuAction.Edit),
+            OptionMenu(labels.actions.phone.duplicate, PhoneMenuAction.Duplicate),
+            OptionMenu(labels.actions.phone.delete, PhoneMenuAction.Delete)
+        ),
+    ) { action ->
+        when (action) {
+            PhoneMenuAction.Primary -> {}
+            PhoneMenuAction.Edit -> state.open(Edit)
+            PhoneMenuAction.Duplicate -> state.open(Duplicate)
+            PhoneMenuAction.Delete -> state.open(Delete)
         }
     }
 }

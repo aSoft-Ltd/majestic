@@ -20,6 +20,7 @@ import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Dialog
 import profiles.contacts.tools.dialogs.Duplicate
 import profiles.contacts.tools.dialogs.Edit
+import profiles.contacts.tools.dialogs.None
 import profiles.contacts.tools.dialogs.Verify
 import users.label.contacts.ContactLabels
 
@@ -77,10 +78,10 @@ internal fun EmailDialogContent(
     is Duplicate -> GeneralPrompt(
         colors = colors.prompts.warning,
         labels = labels.toEmailDuplicateLabels(),
-        onDismiss = { state.dismiss() },
+        onRejected = { state.dismiss() },
         contact = "",
         modifier = Modifier.emailForms(orientation = orientation, state = state),
-        onDelete = { state.dismiss() },
+        onApproved = { state.dismiss() },
         orientation = orientation,
     )
 
@@ -95,11 +96,11 @@ internal fun EmailDialogContent(
     is Delete -> GeneralPrompt(
         labels = labels.toEmailDeleteLabels(),
         modifier = Modifier.emailForms(orientation = orientation, state = state),
-        onDismiss = { state.dismiss() },
-        onDelete = { state.dismiss() },
+        onRejected = { state.dismiss() },
+        onApproved = { state.dismiss() },
         colors = colors.prompts.delete,
         orientation = orientation,
     )
 
-    else -> {}
+    is None -> {}
 }

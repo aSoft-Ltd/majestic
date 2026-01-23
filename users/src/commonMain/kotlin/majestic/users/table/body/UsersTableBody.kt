@@ -37,7 +37,6 @@ data class UserTableBodyColors(
 )
 
 
-
 data class UsersTableBodyProperties(
     val labels: InnerTableBodyLabels,
     val colors: UserTableBodyColors
@@ -76,26 +75,24 @@ fun RowScope.UsersTableBody(
             interactionSource = interaction
         )
 
-        is Portrait -> {
-            ListItem(
-                user = cell.row.item,
-                colors = props.colors.listItem,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .onClick(callback = onItemClick)
-                    .separator(
-                        cell.row.index == table.rows.lastIndex,
-                        props.colors.listItem.surfaceContra.copy(0.05f)
-                    )
-                    .padding(10.dp),
-                menuAction = menuAction,
-                labels = ListLabels(
-                    role = props.labels.columns.roles,
-                    permission = props.labels.columns.permission,
-                    status = getStatusLabels(props.labels.status)
+        is Portrait -> ListItem(
+            user = cell.row.item,
+            colors = props.colors.listItem,
+            modifier = Modifier
+                .fillMaxWidth()
+                .onClick(callback = onItemClick)
+                .separator(
+                    cell.row.index == table.rows.lastIndex,
+                    props.colors.listItem.surfaceContra.copy(0.05f)
                 )
+                .padding(10.dp),
+            menuAction = menuAction,
+            labels = ListLabels(
+                role = props.labels.columns.roles,
+                permission = props.labels.columns.permission,
+                status = getStatusLabels(props.labels.status)
             )
+        )
 
-        }
     }
 }

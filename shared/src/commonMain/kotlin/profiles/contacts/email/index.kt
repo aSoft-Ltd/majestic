@@ -25,9 +25,8 @@ import menu.MenuOption
 import menu.MenuOptionColors
 import menu.OptionMenu
 import org.jetbrains.compose.resources.painterResource
-import profiles.contacts.email.dialogs.EmailDialogs
+import profiles.contacts.email.dialogs.EmailDialogState
 import profiles.contacts.email.dialogs.EmailDialogsColors
-import profiles.contacts.email.dialogs.rememberEmailDialogState
 import profiles.contacts.tools.EmailMenuAction
 import profiles.contacts.tools.GeneralPromptColors
 import profiles.contacts.tools.dialogs.Delete
@@ -57,79 +56,70 @@ internal fun Email(
     colors: EmailColors,
     isPrimary: Boolean,
     orientation: ScreenOrientation,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    state: EmailDialogState
+) = Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
 ) {
-    val activeDialog = rememberEmailDialogState()
-    EmailDialogs(
-        state = activeDialog,
-        labels = labels,
-        colors = colors.dialog,
-        orientation = orientation
-    )
-
     Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
+        Image(
+            modifier = Modifier.size(24.dp),
+            painter = painterResource(Res.drawable.ic_mail),
+            colorFilter = ColorFilter.tint(colors.tint),
+            contentDescription = null,
+        )
+        Flex(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+            alignment = Alignment.CenterVertically,
+            orientation = orientation
         ) {
-            Image(
-                modifier = Modifier.size(24.dp),
-                painter = painterResource(Res.drawable.ic_mail),
-                colorFilter = ColorFilter.tint(colors.tint),
-                contentDescription = null,
+            Text(
+                text = text,
+                color = colors.title,
             )
-            Flex(
+            if (isPrimary) Row(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp),
-                alignment = Alignment.CenterVertically,
-                orientation = orientation
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = text,
-                    color = colors.title,
+                if (orientation is Landscape) Text(
+                    text = "•",
+                    color = colors.separator,
                 )
-                if (isPrimary) Row(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    if (orientation is Landscape) Text(
-                        text = "•",
-                        color = colors.separator,
-                    )
-                    Text(
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .background(colors.primaryBackground)
-                            .padding(horizontal = 5.dp),
-                        text = labels.primary,
-                        fontSize = 12.sp,
-                        lineHeight = 12.sp,
-                        color = colors.primary,
-                    )
-                }
+                Text(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(colors.primaryBackground)
+                        .padding(horizontal = 5.dp),
+                    text = labels.primary,
+                    fontSize = 12.sp,
+                    lineHeight = 12.sp,
+                    color = colors.primary,
+                )
             }
         }
+    }
 
-        MenuOption(
-            colors = colors.menuOption,
-            orientation = orientation,
-            actions = listOf(
-                OptionMenu(labels.actions.primary, EmailMenuAction.Primary),
-                OptionMenu(labels.actions.email.edit, EmailMenuAction.Edit),
-                OptionMenu(labels.actions.email.duplicate, EmailMenuAction.Duplicate),
-                OptionMenu(labels.actions.email.delete, EmailMenuAction.Delete),
-            ),
-        ) { action ->
-            when (action) {
-                EmailMenuAction.Primary -> {}
-                EmailMenuAction.Edit -> activeDialog.open(Edit)
-                EmailMenuAction.Duplicate -> activeDialog.open(Duplicate)
-                EmailMenuAction.Delete -> activeDialog.open(Delete)
-            }
+    MenuOption(
+        colors = colors.menuOption,
+        orientation = orientation,
+        actions = listOf(
+            OptionMenu(labels.actions.primary, EmailMenuAction.Primary),
+            OptionMenu(labels.actions.email.edit, EmailMenuAction.Edit),
+            OptionMenu(labels.actions.email.duplicate, EmailMenuAction.Duplicate),
+            OptionMenu(labels.actions.email.delete, EmailMenuAction.Delete),
+        ),
+    ) { action ->
+        when (action) {
+            EmailMenuAction.Primary -> {}
+            EmailMenuAction.Edit -> state.open(Edit)
+            EmailMenuAction.Duplicate -> state.open(Duplicate)
+            EmailMenuAction.Delete -> state.open(Delete)
         }
     }
 }
