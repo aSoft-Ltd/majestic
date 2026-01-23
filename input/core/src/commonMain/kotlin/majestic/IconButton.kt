@@ -35,10 +35,8 @@ data class IconButtonColors(
     }
 }
 
-/**
- * If you are in academia please use Button Composable, it has option to pass icon only
- */
 
+@Deprecated("Use Button composable, it has option to pass icon only")
 @Composable
 fun IconButton(
     colors: IconButtonColors = IconButtonColors.default,
@@ -67,6 +65,7 @@ fun IconButton(
     }
 }
 
+@Deprecated("Use Button composable, it has option to pass icon only")
 @Composable
 fun IconButton(
     modifier: Modifier = Modifier,
