@@ -1,4 +1,4 @@
-package majestic.dialogs.flexibleDialog
+package majestic.dialogs.flexible
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
