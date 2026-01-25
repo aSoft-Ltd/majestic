@@ -1,12 +1,14 @@
 package majestic.users.profile.security
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
@@ -16,7 +18,21 @@ import majestic.buttons.FlatButton
 import majestic.buttons.FlatButtonColors
 import majestic.icons.Res
 import majestic.icons.ic_user_remove
+import profiles.contacts.tools.buttons.flatButton
+import profiles.contacts.tools.buttons.getBackground
 import users.label.profile.security.SecurityLabels
+
+
+internal fun toDeleteButtonColors(): FlatButtonColors = FlatButtonColors(
+    hovered = ColorPair(
+        foreground = Color(0xFFEF5350),
+        background = Color(0xFFEF5350).copy(alpha = 0.15f)
+    ),
+    inactive = ColorPair(
+        foreground = Color(0xFFEF5350).copy(alpha = 0.7f),
+        background = Color(0xFFEF5350).copy(alpha = 0.07f)
+    ),
+)
 
 @Composable
 internal fun ColumnScope.DeleteAccount(
@@ -39,19 +55,19 @@ internal fun ColumnScope.DeleteAccount(
         modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
         horizontalArrangement = Arrangement.End,
     ) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val isHovered by interactionSource.collectIsHoveredAsState()
         FlatButton(
-            modifier = Modifier.clip(CircleShape),
+            modifier = Modifier.flatButton(
+                interactionSource = interactionSource,
+                bgColor = getBackground(
+                    isHovered = isHovered,
+                    colors = toDeleteButtonColors()
+                ),
+            ) {},
             label = labels.btnDelete,
-            colors = FlatButtonColors(
-                hovered = ColorPair(
-                    foreground = Color(0xFFEF5350),
-                    background = Color(0xFFEF5350).copy(alpha = 0.15f)
-                ),
-                inactive = ColorPair(
-                    foreground = Color(0xFFEF5350).copy(alpha = 0.7f),
-                    background = Color(0xFFEF5350).copy(alpha = 0.07f)
-                ),
-            ),
+            colors = toDeleteButtonColors(),
+            interactionSource = interactionSource,
         )
     }
 }

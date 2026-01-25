@@ -14,7 +14,7 @@ import profiles.contacts.phone.PhoneForm
 import profiles.contacts.phone.PhoneFormColors
 import profiles.contacts.phone.PhoneVerificationForm
 import profiles.contacts.phone.PhoneVerificationFormColors
-import profiles.contacts.tools.GeneralPrompt
+import profiles.contacts.tools.dialogs.GeneralPrompt
 import profiles.contacts.tools.dialogs.Add
 import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Dialog

@@ -1,34 +1,18 @@
 package majestic.buttons
 
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.foundation.background
-import androidx.compose.foundation.hoverable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
-import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -50,31 +34,19 @@ data class ButtonAnimateColors(
 
 @Composable
 fun ButtonAnimate(
+
     label: String,
     icon: DrawableResource,
-    onClick: () -> Unit,
     expanded: Boolean = true,
     isOpen: Boolean = false,
+    isHovered: Boolean = false,
     colors: ButtonAnimateColors = ButtonAnimateColors.default,
-    animationSpec: FiniteAnimationSpec<IntSize> = spring(
-        dampingRatio = Spring.DampingRatioMediumBouncy,
-        stiffness = Spring.StiffnessLow,
-    )
+    modifier: Modifier
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isHovered by interactionSource.collectIsHoveredAsState()
-    val bgColor = if (isHovered) colors.hovered.background else colors.inactive.background
     val iconColor = if (isHovered) colors.hovered.foreground else colors.inactive.foreground
 
     Row(
-        modifier = Modifier
-            .clip(CircleShape)
-            .background(bgColor)
-            .pointerHoverIcon(PointerIcon.Hand)
-            .hoverable(interactionSource = interactionSource)
-            .padding(10.dp)
-            .animateContentSize(animationSpec)
-            .onClick(onClick),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(

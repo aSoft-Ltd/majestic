@@ -21,9 +21,9 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.ActionText
 import majestic.buttons.ActionButton
 import majestic.buttons.ButtonColors
-import profiles.contacts.tools.ContactVerificationFormLabels
-import profiles.contacts.tools.OtpInput
-import profiles.contacts.tools.OtpInputColors
+import profiles.contacts.tools.dialogs.ContactVerificationFormLabels
+import profiles.contacts.tools.dialogs.OtpInput
+import profiles.contacts.tools.dialogs.OtpInputColors
 
 data class EmailVerificationFormColors(
     val buttonColors: ButtonColors,

@@ -1,4 +1,4 @@
-package majestic.dialogs
+package majestic.dialogs.flexible
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.DialogProperties
 import composex.screen.orientation.ScreenOrientation
-import majestic.dialogs.flexibleDialog.DefaultBar
+import majestic.dialogs.DialogColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,9 +29,10 @@ fun FlexibleDialog(
     ) -> Unit = {
         DefaultBar(
             orientation,
-            onDismiss,
-            it,
-            title
+            onDismiss = onDismiss,
+            dialog = it,
+            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+            title = title
         )
     },
     content: @Composable (title: String) -> Unit

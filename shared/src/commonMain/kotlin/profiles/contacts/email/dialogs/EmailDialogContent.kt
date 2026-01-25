@@ -14,7 +14,7 @@ import profiles.contacts.email.EmailFormColors
 import profiles.contacts.email.EmailVerificationForm
 import profiles.contacts.email.EmailVerificationFormColors
 import profiles.contacts.email.PromptColors
-import profiles.contacts.tools.GeneralPrompt
+import profiles.contacts.tools.dialogs.GeneralPrompt
 import profiles.contacts.tools.dialogs.Add
 import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Dialog

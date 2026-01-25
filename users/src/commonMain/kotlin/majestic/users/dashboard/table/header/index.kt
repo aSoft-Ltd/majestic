@@ -1,4 +1,4 @@
-package majestic.users.dashboard.table.header.tools
+package majestic.users.dashboard.table.header
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

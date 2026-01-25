@@ -1,4 +1,4 @@
-package majestic.users.dashboard.table.header.tools
+package majestic.users.dashboard.table.header
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

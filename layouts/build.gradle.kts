@@ -12,10 +12,10 @@ plugins {
     alias(kotlinz.plugins.dokka)
 }
 
-description = "The shared module - Reusable dashboard components"
+description = "Majestic layouts"
 
 android {
-    namespace = "tz.co.asoft.academia.majestic.shared"
+    namespace = "tz.co.asoft.academia.majestic.layouts"
     compileSdk = androidx.versions.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = 21 // because of the coil dependency has this as it's min sdk
@@ -64,7 +64,6 @@ kotlin {
             api(libs.kiota.file.manager.core)
             api(projects.majesticInputCore)
             api(projects.majesticInputChoice)
-            api(projects.majesticLayouts)
             api(projects.majesticInputText)
             api(projects.majesticInputChoice)
             api(projects.majesticInputColor)

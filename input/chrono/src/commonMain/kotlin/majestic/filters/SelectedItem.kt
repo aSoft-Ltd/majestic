@@ -1,4 +1,4 @@
-package dashboards.stickybar.filters
+package majestic.filters
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween

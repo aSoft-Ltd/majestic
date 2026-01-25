@@ -21,9 +21,9 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.ActionText
 import majestic.buttons.ActionButton
 import majestic.buttons.ButtonColors
-import profiles.contacts.tools.ContactVerificationFormLabels
-import profiles.contacts.tools.OtpInput
-import profiles.contacts.tools.OtpInputColors
+import profiles.contacts.tools.dialogs.ContactVerificationFormLabels
+import profiles.contacts.tools.dialogs.OtpInput
+import profiles.contacts.tools.dialogs.OtpInputColors
 
 data class PhoneVerificationFormColors(
     val sentCode: Color,
@@ -38,6 +38,7 @@ data class PhoneVerificationFormColors(
 @Composable
 internal fun PhoneVerificationForm(
     colors: PhoneVerificationFormColors,
+    verifyingNumber: String = "+255 752 988 988",
     labels: ContactVerificationFormLabels,
     onVerify: () -> Unit,
     onChangePhone: () -> Unit,
@@ -61,7 +62,7 @@ internal fun PhoneVerificationForm(
                 color = colors.sentCode
             )
             Text(
-                text = "+255 752 988 988",
+                text = verifyingNumber,
                 fontWeight = FontWeight.Bold,
                 color = colors.number
             )

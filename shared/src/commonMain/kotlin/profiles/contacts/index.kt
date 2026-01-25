@@ -1,14 +1,10 @@
 package profiles.contacts
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,64 +13,38 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.boundsInParent
-import androidx.compose.ui.layout.onPlaced
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
-import majestic.buttons.ButtonAnimate
-import majestic.buttons.ButtonAnimateColors
-import majestic.buttons.FlatButton
-import majestic.buttons.FlatButtonColors
-import majestic.buttons.floatActionButton
-import majestic.icons.Res
-import majestic.icons.ic_add
-import majestic.tooling.onClick
-import profiles.contacts.email.EmailColors
 import profiles.contacts.email.dialogs.EmailDialogs
 import profiles.contacts.email.dialogs.rememberEmailDialogState
-import profiles.contacts.phone.Backgrounds
-import profiles.contacts.phone.PhoneColors
 import profiles.contacts.phone.dialogs.PhoneDialogs
 import profiles.contacts.phone.dialogs.rememberPhoneDialogState
+import profiles.contacts.tools.ContactsColors
+import profiles.contacts.tools.buttons.FloatingButtons
 import profiles.contacts.tools.dialogs.Add
 import users.UsersLabels
 
-data class ContactBackgroundColors(
-    val focused: Color,
-    val unfocused: Color
-)
+internal fun contactList(
+    orientation: ScreenOrientation,
+    colors: ContactsColors
+): Modifier = when (orientation) {
+    is Landscape -> Modifier
+        .wrapContentSize()
+        .background(
+            color = colors.backgrounds.landscape.copy(.5f),
+            shape = RoundedCornerShape(20.dp)
+        )
 
-data class ProfileBackgroundColors(
-    val focused: Color,
-    val unfocused: Color
-)
-
-data class ContactsItemBackground(
-    val content: Color,
-    val contact: ContactBackgroundColors,
-    val profile: ProfileBackgroundColors
-)
-
-data class ContactsColors(
-    val item: ContactsItemBackground,
-    val buttonAnimate: ButtonAnimateColors,
-    val flatButton: FlatButtonColors,
-    val floatingButton: ColorPair,
-    val backgrounds: Backgrounds,
-    val email: EmailColors,
-    val phone: PhoneColors
-)
-
+    is Portrait -> Modifier
+        .padding(10.dp)
+        .fillMaxSize()
+}
 
 @Composable
 fun Contacts(
@@ -106,21 +76,7 @@ fun Contacts(
         var buttonBox by remember { mutableStateOf(Rect(Offset.Zero, Size.Zero)) }
 
         ContactList(
-            modifier = Modifier
-                .then(
-                    other = when (orientation) {
-                        is Landscape -> Modifier
-                            .wrapContentSize()
-                            .background(
-                                color = colors.backgrounds.landscape.copy(.5f),
-                                shape = RoundedCornerShape(20.dp)
-                            )
-
-                        is Portrait -> Modifier
-                            .padding(10.dp)
-                            .fillMaxSize()
-                    }
-                ),
+            modifier = contactList(orientation, colors),
             orientation = orientation,
             colors = colors,
             labels = labels,
@@ -129,59 +85,29 @@ fun Contacts(
         )
 
 
-        if (orientation is Landscape) Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
-            Box(modifier = Modifier.onPlaced { buttonBox = it.boundsInParent() }) {
-                ButtonAnimate(
-                    label = labels.profile.tabs.contacts.content.addButton,
-                    icon = Res.drawable.ic_add,
-                    isOpen = isOpen,
-                    colors = colors.buttonAnimate,
-                    onClick = { isOpen = !isOpen }
-                )
+        FloatingButtons(
+            orientation = orientation,
+            buttonBox = buttonBox,
+            labels = labels,
+            isOpen = isOpen,
+            colors = colors,
+            onEmailButtonClick = {
+                isOpen = false
+                emailDialog.open(Add)
+            },
+            onPhoneButtonClick = {
+                isOpen = false
+                phoneDialog.open(Add)
+            },
+            emailDialog = emailDialog,
+            phoneDialog = phoneDialog,
+            onDismiss = { isOpen = false },
+            onOpen = {
+                isOpen = true
+            },
+            onPlaced = {
+                buttonBox = it.boundsInParent()
             }
-            if (isOpen) Popup(
-                alignment = Alignment.TopEnd,
-                offset = IntOffset(x = 0, y = buttonBox.bottom.toInt() + 20)
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    FlatButton(
-                        modifier = Modifier.clip(CircleShape),
-                        colors = colors.flatButton,
-                        label = "Email",
-                        onClick = {
-                            isOpen = false
-                            emailDialog.open(Add)
-                        }
-                    )
-                    FlatButton(
-                        modifier = Modifier.clip(CircleShape),
-                        colors = colors.flatButton,
-                        label = "Phone",
-                        onClick = {
-                            isOpen = false
-                            phoneDialog.open(Add)
-                        }
-                    )
-                }
-            }
-        }
-
-        if (orientation is Portrait) Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
-
-            PortraitButtons(
-                modifier = Modifier.floatActionButton(colors.floatingButton.background)
-                    .onClick { isOpen = !isOpen },
-                colors = colors,
-                isOpen = isOpen,
-                emailDialog = emailDialog,
-                phoneDialog = phoneDialog,
-                onDismiss = {
-                    isOpen = false
-                }
-            )
-        }
+        )
     }
 }

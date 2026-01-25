@@ -1,14 +1,15 @@
 package majestic.users.profile.security
 
-import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
@@ -17,9 +18,11 @@ import majestic.ColorPair
 import majestic.ThemeColor
 import majestic.buttons.FlatButton
 import majestic.buttons.FlatButtonColors
-import majestic.dialogs.Flex
+import Flex
 import majestic.icons.Res
 import majestic.icons.ic_laptop_remove
+import profiles.contacts.tools.buttons.flatButton
+import profiles.contacts.tools.buttons.getBackground
 import users.label.profile.security.SecurityLabels
 
 data class LogoutDevicesColors(
@@ -49,10 +52,24 @@ internal fun ColumnScope.LogoutDevices(
         horizontalArrangement = Arrangement.End,
         orientation = orientation,
     ) {
+        val logoutInteraction = remember { MutableInteractionSource() }
+        val logoutHovered by logoutInteraction.collectIsHoveredAsState()
+        val logoutAllInteraction = remember { MutableInteractionSource() }
+        val logoutAllHovered by logoutAllInteraction.collectIsHoveredAsState()
+
         FlatButton(
-            modifier = Modifier
-                .clip(CircleShape)
-                .border(1.dp, colors.theme.surface.contra.color.copy(0.1f), CircleShape),
+            modifier = Modifier.flatButton(
+                interactionSource = logoutAllInteraction,
+                bgColor = getBackground(
+                    isHovered = logoutAllHovered,
+                    colors = colors.flatButton.copy(
+                        inactive = ColorPair(
+                            foreground = colors.theme.surface.contra.color.copy(alpha = 0.7f),
+                            background = Color.Transparent
+                        ),
+                    )
+                ),
+            ) {},
             label = labels.btnLogoutAll,
             colors = colors.flatButton.copy(
                 inactive = ColorPair(
@@ -60,12 +77,20 @@ internal fun ColumnScope.LogoutDevices(
                     background = Color.Transparent
                 ),
             ),
+            interactionSource = logoutAllInteraction,
         )
         Spacer(modifier = Modifier.width(20.dp))
         FlatButton(
-            modifier = Modifier.clip(CircleShape),
+            modifier = Modifier.flatButton(
+                interactionSource = logoutInteraction,
+                bgColor = getBackground(
+                    isHovered = logoutHovered,
+                    colors = colors.flatButton
+                ),
+            ) {},
             label = labels.btnLogout,
-            colors = colors.flatButton
+            colors = colors.flatButton,
+            interactionSource = logoutInteraction,
         )
     }
 }

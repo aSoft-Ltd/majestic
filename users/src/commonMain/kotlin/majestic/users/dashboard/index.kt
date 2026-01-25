@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import dashboards.stickybar.StickyBar
-import dashboards.stickybar.filters.FilterDefault
+import dashboards.StickyBar
+import majestic.filters.FilterDefault
 import majestic.ColorPair
 import majestic.ThemeColor
 import majestic.editor.toolbar.underline

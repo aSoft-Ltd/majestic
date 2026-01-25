@@ -22,8 +22,8 @@ import majestic.users.dashboard.roles.Header
 import majestic.users.dashboard.roles.HeaderProps
 import majestic.users.dashboard.roles.Labels
 import majestic.users.dashboard.table.body.UsersTableRow
-import majestic.users.dashboard.table.header.tools.UserTableHeaderProps
-import majestic.users.dashboard.table.header.tools.UsersTableHeader
+import majestic.users.dashboard.table.header.UserTableHeaderProps
+import majestic.users.dashboard.table.header.UsersTableHeader
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
 import majestic.users.table.body.UsersTableBodyProperties

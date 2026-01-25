@@ -1,4 +1,4 @@
-package dashboards.stickybar
+package dashboards
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,10 +11,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
-import dashboards.stickybar.filters.FilterByYear
-import dashboards.stickybar.filters.FilterDefault
 import majestic.ThemeColor
-import majestic.dialogs.Flex
+import Flex
+import majestic.filters.FilterByYear
+import majestic.filters.FilterDefault
 
 @Composable
 fun StickyBar(

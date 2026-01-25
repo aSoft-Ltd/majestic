@@ -1,5 +1,3 @@
-package majestic.dialogs
-
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.ui.Modifier

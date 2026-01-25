@@ -14,7 +14,7 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.dialogs.DialogColors
-import majestic.dialogs.FlexibleDialog
+import majestic.dialogs.flexible.FlexibleDialog
 import majestic.dialogs.Modal
 import profiles.contacts.phone.Backgrounds
 import profiles.contacts.tools.dialogs.Bar

@@ -11,7 +11,7 @@ import captain.Navigator
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
 import majestic.users.table.tools.data.Breadcrumbs
-import majestic.dialogs.Flex
+import Flex
 
 @Composable
 internal fun ActionBar(

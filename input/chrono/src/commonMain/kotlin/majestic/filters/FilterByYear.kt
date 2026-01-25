@@ -1,4 +1,4 @@
-package dashboards.stickybar.filters
+package majestic.filters
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -11,7 +11,7 @@ import majestic.icons.Res
 import majestic.icons.ic_calendar
 
 @Composable
-internal fun FilterByYear(
+ fun FilterByYear(
     years: List<String>,
     selected: String,
     defaults: FilterDefault = FilterDefault.Defaults,

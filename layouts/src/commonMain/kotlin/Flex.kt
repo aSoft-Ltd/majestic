@@ -1,5 +1,3 @@
-package majestic.dialogs
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-
+@Deprecated("There is a new version, waiting to be extracted")
 @Composable
 fun Flex(
     modifier: Modifier = Modifier,

@@ -1,6 +1,6 @@
 package profiles.contacts.phone.dialogs
 
-import profiles.contacts.tools.GeneralPromptLabels
+import profiles.contacts.tools.dialogs.GeneralPromptLabels
 import profiles.contacts.tools.dialogs.Add
 import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Duplicate

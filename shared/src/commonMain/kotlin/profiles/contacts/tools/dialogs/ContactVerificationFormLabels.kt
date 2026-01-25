@@ -1,4 +1,4 @@
-package profiles.contacts.tools
+package profiles.contacts.tools.dialogs
 
 data class ContactVerificationFormLabels(
     val title: String,

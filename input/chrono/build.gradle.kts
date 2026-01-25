@@ -59,6 +59,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.majesticTheme)
             api(projects.majesticScreen)
+            api(projects.majesticInputChoice)
             api(compose.runtime)
             api(compose.foundation)
             api(compose.material3)

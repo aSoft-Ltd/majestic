@@ -1,4 +1,4 @@
-package majestic.dialogs.flexibleDialog
+package majestic.dialogs.flexible
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -29,6 +28,8 @@ import majestic.dialogs.DialogColors
 import majestic.icons.Res
 import majestic.icons.ic_plus_sign
 import majestic.tooling.onClick
+import majestic.tools.CloseButton
+import majestic.tools.closeButton
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -70,18 +71,8 @@ internal fun DefaultBar(
             horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                modifier = Modifier
-                    .padding(start = 8.dp, top = 20.dp, bottom = 20.dp)
-                    .pointerHoverIcon(PointerIcon.Hand)
-                    .onClick(onDismiss)
-                    .hoverable(interactionSource = dialog.interactionSource)
-                    .background(color = Color.Transparent)
-                    .padding(5.dp)
-                    .size(35.dp)
-                    .graphicsLayer { rotationZ = 45f },
-                painter = painterResource(Res.drawable.ic_plus_sign),
-                contentDescription = "Icon",
+            CloseButton(
+                modifier = Modifier.closeButton(onDismiss, dialog),
                 tint = dialog.cancelContent,
             )
             Text(

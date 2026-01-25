@@ -1,4 +1,4 @@
-package profiles.contacts.tools
+package profiles.contacts.tools.dialogs
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

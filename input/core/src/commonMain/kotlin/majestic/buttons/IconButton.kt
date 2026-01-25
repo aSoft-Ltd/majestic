@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import majestic.ColorPair
 import majestic.tooling.onClick
 
 data class IconButtonColors(

@@ -1,13 +1,9 @@
 package profiles.contacts.email
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,10 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
@@ -27,9 +21,8 @@ import majestic.TextField
 import majestic.TextFieldColors
 import majestic.buttons.ActionButton
 import majestic.buttons.ButtonColors
-import majestic.icons.Res
-import majestic.icons.ic_info_circle
-import org.jetbrains.compose.resources.painterResource
+import profiles.contacts.tools.Info
+import profiles.contacts.tools.info
 import users.label.contacts.DedicatedFormLabels
 
 data class EmailFormColors(
@@ -58,34 +51,11 @@ internal fun EmailForm(
         verticalArrangement = Arrangement.spacedBy(30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier
-                .background(colors.info.copy(0.04f))
-                .then(
-                    other = when (orientation) {
-                        is Landscape -> Modifier
-                            .clip(RoundedCornerShape(10.dp))
-                            .padding(20.dp)
-
-                        is Portrait -> Modifier
-                            .fillMaxWidth()
-                            .padding(15.dp)
-                    }
-                ),
-            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(Res.drawable.ic_info_circle),
-                tint = colors.info,
-                contentDescription = "Icon"
-            )
-            Text(
-                text = labels.info,
-                color = colors.info,
-                fontSize = 15.sp
-            )
-        }
+        Info(
+            modifier = Modifier.info(color = colors.info, orientation = orientation),
+            color = colors.info,
+            labels = labels.info
+        )
 
         var email by remember { mutableStateOf("") }
         TextField(

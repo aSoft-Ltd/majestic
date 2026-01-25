@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.dialogs.Flex
+import Flex
 import majestic.icons.Res
 import majestic.icons.ic_mail
 import menu.MenuOption
@@ -28,7 +28,7 @@ import org.jetbrains.compose.resources.painterResource
 import profiles.contacts.email.dialogs.EmailDialogState
 import profiles.contacts.email.dialogs.EmailDialogsColors
 import profiles.contacts.tools.EmailMenuAction
-import profiles.contacts.tools.GeneralPromptColors
+import profiles.contacts.tools.dialogs.GeneralPromptColors
 import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Duplicate
 import profiles.contacts.tools.dialogs.Edit

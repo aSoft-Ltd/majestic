@@ -1,4 +1,4 @@
-package dashboards.stickybar.filters
+package majestic.filters
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

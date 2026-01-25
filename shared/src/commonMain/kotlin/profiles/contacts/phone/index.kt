@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.dialogs.Flex
+import Flex
 import majestic.icons.Res
 import majestic.icons.ic_call
 import majestic.icons.ic_calling_solid

@@ -29,6 +29,8 @@ import profiles.contacts.email.Email
 import profiles.contacts.email.dialogs.EmailDialogState
 import profiles.contacts.phone.Phone
 import profiles.contacts.phone.dialogs.PhoneDialogState
+import profiles.contacts.tools.ContactsColors
+import profiles.contacts.tools.ContactsItemBackground
 import tools.separator
 import users.UsersLabels
 
