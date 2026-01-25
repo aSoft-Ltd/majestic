@@ -107,8 +107,7 @@ fun UsersTable(
                     menuAction = menuAction
                 )
 
-                is Portrait -> {
-                    ListItem(
+                is Portrait -> ListItem(
                         user = cell.row.item,
                         colors = props.body.colors.listItem,
                         modifier = Modifier
