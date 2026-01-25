@@ -35,6 +35,7 @@ internal fun PaymentCard(
     image: DrawableResource,
     colors: PaymentCardColors,
     selected: Boolean = false,
+    showCheckbox: Boolean = true,
     modifier: Modifier = Modifier,
 ) = Row(
     modifier = modifier,
@@ -62,16 +63,16 @@ internal fun PaymentCard(
             )
             Text(
                 text = description,
-                fontSize = 14.sp,
+                fontSize = 12.sp,
                 lineHeight = 1.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                color = colors.foreground.copy(0.5f)
+                color = colors.foreground.copy(0.4f)
             )
         }
     }
     val checkboxColors = if (selected) colors.checkbox.selected else colors.checkbox.unselected
-    Checkbox(
+    if (showCheckbox) Checkbox(
         selected = selected,
         colors = checkboxColors,
         shape = RoundedCornerShape(5.dp),
