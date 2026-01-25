@@ -6,11 +6,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -23,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
-import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import profiles.contacts.email.Email
 import profiles.contacts.email.dialogs.EmailDialogState
@@ -31,6 +28,11 @@ import profiles.contacts.phone.Phone
 import profiles.contacts.phone.dialogs.PhoneDialogState
 import profiles.contacts.tools.ContactsColors
 import profiles.contacts.tools.ContactsItemBackground
+import profiles.contacts.tools.EmailMenuAction
+import profiles.contacts.tools.PhoneMenuAction
+import profiles.contacts.tools.dialogs.Delete
+import profiles.contacts.tools.dialogs.Duplicate
+import profiles.contacts.tools.dialogs.Edit
 import tools.separator
 import users.UsersLabels
 
@@ -87,58 +89,53 @@ internal fun ContactList(
         text = labels.profile.tabs.contacts.content.heading,
         color = colors.item.content.copy(0.5f),
     )
-    Email(
-        modifier = Modifier.contact(
-            orientation,
-            colors = colors.item
-        ),
-        text = "amanihamduni@gmail.com",
-        isPrimary = true,
-        labels = labels.profile.tabs.contacts.content,
-        orientation = orientation,
-        colors = colors.email,
-        state = emailDialog
-    )
-    Email(
-        labels = labels.profile.tabs.contacts.content,
-        text = "amani45@gmail.com",
-        colors = colors.email,
-        isPrimary = false,
-        orientation = orientation,
-        modifier = Modifier.contact(
+
+    val emails = listOf("amanihamduni@gmail.com", "amani45@gmail.com")
+    emails.forEachIndexed { index, email ->
+        Email(
+            modifier = Modifier.contact(orientation, colors.item),
+            text = email,
+            isPrimary = index == 0,
+            labels = labels.profile.tabs.contacts.content,
             orientation = orientation,
-            colors = colors.item
-        ),
-        state = emailDialog,
-    )
-    Phone(
-        modifier = Modifier.contact(
+            colors = colors.email
+        ) {
+            when (it) {
+                EmailMenuAction.Primary -> {}
+                EmailMenuAction.Edit -> emailDialog.open(Edit)
+                EmailMenuAction.Duplicate -> emailDialog.open(Duplicate)
+                EmailMenuAction.Delete -> emailDialog.open(Delete)
+            }
+        }
+    }
+
+    val phones = listOf("+255 745 147 852", "+255 755 005 600")
+    phones.forEachIndexed { index, phone ->
+        val isLast = index == phones.size - 1
+        Phone(
+            modifier = Modifier.contact(
+                orientation = orientation,
+                colors = colors.item,
+                lastItem = isLast,
+                shape = if (isLast) RoundedCornerShape(
+                    bottomStart = 20.dp,
+                    bottomEnd = 20.dp
+                ) else RoundedCornerShape(0.dp)
+            ),
+            text = phone,
+            colors = colors.phone,
+            isPrimary = index == 0,
+            isWhatsapp = index == 0,
+            isNormal = true,
+            labels = labels.profile.tabs.contacts.content,
             orientation = orientation,
-            colors = colors.item
-        ),
-        text = "+255 745 147 852",
-        colors = colors.phone,
-        isPrimary = true,
-        isWhatsapp = true,
-        isNormal = true,
-        labels = labels.profile.tabs.contacts.content,
-        orientation = orientation,
-        state = phoneDialog,
-    )
-    Phone(
-        modifier = Modifier.contact(
-            orientation = orientation,
-            colors = colors.item,
-            lastItem = true,
-            shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
-        ),
-        text = "+255 755 005 600",
-        isPrimary = false,
-        isWhatsapp = false,
-        isNormal = true,
-        labels = labels.profile.tabs.contacts.content,
-        orientation = orientation,
-        colors = colors.phone,
-        state = phoneDialog,
-    )
+        ) {
+            when (it) {
+                PhoneMenuAction.Primary -> {}
+                PhoneMenuAction.Edit -> phoneDialog.open(Edit)
+                PhoneMenuAction.Duplicate -> phoneDialog.open(Duplicate)
+                PhoneMenuAction.Delete -> phoneDialog.open(Delete)
+            }
+        }
+    }
 }

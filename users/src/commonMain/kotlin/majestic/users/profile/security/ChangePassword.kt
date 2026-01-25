@@ -24,6 +24,7 @@ import majestic.dialogs.DialogColors
 import majestic.dialogs.Modal
 import majestic.icons.Res
 import majestic.icons.ic_square_lock
+import majestic.tooling.onClick
 import profiles.contacts.tools.buttons.flatButton
 import profiles.contacts.tools.buttons.getBackground
 import users.label.profile.security.SecurityLabels
@@ -75,13 +76,12 @@ internal fun ColumnScope.ChangePassword(
         val interactionSource = remember { MutableInteractionSource() }
         val isHovered by interactionSource.collectIsHoveredAsState()
         FlatButton(
-            modifier = Modifier.flatButton(
-                interactionSource = interactionSource,
-                bgColor = getBackground(
-                    isHovered = isHovered,
-                    colors = colors.flatButton
+            modifier = Modifier
+                .flatButton(
+                    interactionSource = interactionSource,
+                    bgColor = colors.flatButton.getBackground(isHovered = isHovered)
                 )
-            ) { modalOpened = true },
+                .onClick { modalOpened = true },
             label = labels.btnNewPassword,
             colors = colors.flatButton,
             interactionSource = interactionSource

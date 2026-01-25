@@ -24,9 +24,10 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.buttons.ActionButton
 import majestic.buttons.ButtonColors
-import org.jetbrains.compose.resources.painterResource
 import majestic.icons.Res
 import majestic.icons.ic_info_circle
+import org.jetbrains.compose.resources.painterResource
+import users.label.contacts.ContactPromptFormLabels
 
 data class GeneralPromptColors(
     val title: Color,
@@ -38,19 +39,10 @@ data class GeneralPromptColors(
     val submit: ButtonColors
 )
 
-internal data class GeneralPromptLabels(
-    val title: String,
-    val description: String,
-    val contact: String,
-    val info: String,
-    val submit: String,
-    val cancel: String
-)
-
 @Composable
-internal fun GeneralPrompt(
+fun GeneralPrompt(
     colors: GeneralPromptColors,
-    labels: GeneralPromptLabels,
+    labels: ContactPromptFormLabels,
     onRejected: () -> Unit,
     orientation: ScreenOrientation,
     contact: String? = null,

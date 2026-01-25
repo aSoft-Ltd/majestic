@@ -1,8 +1,8 @@
-package users.data
+package majestic.users.table.data
 
-import majestic.users.tools.data.Role
 import majestic.icons.Res
 import majestic.icons.ic_student
+import users.data.Role
 
 fun roles() = listOf(
     Role(

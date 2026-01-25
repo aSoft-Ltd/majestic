@@ -1,7 +1,5 @@
 package users
 
-import menu.OptionMenu
-
 enum class UserActionMenu {
     AssignRole,
     ManagePermission,
@@ -10,24 +8,15 @@ enum class UserActionMenu {
     RemoveUser,
     ResetPassword;
 
-    fun getLabel(labels: UserLabels) = when (this) {
-        AssignRole -> labels.actions.assignRole
-        ManagePermission -> labels.actions.managePermission
-        ViewUser -> labels.actions.viewUser
-        BlockAccess -> labels.actions.blockAccess
-        RemoveUser -> labels.actions.removeUser
-        ResetPassword -> labels.actions.resetPassword
-    }
-
-    companion object {
-        fun userActions(labels: UserLabels) =
-            entries.map { OptionMenu(it.getLabel(labels), it) }
+    fun getLabel(labels: UserActionLabels) = when (this) {
+        AssignRole -> labels.assignRole
+        ManagePermission -> labels.managePermission
+        ViewUser -> labels.viewUser
+        BlockAccess -> labels.blockAccess
+        RemoveUser -> labels.removeUser
+        ResetPassword -> labels.resetPassword
     }
 }
-
-data class UserLabels(
-    val actions: UserActionLabels
-)
 
 data class UserActionLabels(
     val assignRole: String,

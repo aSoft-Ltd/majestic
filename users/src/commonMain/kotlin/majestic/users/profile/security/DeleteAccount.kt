@@ -18,6 +18,7 @@ import majestic.buttons.FlatButton
 import majestic.buttons.FlatButtonColors
 import majestic.icons.Res
 import majestic.icons.ic_user_remove
+import majestic.tooling.onClick
 import profiles.contacts.tools.buttons.flatButton
 import profiles.contacts.tools.buttons.getBackground
 import users.label.profile.security.SecurityLabels
@@ -58,13 +59,12 @@ internal fun ColumnScope.DeleteAccount(
         val interactionSource = remember { MutableInteractionSource() }
         val isHovered by interactionSource.collectIsHoveredAsState()
         FlatButton(
-            modifier = Modifier.flatButton(
-                interactionSource = interactionSource,
-                bgColor = getBackground(
-                    isHovered = isHovered,
-                    colors = toDeleteButtonColors()
-                ),
-            ) {},
+            modifier = Modifier
+                .flatButton(
+                    interactionSource = interactionSource,
+                    bgColor = toDeleteButtonColors().getBackground(isHovered = isHovered),
+                )
+                .onClick {},
             label = labels.btnDelete,
             colors = toDeleteButtonColors(),
             interactionSource = interactionSource,

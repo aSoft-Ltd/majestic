@@ -1,5 +1,6 @@
 package profiles.contacts.phone
 
+import Flex
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import Flex
 import majestic.icons.Res
 import majestic.icons.ic_call
 import majestic.icons.ic_calling_solid
@@ -28,12 +28,8 @@ import menu.MenuOption
 import menu.MenuOptionColors
 import menu.OptionMenu
 import org.jetbrains.compose.resources.painterResource
-import profiles.contacts.phone.dialogs.PhoneDialogState
 import profiles.contacts.phone.dialogs.PhoneDialogsColors
 import profiles.contacts.tools.PhoneMenuAction
-import profiles.contacts.tools.dialogs.Delete
-import profiles.contacts.tools.dialogs.Duplicate
-import profiles.contacts.tools.dialogs.Edit
 import tools.Tooltip
 import users.label.contacts.ContactLabels
 
@@ -54,16 +50,16 @@ data class PhoneColors(
 )
 
 @Composable
-internal fun Phone(
+fun Phone(
     labels: ContactLabels,
     text: String,
     colors: PhoneColors,
     isPrimary: Boolean,
     isWhatsapp: Boolean,
-    state: PhoneDialogState,
     isNormal: Boolean,
     orientation: ScreenOrientation,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onAction: (PhoneMenuAction) -> Unit
 ) = Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically,
@@ -142,12 +138,7 @@ internal fun Phone(
             OptionMenu(labels.actions.phone.duplicate, PhoneMenuAction.Duplicate),
             OptionMenu(labels.actions.phone.delete, PhoneMenuAction.Delete)
         ),
-    ) { action ->
-        when (action) {
-            PhoneMenuAction.Primary -> {}
-            PhoneMenuAction.Edit -> state.open(Edit)
-            PhoneMenuAction.Duplicate -> state.open(Duplicate)
-            PhoneMenuAction.Delete -> state.open(Delete)
-        }
+    ) {
+        onAction(it)
     }
 }

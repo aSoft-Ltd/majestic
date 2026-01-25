@@ -1,5 +1,6 @@
 package majestic.users.profile.security
 
+import Flex
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +19,6 @@ import majestic.ColorPair
 import majestic.ThemeColor
 import majestic.buttons.FlatButton
 import majestic.buttons.FlatButtonColors
-import Flex
 import majestic.icons.Res
 import majestic.icons.ic_laptop_remove
 import profiles.contacts.tools.buttons.flatButton
@@ -60,16 +60,13 @@ internal fun ColumnScope.LogoutDevices(
         FlatButton(
             modifier = Modifier.flatButton(
                 interactionSource = logoutAllInteraction,
-                bgColor = getBackground(
-                    isHovered = logoutAllHovered,
-                    colors = colors.flatButton.copy(
-                        inactive = ColorPair(
-                            foreground = colors.theme.surface.contra.color.copy(alpha = 0.7f),
-                            background = Color.Transparent
-                        ),
-                    )
-                ),
-            ) {},
+                bgColor = colors.flatButton.copy(
+                    inactive = ColorPair(
+                        foreground = colors.theme.surface.contra.color.copy(alpha = 0.7f),
+                        background = Color.Transparent
+                    ),
+                ).getBackground(isHovered = logoutAllHovered),
+            ),
             label = labels.btnLogoutAll,
             colors = colors.flatButton.copy(
                 inactive = ColorPair(
@@ -81,13 +78,11 @@ internal fun ColumnScope.LogoutDevices(
         )
         Spacer(modifier = Modifier.width(20.dp))
         FlatButton(
-            modifier = Modifier.flatButton(
-                interactionSource = logoutInteraction,
-                bgColor = getBackground(
-                    isHovered = logoutHovered,
-                    colors = colors.flatButton
+            modifier = Modifier
+                .flatButton(
+                    interactionSource = logoutInteraction,
+                    bgColor = colors.flatButton.getBackground(isHovered = logoutHovered),
                 ),
-            ) {},
             label = labels.btnLogout,
             colors = colors.flatButton,
             interactionSource = logoutInteraction,

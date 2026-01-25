@@ -9,7 +9,7 @@ import profiles.contacts.tools.dialogs.DialogType
 import profiles.contacts.tools.dialogs.GeneralDialogs
 import profiles.contacts.tools.dialogs.None
 
-internal class EmailDialogState(initial: GeneralDialogs = None) {
+ class EmailDialogState(initial: GeneralDialogs = None) {
     var active by mutableStateOf(initial)
 
     val dialogType: DialogType? get() = active as? DialogType
@@ -24,6 +24,6 @@ internal class EmailDialogState(initial: GeneralDialogs = None) {
 }
 
 @Composable
-internal fun rememberEmailDialogState(initial: GeneralDialogs = None) = remember {
+ fun rememberEmailDialogState(initial: GeneralDialogs = None) = remember {
     EmailDialogState(initial)
 }

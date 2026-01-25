@@ -33,7 +33,7 @@ data class EmailFormColors(
 )
 
 @Composable
-internal fun EmailForm(
+fun EmailForm(
     colors: EmailFormColors,
     labels: DedicatedFormLabels,
     onSubmit: () -> Unit,

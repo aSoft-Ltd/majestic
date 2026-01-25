@@ -1,6 +1,5 @@
 package profiles.contacts.email.dialogs
 
-import profiles.contacts.tools.dialogs.GeneralPromptLabels
 import profiles.contacts.tools.dialogs.Add
 import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Duplicate
@@ -9,8 +8,9 @@ import profiles.contacts.tools.dialogs.GeneralDialogs
 import profiles.contacts.tools.dialogs.None
 import profiles.contacts.tools.dialogs.Verify
 import users.label.contacts.ContactLabels
+import users.label.contacts.ContactPromptFormLabels
 
-internal fun ContactLabels.toEmailDeleteLabels(): GeneralPromptLabels = GeneralPromptLabels(
+internal fun ContactLabels.toEmailDeleteLabels() = ContactPromptFormLabels(
     title = forms.email.delete.title,
     description = forms.email.delete.description,
     contact = "",
@@ -19,7 +19,7 @@ internal fun ContactLabels.toEmailDeleteLabels(): GeneralPromptLabels = GeneralP
     cancel = forms.email.delete.cancel,
 )
 
-internal fun ContactLabels.toEmailDuplicateLabels() = GeneralPromptLabels(
+internal fun ContactLabels.toEmailDuplicateLabels() = ContactPromptFormLabels(
     title = forms.email.dup.title,
     description = forms.email.dup.description,
     contact = "",

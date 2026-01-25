@@ -1,6 +1,5 @@
 package users.label.contacts
 
-import academia.users.labels.profile.contact.ActionsLabels
 
 data class ContactLabels(
     val heading: String,

@@ -38,7 +38,7 @@ data class PhoneVerificationFormColors(
 @Composable
 internal fun PhoneVerificationForm(
     colors: PhoneVerificationFormColors,
-    verifyingNumber: String = "+255 752 988 988",
+    number: String = "+255 752 988 988",
     labels: ContactVerificationFormLabels,
     onVerify: () -> Unit,
     onChangePhone: () -> Unit,
@@ -62,7 +62,7 @@ internal fun PhoneVerificationForm(
                 color = colors.sentCode
             )
             Text(
-                text = verifyingNumber,
+                text = number,
                 fontWeight = FontWeight.Bold,
                 color = colors.number
             )

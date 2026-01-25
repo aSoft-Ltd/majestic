@@ -29,14 +29,12 @@ import profiles.contacts.tools.dialogs.Add
 
 fun Modifier.flatButton(
     interactionSource: MutableInteractionSource,
-    bgColor: Color,
-    onClick: () -> Unit
+    bgColor: Color
 ) = this
     .clip(CircleShape)
     .background(bgColor)
     .pointerHoverIcon(PointerIcon.Hand)
     .hoverable(interactionSource = interactionSource)
-    .onClick { onClick() }
     .padding(vertical = 10.dp, horizontal = 20.dp)
 
 
@@ -65,31 +63,28 @@ internal fun PortraitButtons(
             val secondHovered by secondInteractionSource.collectIsHoveredAsState()
 
             FlatButton(
-                modifier = Modifier.flatButton(
-                    interactionSource = firstInteractionSource,
-                    bgColor = getBackground(
-                        isHovered = firstHovered,
-                        colors = colors.flatButton
+                modifier = Modifier
+                    .flatButton(
+                        interactionSource = firstInteractionSource,
+                        bgColor = colors.flatButton.getBackground(isHovered = firstHovered)
                     )
-                ) {
-                    onDismiss()
-                    emailDialog.open(Add)
-                },
+                    .onClick {
+                        onDismiss()
+                        emailDialog.open(Add)
+                    },
                 colors = colors.flatButton,
                 label = "Email",
                 interactionSource = firstInteractionSource
             )
             FlatButton(
-                modifier = Modifier.flatButton(
-                    interactionSource = firstInteractionSource,
-                    bgColor = getBackground(
-                        isHovered = secondHovered,
-                        colors = colors.flatButton
-                    ),
-                ) {
-                    onDismiss()
-                    phoneDialog.open(Add)
-                },
+                modifier = Modifier
+                    .flatButton(
+                        interactionSource = firstInteractionSource,
+                        bgColor = colors.flatButton.getBackground(isHovered = secondHovered),
+                    ).onClick {
+                        onDismiss()
+                        phoneDialog.open(Add)
+                    },
                 colors = colors.flatButton,
                 label = "Phone",
                 interactionSource = secondInteractionSource

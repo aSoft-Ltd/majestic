@@ -14,8 +14,8 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.dialogs.DialogColors
-import majestic.dialogs.flexible.FlexibleDialog
 import majestic.dialogs.Modal
+import majestic.dialogs.flexible.FlexibleDialog
 import profiles.contacts.phone.Backgrounds
 import profiles.contacts.tools.dialogs.Bar
 import profiles.contacts.tools.dialogs.BarColors
@@ -32,7 +32,7 @@ data class PhoneDialogsColors(
 )
 
 @Composable
-internal fun PhoneDialogs(
+fun PhoneDialogs(
     state: PhoneDialogState,
     labels: ContactLabels,
     colors: PhoneDialogsColors,

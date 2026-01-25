@@ -1,6 +1,5 @@
 package profiles.contacts.phone.dialogs
 
-import profiles.contacts.tools.dialogs.GeneralPromptLabels
 import profiles.contacts.tools.dialogs.Add
 import profiles.contacts.tools.dialogs.Delete
 import profiles.contacts.tools.dialogs.Duplicate
@@ -8,8 +7,9 @@ import profiles.contacts.tools.dialogs.Edit
 import profiles.contacts.tools.dialogs.GeneralDialogs
 import profiles.contacts.tools.dialogs.Verify
 import users.label.contacts.ContactLabels
+import users.label.contacts.ContactPromptFormLabels
 
-internal fun ContactLabels.toPhoneDeleteLabels(): GeneralPromptLabels = GeneralPromptLabels(
+internal fun ContactLabels.toPhoneDeleteLabels() = ContactPromptFormLabels(
     title = forms.phone.delete.title,
     description = forms.phone.delete.description,
     contact = "",
@@ -18,7 +18,7 @@ internal fun ContactLabels.toPhoneDeleteLabels(): GeneralPromptLabels = GeneralP
     cancel = forms.phone.delete.cancel,
 )
 
-internal fun ContactLabels.toPhoneDuplicateLabels() = GeneralPromptLabels(
+internal fun ContactLabels.toPhoneDuplicateLabels() = ContactPromptFormLabels(
     title = forms.phone.dup.title,
     description = forms.phone.dup.description,
     contact = "",

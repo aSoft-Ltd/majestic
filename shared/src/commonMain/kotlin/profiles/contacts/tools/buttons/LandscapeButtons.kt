@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import majestic.buttons.FlatButton
+import majestic.tooling.onClick
 import profiles.contacts.tools.ContactsColors
 
 @Composable
@@ -35,29 +36,27 @@ internal fun LandscapeButtons(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         FlatButton(
-            modifier = Modifier.flatButton(
-                interactionSource = firstInteractionSource,
-                bgColor = getBackground(
-                    isHovered = firstHovered,
-                    colors = colors.flatButton
+            modifier = Modifier
+                .flatButton(
+                    interactionSource = firstInteractionSource,
+                    bgColor = colors.flatButton.getBackground(isHovered = firstHovered)
                 )
-            ) {
-                onEmailButtonClick()
-            },
+                .onClick {
+                    onEmailButtonClick()
+                },
             colors = colors.flatButton,
             label = "Email",
             interactionSource = firstInteractionSource
         )
         FlatButton(
-            modifier = Modifier.flatButton(
-                interactionSource = firstInteractionSource,
-                bgColor = getBackground(
-                    isHovered = secondHovered,
-                    colors = colors.flatButton
+            modifier = Modifier
+                .flatButton(
+                    interactionSource = firstInteractionSource,
+                    bgColor = colors.flatButton.getBackground(isHovered = secondHovered)
                 )
-            ) {
-                onPhoneButtonClick()
-            },
+                .onClick {
+                    onPhoneButtonClick()
+                },
             colors = colors.flatButton,
             label = "Email",
             interactionSource = secondInteractionSource

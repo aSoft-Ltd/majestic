@@ -1,5 +1,6 @@
 package profiles.contacts.email
 
+import Flex
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,20 +19,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import Flex
 import majestic.icons.Res
 import majestic.icons.ic_mail
 import menu.MenuOption
 import menu.MenuOptionColors
 import menu.OptionMenu
 import org.jetbrains.compose.resources.painterResource
-import profiles.contacts.email.dialogs.EmailDialogState
 import profiles.contacts.email.dialogs.EmailDialogsColors
 import profiles.contacts.tools.EmailMenuAction
 import profiles.contacts.tools.dialogs.GeneralPromptColors
-import profiles.contacts.tools.dialogs.Delete
-import profiles.contacts.tools.dialogs.Duplicate
-import profiles.contacts.tools.dialogs.Edit
 import users.label.contacts.ContactLabels
 
 data class PromptColors(
@@ -50,14 +46,14 @@ data class EmailColors(
 )
 
 @Composable
-internal fun Email(
+fun Email(
     labels: ContactLabels,
     text: String,
     colors: EmailColors,
     isPrimary: Boolean,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
-    state: EmailDialogState
+    onAction: (EmailMenuAction) -> Unit,
 ) = Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically,
@@ -115,11 +111,6 @@ internal fun Email(
             OptionMenu(labels.actions.email.delete, EmailMenuAction.Delete),
         ),
     ) { action ->
-        when (action) {
-            EmailMenuAction.Primary -> {}
-            EmailMenuAction.Edit -> state.open(Edit)
-            EmailMenuAction.Duplicate -> state.open(Duplicate)
-            EmailMenuAction.Delete -> state.open(Delete)
-        }
+        onAction(action)
     }
 }

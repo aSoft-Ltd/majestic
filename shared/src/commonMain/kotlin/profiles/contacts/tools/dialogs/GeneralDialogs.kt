@@ -1,9 +1,9 @@
 package profiles.contacts.tools.dialogs
 
-internal sealed interface GeneralDialogs : DialogType
-internal object Delete : GeneralDialogs, Prompt
-internal object Add : GeneralDialogs, Dialog
-internal object Verify : GeneralDialogs, Dialog
-internal object Edit : GeneralDialogs, Dialog
-internal object Duplicate : GeneralDialogs, Prompt
-internal object None : GeneralDialogs
+sealed interface GeneralDialogs : DialogType
+object Delete : GeneralDialogs, Prompt
+object Add : GeneralDialogs, Dialog
+object Verify : GeneralDialogs, Dialog
+object Edit : GeneralDialogs, Dialog
+object Duplicate : GeneralDialogs, Prompt
+object None : GeneralDialogs

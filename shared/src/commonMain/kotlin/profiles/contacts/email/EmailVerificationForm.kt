@@ -34,7 +34,7 @@ data class EmailVerificationFormColors(
 )
 
 @Composable
-internal fun EmailVerificationForm(
+fun EmailVerificationForm(
     colors: EmailVerificationFormColors,
     labels: ContactVerificationFormLabels,
     orientation: ScreenOrientation,

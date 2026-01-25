@@ -1,13 +1,13 @@
 package profiles.contacts.tools
 
-internal enum class PhoneMenuAction {
+enum class PhoneMenuAction {
     Primary,
     Edit,
     Duplicate,
     Delete
 }
 
-internal enum class EmailMenuAction {
+enum class EmailMenuAction {
     Primary,
     Edit,
     Duplicate,
