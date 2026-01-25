@@ -108,25 +108,24 @@ fun UsersTable(
                 )
 
                 is Portrait -> ListItem(
-                        user = cell.row.item,
-                        colors = props.body.colors.listItem,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .onClick(callback = onItemClick)
-                            .separator(
-                                isLast = cell.row.index == table.rows.lastIndex,
-                                color = props.body.colors.listItem.surfaceContra.copy(0.05f)
-                            )
-                            .padding(10.dp),
-                        menuAction = menuAction,
-                        labels = ListLabels(
-                            role = props.body.labels.columns.roles,
-                            permission = props.body.labels.columns.permission,
-                            status = getStatusLabels(props.body.labels.status)
+                    user = cell.row.item,
+                    colors = props.body.colors.listItem,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onClick(callback = onItemClick)
+                        .separator(
+                            isLast = cell.row.index == table.rows.lastIndex,
+                            color = props.body.colors.listItem.surfaceContra.copy(0.05f)
                         )
+                        .padding(10.dp),
+                    menuAction = menuAction,
+                    labels = ListLabels(
+                        role = props.body.labels.columns.roles,
+                        permission = props.body.labels.columns.permission,
+                        status = getStatusLabels(props.body.labels.status)
                     )
+                )
 
-                }
             }
         }
     }
