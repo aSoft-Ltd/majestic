@@ -20,14 +20,14 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import dashboards.StickyBar
-import majestic.filters.FilterDefault
 import majestic.ColorPair
 import majestic.ThemeColor
 import majestic.editor.toolbar.underline
+import majestic.filters.FilterDefault
+import majestic.shared.dashboards.StickyBar
+import majestic.shared.users.UsersLabels
 import majestic.users.dashboard.summary.SummaryCardList
 import majestic.users.dashboard.tools.toSummaryCardProps
-import users.UsersLabels
 
 data class UserDashboardProps(
     val filterDefaults: FilterDefault,

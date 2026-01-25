@@ -20,11 +20,11 @@ import majestic.buttons.ActionButton
 import majestic.buttons.ButtonColors
 import majestic.icons.Res
 import majestic.icons.ic_add
+import majestic.shared.users.label.dashboard.DashboardLabels
 import majestic.tooling.onClick
 import majestic.users.dashboard.tools.ActiveView
 import majestic.users.dashboard.tools.View
 import org.jetbrains.compose.resources.vectorResource
-import users.label.dashboard.DashboardLabels
 
 data class PortraitHeaderColors(
     val background: Color,

@@ -16,6 +16,7 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.Cell
+import majestic.shared.users.label.table.InnerTableBodyLabels
 import majestic.tooling.onClick
 import majestic.users.table.ListItem
 import majestic.users.table.ListItemColors
@@ -26,7 +27,6 @@ import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
-import users.label.table.InnerTableBodyLabels
 
 data class UserTableBodyColors(
     val separator: Color,

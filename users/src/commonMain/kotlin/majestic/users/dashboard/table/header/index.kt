@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.Checkbox
 import majestic.CheckboxColors
+import majestic.shared.users.label.table.ColumnLabels
 import majestic.tooling.onClick
-import users.label.table.ColumnLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import org.jetbrains.compose.resources.DrawableResource

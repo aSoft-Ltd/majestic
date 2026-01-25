@@ -21,7 +21,7 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import dashboards.SummaryCard
+import majestic.shared.dashboards.SummaryCard
 import majestic.tooling.onClick
 import majestic.users.dashboard.summary.tools.getGraphColor
 import org.jetbrains.compose.resources.painterResource

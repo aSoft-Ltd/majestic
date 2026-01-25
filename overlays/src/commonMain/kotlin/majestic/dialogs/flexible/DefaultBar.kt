@@ -72,7 +72,7 @@ internal fun DefaultBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             CloseButton(
-                modifier = Modifier.closeButton(onDismiss, dialog),
+                modifier = Modifier.closeButton(dialog).onClick(onDismiss),
                 tint = dialog.cancelContent,
             )
             Text(

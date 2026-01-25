@@ -14,9 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.FilterLabels
 import majestic.tooling.onClick
-import users.HeaderInnerColors
-import users.label.table.FilterLabels
 
 data class EmailLabels(
     val email: String,

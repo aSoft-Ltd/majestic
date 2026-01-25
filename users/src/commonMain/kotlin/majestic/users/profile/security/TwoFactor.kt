@@ -19,7 +19,7 @@ import majestic.ToggleSwitch
 import majestic.ToggleSwitchColors
 import majestic.icons.Res
 import majestic.icons.ic_access
-import users.label.profile.security.SecurityLabels
+import majestic.shared.users.label.profile.security.SecurityLabels
 
 data class TwoFactorColors(
     val theme: ThemeColor,

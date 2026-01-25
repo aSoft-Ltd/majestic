@@ -1,7 +1,5 @@
 package users.data
 
-import profiles.Permission
-import profiles.Permissions
 import majestic.icons.Res
 import majestic.icons.ic_blog
 import majestic.icons.ic_calculate
@@ -17,6 +15,10 @@ import majestic.icons.ic_refund
 import majestic.icons.ic_report
 import majestic.icons.ic_student
 import majestic.icons.ic_web_preview
+import majestic.shared.profiles.Permission
+import majestic.shared.profiles.Permissions
+import majestic.users.table.data.commonPermissions
+import majestic.users.table.data.switch
 
 fun permissions() = buildList {
     this += Permissions(

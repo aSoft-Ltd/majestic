@@ -19,12 +19,10 @@ import majestic.tooling.onClick
 import org.jetbrains.compose.resources.painterResource
 
 fun Modifier.closeButton(
-    onDismiss: () -> Unit,
     dialog: DialogColors
 ) = this
     .padding(start = 8.dp, top = 20.dp, bottom = 20.dp)
     .pointerHoverIcon(PointerIcon.Hand)
-    .onClick(onDismiss)
     .hoverable(interactionSource = dialog.interactionSource)
     .background(color = Color.Transparent)
     .padding(5.dp)

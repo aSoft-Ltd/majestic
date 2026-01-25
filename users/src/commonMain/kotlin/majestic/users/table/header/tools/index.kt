@@ -17,15 +17,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import majestic.Checkbox
 import majestic.CheckboxColors
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.ColumnLabels
+import majestic.shared.users.label.table.UsersStatusLabels
 import majestic.tooling.onClick
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import org.jetbrains.compose.resources.DrawableResource
 import symphony.Table
 import symphony.columns.Column
-import users.HeaderInnerColors
-import users.label.table.ColumnLabels
-import users.label.table.UsersStatusLabels
 
 data class HeaderColors(
     val mainColor: Color,

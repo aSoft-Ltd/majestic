@@ -2,7 +2,7 @@ package majestic.users.table.data
 
 import majestic.icons.Res
 import majestic.icons.ic_student
-import users.data.Role
+import majestic.shared.users.data.Role
 
 fun roles() = listOf(
     Role(

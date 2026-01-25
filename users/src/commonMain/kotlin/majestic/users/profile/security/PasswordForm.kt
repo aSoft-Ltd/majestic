@@ -34,8 +34,8 @@ import majestic.icons.Res
 import majestic.icons.ic_info_circle
 import majestic.icons.ic_view
 import majestic.icons.ic_view_off
+import majestic.shared.users.label.profile.security.PasswordFormLabels
 import org.jetbrains.compose.resources.painterResource
-import users.label.profile.security.PasswordFormLabels
 
 data class PasswordFormColors(
     val theme: ThemeColor,

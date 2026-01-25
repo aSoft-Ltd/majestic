@@ -17,6 +17,7 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
 import majestic.editor.toolbar.underline
+import majestic.shared.users.UsersLabels
 import majestic.tooling.onClick
 import majestic.users.dashboard.roles.Header
 import majestic.users.dashboard.roles.HeaderProps
@@ -32,7 +33,6 @@ import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
-import users.UsersLabels
 
 data class UserTableProps(
     val header: HeaderProps,

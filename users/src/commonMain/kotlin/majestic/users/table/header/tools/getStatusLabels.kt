@@ -1,7 +1,7 @@
 package majestic.users.table.header.tools
 
-import users.label.table.TableStatusLabels
-import users.label.table.UsersStatusLabels
+import majestic.shared.users.label.table.TableStatusLabels
+import majestic.shared.users.label.table.UsersStatusLabels
 
 
 fun getStatusLabels(labels: TableStatusLabels): UsersStatusLabels = UsersStatusLabels(

@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
-import dashboards.SummaryCard
+import majestic.shared.dashboards.SummaryCard
 import majestic.users.dashboard.summary.SummaryCardListProps
 import majestic.users.dashboard.summary.tools.getGraphColor
 import majestic.users.dashboard.summary.tools.getSummaryCardBg

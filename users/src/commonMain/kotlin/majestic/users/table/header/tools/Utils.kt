@@ -1,7 +1,7 @@
 package majestic.users.table.header.tools
 
-import users.label.table.ColumnLabels
-import users.label.table.FilterLabels
+import majestic.shared.users.label.table.ColumnLabels
+import majestic.shared.users.label.table.FilterLabels
 
 fun getHeaderLabels(labels: ColumnLabels) = ColumnLabels(
     checkbox = "checkbox",

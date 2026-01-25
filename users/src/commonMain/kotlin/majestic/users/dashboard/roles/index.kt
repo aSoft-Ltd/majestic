@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
+import majestic.shared.menu.OptionMenu
 import majestic.users.dashboard.roles.tools.RoleAction
 import majestic.users.dashboard.roles.tools.UserRole
 import majestic.users.dashboard.roles.tools.stats
-import menu.OptionMenu
 
 data class UserBodyProps(
     val colors: RoleCardColors,

@@ -20,9 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.shared.users.label.table.UsersStatusLabels
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.painterResource
-import users.label.table.UsersStatusLabels
 
 data class ListLabels(
     val role: String,

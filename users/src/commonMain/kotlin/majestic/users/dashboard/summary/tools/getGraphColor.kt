@@ -1,6 +1,6 @@
 package majestic.users.dashboard.summary.tools
 
-import dashboards.Summary
+import majestic.shared.dashboards.Summary
 import majestic.users.dashboard.summary.SummaryCardListProps
 import majestic.users.dashboard.tools.UserDetailsStatus
 

@@ -19,9 +19,9 @@ import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
+import majestic.shared.users.label.profile.ProfileLabels
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
-import users.label.profile.ProfileLabels
 
 data class UserDetailColors(
     val clientBackground: Color,

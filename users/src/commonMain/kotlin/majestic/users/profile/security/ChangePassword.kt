@@ -24,10 +24,10 @@ import majestic.dialogs.DialogColors
 import majestic.dialogs.Modal
 import majestic.icons.Res
 import majestic.icons.ic_square_lock
+import majestic.shared.profiles.contacts.tools.buttons.flatButton
+import majestic.shared.profiles.contacts.tools.buttons.getBackground
+import majestic.shared.users.label.profile.security.SecurityLabels
 import majestic.tooling.onClick
-import profiles.contacts.tools.buttons.flatButton
-import profiles.contacts.tools.buttons.getBackground
-import users.label.profile.security.SecurityLabels
 
 data class ChangePasswordColors(
     val background: Color,

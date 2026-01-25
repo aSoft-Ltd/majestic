@@ -1,6 +1,5 @@
 package majestic.users.profile.security
 
-import Flex
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -21,9 +20,10 @@ import majestic.buttons.FlatButton
 import majestic.buttons.FlatButtonColors
 import majestic.icons.Res
 import majestic.icons.ic_laptop_remove
-import profiles.contacts.tools.buttons.flatButton
-import profiles.contacts.tools.buttons.getBackground
-import users.label.profile.security.SecurityLabels
+import majestic.layouts.Flex
+import majestic.shared.profiles.contacts.tools.buttons.flatButton
+import majestic.shared.profiles.contacts.tools.buttons.getBackground
+import majestic.shared.users.label.profile.security.SecurityLabels
 
 data class LogoutDevicesColors(
     val theme: ThemeColor,

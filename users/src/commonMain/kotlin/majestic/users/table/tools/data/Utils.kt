@@ -9,6 +9,8 @@ import majestic.icons.ic_cancel
 import majestic.icons.ic_delete
 import majestic.icons.ic_export
 import majestic.icons.ic_send_email
+import majestic.shared.menu.OptionMenu
+import majestic.shared.users.label.table.TableLabels
 import majestic.users.table.header.Action
 import majestic.users.table.header.Archive
 import majestic.users.table.header.Assign
@@ -22,9 +24,7 @@ import majestic.users.table.header.SendMail
 import majestic.users.tools.MenuAction
 import majestic.users.tools.MenuActionLabels
 import majestic.users.tools.data.UsersData
-import menu.OptionMenu
 import symphony.Table
-import users.label.table.TableLabels
 
 internal fun getMenuActionLabels(labels: TableLabels) = MenuActionLabels(
     view = labels.body.actions.view,

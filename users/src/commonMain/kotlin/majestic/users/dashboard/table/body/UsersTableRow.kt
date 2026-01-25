@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.Cell
 import majestic.Checkbox
+import majestic.shared.users.label.table.InnerTableBodyLabels
 import majestic.tooling.onClick
 import majestic.users.table.body.UsersTableRowColors
 import majestic.users.table.header.NameCell
@@ -31,7 +32,6 @@ import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
-import users.label.table.InnerTableBodyLabels
 
 @Composable
 internal fun RowScope.UsersTableRow(

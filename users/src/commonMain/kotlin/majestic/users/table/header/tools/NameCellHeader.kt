@@ -36,6 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.FilterLabels
 import majestic.users.table.header.tools.filters.FilterButtons
 import majestic.users.table.header.tools.filters.FilterRange
 import majestic.users.table.header.tools.filters.FilterRangeColors
@@ -47,8 +49,6 @@ import majestic.users.table.header.tools.filters.SortColumnDataProps
 import majestic.users.table.header.tools.filters.searchFilter
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
-import users.HeaderInnerColors
-import users.label.table.FilterLabels
 
 
 data class NameCellLabels(

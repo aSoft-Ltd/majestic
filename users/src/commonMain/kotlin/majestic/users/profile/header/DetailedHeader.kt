@@ -19,6 +19,7 @@ import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.shared.users.label.profile.ProfileLabels
 import majestic.tooling.onClick
 import majestic.users.profile.Head
 import majestic.users.profile.HeadColors
@@ -27,7 +28,6 @@ import majestic.users.profile.header.tools.toProfileData
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import users.label.profile.ProfileLabels
 
 
 data class DetailedHeaderColors(

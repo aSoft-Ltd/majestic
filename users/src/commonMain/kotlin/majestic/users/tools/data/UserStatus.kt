@@ -1,7 +1,7 @@
 package majestic.users.tools.data
 
 import androidx.compose.ui.graphics.Color
-import users.label.table.UsersStatusLabels
+import majestic.shared.users.label.table.UsersStatusLabels
 
 enum class UserStatus {
     Invited,

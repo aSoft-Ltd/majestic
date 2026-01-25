@@ -8,8 +8,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
+import majestic.shared.users.label.profile.security.SecurityLabels
 import majestic.users.tools.data.separator
-import users.label.profile.security.SecurityLabels
 
 data class SecurityColors(
     val background: Color,

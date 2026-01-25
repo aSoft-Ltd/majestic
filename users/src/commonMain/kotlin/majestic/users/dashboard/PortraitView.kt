@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cinematic.watchAsState
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
 import majestic.editor.toolbar.underline
@@ -30,6 +29,8 @@ import majestic.icons.ic_key
 import majestic.icons.ic_laptop_phone
 import majestic.icons.ic_user_multiple
 import majestic.icons.tz_flag
+import majestic.shared.menu.MenuOption
+import majestic.shared.users.UsersLabels
 import majestic.tooling.onClick
 import majestic.users.dashboard.roles.RoleCard
 import majestic.users.dashboard.roles.RoleCardData
@@ -42,10 +43,8 @@ import majestic.users.dashboard.tools.Roles
 import majestic.users.dashboard.tools.Users
 import majestic.users.dashboard.tools.portraitHeader.PortraitHeader
 import majestic.users.dashboard.tools.rememberActiveView
-import majestic.users.dashboard.tools.toColumnLabels
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
-import majestic.users.table.header.tools.getHeaderLabels
 import majestic.users.table.header.tools.getStatusLabels
 import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
@@ -53,14 +52,11 @@ import majestic.users.table.tools.data.permissions
 import majestic.users.table.tools.data.roles
 import majestic.users.tools.data.HeaderIcons
 import majestic.users.tools.data.UsersData
-import majestic.users.tools.data.getDashboardWeights
 import majestic.users.tools.data.separator
-import menu.MenuOption
 import nation.Country
 import symphony.columnsOf
 import symphony.linearPaginatorOf
 import symphony.tableOf
-import users.UsersLabels
 
 internal fun UserRole.stats(labels: UserRoleBodyLabels) = listOf(
     Stat(

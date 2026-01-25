@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.DialogProperties
+import majestic.tooling.onClick
 import majestic.tools.CloseButton
 import majestic.tools.closeButton
 
@@ -26,7 +27,7 @@ fun Modal(
     Box {
         content()
         CloseButton(
-            modifier = Modifier.closeButton(onDismiss, colors),
+            modifier = Modifier.closeButton(colors).onClick(onDismiss),
             tint = colors.cancelContent,
         )
     }

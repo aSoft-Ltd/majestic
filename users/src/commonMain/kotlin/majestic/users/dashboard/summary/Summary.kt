@@ -1,15 +1,15 @@
 package majestic.users.dashboard.summary
 
-import dashboards.Summary
-import dashboards.SummaryStatus
 import majestic.icons.Res
 import majestic.icons.ic_alert
 import majestic.icons.ic_labor
 import majestic.icons.ic_patient
 import majestic.icons.ic_travel_bag
 import majestic.icons.ic_user_group
+import majestic.shared.dashboards.Summary
+import majestic.shared.dashboards.SummaryStatus
+import majestic.shared.users.label.dashboard.SummaryCardLabels
 import majestic.users.dashboard.tools.UserDetailsStatus
-import users.label.dashboard.SummaryCardLabels
 
 
 internal fun SummaryCardLabels.toSummary() = listOf(

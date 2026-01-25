@@ -25,16 +25,16 @@ import androidx.compose.ui.unit.dp
 import majestic.Cell
 import majestic.Checkbox
 import majestic.CheckboxColors
+import majestic.shared.menu.MenuOptionColors
+import majestic.shared.users.label.table.InnerTableBodyLabels
 import majestic.tooling.onClick
 import majestic.users.table.header.NameCell
 import majestic.users.table.header.NameCellColors
 import majestic.users.table.header.tools.getStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
-import menu.MenuOptionColors
 import symphony.Table
 import symphony.columns.Column
-import users.label.table.InnerTableBodyLabels
 
 data class UsersTableRowColors(
     val checkBox: CheckboxColors,

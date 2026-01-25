@@ -1,7 +1,7 @@
 package majestic.users.dashboard.tools
 
-import users.label.table.FilterLabels
-import users.label.table.TableLabels
+import majestic.shared.users.label.table.FilterLabels
+import majestic.shared.users.label.table.TableLabels
 
 internal fun TableLabels.toFilterLabels() = FilterLabels(
     search = head.filters.search,

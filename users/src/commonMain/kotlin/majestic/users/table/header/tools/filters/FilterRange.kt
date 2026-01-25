@@ -33,10 +33,10 @@ import androidx.compose.ui.unit.sp
 import majestic.ColorPair
 import majestic.SelectColors
 import majestic.ThemeColor
+import majestic.shared.users.label.table.FilterLabels
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
-import users.label.table.FilterLabels
 
 data class FilterRangeColors(
     val selector: SelectColors,

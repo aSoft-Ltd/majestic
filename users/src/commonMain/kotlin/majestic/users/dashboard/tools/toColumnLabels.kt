@@ -1,7 +1,7 @@
 package majestic.users.dashboard.tools
 
-import users.label.table.ColumnLabels
-import users.label.table.TableLabels
+import majestic.shared.users.label.table.ColumnLabels
+import majestic.shared.users.label.table.TableLabels
 
 
 internal fun TableLabels.toColumnLabels(): ColumnLabels = ColumnLabels(

@@ -1,6 +1,6 @@
 package majestic.users.tools.data
 
-import users.label.general.GenderLabels
+import majestic.shared.users.label.general.GenderLabels
 
 enum class Gender {
     MALE, FEMALE;

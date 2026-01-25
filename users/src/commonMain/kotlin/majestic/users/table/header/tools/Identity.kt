@@ -34,14 +34,14 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.FilterLabels
 import majestic.tooling.onClick
 import majestic.users.table.header.tools.filters.FilterButtons
 import majestic.users.table.header.tools.filters.SearchFilter
 import majestic.users.table.header.tools.filters.SearchFilterColors
 import majestic.users.table.header.tools.filters.searchFilter
 import org.jetbrains.compose.resources.DrawableResource
-import users.HeaderInnerColors
-import users.label.table.FilterLabels
 
 data class IdentityLabels(
     val id: String,

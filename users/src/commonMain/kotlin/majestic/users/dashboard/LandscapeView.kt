@@ -24,6 +24,8 @@ import majestic.icons.ic_calendar
 import majestic.icons.ic_clock_01
 import majestic.icons.ic_laptop_phone
 import majestic.icons.tz_flag
+import majestic.shared.menu.MenuOption
+import majestic.shared.users.UsersLabels
 import majestic.users.dashboard.roles.HeaderColors
 import majestic.users.dashboard.roles.HeaderProps
 import majestic.users.dashboard.roles.Labels
@@ -45,12 +47,10 @@ import majestic.users.table.tools.data.roles
 import majestic.users.tools.data.HeaderIcons
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.getDashboardWeights
-import menu.MenuOption
 import nation.Country
 import symphony.columnsOf
 import symphony.linearPaginatorOf
 import symphony.tableOf
-import users.UsersLabels
 
 data class TableViewProps(
     val table: UserTableProps,

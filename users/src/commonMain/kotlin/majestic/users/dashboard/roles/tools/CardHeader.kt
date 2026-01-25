@@ -14,11 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
-import menu.MenuOption
-import menu.OptionMenu
-import org.jetbrains.compose.resources.vectorResource
 import majestic.icons.Res
 import majestic.icons.ic_info_circle
+import majestic.shared.menu.MenuOption
+import majestic.shared.menu.OptionMenu
+import org.jetbrains.compose.resources.vectorResource
 
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -7,8 +7,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import majestic.shared.users.label.dashboard.DashboardTabLabels
 import majestic.users.dashboard.tools.ActiveView
-import users.label.dashboard.DashboardTabLabels
 
 @Composable
 internal fun TabsBox(
