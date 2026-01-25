@@ -17,11 +17,12 @@ import majestic.icons.Res
 import majestic.icons.ic_calling_solid
 import majestic.icons.ic_whatsapp_solid
 import majestic.layouts.Flex
+import majestic.layouts.FlexCol
+import majestic.layouts.FlexRow
 import majestic.shared.profiles.contacts.phone.ButtonChoice
 import majestic.shared.profiles.contacts.phone.PhoneFormColors
 import majestic.shared.users.label.contacts.DedicatedFormLabels
 import org.jetbrains.compose.resources.painterResource
-
 
 @Composable
 internal fun ButtonsRow(
@@ -30,11 +31,17 @@ internal fun ButtonsRow(
     labels: DedicatedFormLabels,
     colors: PhoneFormColors
 ) = Flex(
-    horizontalArrangement = Arrangement.spacedBy(20.dp),
     modifier = modifier,
     orientation = orientation,
-    verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-    alignment = Alignment.CenterVertically
+    col = FlexCol(
+        arrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
+        alignment = Alignment.CenterHorizontally
+    ),
+    row = FlexRow(
+        arrangement = Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally),
+        alignment = Alignment.CenterVertically
+    ),
+    reverse = false
 ) {
     var whatsapp by remember { mutableStateOf(false) }
     var normal by remember { mutableStateOf(false) }

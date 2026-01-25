@@ -25,6 +25,7 @@ import majestic.shared.profiles.contacts.email.dialogs.EmailDialogState
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogState
 import majestic.shared.profiles.contacts.tools.ContactsColors
 import majestic.shared.profiles.contacts.tools.dialogs.Add
+import majestic.shared.users.label.contacts.OptionLabels
 import majestic.tooling.onClick
 
 fun Modifier.flatButton(
@@ -42,6 +43,7 @@ fun Modifier.flatButton(
 internal fun PortraitButtons(
     modifier: Modifier,
     colors: ContactsColors,
+    labels: OptionLabels,
     isOpen: Boolean,
     onDismiss: () -> Unit,
     emailDialog: EmailDialogState,
@@ -73,7 +75,7 @@ internal fun PortraitButtons(
                         emailDialog.open(Add)
                     },
                 colors = colors.flatButton,
-                label = "Email",
+                label = labels.email,
                 interactionSource = firstInteractionSource
             )
             FlatButton(
@@ -86,7 +88,7 @@ internal fun PortraitButtons(
                         phoneDialog.open(Add)
                     },
                 colors = colors.flatButton,
-                label = "Phone",
+                label = labels.phone,
                 interactionSource = secondInteractionSource
             )
         }

@@ -15,12 +15,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import majestic.buttons.FlatButton
 import majestic.shared.profiles.contacts.tools.ContactsColors
+import majestic.shared.users.label.contacts.OptionLabels
 import majestic.tooling.onClick
 
 @Composable
 internal fun LandscapeButtons(
     buttonBox: Rect,
     colors: ContactsColors,
+    labels: OptionLabels,
     onEmailButtonClick: () -> Unit,
     onPhoneButtonClick: () -> Unit
 ) = Popup(
@@ -45,20 +47,20 @@ internal fun LandscapeButtons(
                     onEmailButtonClick()
                 },
             colors = colors.flatButton,
-            label = "Email",
+            label = labels.email,
             interactionSource = firstInteractionSource
         )
         FlatButton(
             modifier = Modifier
                 .flatButton(
-                    interactionSource = firstInteractionSource,
+                    interactionSource = secondInteractionSource,
                     bgColor = colors.flatButton.getBackground(isHovered = secondHovered)
                 )
                 .onClick {
                     onPhoneButtonClick()
                 },
             colors = colors.flatButton,
-            label = "Email",
+            label = labels.phone,
             interactionSource = secondInteractionSource
         )
     }

@@ -92,18 +92,18 @@ fun Contacts(
             isOpen = isOpen,
             colors = colors,
             onEmailButtonClick = {
-                isOpen = false
                 emailDialog.open(Add)
+                isOpen = false
             },
             onPhoneButtonClick = {
-                isOpen = false
                 phoneDialog.open(Add)
+                isOpen = false
             },
             emailDialog = emailDialog,
             phoneDialog = phoneDialog,
             onDismiss = { isOpen = false },
             onOpen = {
-                isOpen = true
+                isOpen = !isOpen
             },
             onPlaced = {
                 buttonBox = it.boundsInParent()

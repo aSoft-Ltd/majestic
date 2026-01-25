@@ -85,13 +85,16 @@ internal fun FloatingButtons(
                     colors = colors.buttonAnimate,
                     interactionSource = interactionSource,
                     isHovered = isHovered,
-                ) {}
+                ) {
+                    onOpen()
+                }
             )
         }
         LandscapeButtons(
             buttonBox, colors,
             onEmailButtonClick = onEmailButtonClick,
-            onPhoneButtonClick = onPhoneButtonClick
+            onPhoneButtonClick = onPhoneButtonClick,
+            labels = labels.profile.tabs.contacts.content.options
         )
     }
 
@@ -106,7 +109,8 @@ internal fun FloatingButtons(
             isOpen = isOpen,
             emailDialog = emailDialog,
             phoneDialog = phoneDialog,
-            onDismiss = onDismiss
+            onDismiss = onDismiss,
+            labels = labels.profile.tabs.contacts.content.options
         )
     }
 }

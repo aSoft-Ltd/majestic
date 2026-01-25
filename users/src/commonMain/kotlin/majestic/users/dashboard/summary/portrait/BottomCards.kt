@@ -50,7 +50,6 @@ internal fun BottomCards(
     horizontalArrangement = Arrangement.spacedBy(10.dp)
 ) {
     props.summaryList.takeLast(3).forEach { item ->
-        println("items iterated= $item")
         val interactionSource = remember { MutableInteractionSource() }
         val isHovered by interactionSource.collectIsHoveredAsState()
         val background = getSummaryCardBg(isHovered = isHovered, props = props)
