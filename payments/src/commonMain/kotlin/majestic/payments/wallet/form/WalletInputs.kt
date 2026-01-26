@@ -12,10 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.TextField
+import majestic.payments.labels.wallet.form.NewWalletLabels
 import majestic.payments.tools.form.PaymentFormColors
 
 @Composable
 internal fun WalletInputs(
+    labels: NewWalletLabels,
     colors: PaymentFormColors,
     orientation: ScreenOrientation,
     methods: List<PaymentMethod>,
@@ -25,19 +27,19 @@ internal fun WalletInputs(
     TextField(
         modifier = Modifier.padding(bottom = 20.dp),
         value = title,
-        hint = "e.g School Fees",
+        hint = labels.nameInput.placeholder,
         colors = colors.textField,
         label = {
             Text(
                 modifier = Modifier.padding(bottom = 6.dp),
-                text = "Wallet Name",
+                text = labels.nameInput.label,
                 color = colors.foreground.copy(alpha = 0.5f)
             )
         },
         onChange = { title = it }
     )
     PaymentMethods(
-        description = "Select at least 1 and more payment account",
+        description = labels.accounts,
         colors = colors.card,
         methods = methods,
         orientation = orientation

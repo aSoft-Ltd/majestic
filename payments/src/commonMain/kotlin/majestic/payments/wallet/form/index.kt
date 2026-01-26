@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.payments.labels.SectionLabels
+import majestic.payments.labels.wallet.form.NewWalletLabels
 import majestic.payments.tools.form.Footer
 import majestic.payments.tools.form.Header
 import majestic.payments.tools.form.PaymentFormColors
@@ -20,6 +21,7 @@ import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid
 
 @Composable
 fun CreateWallet(
+    labels: NewWalletLabels,
     colors: PaymentFormColors,
     orientation: ScreenOrientation,
     methods: List<PaymentMethod>,
@@ -33,12 +35,13 @@ fun CreateWallet(
         ).fillMaxWidth(),
         colors = colors.header,
         labels = SectionLabels(
-            label = "Create Payment",
-            description = "Fill in the details to create a new payment"
+            label = labels.header.label,
+            description = labels.header.description
         ),
         icon = Res.drawable.ic_wallet_02_solid,
     )
     WalletInputs(
+        labels = labels,
         colors = colors,
         methods = methods,
         orientation = orientation,
@@ -50,8 +53,8 @@ fun CreateWallet(
     Footer(
         modifier = Modifier.fillMaxWidth().padding(20.dp),
         colors = colors.footer,
-        submit = "Create Payment",
-        cancel = "Cancel",
+        submit = labels.submitBtn,
+        cancel = labels.cancelBtn,
         onSubmit = { onSubmit() },
         onCancel = { onCancel() }
     )
