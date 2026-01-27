@@ -10,13 +10,14 @@ import androidx.compose.ui.window.DialogProperties
 import majestic.tooling.onClick
 import majestic.tools.CloseButton
 import majestic.tools.closeButton
-
+import org.jetbrains.compose.resources.DrawableResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Modal(
     colors: DialogColors,
     onDismiss: () -> Unit,
+    closeIcon: DrawableResource? = null,
     modifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit
 ) = BasicAlertDialog(
@@ -26,7 +27,8 @@ fun Modal(
 ) {
     Box {
         content()
-        CloseButton(
+
+        if (closeIcon != null) CloseButton(
             modifier = Modifier.closeButton(colors).onClick(onDismiss),
             tint = colors.cancelContent,
         )
