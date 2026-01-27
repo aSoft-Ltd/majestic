@@ -1,5 +1,8 @@
 package majestic.users.tools.data
 
+import majestic.shared.profiles.Permission
+import majestic.shared.profiles.Permissions
+import majestic.shared.users.data.Role
 import org.jetbrains.compose.resources.DrawableResource
 
 private val dateJoined = listOf("24 Feb 2025", "28 Mar 2025", "30 Apr 2025", "26 May 2025")
@@ -44,6 +47,7 @@ data class UsersData(
     val dob: Pair<String, DrawableResource>,
     val lastActive: Pair<String, DrawableResource>,
     val gender: Gender,
+    val flag: DrawableResource,
     val rolesCount: Int,
     val permissionsCount: Int,
     val permissions: List<Permission>,
@@ -59,7 +63,8 @@ data class UsersData(
         ): UsersData {
             val (fullName, email, gender) = generateRandomUserWithGender()
 
-            val randomPermissions = permissionList.flatMap { it.permissions }.shuffled().take((5..15).random())
+            val randomPermissions =
+                permissionList.flatMap { it.permissions }.shuffled().take((5..15).random())
             val randomRoles = roles.shuffled().take((1..roles.size).random())
 
             return UsersData(
@@ -77,7 +82,11 @@ data class UsersData(
                 permissions = randomPermissions,
                 status = UserStatus.entries.random(),
                 gender = gender,
-                phone = Pair(buildString { append("07"); repeat(8) { append((0..9).random()) } }, headerIcons.phone)
+                phone = Pair(
+                    buildString { append("07"); repeat(8) { append((0..9).random()) } },
+                    headerIcons.phone
+                ),
+                flag = headerIcons.flag
             )
         }
 
@@ -119,7 +128,20 @@ data class UsersData(
                 else -> 30
             }
             val day = (1..maxDay).random()
-            val months = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+            val months = listOf(
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            )
             return "$day ${months.random()} $year"
         }
     }

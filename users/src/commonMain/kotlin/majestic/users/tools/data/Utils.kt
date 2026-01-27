@@ -8,7 +8,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import majestic.users.tools.ColumnLabels
+import majestic.shared.users.label.table.ColumnLabels
 import symphony.Table
 import symphony.columns.Column
 import symphony.selected.LinearSelected
@@ -26,9 +26,31 @@ fun getWeights(
         for (column in columns) {
             this[column] = when (column.key) {
                 labels.checkbox -> 2f
+                labels.name -> 6f
+                labels.email -> 6.5f
+                labels.id -> 8f
+                labels.dateJoined -> 4f
+                labels.lastActive -> 5f
+                labels.roles -> 4f
+                labels.permission -> 4f
+                labels.status -> 4f
+                else -> 2f
+            }
+        }
+    }
+}
+
+@Composable
+fun getDashboardWeights(
+    columns: Set<Column<UsersData>>,
+    labels: ColumnLabels
+): Map<Column<UsersData>, Float> = remember(columns) {
+    buildMap {
+        for (column in columns) {
+            this[column] = when (column.key) {
+                labels.checkbox -> 2f
                 labels.name -> 4.5f
                 labels.email -> 6f
-                labels.id -> 8f
                 labels.dateJoined -> 4f
                 labels.lastActive -> 4f
                 labels.roles -> 4f

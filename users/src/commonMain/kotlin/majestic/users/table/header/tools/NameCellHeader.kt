@@ -30,18 +30,14 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onPlaced
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
-import majestic.ColorPair
-import majestic.SearchDefaultColors
-import majestic.SelectColors
-import majestic.ThemeColor
-import majestic.navigation.MenuItemColors
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.FilterLabels
 import majestic.users.table.header.tools.filters.FilterButtons
 import majestic.users.table.header.tools.filters.FilterRange
 import majestic.users.table.header.tools.filters.FilterRangeColors
@@ -54,29 +50,10 @@ import majestic.users.table.header.tools.filters.searchFilter
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
-data class FiltersLabels(
-    val searchTitle: String,
-    val dateTime: String,
-    val letterRange: String,
-    val ascend: String,
-    val to: String,
-    val from: String,
-    val descend: String,
-    val apply: String,
-    val cancel: String
-)
-
-data class HeaderInnerColors(
-    val theme: ThemeColor,
-    val compPopColors: ColorPair,
-    val selectColors: SelectColors,
-    val search: SearchDefaultColors,
-    val menuItem: MenuItemColors
-)
 
 data class NameCellLabels(
     val title: String,
-    val filters: FiltersLabels
+    val filters: FilterLabels
 )
 
 data class NameCellProperties(
@@ -105,8 +82,6 @@ internal fun NameCellHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         val popColors = props.colors.compPopColors
-        val color = if (expanded || isHovered) popColors.foreground else popColors.foreground.copy(0.6f)
-        val decoration = if (expanded || isHovered) TextDecoration.Underline else TextDecoration.None
 
         Row(
             modifier = Modifier.wrapContentWidth(),
@@ -168,7 +143,7 @@ internal fun NameCellHeader(
                         .focusRequester(focus),
                     colors = SearchFilterColors(props.colors.search, props.colors.compPopColors),
                     icon = props.iconDownward,
-                    hint = props.labels.filters.searchTitle,
+                    hint = props.labels.filters.search,
                     focusRequester = focus,
                     onChange = {}
                 )

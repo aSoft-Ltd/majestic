@@ -34,6 +34,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.FilterLabels
 import majestic.tooling.onClick
 import majestic.users.table.header.tools.filters.FilterButtons
 import majestic.users.table.header.tools.filters.SearchFilter
@@ -46,7 +48,7 @@ import org.jetbrains.compose.resources.DrawableResource
 
 data class DateJoinedLabels(
     val dateJoined: String,
-    val filters: FiltersLabels
+    val filters: FilterLabels
 )
 
 data class DateJoinedCellProperties(
@@ -127,7 +129,7 @@ internal fun DateJoined(
                         .focusRequester(focus),
                     colors = SearchFilterColors(props.colors.search, props.colors.compPopColors),
                     icon = props.iconDownward,
-                    hint = props.labels.filters.dateTime,
+                    hint = props.labels.filters.date,
                     focusRequester = focus,
                     onChange = {}
                 )

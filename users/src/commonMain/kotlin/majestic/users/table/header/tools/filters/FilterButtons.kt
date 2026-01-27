@@ -10,13 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.FilterLabels
 import majestic.tooling.onClick
-import majestic.users.table.header.tools.FiltersLabels
-import majestic.users.table.header.tools.HeaderInnerColors
 
 @Composable
 internal fun FilterButtons(
-    labels: FiltersLabels,
+    labels: FilterLabels,
     colors: HeaderInnerColors,
     onCancel: () -> Unit,
     onFilter: () -> Unit,
