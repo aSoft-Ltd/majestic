@@ -30,7 +30,7 @@ import majestic.shared.users.label.table.InnerTableBodyLabels
 import majestic.tooling.onClick
 import majestic.users.table.header.NameCell
 import majestic.users.table.header.NameCellColors
-import majestic.users.table.header.tools.getStatusLabels
+import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
@@ -136,7 +136,7 @@ internal fun RowScope.UsersTableRow(
     ) {
         Text(
             modifier = Modifier.onClick(onItemClick),
-            text = cell.row.item.status.getLabels(getStatusLabels(labels.status)),
+            text = cell.row.item.status.getLabels(labels.status.toStatusLabels()),
             color = cell.row.item.status.getColors(),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,

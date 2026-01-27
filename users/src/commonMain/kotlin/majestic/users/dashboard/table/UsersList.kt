@@ -28,7 +28,7 @@ import majestic.users.dashboard.table.header.UsersTableHeader
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
 import majestic.users.table.body.UsersTableBodyProperties
-import majestic.users.table.header.tools.getStatusLabels
+import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
@@ -122,7 +122,7 @@ fun UsersTable(
                     labels = ListLabels(
                         role = props.body.labels.columns.roles,
                         permission = props.body.labels.columns.permission,
-                        status = getStatusLabels(props.body.labels.status)
+                        status = props.body.labels.status.toStatusLabels()
                     )
                 )
 

@@ -69,12 +69,18 @@ private fun Modifier.contact(
     )
 }
 
+data class ContactListData(
+    val email: List<String> = listOf("amanihamduni@gmail.com", "amani45@gmail.com"),
+    val phone: List<String> = listOf("+255 745 147 852", "+255 755 005 600")
+)
+
 @Composable
 internal fun ContactList(
     modifier: Modifier,
     orientation: ScreenOrientation,
     colors: ContactsColors,
     labels: UsersLabels,
+    data: ContactListData,
     emailDialog: EmailDialogState,
     phoneDialog: PhoneDialogState
 ) = Column(
@@ -90,8 +96,8 @@ internal fun ContactList(
         color = colors.item.content.copy(0.5f),
     )
 
-    val emails = listOf("amanihamduni@gmail.com", "amani45@gmail.com")
-    emails.forEachIndexed { index, email ->
+
+    data.email.forEachIndexed { index, email ->
         Email(
             modifier = Modifier.contact(orientation, colors.item),
             text = email,
@@ -109,9 +115,8 @@ internal fun ContactList(
         }
     }
 
-    val phones = listOf("+255 745 147 852", "+255 755 005 600")
-    phones.forEachIndexed { index, phone ->
-        val isLast = index == phones.size - 1
+    data.phone.forEachIndexed { index, phone ->
+        val isLast = index == data.phone.size - 1
         Phone(
             modifier = Modifier.contact(
                 orientation = orientation,

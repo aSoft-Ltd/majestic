@@ -22,7 +22,7 @@ import majestic.users.table.ListItem
 import majestic.users.table.ListItemColors
 import majestic.users.table.ListLabels
 import majestic.users.table.LocalUsersRowInteractionSource
-import majestic.users.table.header.tools.getStatusLabels
+import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
@@ -90,7 +90,7 @@ fun RowScope.UsersTableBody(
             labels = ListLabels(
                 role = props.labels.columns.roles,
                 permission = props.labels.columns.permission,
-                status = getStatusLabels(props.labels.status)
+                status = props.labels.status.toStatusLabels()
             )
         )
 

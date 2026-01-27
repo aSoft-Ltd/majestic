@@ -81,7 +81,8 @@ fun Contacts(
             colors = colors,
             labels = labels,
             emailDialog = emailDialog,
-            phoneDialog = phoneDialog
+            phoneDialog = phoneDialog,
+            data = ContactListData()
         )
 
 

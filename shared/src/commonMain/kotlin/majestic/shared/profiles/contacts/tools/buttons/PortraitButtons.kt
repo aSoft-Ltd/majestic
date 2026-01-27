@@ -68,7 +68,7 @@ internal fun PortraitButtons(
                 modifier = Modifier
                     .flatButton(
                         interactionSource = firstInteractionSource,
-                        bgColor = colors.flatButton.getBackground(isHovered = firstHovered)
+                        bgColor = colors.flatButton.toBackgroundColor(isHovered = firstHovered)
                     )
                     .onClick {
                         onDismiss()
@@ -82,7 +82,7 @@ internal fun PortraitButtons(
                 modifier = Modifier
                     .flatButton(
                         interactionSource = firstInteractionSource,
-                        bgColor = colors.flatButton.getBackground(isHovered = secondHovered),
+                        bgColor = colors.flatButton.toBackgroundColor(isHovered = secondHovered),
                     ).onClick {
                         onDismiss()
                         phoneDialog.open(Add)

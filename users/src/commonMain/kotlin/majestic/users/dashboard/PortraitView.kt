@@ -45,7 +45,7 @@ import majestic.users.dashboard.tools.portraitHeader.PortraitHeader
 import majestic.users.dashboard.tools.rememberActiveView
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
-import majestic.users.table.header.tools.getStatusLabels
+import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
 import majestic.users.table.tools.data.permissions
@@ -183,7 +183,7 @@ internal fun PortraitView(
                 labels = ListLabels(
                     role = props.table.body.labels.columns.roles,
                     permission = props.table.body.labels.columns.permission,
-                    status = getStatusLabels(props.table.body.labels.status)
+                    status = props.table.body.labels.status.toStatusLabels()
                 )
             )
         }

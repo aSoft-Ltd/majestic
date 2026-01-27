@@ -41,7 +41,7 @@ internal fun LandscapeButtons(
             modifier = Modifier
                 .flatButton(
                     interactionSource = firstInteractionSource,
-                    bgColor = colors.flatButton.getBackground(isHovered = firstHovered)
+                    bgColor = colors.flatButton.toBackgroundColor(isHovered = firstHovered)
                 )
                 .onClick {
                     onEmailButtonClick()
@@ -54,7 +54,7 @@ internal fun LandscapeButtons(
             modifier = Modifier
                 .flatButton(
                     interactionSource = secondInteractionSource,
-                    bgColor = colors.flatButton.getBackground(isHovered = secondHovered)
+                    bgColor = colors.flatButton.toBackgroundColor(isHovered = secondHovered)
                 )
                 .onClick {
                     onPhoneButtonClick()

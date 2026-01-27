@@ -22,7 +22,7 @@ import majestic.icons.Res
 import majestic.icons.ic_laptop_remove
 import majestic.layouts.Flex
 import majestic.shared.profiles.contacts.tools.buttons.flatButton
-import majestic.shared.profiles.contacts.tools.buttons.getBackground
+import majestic.shared.profiles.contacts.tools.buttons.toBackgroundColor
 import majestic.shared.users.label.profile.security.SecurityLabels
 
 data class LogoutDevicesColors(
@@ -65,7 +65,7 @@ internal fun ColumnScope.LogoutDevices(
                         foreground = colors.theme.surface.contra.color.copy(alpha = 0.7f),
                         background = Color.Transparent
                     ),
-                ).getBackground(isHovered = logoutAllHovered),
+                ).toBackgroundColor(isHovered = logoutAllHovered),
             ),
             label = labels.btnLogoutAll,
             colors = colors.flatButton.copy(
@@ -81,7 +81,7 @@ internal fun ColumnScope.LogoutDevices(
             modifier = Modifier
                 .flatButton(
                     interactionSource = logoutInteraction,
-                    bgColor = colors.flatButton.getBackground(isHovered = logoutHovered),
+                    bgColor = colors.flatButton.toBackgroundColor(isHovered = logoutHovered),
                 ),
             label = labels.btnLogout,
             colors = colors.flatButton,

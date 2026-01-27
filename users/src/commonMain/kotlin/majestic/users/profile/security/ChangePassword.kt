@@ -25,7 +25,7 @@ import majestic.dialogs.Modal
 import majestic.icons.Res
 import majestic.icons.ic_square_lock
 import majestic.shared.profiles.contacts.tools.buttons.flatButton
-import majestic.shared.profiles.contacts.tools.buttons.getBackground
+import majestic.shared.profiles.contacts.tools.buttons.toBackgroundColor
 import majestic.shared.users.label.profile.security.SecurityLabels
 import majestic.tooling.onClick
 
@@ -79,7 +79,7 @@ internal fun ColumnScope.ChangePassword(
             modifier = Modifier
                 .flatButton(
                     interactionSource = interactionSource,
-                    bgColor = colors.flatButton.getBackground(isHovered = isHovered)
+                    bgColor = colors.flatButton.toBackgroundColor(isHovered = isHovered)
                 )
                 .onClick { modalOpened = true },
             label = labels.btnNewPassword,
