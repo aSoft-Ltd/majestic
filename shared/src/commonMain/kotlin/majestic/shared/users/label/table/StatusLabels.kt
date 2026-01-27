@@ -1,6 +1,6 @@
 package majestic.shared.users.label.table
 
-data class UsersStatusLabels(
+data class StatusLabels(
     val invited: String,
     val active: String,
     val declined: String,

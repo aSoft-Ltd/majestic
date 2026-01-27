@@ -1,10 +1,9 @@
 package majestic.users.table.header.tools
 
-import majestic.shared.users.label.table.TableStatusLabels
-import majestic.shared.users.label.table.UsersStatusLabels
+import majestic.shared.users.label.table.StatusLabels
 
 
-fun TableStatusLabels.toStatusLabels() = UsersStatusLabels(
+fun StatusLabels.toStatusLabels() = StatusLabels(
     invited = invited,
     active = active,
     declined = declined,

@@ -5,7 +5,7 @@ import majestic.shared.users.label.table.actions.reset.UsersResetLabels
 
 data class UsersActionLabels(
     val view: String,
-    val block: UsersDeleteLabels,
+    val block: UsersBlockLabels,
     val reset: UsersResetLabels,
     val delete: UsersDeleteLabels
 )

@@ -19,7 +19,7 @@ import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.shared.users.HeaderInnerColors
 import majestic.shared.users.label.table.ColumnLabels
-import majestic.shared.users.label.table.UsersStatusLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
@@ -38,7 +38,7 @@ data class HeaderProperties(
     val colors: HeaderColors,
     val showFilters: Boolean,
     val labels: ColumnLabels,
-    val filterStatus: UsersStatusLabels,
+    val filterStatus: StatusLabels,
     val userAvatar: DrawableResource,
     val upwardCaretIcon: DrawableResource,
     val downwardCaretIcon: DrawableResource
@@ -191,7 +191,7 @@ fun RowScope.UsersTableHeader(
     props.labels.lastActive -> StatusHeader(
         props = StatusCellProperties(
             colors = props.colors.innerColors,
-            labels = StatusLabels(
+            labels = HeaderStatusLabels(
                 status = props.labels.status,
                 filters = props.labels.filter,
                 filterStatus = props.filterStatus

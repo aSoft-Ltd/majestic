@@ -20,14 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.shared.users.label.table.UsersStatusLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.users.tools.data.UsersData
 import org.jetbrains.compose.resources.painterResource
 
 data class ListLabels(
     val role: String,
     val permission: String,
-    val status: UsersStatusLabels
+    val status: StatusLabels
 )
 
 data class ListItemColors(
