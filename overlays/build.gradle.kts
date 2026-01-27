@@ -57,6 +57,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(projects.majesticTheme)
+            api(projects.majesticInputCore)
             api(projects.majesticScreen)
             api(compose.runtime)
             api(compose.components.resources)?.because("We need to model menu items with action menus")
