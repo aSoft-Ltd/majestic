@@ -24,7 +24,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun TransactionItem(
+fun TransactionItem(
     name: String,
     code: String,
     account: String,
