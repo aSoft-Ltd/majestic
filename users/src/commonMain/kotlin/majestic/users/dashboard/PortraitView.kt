@@ -183,7 +183,7 @@ internal fun PortraitView(
                 labels = ListLabels(
                     role = props.table.body.labels.columns.roles,
                     permission = props.table.body.labels.columns.permission,
-                    status = props.table.body.labels.status.toStatusLabels()
+                    status = StatusLabels(props.table.body.labels.status.toStatusLabels())
                 )
             )
         }
