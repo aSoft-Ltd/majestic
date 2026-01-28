@@ -31,6 +31,7 @@ import majestic.icons.ic_user_multiple
 import majestic.icons.tz_flag
 import majestic.shared.menu.MenuOption
 import majestic.shared.users.UsersLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
 import majestic.users.dashboard.roles.RoleCard
 import majestic.users.dashboard.roles.RoleCardData
@@ -45,7 +46,6 @@ import majestic.users.dashboard.tools.portraitHeader.PortraitHeader
 import majestic.users.dashboard.tools.rememberActiveView
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
-import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
 import majestic.users.table.tools.data.permissions
@@ -183,7 +183,12 @@ internal fun PortraitView(
                 labels = ListLabels(
                     role = props.table.body.labels.columns.roles,
                     permission = props.table.body.labels.columns.permission,
-                    status = StatusLabels(props.table.body.labels.status.toStatusLabels())
+                    status = StatusLabels(
+                        invited = props.table.body.labels.status.invited,
+                        active = props.table.body.labels.status.active,
+                        declined = props.table.body.labels.status.declined,
+                        revoked = props.table.body.labels.status.revoked
+                    )
                 )
             )
         }

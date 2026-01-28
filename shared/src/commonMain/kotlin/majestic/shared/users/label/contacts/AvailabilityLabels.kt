@@ -1,6 +1,6 @@
 package majestic.shared.users.label.contacts
 
-data class Availability(
+data class AvailabilityLabels(
     val calls: String,
     val whatsapp: String,
 )

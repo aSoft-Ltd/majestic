@@ -6,7 +6,7 @@ data class ContactLabels(
     val primary: String,
     val addButton: String,
     val options: OptionLabels,
-    val availability: Availability,
+    val availability: AvailabilityLabels,
     val actions: ActionsLabels,
     val forms: ContactActionFormLabels
 )

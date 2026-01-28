@@ -4,7 +4,7 @@ import majestic.shared.users.label.table.ColumnLabels
 import majestic.shared.users.label.table.TableLabels
 
 
-internal fun TableLabels.toColumnLabels(): ColumnLabels = ColumnLabels(
+internal fun TableLabels.toColumnLabels() = ColumnLabels(
     name = head.name,
     email = head.email,
     id = head.id,

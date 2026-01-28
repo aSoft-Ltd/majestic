@@ -12,7 +12,6 @@ import majestic.shared.users.label.contacts.ContactPromptFormLabels
 internal fun ContactLabels.toPhoneDeleteLabels() = ContactPromptFormLabels(
     title = forms.phone.delete.title,
     description = forms.phone.delete.description,
-    contact = "",
     info = forms.phone.delete.info,
     submit = forms.phone.delete.submit,
     cancel = forms.phone.delete.cancel,
@@ -21,7 +20,6 @@ internal fun ContactLabels.toPhoneDeleteLabels() = ContactPromptFormLabels(
 internal fun ContactLabels.toPhoneDuplicateLabels() = ContactPromptFormLabels(
     title = forms.phone.dup.title,
     description = forms.phone.dup.description,
-    contact = "",
     info = forms.phone.dup.info,
     submit = forms.phone.dup.submit,
     cancel = forms.phone.dup.cancel,

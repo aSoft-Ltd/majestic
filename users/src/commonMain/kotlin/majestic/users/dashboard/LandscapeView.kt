@@ -39,7 +39,6 @@ import majestic.users.dashboard.table.UserTableProps
 import majestic.users.dashboard.table.UsersTable
 import majestic.users.dashboard.tools.portraitHeader.PortraitHeaderColors
 import majestic.users.dashboard.tools.toColumnLabels
-import majestic.users.table.header.tools.getHeaderLabels
 import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
 import majestic.users.table.tools.data.permissions
@@ -124,7 +123,7 @@ internal fun LandscapeView(
 
     val weight = getDashboardWeights(
         columns = columns,
-        labels = getHeaderLabels(labels.table.toColumnLabels())
+        labels = labels.table.toColumnLabels()
     )
 
     UsersTable(

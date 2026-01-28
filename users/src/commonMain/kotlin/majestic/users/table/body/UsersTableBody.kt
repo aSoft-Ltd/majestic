@@ -17,12 +17,12 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.Cell
 import majestic.shared.users.label.table.InnerTableBodyLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
 import majestic.users.table.ListItem
 import majestic.users.table.ListItemColors
 import majestic.users.table.ListLabels
 import majestic.users.table.LocalUsersRowInteractionSource
-import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
@@ -90,7 +90,12 @@ fun RowScope.UsersTableBody(
             labels = ListLabels(
                 role = props.labels.columns.roles,
                 permission = props.labels.columns.permission,
-                status = props.labels.status.toStatusLabels()
+                status = StatusLabels(
+                    props.labels.status.invited,
+                    props.labels.status.active,
+                    props.labels.status.declined,
+                    props.labels.status.revoked
+                )
             )
         )
 

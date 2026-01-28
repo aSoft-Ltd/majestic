@@ -18,6 +18,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
 import majestic.editor.toolbar.underline
 import majestic.shared.users.UsersLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
 import majestic.users.dashboard.roles.Header
 import majestic.users.dashboard.roles.HeaderProps
@@ -28,7 +29,6 @@ import majestic.users.dashboard.table.header.UsersTableHeader
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
 import majestic.users.table.body.UsersTableBodyProperties
-import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
@@ -122,7 +122,12 @@ fun UsersTable(
                     labels = ListLabels(
                         role = props.body.labels.columns.roles,
                         permission = props.body.labels.columns.permission,
-                        status = props.body.labels.status.toStatusLabels()
+                        status = StatusLabels(
+                            props.body.labels.status.invited,
+                            props.body.labels.status.active,
+                            props.body.labels.status.declined,
+                            props.body.labels.status.revoked
+                        )
                     )
                 )
 

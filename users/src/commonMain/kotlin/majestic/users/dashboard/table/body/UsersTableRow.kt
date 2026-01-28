@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.sp
 import majestic.Cell
 import majestic.Checkbox
 import majestic.shared.users.label.table.InnerTableBodyLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
 import majestic.users.table.body.UsersTableRowColors
 import majestic.users.table.header.NameCell
-import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
@@ -120,7 +120,14 @@ internal fun RowScope.UsersTableRow(
             fontSize = 15.sp,
             overflow = TextOverflow.Ellipsis,
             softWrap = false,
-            text = cell.row.item.status.getLabels(labels.status.toStatusLabels()),
+            text = cell.row.item.status.getLabels(
+                StatusLabels(
+                    invited = labels.status.invited,
+                    active = labels.status.active,
+                    declined = labels.status.declined,
+                    revoked = labels.status.revoked
+                )
+            ),
             color = cell.row.item.status.getColors()
         )
     }

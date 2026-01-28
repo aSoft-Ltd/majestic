@@ -27,10 +27,10 @@ import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.shared.menu.MenuOptionColors
 import majestic.shared.users.label.table.InnerTableBodyLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
 import majestic.users.table.header.NameCell
 import majestic.users.table.header.NameCellColors
-import majestic.users.table.header.tools.toStatusLabels
 import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
@@ -136,7 +136,14 @@ internal fun RowScope.UsersTableRow(
     ) {
         Text(
             modifier = Modifier.onClick(onItemClick),
-            text = cell.row.item.status.getLabels(labels.status.toStatusLabels()),
+            text = cell.row.item.status.getLabels(
+                StatusLabels(
+                    labels.status.invited,
+                    labels.status.active,
+                    labels.status.declined,
+                    labels.status.revoked
+                )
+            ),
             color = cell.row.item.status.getColors(),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
