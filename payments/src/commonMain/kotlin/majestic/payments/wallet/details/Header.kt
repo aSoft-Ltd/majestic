@@ -13,8 +13,9 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.payments.labels.MenuLabels
-import majestic.payments.tools.DetailHeader
-import majestic.payments.tools.DetailHeaderColors
+import majestic.payments.tools.header.DetailHeader
+import majestic.payments.tools.header.DetailHeaderColors
+import majestic.payments.tools.header.InfoEntryItem
 import majestic.payments.wallet.tools.WalletDetailMenuAction
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
@@ -33,6 +34,7 @@ fun Header(
             colors = colors,
             orientation = Landscape,
             options = WalletDetailMenuAction.getMenus(labels),
+            details = InfoEntryItem.wallet(),
             modifier = modifier,
         ) {
             Icon(
