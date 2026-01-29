@@ -15,7 +15,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun PhotoBadge(
+fun PhotoBadge(
     recipient: DrawableResource,
     payer: DrawableResource,
     size: Dp = 24.dp,
