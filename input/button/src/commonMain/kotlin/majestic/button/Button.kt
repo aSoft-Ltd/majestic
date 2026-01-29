@@ -8,6 +8,7 @@ import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -67,4 +68,23 @@ fun Button(
     ) {
         button.toColorPair().label()
     }
+}
+
+@Composable
+fun Button2(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    val ele = modifier.registered()
+    Text("ele = $ele")
+}
+
+private fun Modifier.registered(): ButtonElement? {
+    var ele: ButtonElement? = null
+    any {
+        val res = it is ButtonElement
+        if (res) ele = it
+        res
+    }
+    return ele
 }
