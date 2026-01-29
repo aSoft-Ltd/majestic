@@ -22,10 +22,9 @@ fun <T> Paginator(
 ) {
     val current = paginator.current.watchAsState()
     val scope = rememberCoroutineScope()
-    // start of list pages
-    val noOfPages = 7 // for demo purposes, later this will be handled by the paginator manager
+    val noOfPages = 7
     val currentPage = current.data?.number
-        ?: 0 // for demo purposes, later this will be handled by the paginator manager
+        ?: 0
 
     PaginatorItem(
         icon = icons.first,
