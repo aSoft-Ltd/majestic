@@ -23,6 +23,7 @@ import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid
 
 @Composable
 fun Header(
+    title: String,
     labels: MenuLabels,
     colors: DetailHeaderColors,
     orientation: ScreenOrientation,
@@ -30,7 +31,7 @@ fun Header(
 ) {
     when (orientation) {
         is Landscape -> DetailHeader(
-            title = "Wallet Details",
+            title = title,
             colors = colors,
             orientation = Landscape,
             options = WalletDetailMenuAction.getMenus(labels),

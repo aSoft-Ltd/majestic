@@ -9,5 +9,6 @@ data class WalletLabels(
     val transactions: String,
     val menu: MenuLabels,
     val table: TableLabels,
-    val form: NewWalletLabels
+    val form: NewWalletLabels,
+    val detail: DetailTabLabels
 )

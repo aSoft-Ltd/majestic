@@ -39,7 +39,7 @@ internal fun InfoEntry(
 ) = Column(
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.spacedBy(2.dp)
+    verticalArrangement = Arrangement.spacedBy(8.dp)
 ) {
     Icon(
         painter = painterResource(icon),
@@ -47,20 +47,26 @@ internal fun InfoEntry(
         tint = colors.icon.copy(alpha = 0.2f),
         modifier = Modifier.size(20.dp)
     )
-    Text(
-        text = title,
-        color = colors.text.copy(0.8f),
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Medium,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-    )
-    Text(
-        text = description,
-        color = colors.text.copy(alpha = 0.4f),
-        fontSize = 10.sp,
-        lineHeight = 14.sp,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-    )
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        Text(
+            text = title,
+            color = colors.text.copy(0.8f),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
+            lineHeight = 1.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Text(
+            text = description,
+            color = colors.text.copy(alpha = 0.4f),
+            fontSize = 10.sp,
+            lineHeight = 1.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
 }

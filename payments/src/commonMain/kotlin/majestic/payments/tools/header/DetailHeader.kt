@@ -45,7 +45,7 @@ internal fun <T> DetailHeader(
     icon()
     Column(
         modifier = Modifier.weight(1f),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         label()
         Row(
@@ -92,7 +92,7 @@ internal fun <T> DetailHeader(
     Text(
         text = title,
         color = colors.foreground,
-        fontSize = 17.sp,
+        fontSize = 18.sp,
         lineHeight = 1.sp
     )
 }
