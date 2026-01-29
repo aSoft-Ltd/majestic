@@ -60,7 +60,7 @@ fun PhoneField(
             modifier = Modifier.fillMaxWidth().testTag(field.name),
             singleLine = true,
             value = state.output?.body?.toString() ?: "",
-            leadingIcon = leadingIcon,
+            leadingIcon = { leadingIcon },
             trailingIcon = trailingIcon,
             keyboardOptions = keyboardOptions,
             visualTransformation = visualTransformation,

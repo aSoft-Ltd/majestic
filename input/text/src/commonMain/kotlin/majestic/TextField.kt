@@ -59,7 +59,7 @@ fun TextField(
     keyboardOptions = keyboardOptions,
     visualTransformation = visualTransformation,
     trailingIcon = trailingIcon,
-    leadingIcon = leadingIcon,
+    leadingIcon = { leadingIcon },
     onChange = onChange,
     label = {
         Text(
@@ -106,7 +106,7 @@ fun TextField(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth().testTag(field.name),
             value = state.output ?: "",
-            leadingIcon = leadingIcon,
+            leadingIcon = { leadingIcon },
             trailingIcon = trailingIcon,
             singleLine = singleLine,
             maxLines = maxLines,
@@ -236,7 +236,7 @@ fun TextField(
                 interactionSource = interactionSource,
                 contentPadding = contentPadding,
                 trailingIcon = trailingIcon,
-                leadingIcon = leadingIcon,
+                leadingIcon = { leadingIcon },
                 placeholder = hint,
                 colors = materialColors,
                 container = {
@@ -293,7 +293,7 @@ fun TextField(
         visualTransformation = visualTransformation,
         onChange = onChange,
         trailingIcon = trailingIcon,
-        leadingIcon = leadingIcon,
+        leadingIcon = { leadingIcon },
         shape = shape,
         readOnly = readOnly,
         textStyle = textStyle,
