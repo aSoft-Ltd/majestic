@@ -32,23 +32,25 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.FilterLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
 import majestic.users.table.header.tools.filters.FilterButtons
 import majestic.users.table.header.tools.filters.FilterSelect
 import majestic.users.table.header.tools.filters.FilterSelectColors
 import majestic.users.tools.data.UserStatus
-import majestic.users.tools.data.UsersStatusLabels
 import org.jetbrains.compose.resources.DrawableResource
 
-data class StatusLabels(
+data class HeaderStatusLabels(
     val status: String,
-    val filters: FiltersLabels,
-    val filterStatus: UsersStatusLabels
+    val filters: FilterLabels,
+    val filterStatus: StatusLabels
 )
 
 data class StatusCellProperties(
     val colors: HeaderInnerColors,
-    val labels: StatusLabels,
+    val labels: HeaderStatusLabels,
     val downwardCaretIcon: DrawableResource,
     val upwardCaretIcon: DrawableResource,
     val showFilters: Boolean,
