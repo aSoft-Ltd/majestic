@@ -70,6 +70,7 @@ kotlin {
             api(projects.majesticInputChoice)
             api(projects.majesticInputColor)
             api(projects.majesticInputPhone)
+            api(projects.majesticInputButton)
             api(projects.majesticInputChrono)?.because("We need good ui for date, time and calendar pickers")
             api(projects.majesticTable)
             api(projects.majesticGraphs)
