@@ -1,91 +1,53 @@
 package majestic.users.profile.security
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
 import majestic.ThemeColor
-import majestic.buttons.FlatButton
-import majestic.buttons.FlatButtonColors
 import majestic.icons.Res
 import majestic.icons.ic_laptop_remove
 import majestic.layouts.Flex
-import majestic.shared.profiles.contacts.tools.buttons.flatButton
-import majestic.shared.profiles.contacts.tools.buttons.toBackgroundColor
+import majestic.shared.button.Button
 import majestic.shared.users.label.profile.security.SecurityLabels
-
-data class LogoutDevicesColors(
-    val theme: ThemeColor,
-    val flatButton: FlatButtonColors
-)
 
 @Composable
 internal fun ColumnScope.LogoutDevices(
     modifier: Modifier = Modifier,
-    colors: LogoutDevicesColors,
+    theme: ThemeColor,
     orientation: ScreenOrientation,
     labels: SecurityLabels,
 ) = SecurityRow(
     modifier = modifier,
     icon = Res.drawable.ic_laptop_remove,
-    theme = colors.theme,
+    theme = theme,
     orientation = orientation,
 ) {
     SectionHeading(
         modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
         labels = labels.logout,
-        color = colors.theme.surface.contra.color
+        color = theme.surface.contra.color
     )
     Flex(
         modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
         horizontalArrangement = Arrangement.End,
         orientation = orientation,
     ) {
-        val logoutInteraction = remember { MutableInteractionSource() }
-        val logoutHovered by logoutInteraction.collectIsHoveredAsState()
-        val logoutAllInteraction = remember { MutableInteractionSource() }
-        val logoutAllHovered by logoutAllInteraction.collectIsHoveredAsState()
-
-        FlatButton(
-            modifier = Modifier.flatButton(
-                interactionSource = logoutAllInteraction,
-                bgColor = colors.flatButton.copy(
-                    inactive = ColorPair(
-                        foreground = colors.theme.surface.contra.color.copy(alpha = 0.7f),
-                        background = Color.Transparent
-                    ),
-                ).toBackgroundColor(isHovered = logoutAllHovered),
-            ),
+        Button(
+            onClick = {},
             label = labels.btnLogoutAll,
-            colors = colors.flatButton.copy(
-                inactive = ColorPair(
-                    foreground = colors.theme.surface.contra.color.copy(alpha = 0.7f),
-                    background = Color.Transparent
-                ),
-            ),
-            interactionSource = logoutAllInteraction,
+            theme = theme
         )
         Spacer(modifier = Modifier.width(20.dp))
-        FlatButton(
-            modifier = Modifier
-                .flatButton(
-                    interactionSource = logoutInteraction,
-                    bgColor = colors.flatButton.toBackgroundColor(isHovered = logoutHovered),
-                ),
+        Button(
+            onClick = {},
             label = labels.btnLogout,
-            colors = colors.flatButton,
-            interactionSource = logoutInteraction,
+            theme = theme
         )
     }
 }

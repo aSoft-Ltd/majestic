@@ -15,7 +15,6 @@ data class SecurityColors(
     val background: Color,
     val theme: ThemeColor,
     val changePassword: ChangePasswordColors,
-    val logoutDevices: LogoutDevicesColors,
     val twoFactor: TwoFactorColors,
 )
 
@@ -48,7 +47,7 @@ fun Security(
         modifier = Modifier.security(theme = theme),
         orientation = orientation,
         labels = labels,
-        colors = colors.logoutDevices
+        theme = theme
     )
     TwoFactor(
         modifier = Modifier.security(theme = theme),

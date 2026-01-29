@@ -3,14 +3,11 @@ package majestic.shared.profiles.contacts.tools.buttons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,14 +16,13 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import majestic.buttons.ExpandDirection
-import majestic.buttons.FlatButton
 import majestic.buttons.FloatingActionButton
+import majestic.shared.button.Button
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogState
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogState
 import majestic.shared.profiles.contacts.tools.ContactsColors
 import majestic.shared.profiles.contacts.tools.dialogs.Add
 import majestic.shared.users.label.contacts.OptionLabels
-import majestic.tooling.onClick
 
 fun Modifier.flatButton(
     interactionSource: MutableInteractionSource,
@@ -59,37 +55,21 @@ internal fun PortraitButtons(
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            val firstInteractionSource = remember { MutableInteractionSource() }
-            val firstHovered by firstInteractionSource.collectIsHoveredAsState()
-            val secondInteractionSource = remember { MutableInteractionSource() }
-            val secondHovered by secondInteractionSource.collectIsHoveredAsState()
-
-            FlatButton(
-                modifier = Modifier
-                    .flatButton(
-                        interactionSource = firstInteractionSource,
-                        bgColor = colors.flatButton.toBackgroundColor(isHovered = firstHovered)
-                    )
-                    .onClick {
-                        onDismiss()
-                        emailDialog.open(Add)
-                    },
-                colors = colors.flatButton,
+            Button(
+                theme = colors.theme,
                 label = labels.email,
-                interactionSource = firstInteractionSource
+                onClick = {
+                    onDismiss()
+                    emailDialog.open(Add)
+                },
             )
-            FlatButton(
-                modifier = Modifier
-                    .flatButton(
-                        interactionSource = firstInteractionSource,
-                        bgColor = colors.flatButton.toBackgroundColor(isHovered = secondHovered),
-                    ).onClick {
-                        onDismiss()
-                        phoneDialog.open(Add)
-                    },
-                colors = colors.flatButton,
+            Button(
+                onClick = {
+                    onDismiss()
+                    phoneDialog.open(Add)
+                },
+                theme = colors.theme,
                 label = labels.phone,
-                interactionSource = secondInteractionSource
             )
         }
     }

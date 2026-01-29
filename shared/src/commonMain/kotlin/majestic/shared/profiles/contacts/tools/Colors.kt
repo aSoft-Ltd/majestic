@@ -2,8 +2,7 @@ package majestic.shared.profiles.contacts.tools
 
 import androidx.compose.ui.graphics.Color
 import majestic.ColorPair
-import majestic.buttons.ButtonAnimateColors
-import majestic.buttons.FlatButtonColors
+import majestic.ThemeColor
 import majestic.shared.profiles.contacts.email.EmailColors
 import majestic.shared.profiles.contacts.phone.Backgrounds
 import majestic.shared.profiles.contacts.phone.PhoneColors
@@ -26,8 +25,7 @@ data class ContactsItemBackground(
 
 data class ContactsColors(
     val item: ContactsItemBackground,
-    val buttonAnimate: ButtonAnimateColors,
-    val flatButton: FlatButtonColors,
+    val theme: ThemeColor,
     val floatingButton: ColorPair,
     val backgrounds: Backgrounds,
     val email: EmailColors,

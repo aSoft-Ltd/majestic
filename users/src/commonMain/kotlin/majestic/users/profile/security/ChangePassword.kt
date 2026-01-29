@@ -1,8 +1,6 @@
 package majestic.users.profile.security
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -18,21 +16,16 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
-import majestic.buttons.FlatButton
-import majestic.buttons.FlatButtonColors
 import majestic.dialogs.DialogColors
 import majestic.dialogs.Modal
 import majestic.icons.Res
 import majestic.icons.ic_square_lock
-import majestic.shared.profiles.contacts.tools.buttons.flatButton
-import majestic.shared.profiles.contacts.tools.buttons.toBackgroundColor
+import majestic.shared.button.Button
 import majestic.shared.users.label.profile.security.SecurityLabels
-import majestic.tooling.onClick
 
 data class ChangePasswordColors(
     val background: Color,
     val theme: ThemeColor,
-    val flatButton: FlatButtonColors,
     val passwordForm: PasswordFormColors,
     val dialog: DialogColors
 )
@@ -73,18 +66,10 @@ internal fun ColumnScope.ChangePassword(
         modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
         horizontalArrangement = Arrangement.End,
     ) {
-        val interactionSource = remember { MutableInteractionSource() }
-        val isHovered by interactionSource.collectIsHoveredAsState()
-        FlatButton(
-            modifier = Modifier
-                .flatButton(
-                    interactionSource = interactionSource,
-                    bgColor = colors.flatButton.toBackgroundColor(isHovered = isHovered)
-                )
-                .onClick { modalOpened = true },
+        Button(
+            onClick = { modalOpened = true },
             label = labels.btnNewPassword,
-            colors = colors.flatButton,
-            interactionSource = interactionSource
+            theme = colors.theme
         )
     }
 }

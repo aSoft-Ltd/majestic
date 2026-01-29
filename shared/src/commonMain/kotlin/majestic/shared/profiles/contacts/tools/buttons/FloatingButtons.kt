@@ -27,16 +27,18 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.buttons.ButtonAnimate
 import majestic.buttons.ButtonAnimateColors
 import majestic.buttons.floatActionButton
 import majestic.icons.Res
 import majestic.icons.ic_add
+import majestic.shared.button.Button
+import majestic.shared.button.LeadingIcon
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogState
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogState
 import majestic.shared.profiles.contacts.tools.ContactsColors
 import majestic.shared.users.UsersLabels
 import majestic.tooling.onClick
+import org.jetbrains.compose.resources.vectorResource
 
 internal fun Modifier.buttonAnimate(
     colors: ButtonAnimateColors,
@@ -72,20 +74,15 @@ internal fun FloatingButtons(
     onPlaced: (LayoutCoordinates) -> Unit
 ) = when (orientation) {
     is Landscape -> Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
-        val interactionSource = remember { MutableInteractionSource() }
-        val isHovered by interactionSource.collectIsHoveredAsState()
         Box(modifier = Modifier.onPlaced { onPlaced(it) }) {
-            ButtonAnimate(
+            Button(
                 label = labels.profile.tabs.contacts.content.addButton,
-                icon = Res.drawable.ic_add,
-                isOpen = isOpen,
-                colors = colors.buttonAnimate,
-                isHovered = isHovered,
-                modifier = Modifier.buttonAnimate(
-                    colors = colors.buttonAnimate,
-                    interactionSource = interactionSource,
-                    isHovered = isHovered,
-                ) {
+                leadingIcon = { LeadingIcon(vectorResource(Res.drawable.ic_add)) },
+                forceExpanded = isOpen,
+                theme = colors.theme,
+                expandable = true,
+                orientation = orientation,
+                onClick = {
                     onOpen()
                 }
             )
