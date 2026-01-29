@@ -17,10 +17,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import majestic.Checkbox
 import majestic.CheckboxColors
+import majestic.shared.users.HeaderInnerColors
+import majestic.shared.users.label.table.ColumnLabels
+import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
-import majestic.users.tools.ColumnLabels
 import majestic.users.tools.data.UsersData
-import majestic.users.tools.data.UsersStatusLabels
 import majestic.users.tools.data.separator
 import org.jetbrains.compose.resources.DrawableResource
 import symphony.Table
@@ -37,7 +38,7 @@ data class HeaderProperties(
     val colors: HeaderColors,
     val showFilters: Boolean,
     val labels: ColumnLabels,
-    val filterStatus: UsersStatusLabels,
+    val filterStatus: StatusLabels,
     val userAvatar: DrawableResource,
     val upwardCaretIcon: DrawableResource,
     val downwardCaretIcon: DrawableResource
@@ -56,7 +57,10 @@ fun RowScope.UsersTableHeader(
         modifier = Modifier
             .clip(RoundedCornerShape(topStart = if (count == 0) 20.dp else 0.dp))
             .weight(weight.getValue(column))
-            .background(props.colors.mainColor, RoundedCornerShape(topStart = if (count == 0) 20.dp else 0.dp))
+            .background(
+                props.colors.mainColor,
+                RoundedCornerShape(topStart = if (count == 0) 20.dp else 0.dp)
+            )
             .background(
                 props.colors.innerColors.theme.dominant.actual.color.copy(alpha = 0.1f),
                 shape = RoundedCornerShape(topStart = if (count == 0) 20.dp else 0.dp)
@@ -187,7 +191,7 @@ fun RowScope.UsersTableHeader(
     props.labels.lastActive -> StatusHeader(
         props = StatusCellProperties(
             colors = props.colors.innerColors,
-            labels = StatusLabels(
+            labels = HeaderStatusLabels(
                 status = props.labels.status,
                 filters = props.labels.filter,
                 filterStatus = props.filterStatus
@@ -205,25 +209,33 @@ fun RowScope.UsersTableHeader(
         onFilter = { }
     )
 
-    else -> {
+    else -> Box(
+        modifier = Modifier
+            .weight(weight.getValue(column))
+            .clip(
+                shape = if (column.key == "action") RoundedCornerShape(
+                    topEnd = if (count == 0) 20.dp else 0.dp
+                )
+                else RoundedCornerShape(0.dp)
+            )
+            .background(props.colors.mainColor)
+            .background(
+                props.colors.innerColors.theme.dominant.actual.color.copy(alpha = 0.1f),
+                shape = if (column.key == "action") RoundedCornerShape(topEnd = if (count == 0) 20.dp else 0.dp) else
+                    RoundedCornerShape(0.dp)
+            )
+            .separator(true, props.colors.separator)
+            .padding(vertical = 20.dp, horizontal = 12.dp),
+        contentAlignment = when (column.key) {
+            props.labels.permission, props.labels.roles -> Alignment.Center
+            else -> Alignment.CenterStart
+        }
+    ) {
         Text(
             text = column.name,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .clip(
-                    if (column.key == "action") RoundedCornerShape(topEnd = if (count == 0) 20.dp else 0.dp) else
-                        RoundedCornerShape(0.dp)
-                )
-                .weight(weight.getValue(column))
-                .background(props.colors.mainColor)
-                .background(
-                    props.colors.innerColors.theme.dominant.actual.color.copy(alpha = 0.1f),
-                    shape = if (column.key == "action") RoundedCornerShape(topEnd = if (count == 0) 20.dp else 0.dp) else
-                        RoundedCornerShape(0.dp)
-                )
-                .separator(true, props.colors.separator)
-                .padding(vertical = 20.dp, horizontal = 12.dp),
+            modifier = Modifier,
             color = props.colors.innerColors.theme.surface.contra.color.copy(0.6f)
         )
     }
