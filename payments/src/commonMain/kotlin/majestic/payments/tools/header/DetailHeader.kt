@@ -30,6 +30,31 @@ data class DetailHeaderColors(
 
 @Composable
 internal fun <T> DetailHeader(
+    colors: MenuOptionColors,
+    orientation: ScreenOrientation,
+    options: List<OptionMenu<T>>,
+    modifier: Modifier = Modifier,
+    icon: @Composable () -> Unit,
+    content: @Composable () -> Unit,
+) = Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.spacedBy(10.dp)
+) {
+    icon()
+    Column(modifier = Modifier.weight(1f)) {
+        content()
+    }
+    MenuOption(
+        colors = colors,
+        orientation = orientation,
+        actions = options,
+        onAction = { /* TODO */ }
+    )
+}
+
+@Composable
+internal fun <T> DetailHeader(
     colors: DetailHeaderColors,
     orientation: ScreenOrientation,
     options: List<OptionMenu<T>>,
