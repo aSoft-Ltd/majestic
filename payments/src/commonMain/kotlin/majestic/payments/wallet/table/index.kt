@@ -45,6 +45,7 @@ fun WalletTable(
     labels: WalletLabels,
     colors: TableColors,
     table: Table<PaymentWallet>,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val columns = table.columns.current.watchAsState()
@@ -134,6 +135,7 @@ fun WalletTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 name = cell.row.item.name,
                 colors = colors
@@ -161,6 +163,7 @@ fun WalletTable(
                         .background(if (selected) colors.hovered else Color.Transparent)
                         .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                         .pointerHoverIcon(PointerIcon.Hand)
+                        .onClick(onClick)
                         .padding(horizontal = 12.dp),
                 )
             }
@@ -171,6 +174,7 @@ fun WalletTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 color = colors.background,
                 images = cell.row.item.accounts,
@@ -184,6 +188,7 @@ fun WalletTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.createdBy,
                 datetime = cell.row.item.createdAt,
@@ -197,6 +202,7 @@ fun WalletTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 detail = cell.row.item.recent,
                 colors = colors
@@ -208,6 +214,7 @@ fun WalletTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 contentAlignment = Alignment.CenterEnd
             ) {
