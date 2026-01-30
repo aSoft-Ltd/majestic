@@ -47,11 +47,7 @@ kotlin {
 //    }
 
     wasmJs { browser() }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-//    macosX64()
-//    macosArm64()
+    iosTargets()
 
     sourceSets {
         commonMain.dependencies {
@@ -70,7 +66,7 @@ kotlin {
             api(projects.majesticInputChoice)
             api(projects.majesticInputColor)
             api(projects.majesticInputPhone)
-            api(projects.majesticInputButton)
+            api(projects.majesticLayouts)
             api(projects.majesticInputChrono)?.because("We need good ui for date, time and calendar pickers")
             api(projects.majesticTable)
             api(projects.majesticGraphs)
@@ -80,6 +76,9 @@ kotlin {
             api(projects.majesticOverlays)
             api(libs.nation.flags.compose)
             api(libs.nation.countries)
+            api(libs.nation.flags.compose)
+            api(projects.majesticShared)?.because("We need to for shared dashboard components, reducing duplications")
+            api(projects.majesticIcons)
             api(libs.nation.currencies)
             api(libs.captain.router.compose.core)
             api(github.compottie)

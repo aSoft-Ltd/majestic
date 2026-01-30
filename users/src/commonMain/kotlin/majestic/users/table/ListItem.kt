@@ -16,25 +16,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ThemeColor
+import majestic.shared.users.label.table.StatusLabels
 import majestic.users.tools.data.UsersData
-import majestic.users.tools.data.UsersStatusLabels
 import org.jetbrains.compose.resources.painterResource
 
 data class ListLabels(
     val role: String,
     val permission: String,
-    val status: UsersStatusLabels
+    val status: StatusLabels
+)
+
+data class ListItemColors(
+    val surfaceContra: Color,
+    val dominantActual: Color
 )
 
 @Composable
 fun ListItem(
     user: UsersData,
     labels: ListLabels,
-    theme: ThemeColor,
+    colors: ListItemColors,
     modifier: Modifier = Modifier,
     menuAction: @Composable () -> Unit
 ) = Row(
@@ -55,23 +60,24 @@ fun ListItem(
         else Box(
             modifier = Modifier
                 .size(32.dp)
-                .background(color = theme.dominant.actual.color, shape = CircleShape)
+                .background(color = colors.dominantActual, shape = CircleShape)
                 .padding(10.dp)
         ) {
             Text(
                 text = user.fullName,
-                color = theme.surface.contra.color,
+                color = colors.surfaceContra,
                 fontSize = 16.sp
             )
         }
-        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
                     text = user.fullName,
                     lineHeight = 1.sp,
                     maxLines = 1,
+                    fontSize = 15.sp,
                     overflow = TextOverflow.Ellipsis,
-                    color = theme.surface.contra.color
+                    color = colors.surfaceContra
                 )
 
                 Box(
@@ -87,7 +93,7 @@ fun ListItem(
                         lineHeight = 1.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        color = theme.surface.contra.color
+                        color = colors.surfaceContra
                     )
                 }
             }
@@ -100,17 +106,17 @@ fun ListItem(
                     text = "${user.rolesCount} ${labels.role}",
                     lineHeight = 1.sp,
                     maxLines = 1,
-                    fontSize = 11.sp,
+                    fontSize = 13.sp,
                     overflow = TextOverflow.Ellipsis,
-                    color = theme.surface.contra.color.copy(.4f)
+                    color = colors.surfaceContra.copy(.4f)
                 )
                 Text(
                     text = "${user.permissionsCount} ${labels.permission}",
                     lineHeight = 1.sp,
                     maxLines = 1,
-                    fontSize = 11.sp,
+                    fontSize = 13.sp,
                     overflow = TextOverflow.Ellipsis,
-                    color = theme.surface.contra.color.copy(.4f)
+                    color = colors.surfaceContra.copy(.4f)
                 )
             }
         }

@@ -14,18 +14,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ThemeColor
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+
+data class NameCellColors(
+    val surfaceContra: Color,
+    val dominantActual: Color
+)
 
 @Composable
 internal fun NameCell(
     fullName: String,
     resource: DrawableResource?,
-    theme: ThemeColor,
+    colors: NameCellColors,
     modifier: Modifier = Modifier
 ) = Row(
     modifier = modifier,
@@ -40,20 +45,21 @@ internal fun NameCell(
     else Box(
         modifier = Modifier
             .size(32.dp)
-            .background(color = theme.dominant.actual.color, shape = CircleShape)
+            .background(color = colors.dominantActual, shape = CircleShape)
             .padding(10.dp)
     ) {
         Text(
             text = fullName,
-            color = theme.surface.contra.color,
-            fontSize = 16.sp
+            color = colors.surfaceContra,
+            fontSize = 15.sp
         )
     }
     Text(
         text = fullName,
         lineHeight = 1.sp,
+        fontSize = 15.sp,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        color = theme.surface.contra.color
+        color = colors.surfaceContra
     )
 }
