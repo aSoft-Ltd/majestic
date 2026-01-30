@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.sp
 import majestic.ColorPair
 import majestic.SelectColors
 import majestic.ThemeColor
+import majestic.shared.users.label.table.FilterLabels
 import majestic.tooling.onClick
-import majestic.users.table.header.tools.FiltersLabels
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
@@ -54,7 +54,7 @@ fun RowScope.inputModifier(theme: ThemeColor) = Modifier
 internal fun FilterRange(
     from: String,
     to: String,
-    labels: FiltersLabels,
+    labels: FilterLabels,
     colors: FilterRangeColors,
     caretDown: DrawableResource,
     hint: String = "Range",

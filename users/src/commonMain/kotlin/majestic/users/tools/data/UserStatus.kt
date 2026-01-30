@@ -1,13 +1,7 @@
 package majestic.users.tools.data
 
 import androidx.compose.ui.graphics.Color
-
-data class UsersStatusLabels(
-    val invited: String,
-    val active: String,
-    val declined: String,
-    val revoked: String
-)
+import majestic.shared.users.label.table.StatusLabels
 
 enum class UserStatus {
     Invited,
@@ -15,7 +9,7 @@ enum class UserStatus {
     Declined,
     Revoked;
 
-    fun getLabels(labels: UsersStatusLabels) = when (this) {
+    fun getLabels(labels: StatusLabels) = when (this) {
         Invited -> labels.invited
         Active -> labels.active
         Declined -> labels.declined
