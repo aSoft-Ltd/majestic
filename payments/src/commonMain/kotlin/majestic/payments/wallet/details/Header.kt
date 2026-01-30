@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.payments.labels.MenuLabels
+import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.header.DetailHeader
 import majestic.payments.tools.header.DetailHeaderColors
 import majestic.payments.tools.header.InfoEntryItem
@@ -24,7 +24,7 @@ import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid
 @Composable
 fun Header(
     title: String,
-    labels: MenuLabels,
+    labels: WalletLabels,
     colors: DetailHeaderColors,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
@@ -34,8 +34,8 @@ fun Header(
             title = title,
             colors = colors,
             orientation = Landscape,
-            options = WalletDetailMenuAction.getMenus(labels),
-            details = InfoEntryItem.wallet(),
+            options = WalletDetailMenuAction.getMenus(labels.menu),
+            details = InfoEntryItem.wallet(labels.infoEntry),
             modifier = modifier,
         ) {
             Icon(

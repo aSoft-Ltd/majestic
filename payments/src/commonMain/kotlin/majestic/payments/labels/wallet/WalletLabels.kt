@@ -10,5 +10,6 @@ data class WalletLabels(
     val menu: MenuLabels,
     val table: TableLabels,
     val form: NewWalletLabels,
-    val detail: DetailTabLabels
+    val detail: DetailTabLabels,
+    val infoEntry: InfoEntryLabels
 )
