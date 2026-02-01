@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.shared.users.label.table.StatusLabels
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 import org.jetbrains.compose.resources.painterResource
 
 data class ListLabels(
@@ -54,7 +54,7 @@ fun ListItem(
     ) {
         if (user.userAvatar != null) Image(
             modifier = Modifier.size(40.dp).clip(RoundedCornerShape(5.dp)),
-            painter = painterResource(user.userAvatar),
+            painter = painterResource(user.userAvatar!!),
             contentDescription = null,
         )
         else Box(

@@ -1,39 +1,25 @@
 package majestic.users.profile.header
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.shared.users.profile.tools.types.DetailedHeaderColors
 import majestic.shared.users.label.profile.ProfileLabels
 import majestic.tooling.onClick
 import majestic.users.profile.Head
-import majestic.users.profile.HeadColors
 import majestic.users.profile.header.tools.HeadData
 import majestic.users.profile.header.tools.toProfileData
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
-
-data class DetailedHeaderColors(
-    val icon: Color,
-    val head: HeadColors
-)
 
 @Composable
 fun DetailHeader(

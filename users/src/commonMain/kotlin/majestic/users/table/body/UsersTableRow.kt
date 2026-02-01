@@ -31,7 +31,7 @@ import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
 import majestic.users.table.header.NameCell
 import majestic.users.table.header.NameCellColors
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column

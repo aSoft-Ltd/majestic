@@ -21,7 +21,7 @@ import majestic.shared.users.HeaderInnerColors
 import majestic.shared.users.label.table.ColumnLabels
 import majestic.shared.users.label.table.StatusLabels
 import majestic.tooling.onClick
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import org.jetbrains.compose.resources.DrawableResource
 import symphony.Table

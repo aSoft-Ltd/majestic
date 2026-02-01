@@ -3,21 +3,13 @@ package majestic.users.profile
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,18 +17,12 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.shared.users.profile.tools.types.HeadColors
 import majestic.users.profile.header.tools.Body
-import majestic.users.profile.header.tools.FlowItemColors
 import majestic.users.profile.header.tools.HeadData
 import majestic.users.profile.header.tools.toHeadContentColors
 import org.jetbrains.compose.resources.painterResource
 
-data class HeadColors(
-    val content: Color,
-    val background: Color,
-    val title: Color,
-    val flow: FlowItemColors
-)
 
 @Composable
 fun Head(
