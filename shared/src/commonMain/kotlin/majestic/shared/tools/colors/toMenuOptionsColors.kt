@@ -56,7 +56,7 @@ fun ThemeColor.toMenuOptionColors() = MenuItemColors(
     )
 )
 
-internal fun ThemeColor.toMenuOptionColors(orientation: ScreenOrientation) = MenuOptionColors(
+fun ThemeColor.toMenuOptionColors(orientation: ScreenOrientation) = MenuOptionColors(
     icon = toIconColors(orientation),
     dropDown = toPopMainColors().background,
     item = toMenuOptionColors(),
