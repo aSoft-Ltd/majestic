@@ -13,20 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.Checkbox
-import majestic.CheckboxColors
+import majestic.payments.wallet.tools.PaymentCardColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-
-data class PaymentCardColors(
-    val background: Color,
-    val foreground: Color,
-    val checkbox: CheckboxColors
-)
 
 @Composable
 internal fun PaymentCard(
