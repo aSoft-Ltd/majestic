@@ -5,7 +5,7 @@ import majestic.ThemeColor
 import majestic.shared.tools.colors.toBackground
 import majestic.shared.users.dashboard.UserRoleColors
 
-internal fun ThemeColor.toUserRoleColors(
+fun ThemeColor.toUserRoleColors(
     orientation: ScreenOrientation
 ) = UserRoleColors(
     background = toBackground,

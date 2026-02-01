@@ -5,21 +5,16 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.ToggleSwitch
-import majestic.ToggleSwitchColors
 import majestic.icons.Res
 import majestic.icons.ic_access
 import majestic.shared.users.label.profile.security.SecurityLabels
+import majestic.shared.users.profile.TwoFactorColors
 
 
 @Composable

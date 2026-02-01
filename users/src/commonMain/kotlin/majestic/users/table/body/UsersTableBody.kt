@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
@@ -18,16 +17,15 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.Cell
 import majestic.shared.users.label.table.InnerTableBodyLabels
 import majestic.shared.users.label.table.StatusLabels
+import majestic.shared.users.table.UserTableBodyColors
+import majestic.shared.users.tools.UsersData
 import majestic.tooling.onClick
 import majestic.users.table.ListItem
-import majestic.users.table.ListItemColors
 import majestic.users.table.ListLabels
 import majestic.users.table.LocalUsersRowInteractionSource
-import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
-
 
 
 data class UsersTableBodyProperties(
