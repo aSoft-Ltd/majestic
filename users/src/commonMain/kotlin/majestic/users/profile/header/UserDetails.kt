@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.users.profile.tools.types.UserDetailColors
+import majestic.shared.users.profile.UserDetailColors
 import majestic.shared.users.label.profile.ProfileLabels
 import majestic.shared.users.tools.UsersData
 import org.jetbrains.compose.resources.DrawableResource

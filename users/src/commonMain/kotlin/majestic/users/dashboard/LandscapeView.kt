@@ -14,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import composex.screen.orientation.ScreenOrientation
@@ -26,10 +25,11 @@ import majestic.icons.ic_laptop_phone
 import majestic.icons.tz_flag
 import majestic.shared.menu.MenuOption
 import majestic.shared.users.UsersLabels
-import majestic.users.dashboard.roles.HeaderColors
+import majestic.shared.users.dashboard.UserRoleColors
+import majestic.shared.users.tools.HeaderIcons
+import majestic.shared.users.tools.UsersData
 import majestic.users.dashboard.roles.HeaderProps
 import majestic.users.dashboard.roles.Labels
-import majestic.users.dashboard.roles.RoleCardColors
 import majestic.users.dashboard.roles.UserBodyProps
 import majestic.users.dashboard.roles.UserRoleBodyLabels
 import majestic.users.dashboard.roles.UsersRoles
@@ -43,8 +43,6 @@ import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
 import majestic.users.table.tools.data.permissions
 import majestic.users.table.tools.data.roles
-import majestic.shared.users.tools.HeaderIcons
-import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.getDashboardWeights
 import nation.Country
 import symphony.columnsOf
@@ -55,12 +53,6 @@ data class TableViewProps(
     val table: UserTableProps,
     val roles: UserRoleColors,
     val tabs: PortraitHeaderColors
-)
-
-data class UserRoleColors(
-    val background: Color,
-    val header: HeaderColors,
-    val roleCard: RoleCardColors
 )
 
 @Composable

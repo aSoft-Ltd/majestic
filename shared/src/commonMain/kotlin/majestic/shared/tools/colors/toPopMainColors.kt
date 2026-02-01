@@ -16,7 +16,20 @@ private val ThemeColor.backgroundColor: Color
         return dominant.actual.color.copy(alpha = alpha).compositeOver(surface.actual.color)
     }
 
-internal fun ThemeColor.toPopMainColors() = ColorPair(
+fun ThemeColor.toPopMainColors() = ColorPair(
     background = backgroundColor,
     foreground = surface.contra.color
 )
+
+fun ThemeColor.toPopCompColors(): ColorPair {
+    val baseComposite = dominant.actual.color.copy(alpha = 0.05f)
+        .compositeOver(surface.actual.color)
+
+    val overlayColor = surface.contra.color
+    val finalBackground = applyOverlayBlend(baseComposite, overlayColor)
+
+    return ColorPair(
+        background = finalBackground,
+        foreground = surface.contra.color
+    )
+}

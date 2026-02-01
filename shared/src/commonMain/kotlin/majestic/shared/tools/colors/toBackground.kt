@@ -6,7 +6,7 @@ import majestic.Dark
 import majestic.Light
 import majestic.ThemeColor
 
-internal val ThemeColor.toBackground: Color
+val ThemeColor.toBackground: Color
     get() {
         val alpha = when (this) {
             is Light -> 0.2f
@@ -14,5 +14,3 @@ internal val ThemeColor.toBackground: Color
         }
         return dominant.actual.color.copy(alpha = alpha).compositeOver(surface.actual.color)
     }
-
-

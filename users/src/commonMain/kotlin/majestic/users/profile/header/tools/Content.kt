@@ -21,8 +21,8 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import majestic.shared.users.profile.tools.types.FlowItemColors
-import majestic.shared.users.profile.tools.types.HeadColors
+import majestic.shared.users.profile.FlowItemColors
+import majestic.shared.users.profile.HeadColors
 import org.jetbrains.compose.resources.painterResource
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime

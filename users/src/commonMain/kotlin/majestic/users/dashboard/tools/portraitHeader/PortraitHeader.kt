@@ -14,26 +14,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import majestic.buttons.ActionButton
-import majestic.buttons.ButtonColors
 import majestic.icons.Res
 import majestic.icons.ic_add
+import majestic.shared.users.dashboard.PortraitHeaderColors
 import majestic.shared.users.label.dashboard.DashboardLabels
 import majestic.tooling.onClick
 import majestic.users.dashboard.tools.ActiveView
 import majestic.users.dashboard.tools.View
 import org.jetbrains.compose.resources.vectorResource
 
-data class PortraitHeaderColors(
-    val background: Color,
-    val manage: ButtonColors,
-    val add: Color,
-    val tint: Color,
-    val title: Color,
-    val tab: TabItemColors
-)
 
 @Composable
 internal fun PortraitHeader(

@@ -20,25 +20,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.buttons.ActionButton
-import majestic.buttons.ButtonColors
-import majestic.tooling.onClick
-import org.jetbrains.compose.resources.vectorResource
 import majestic.icons.Res
 import majestic.icons.ic_add
+import majestic.shared.users.dashboard.HeaderColors
+import majestic.tooling.onClick
+import org.jetbrains.compose.resources.vectorResource
 
-data class HeaderColors(
-    val background: Color,
-    val separator: Color? = null,
-    val manage: ButtonColors,
-    val add: Color,
-    val tint: Color,
-    val title: Color
-)
 
 data class Labels(
     val title: String,

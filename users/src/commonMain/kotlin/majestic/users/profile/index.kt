@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.users.profile.tools.types.HeadColors
+import majestic.shared.users.profile.HeadColors
 import majestic.users.profile.header.tools.Body
 import majestic.users.profile.header.tools.HeadData
 import majestic.users.profile.header.tools.toHeadContentColors

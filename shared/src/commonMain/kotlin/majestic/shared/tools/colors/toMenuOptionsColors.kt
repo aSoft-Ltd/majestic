@@ -1,9 +1,12 @@
 package majestic.shared.tools.colors
 
 import androidx.compose.ui.graphics.Color
+import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.ThemeColor
 import majestic.navigation.MenuItemColors
+import majestic.shared.menu.MenuOptionColors
+
 
 fun ThemeColor.toInActive(isRed: Boolean) = ColorPair(
     background = Color.Transparent,
@@ -38,7 +41,6 @@ fun ThemeColor.toMenuOptionColors(isRed: Boolean = false) = MenuItemColors(
     hovered = toHover(isRed)
 )
 
-
 fun ThemeColor.toMenuOptionColors() = MenuItemColors(
     inactive = ColorPair(
         background = Color.Transparent,
@@ -52,4 +54,11 @@ fun ThemeColor.toMenuOptionColors() = MenuItemColors(
         background = toPopCompColors().background,
         foreground = toPopCompColors().foreground.copy(alpha = 0.8f)
     )
+)
+
+internal fun ThemeColor.toMenuOptionColors(orientation: ScreenOrientation) = MenuOptionColors(
+    icon = toIconColors(orientation),
+    dropDown = toPopMainColors().background,
+    item = toMenuOptionColors(),
+    lastItem = toMenuOptionColors(true)
 )

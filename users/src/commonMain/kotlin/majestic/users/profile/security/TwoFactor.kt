@@ -21,10 +21,6 @@ import majestic.icons.Res
 import majestic.icons.ic_access
 import majestic.shared.users.label.profile.security.SecurityLabels
 
-data class TwoFactorColors(
-    val theme: ThemeColor,
-    val toggle: ToggleSwitchColors
-)
 
 @Composable
 internal fun ColumnScope.TwoFactor(

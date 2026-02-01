@@ -10,7 +10,7 @@ import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.users.profile.tools.types.DetailedHeaderColors
+import majestic.shared.users.profile.DetailedHeaderColors
 import majestic.shared.users.label.profile.ProfileLabels
 import majestic.tooling.onClick
 import majestic.users.profile.Head

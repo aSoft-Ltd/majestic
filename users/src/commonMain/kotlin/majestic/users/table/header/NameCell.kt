@@ -21,10 +21,6 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
-data class NameCellColors(
-    val surfaceContra: Color,
-    val dominantActual: Color
-)
 
 @Composable
 internal fun NameCell(

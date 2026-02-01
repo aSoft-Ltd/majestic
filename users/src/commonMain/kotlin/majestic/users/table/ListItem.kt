@@ -16,11 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.shared.users.label.table.StatusLabels
+import majestic.shared.users.table.ListItemColors
 import majestic.shared.users.tools.UsersData
 import org.jetbrains.compose.resources.painterResource
 
@@ -30,10 +30,6 @@ data class ListLabels(
     val status: StatusLabels
 )
 
-data class ListItemColors(
-    val surfaceContra: Color,
-    val dominantActual: Color
-)
 
 @Composable
 fun ListItem(

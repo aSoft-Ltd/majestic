@@ -28,13 +28,6 @@ import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column
 
-data class UserTableBodyColors(
-    val separator: Color,
-    val hovered: Color,
-    val background: Color,
-    val row: UsersTableRowColors,
-    val listItem: ListItemColors
-)
 
 
 data class UsersTableBodyProperties(

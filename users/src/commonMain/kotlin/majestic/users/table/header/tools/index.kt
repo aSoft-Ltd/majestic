@@ -27,15 +27,9 @@ import org.jetbrains.compose.resources.DrawableResource
 import symphony.Table
 import symphony.columns.Column
 
-data class HeaderColors(
-    val mainColor: Color,
-    val separator: Color,
-    val checkboxColors: CheckboxColors,
-    val innerColors: HeaderInnerColors
-)
 
 data class HeaderProperties(
-    val colors: HeaderColors,
+    val colors: UserTableHeaderColors,
     val showFilters: Boolean,
     val labels: ColumnLabels,
     val filterStatus: StatusLabels,
