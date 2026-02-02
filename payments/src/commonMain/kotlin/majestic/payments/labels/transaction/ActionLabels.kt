@@ -1,6 +1,6 @@
 package majestic.payments.labels.transaction
 
-data class ActionLabels(
+class ActionLabels(
     val process: String,
     val review: String,
     val export: String,

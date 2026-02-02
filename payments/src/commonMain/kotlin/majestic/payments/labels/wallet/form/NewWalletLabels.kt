@@ -3,7 +3,7 @@ package majestic.payments.labels.wallet.form
 import majestic.payments.labels.SectionLabels
 import majestic.payments.labels.TextInputLabels
 
-data class NewWalletLabels(
+class NewWalletLabels(
     val header: SectionLabels,
     val nameInput: TextInputLabels,
     val branchInput: TextInputLabels,

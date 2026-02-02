@@ -1,5 +1,5 @@
 package majestic.payments.labels
 
-data class DashboardHeaderLabels(
+class DashboardHeaderLabels(
     val section: SectionLabels
 )
