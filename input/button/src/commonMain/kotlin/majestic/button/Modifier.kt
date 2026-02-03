@@ -25,6 +25,7 @@ fun Modifier.button(
     source: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = RoundedCornerShape(8.dp),
     disabled: Boolean = false,
+    onClick: () -> Unit = { },
 ): Modifier {
     val element = remember(colors, outline, shape, disabled, source) {
         ButtonElement(colors, outline, disabled, source)
@@ -34,7 +35,7 @@ fun Modifier.button(
 
     return then(element)
         .hoverable(element.source)
-        .clickable(interactionSource = element.source, indication = null, enabled = !element.disabled, onClickLabel = null, role = null, onClick = { })
+        .clickable(interactionSource = element.source, indication = null, enabled = !element.disabled, onClickLabel = null, role = null, onClick = onClick)
         .background(color = element.colors.toResolved(hovered, pressed, disabled).background, shape = shape)
         .stroke(outline?.toResolved(hovered, pressed, disabled), shape)
 }
