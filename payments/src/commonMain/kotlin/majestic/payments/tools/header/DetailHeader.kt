@@ -25,7 +25,8 @@ data class DetailHeaderColors(
     val foreground: Color,
     val icon: ColorPair,
     val info: InfoEntryColors,
-    val menu: MenuOptionColors
+    val menu: MenuOptionColors,
+    val tooltip: ColorPair,
 )
 
 @Composable
