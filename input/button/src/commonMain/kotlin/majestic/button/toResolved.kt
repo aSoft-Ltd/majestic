@@ -1,6 +1,6 @@
 package majestic.button
 
-fun <T> ButtonState<T>.toResolved(
+fun <T> ButtonParams<T>.toResolved(
     hovered: Boolean,
     pressed: Boolean,
     disabled: Boolean,

@@ -20,8 +20,8 @@ import majestic.button.internal.ButtonElement
 
 @Composable
 fun Modifier.button(
-    colors: ButtonState<ColorPair> = ButtonElement.colors,
-    outline: ButtonState<Stroke?>? = null,
+    colors: ButtonParams<ColorPair> = ButtonElement.colors,
+    outline: ButtonParams<Stroke?>? = null,
     source: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = RoundedCornerShape(8.dp),
     disabled: Boolean = false,

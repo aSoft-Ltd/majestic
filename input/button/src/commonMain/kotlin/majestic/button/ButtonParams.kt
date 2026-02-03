@@ -1,6 +1,6 @@
 package majestic.button
 
-data class ButtonState<out S>(
+data class ButtonParams<out S>(
     val default: S,
     val hovered: S = default,
     val pressed: S = hovered,
