@@ -14,6 +14,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.TextField
 import majestic.payments.labels.wallet.form.NewWalletLabels
 import majestic.payments.tools.form.PaymentFormColors
+import majestic.payments.wallet.tools.PaymentMethod
 
 @Composable
 internal fun WalletInputs(
