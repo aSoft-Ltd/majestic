@@ -1,9 +1,8 @@
-package majestic.shared.tools.colors
+package majestic.shared.users.profile
 
 import androidx.compose.ui.graphics.Color
 import majestic.ThemeColor
 import majestic.dialogs.DialogColors
-import majestic.shared.users.profile.PasswordFormColors
 
 data class ChangePasswordColors(
     val background: Color,
