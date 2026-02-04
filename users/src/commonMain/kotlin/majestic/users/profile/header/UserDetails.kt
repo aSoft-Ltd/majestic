@@ -1,7 +1,13 @@
 package majestic.users.profile.header
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.users.profile.UserDetailColors
 import majestic.shared.users.label.profile.ProfileLabels
+import majestic.shared.users.profile.UserDetailColors
 import majestic.shared.users.tools.UsersData
 import org.jetbrains.compose.resources.DrawableResource
 

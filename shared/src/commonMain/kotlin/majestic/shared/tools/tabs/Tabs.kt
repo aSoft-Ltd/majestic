@@ -7,13 +7,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import captain.Navigator
-import majestic.ThemeColor
 
 @Composable
 fun Tabs(
     current: String,
     pages: List<TabItem>,
-    theme: ThemeColor,
+    colors: TabItemColors,
     navigator: Navigator,
     modifier: Modifier = Modifier
 ) = Row(
@@ -23,7 +22,7 @@ fun Tabs(
 ) {
     for (page in pages) Item(
         label = page.label,
-        theme = theme,
+        colors = colors,
         selected = page.isSelected(current),
         onClick = { navigator.navigate(page.path) }
     )

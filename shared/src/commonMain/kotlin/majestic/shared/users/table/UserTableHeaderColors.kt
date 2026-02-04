@@ -5,8 +5,8 @@ import majestic.CheckboxColors
 import majestic.shared.users.HeaderInnerColors
 
 data class UserTableHeaderColors(
-    val mainColor: Color,
+    val main: Color,
     val separator: Color,
-    val checkboxColors: CheckboxColors,
-    val innerColors: HeaderInnerColors
+    val checkbox: CheckboxColors,
+    val inner: HeaderInnerColors
 )

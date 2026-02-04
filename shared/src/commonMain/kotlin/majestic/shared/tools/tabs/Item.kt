@@ -13,15 +13,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
-import majestic.ThemeColor
 import majestic.tooling.onClick
+
+data class TextColors(
+    val selected: Color,
+    val isHovered: Color,
+    val unselected: Color
+)
+
+data class TabItemColors(
+    val text: TextColors,
+    val underline: ColorPair
+)
 
 @Composable
 internal fun Item(
-    theme: ThemeColor,
+    colors: TabItemColors,
     label: String,
     onClick: () -> Unit,
     selected: Boolean = false,
@@ -29,9 +40,9 @@ internal fun Item(
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
     val textColor = when {
-        selected -> theme.surface.contra.color
-        isHovered -> theme.surface.contra.color
-        else -> theme.surface.contra.color.copy(.5f)
+        selected -> colors.text.selected
+        isHovered -> colors.text.isHovered
+        else -> colors.text.unselected
     }
 
     Box(
@@ -41,12 +52,11 @@ internal fun Item(
             .then(
                 if (selected || isHovered) Modifier.drawBehind {
                     val strokeWidth = 3.dp.toPx()
-                    val color = ColorPair(
-                        background = theme.dominant.actual.color,
-                        foreground = theme.dominant.actual.color
-                    )
                     drawLine(
-                        color = if (selected) color.background else color.foreground.copy(0.2f),
+                        color = when (selected) {
+                            true -> colors.underline.background
+                            false -> colors.underline.foreground.copy(0.2f)
+                        },
                         start = Offset(0f, size.height - strokeWidth / 2),
                         end = Offset(size.width, size.height - strokeWidth / 2),
                         strokeWidth = strokeWidth
