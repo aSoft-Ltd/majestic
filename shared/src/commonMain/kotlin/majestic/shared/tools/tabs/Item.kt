@@ -33,7 +33,7 @@ internal fun Modifier.item(selected: Boolean, isHovered: Boolean, colors: TabIte
 
 data class TextColors(
     val selected: Color,
-    val isHovered: Color,
+    val hovered: Color,
     val unselected: Color
 )
 
