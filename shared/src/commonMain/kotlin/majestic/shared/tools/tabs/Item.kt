@@ -52,7 +52,7 @@ internal fun Item(
 ) {
     val textColor = when {
         selected -> colors.text.selected
-        isHovered -> colors.text.isHovered
+        isHovered -> colors.text.hovered
         else -> colors.text.unselected
     }
 
