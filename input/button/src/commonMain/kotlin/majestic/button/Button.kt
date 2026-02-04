@@ -15,8 +15,8 @@ import majestic.button.internal.ButtonElement
 
 @Composable
 fun Button(
+    modifier: Modifier = Modifier.button(),
     label: @Composable ColorPair.() -> Unit,
-    modifier: Modifier = Modifier.button()
 ) {
     val el = modifier.registered() ?: ButtonElement(
         colors = ButtonElement.colors,
