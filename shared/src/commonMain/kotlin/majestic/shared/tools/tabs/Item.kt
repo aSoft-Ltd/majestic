@@ -21,7 +21,7 @@ import majestic.tooling.onClick
 
 data class TextColors(
     val selected: Color,
-    val isHovered: Color,
+    val hovered: Color,
     val unselected: Color
 )
 
