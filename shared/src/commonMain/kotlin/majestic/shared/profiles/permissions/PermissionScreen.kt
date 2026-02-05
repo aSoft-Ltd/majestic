@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import majestic.shared.profiles.Permissions
+import majestic.shared.profiles.Permission
 
 internal sealed interface PermissionScreenState
 internal object Main : PermissionScreenState
@@ -13,7 +13,7 @@ internal object Detailed : PermissionScreenState
 
 internal class PermissionScreen() {
     var view by mutableStateOf<PermissionScreenState>(Main)
-    var activeObj by mutableStateOf<Permissions?>(null)
+    var activeObj by mutableStateOf<Permission?>(null)
     fun main() {
         view = Main
     }
@@ -26,7 +26,7 @@ internal class PermissionScreen() {
         activeObj = null
     }
 
-    fun set(obj: Permissions) {
+    fun set(obj: Permission) {
         activeObj = obj
     }
 }

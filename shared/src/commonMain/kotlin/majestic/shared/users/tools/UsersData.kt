@@ -1,7 +1,7 @@
 package majestic.shared.users.tools
 
+import majestic.shared.profiles.Action
 import majestic.shared.profiles.Permission
-import majestic.shared.profiles.Permissions
 import majestic.shared.users.data.Role
 import org.jetbrains.compose.resources.DrawableResource
 
@@ -50,21 +50,21 @@ data class UsersData(
     val flag: DrawableResource,
     val rolesCount: Int,
     val permissionsCount: Int,
-    val permissions: List<Permission>,
+    val permissions: List<Action>,
     val roles: List<Role>,
     val status: UserStatus,
 ) {
     companion object {
         fun getUserData(
             avatars: List<DrawableResource?>,
-            permissionList: List<Permissions>,
+            permissionList: List<Permission>,
             roles: List<Role>,
             headerIcons: HeaderIcons
         ): UsersData {
             val (fullName, email, gender) = generateRandomUserWithGender()
 
             val randomPermissions =
-                permissionList.flatMap { it.permissions }.shuffled().take((5..15).random())
+                permissionList.flatMap { it.actions }.shuffled().take((5..15).random())
             val randomRoles = roles.shuffled().take((1..roles.size).random())
 
             return UsersData(

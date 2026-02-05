@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.profiles.Permission
+import majestic.shared.profiles.Action
 import majestic.shared.profiles.permissions.PermissionScreen
 import majestic.shared.users.label.contacts.PermissionLabels
 import org.jetbrains.compose.resources.DrawableResource
@@ -38,7 +38,7 @@ internal fun Modifier.header(
 internal data class DetailedProperties(
     val trailingIcon: DrawableResource,
     val trailingTitle: String,
-    val permissions: List<Permission>
+    val permissions: List<Action>
 )
 
 data class DetailColors(

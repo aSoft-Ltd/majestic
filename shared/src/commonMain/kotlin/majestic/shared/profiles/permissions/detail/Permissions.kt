@@ -25,7 +25,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
 import majestic.icons.Res
 import majestic.icons.ic_arrow_right
-import majestic.shared.profiles.Permissions
+import majestic.shared.profiles.Permission
 import majestic.shared.profiles.permissions.Permission
 import majestic.shared.profiles.permissions.PermissionColors
 import majestic.shared.profiles.permissions.PermissionData
@@ -34,11 +34,11 @@ import majestic.tooling.onClick
 
 internal fun Modifier.permissionItem(
     hovered: Boolean,
-    permissions: List<Permissions>,
+    permissions: List<Permission>,
     background: Color,
     index: Int,
     current: PermissionScreen,
-    item: Permissions,
+    item: Permission,
     interaction: MutableInteractionSource,
     orientation: ScreenOrientation
 ) = this
@@ -76,7 +76,7 @@ data class PermissionsColors(
 @Composable
 internal fun Permissions(
     modifier: Modifier,
-    permissions: List<Permissions>,
+    permissions: List<Permission>,
     current: PermissionScreen,
     colors: PermissionsColors,
     orientation: ScreenOrientation

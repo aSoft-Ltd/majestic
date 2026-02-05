@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.profiles.Permissions
+import majestic.shared.profiles.Permission
 import majestic.shared.profiles.permissions.detail.DetailColors
 import majestic.shared.profiles.permissions.detail.Details
 import majestic.shared.profiles.permissions.detail.Permissions
@@ -50,7 +50,7 @@ data class GeneralPermissionColors(
 @Composable
 fun GeneralPermissions(
     orientation: ScreenOrientation,
-    permissions: List<Permissions>,
+    permissions: List<Permission>,
     colors: GeneralPermissionColors,
     labels: PermissionLabels,
     modifier: Modifier = Modifier
