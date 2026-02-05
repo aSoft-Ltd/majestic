@@ -1,4 +1,4 @@
-package majestic.choiceSelect.tools
+package majestic.shared.tools.choiceSelect.tools
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun SelectedRow(
+internal fun SelectTrigger(
     fg: Color,
     arrowTint: Color,
     selected: List<String>,

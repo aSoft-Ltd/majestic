@@ -1,4 +1,4 @@
-package majestic.choiceSelect
+package majestic.shared.tools.choiceSelect
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -20,17 +20,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import majestic.ChoiceColors
+import majestic.ColorPair
 import majestic.SmartSelect
-import majestic.choiceSelect.tools.ItemRow
-import majestic.choiceSelect.tools.SelectedRow
+import majestic.shared.tools.choiceSelect.tools.SelectOption
+import majestic.shared.tools.choiceSelect.tools.SelectTrigger
 import majestic.icons.Res
 import majestic.icons.ic_arrow_down_01_solid
 import org.jetbrains.compose.resources.DrawableResource
 
 data class ChoiceFilterColors(
-    val default: majestic.ColorPair,
-    val choice: majestic.ChoiceColors,
-    val popup: majestic.ColorPair
+    val default: ColorPair,
+    val choice: ChoiceColors,
+    val popup: ColorPair
 )
 
 @Composable
@@ -60,7 +62,7 @@ fun ChoiceSelect(
         modifier = modifier,
         items = items,
         item = { item ->
-            ItemRow(
+            SelectOption(
                 colors = colors,
                 name = item,
                 icon = icon,
@@ -69,7 +71,7 @@ fun ChoiceSelect(
             )
         },
         selected = {
-            SelectedRow(
+            SelectTrigger(
                 fg = fg,
                 arrowTint = colors.default.foreground.copy(0.5f),
                 selected = selected,
@@ -87,7 +89,7 @@ fun ChoiceSelect(
             )
         },
         placeholder = {
-            SelectedRow(
+            SelectTrigger(
                 fg = fg,
                 arrowTint = colors.default.foreground.copy(0.5f),
                 selected = selected,

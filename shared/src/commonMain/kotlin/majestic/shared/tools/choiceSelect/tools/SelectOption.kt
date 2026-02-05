@@ -1,4 +1,4 @@
-package majestic.choiceSelect.tools
+package majestic.shared.tools.choiceSelect.tools
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -12,12 +12,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.IconCheckCircle
 import majestic.IconCheckColors
-import majestic.choiceSelect.ChoiceFilterColors
+import majestic.shared.tools.choiceSelect.ChoiceFilterColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun ItemRow(
+internal fun SelectOption(
     colors: ChoiceFilterColors,
     name: String,
     icon: DrawableResource,
