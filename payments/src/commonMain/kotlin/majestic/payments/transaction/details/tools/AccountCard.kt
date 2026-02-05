@@ -12,11 +12,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.payments.tools.AccountProvider
+import majestic.payments.labels.transaction.TransactionLabels
+import majestic.payments.tools.account.AccountProvider
 import majestic.payments.tools.separator
 
 @Composable
 internal fun AccountCard(
+    labels: TransactionLabels,
     title: String,
     name: String,
     number: String,
@@ -37,9 +39,9 @@ internal fun AccountCard(
         overflow = TextOverflow.Ellipsis,
         color = color.copy(0.7f)
     )
-    DetailRow(modifier = Modifier.fillMaxWidth(), label = "Account Name", description = name, color = color)
-    DetailRow(modifier = Modifier.fillMaxWidth(), label = "Account Number", description = number, color = color)
-    DetailRow(modifier = Modifier.fillMaxWidth(), label = "Bank", description = provider.name, image = provider.image, color = color)
+    DetailRow(modifier = Modifier.fillMaxWidth(), label = labels.accountName, description = name, color = color)
+    DetailRow(modifier = Modifier.fillMaxWidth(), label = labels.accountNo, description = number, color = color)
+    DetailRow(modifier = Modifier.fillMaxWidth(), label = labels.bank, description = provider.name, image = provider.image, color = color)
 }
 
 @Composable

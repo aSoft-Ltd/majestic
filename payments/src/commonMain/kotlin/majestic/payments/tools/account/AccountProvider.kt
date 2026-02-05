@@ -1,4 +1,4 @@
-package majestic.payments.tools
+package majestic.payments.tools.account
 
 import org.jetbrains.compose.resources.DrawableResource
 

@@ -31,13 +31,13 @@ import majestic.ColorPair
 import majestic.layouts.Flex
 import majestic.layouts.FlexCol
 import majestic.layouts.FlexRow
-import majestic.payments.tools.AccountProvider
+import majestic.payments.labels.transaction.TransactionLabels
+import majestic.payments.tools.account.AccountProvider
 import majestic.payments.tools.document.FileDetail
 import majestic.payments.transaction.details.tools.AccountCard
+import majestic.payments.transaction.details.tools.TransactionDetail
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.bank_cheque
-import tz.co.asoft.majestic_payments.generated.resources.crdb_logo
-import tz.co.asoft.majestic_payments.generated.resources.nmb_logo
 
 private fun Modifier.card(background: Color, orientation: ScreenOrientation) = this
     .clip(RoundedCornerShape(if (orientation is Landscape) 10.dp else 0.dp))
@@ -46,8 +46,10 @@ private fun Modifier.card(background: Color, orientation: ScreenOrientation) = t
 
 @Composable
 fun TransactionInfo(
+    labels: TransactionLabels,
     colors: ColorPair,
     orientation: ScreenOrientation,
+    detail: TransactionDetail,
     modifier: Modifier = Modifier
 ) = Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
     Flex(
@@ -64,13 +66,14 @@ fun TransactionInfo(
                         is Landscape -> Modifier.weight(1f)
                     }
                 ),
-            title = "Payer Info",
-            name = "Simoni Lissu Moshi",
-            number = "1234567890",
+            labels = labels,
+            title = labels.payerInfo,
+            name = detail.payer.name,
+            number = detail.payer.number,
             color = colors.foreground,
             provider = AccountProvider(
-                name = "CRDB",
-                image = Res.drawable.crdb_logo
+                name = detail.payer.bank.name,
+                image = detail.payer.bank.image
             )
         )
         AccountCard(
@@ -81,25 +84,26 @@ fun TransactionInfo(
                         is Landscape -> Modifier.weight(1f)
                     }
                 ),
-            title = "Recipient Info",
-            name = "Kilimo Kijani School",
-            number = "1234567890",
+            labels = labels,
+            title = labels.recipientInfo,
+            name = detail.recipient.name,
+            number = detail.recipient.number,
             color = colors.foreground,
             provider = AccountProvider(
-                name = "NMB",
-                image = Res.drawable.nmb_logo
+                name = detail.recipient.bank.name,
+                image = detail.recipient.bank.image
             )
         )
     }
     AccountCard(
         modifier = Modifier.fillMaxWidth().card(colors.background, orientation),
-        title = "Purpose",
-        description = "Package renewal for Kilimo Kijani School - Academic Year 2023/2024",
+        title = labels.purpose,
+        description = detail.purpose,
         color = colors.foreground
     )
     AccountCard(
         modifier = Modifier.fillMaxWidth().card(colors.background, orientation),
-        title = "Proof",
+        title = labels.proof,
         color = colors.foreground
     ) {
         val interactionSource = remember { MutableInteractionSource() }
@@ -127,7 +131,7 @@ fun TransactionInfo(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = "Amount",
+            text = labels.amount,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 1.sp,
@@ -136,7 +140,7 @@ fun TransactionInfo(
             color = colors.foreground.copy(0.7f)
         )
         Text(
-            text = "TZS 220,000.00/=",
+            text = "TZS ${detail.amount}/=",
             fontSize = if (orientation is Landscape) 24.sp else 18.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 1.sp,
