@@ -1,4 +1,4 @@
-package majestic.shared.tools.choiceSelect.tools
+package majestic.choiceSelect.tools
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween

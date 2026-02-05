@@ -1,4 +1,4 @@
-package majestic.shared.tools.choiceSelect
+package majestic.choiceSelect
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import majestic.ChoiceColors
 import majestic.ColorPair
 import majestic.SmartSelect
-import majestic.shared.tools.choiceSelect.tools.SelectOption
-import majestic.shared.tools.choiceSelect.tools.SelectTrigger
+import majestic.choiceSelect.tools.SelectOption
+import majestic.choiceSelect.tools.SelectTrigger
 import majestic.icons.Res
 import majestic.icons.ic_arrow_down_01_solid
 import org.jetbrains.compose.resources.DrawableResource
