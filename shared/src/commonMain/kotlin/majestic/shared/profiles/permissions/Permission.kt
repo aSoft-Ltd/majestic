@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.shared.profiles.Permissions
+import majestic.shared.profiles.Permission
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
 data class PermissionData(
-    val permission: Permissions,
+    val permission: Permission,
     val trailIcon: DrawableResource
 )
 

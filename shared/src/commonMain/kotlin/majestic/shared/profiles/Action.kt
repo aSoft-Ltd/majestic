@@ -2,7 +2,7 @@ package majestic.shared.profiles
 
 import org.jetbrains.compose.resources.DrawableResource
 
-data class Permission(
+data class Action(
     val resource: DrawableResource,
     val title: String,
     val description: String,
@@ -10,9 +10,9 @@ data class Permission(
     val active: Boolean = false
 )
 
-data class Permissions(
+data class Permission(
     val resource: DrawableResource,
     val title: String,
     val description: String,
-    val permissions: List<Permission>
+    val actions: List<Action>
 )

@@ -5,11 +5,11 @@ import majestic.icons.ic_edit_user
 import majestic.icons.ic_reminder
 import majestic.icons.ic_remove
 import majestic.icons.ic_student
-import majestic.shared.profiles.Permission
+import majestic.shared.profiles.Action
 
 val switch = "On" to "Off"
-fun commonPermissions(): List<Permission> = listOf(
-    Permission(
+fun commonPermissions(): List<Action> = listOf(
+    Action(
         resource = Res.drawable.ic_student,
         title = "Enroll Students",
         description = "Complete registration, verify details, and confirm enrollment. " +
@@ -17,7 +17,7 @@ fun commonPermissions(): List<Permission> = listOf(
         active = true,
         switch = switch
     ),
-    Permission(
+    Action(
         resource = Res.drawable.ic_reminder,
         title = "Send Reminders",
         description = "Send follow-ups, resend emails/SMS, admission confirmations, " +
@@ -25,7 +25,7 @@ fun commonPermissions(): List<Permission> = listOf(
         active = true,
         switch = switch
     ),
-    Permission(
+    Action(
         resource = Res.drawable.ic_remove,
         title = "Reject Applicants",
         description = "Reject unqualified applicants, revoke rejections, " +
@@ -33,7 +33,7 @@ fun commonPermissions(): List<Permission> = listOf(
         active = true,
         switch = switch
     ),
-    Permission(
+    Action(
         resource = Res.drawable.ic_edit_user,
         title = "Admit Applicants",
         description = "Admit students, re-admit, process pending applications, " +
