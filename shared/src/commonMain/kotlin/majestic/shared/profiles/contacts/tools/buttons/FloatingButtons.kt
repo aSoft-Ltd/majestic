@@ -7,14 +7,11 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Rect
@@ -87,7 +84,7 @@ internal fun FloatingButtons(
                 }
             )
         }
-        LandscapeButtons(
+        if (isOpen) LandscapeButtons(
             buttonBox, colors,
             onEmailButtonClick = onEmailButtonClick,
             onPhoneButtonClick = onPhoneButtonClick,
