@@ -1,6 +1,6 @@
 package majestic.payments.labels
 
-data class MenuLabels(
+class MenuLabels(
     val view: String,
     val edit: String,
     val close: String,
