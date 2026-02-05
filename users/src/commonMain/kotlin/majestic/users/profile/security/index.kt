@@ -4,19 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.ThemeColor
 import majestic.shared.users.label.profile.security.SecurityLabels
+import majestic.shared.users.profile.SecurityColors
 import majestic.users.tools.data.separator
 
-data class SecurityColors(
-    val background: Color,
-    val theme: ThemeColor,
-    val changePassword: ChangePasswordColors,
-    val twoFactor: TwoFactorColors,
-)
 
 private fun Modifier.security(lastItem: Boolean = false, theme: ThemeColor) = this
     .padding(top = 30.dp)

@@ -18,6 +18,7 @@ import majestic.icons.Res
 import majestic.icons.ic_info_circle
 import majestic.shared.menu.MenuOption
 import majestic.shared.menu.OptionMenu
+import majestic.shared.users.dashboard.RoleHeaderColors
 import org.jetbrains.compose.resources.vectorResource
 
 

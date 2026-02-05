@@ -11,24 +11,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
-import majestic.dialogs.DialogColors
 import majestic.dialogs.Modal
 import majestic.icons.Res
 import majestic.icons.ic_square_lock
 import majestic.shared.button.Button
 import majestic.shared.users.label.profile.security.SecurityLabels
+import majestic.shared.users.profile.ChangePasswordColors
 
-data class ChangePasswordColors(
-    val background: Color,
-    val theme: ThemeColor,
-    val passwordForm: PasswordFormColors,
-    val dialog: DialogColors
-)
 
 @Composable
 internal fun ColumnScope.ChangePassword(

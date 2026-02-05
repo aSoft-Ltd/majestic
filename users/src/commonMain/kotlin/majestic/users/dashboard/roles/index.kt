@@ -1,13 +1,7 @@
 package majestic.users.dashboard.roles
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
 import majestic.shared.menu.OptionMenu
+import majestic.shared.users.dashboard.RoleCardColors
 import majestic.users.dashboard.roles.tools.RoleAction
 import majestic.users.dashboard.roles.tools.UserRole
 import majestic.users.dashboard.roles.tools.stats
