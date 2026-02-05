@@ -54,10 +54,13 @@ kotlin {
             api(compose.materialIconsExtended)?.because("We need default icons")
             api(libs.symphony.table)?.because("We need a table manager of some sorts")
             api(libs.cinematic.live.compose)?.because("We need to watchAsState")
+            api(projects.majesticInputCore)
+            api(projects.majesticLayouts)
             api(projects.majesticTheme)
             api(projects.majesticScreen)
             api(projects.majesticInputText)
             api(projects.majesticInputChoice)
+            api(projects.majesticInputButton)
             api(projects.majesticGraphs)
             api(projects.majesticTable)
         }

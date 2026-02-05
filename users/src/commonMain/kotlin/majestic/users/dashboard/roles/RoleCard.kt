@@ -7,24 +7,20 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.menu.OptionMenu
+import majestic.shared.users.dashboard.RoleCardColors
 import majestic.users.dashboard.roles.tools.CardHeader
-import majestic.users.dashboard.roles.tools.CardStatColors
 import majestic.users.dashboard.roles.tools.Footer
 import majestic.users.dashboard.roles.tools.RoleAction
-import majestic.users.dashboard.roles.tools.RoleHeaderColors
 import majestic.users.dashboard.roles.tools.Stat
 
-internal data class RoleCardProps(val colors: RoleCardColors, val data: RoleCardData)
-data class RoleCardColors(
-    val head: RoleHeaderColors,
-    val body: Color,
-    val footer: CardStatColors
+internal data class RoleCardProps(
+    val colors: RoleCardColors,
+    val data: RoleCardData
 )
 
 internal data class RoleCardData(

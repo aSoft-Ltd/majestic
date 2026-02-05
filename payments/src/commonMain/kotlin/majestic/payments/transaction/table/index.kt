@@ -36,6 +36,7 @@ fun TransactionTable(
     labels: TransactionLabels,
     colors: TableColors,
     table: Table<PaymentTransaction>,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val columns = table.columns.current.watchAsState()
@@ -125,6 +126,7 @@ fun TransactionTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 avatar = cell.row.item.avatar,
                 title = cell.row.item.name,
@@ -138,6 +140,7 @@ fun TransactionTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 avatar = cell.row.item.account,
                 avatarShape = RoundedCornerShape(5.dp),
@@ -152,6 +155,7 @@ fun TransactionTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.purpose,
                 subtitle = cell.row.item.date,
@@ -164,6 +168,7 @@ fun TransactionTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.reference,
                 subtitle = cell.row.item.receipt,
@@ -176,6 +181,7 @@ fun TransactionTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.date,
                 subtitle = cell.row.item.time,
@@ -188,6 +194,7 @@ fun TransactionTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.date,
                 subtitle = cell.row.item.time,
@@ -200,6 +207,7 @@ fun TransactionTable(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 avatar = cell.row.item.account,
                 avatarShape = RoundedCornerShape(5.dp),

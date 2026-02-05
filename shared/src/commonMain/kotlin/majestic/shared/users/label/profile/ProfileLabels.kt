@@ -1,6 +1,6 @@
 package majestic.shared.users.label.profile
 
-import majestic.shared.users.UserActionLabels
+import majestic.shared.users.dashboard.UserActionLabels
 
 data class ProfileLabels(
     val tabs: TabLabels,

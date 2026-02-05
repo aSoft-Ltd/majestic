@@ -26,17 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
+import majestic.payments.wallet.tools.PaymentCardColors
+import majestic.payments.wallet.tools.PaymentMethod
 import majestic.tooling.onClick
-import org.jetbrains.compose.resources.DrawableResource
-
-data class PaymentMethod(
-    val name: String,
-    val account: String,
-    val type: String,
-    val image: DrawableResource,
-) {
-    companion object
-}
 
 @Composable
 internal fun PaymentMethods(

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import majestic.Cell
 import majestic.LazyTable
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.getSelectedRows
 import symphony.Table
 import symphony.columns.Column

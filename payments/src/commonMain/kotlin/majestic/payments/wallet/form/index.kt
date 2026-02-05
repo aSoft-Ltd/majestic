@@ -16,6 +16,7 @@ import majestic.payments.labels.wallet.form.NewWalletLabels
 import majestic.payments.tools.form.Footer
 import majestic.payments.tools.form.Header
 import majestic.payments.tools.form.PaymentFormColors
+import majestic.payments.wallet.tools.PaymentMethod
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid
 

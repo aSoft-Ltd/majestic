@@ -1,6 +1,6 @@
 package majestic.payments.labels
 
-data class SummaryLabels(
+class SummaryLabels(
     val collected: String,
     val unpaid: String,
     val expected: String,

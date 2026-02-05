@@ -23,7 +23,7 @@ import majestic.users.table.header.SelectionBarProperties
 import majestic.users.table.header.SendMail
 import majestic.users.tools.MenuAction
 import majestic.users.tools.MenuActionLabels
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 import symphony.Table
 
 internal fun getMenuActionLabels(labels: TableLabels) = MenuActionLabels(
