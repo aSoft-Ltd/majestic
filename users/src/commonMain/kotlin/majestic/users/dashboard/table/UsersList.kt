@@ -29,7 +29,7 @@ import majestic.users.dashboard.table.header.UsersTableHeader
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
 import majestic.users.table.body.UsersTableBodyProperties
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column

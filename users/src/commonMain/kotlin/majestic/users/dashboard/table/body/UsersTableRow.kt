@@ -3,11 +3,7 @@ package majestic.users.dashboard.table.body
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,10 +21,10 @@ import majestic.Cell
 import majestic.Checkbox
 import majestic.shared.users.label.table.InnerTableBodyLabels
 import majestic.shared.users.label.table.StatusLabels
+import majestic.shared.users.table.UsersTableRowColors
+import majestic.shared.users.tools.UsersData
 import majestic.tooling.onClick
-import majestic.users.table.body.UsersTableRowColors
 import majestic.users.table.header.NameCell
-import majestic.users.tools.data.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column

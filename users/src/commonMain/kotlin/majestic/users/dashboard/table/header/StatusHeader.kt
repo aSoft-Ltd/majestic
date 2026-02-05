@@ -37,7 +37,7 @@ import majestic.users.table.header.tools.StatusCellProperties
 import majestic.users.table.header.tools.filters.FilterButtons
 import majestic.users.table.header.tools.filters.FilterSelect
 import majestic.users.table.header.tools.filters.FilterSelectColors
-import majestic.users.tools.data.UserStatus
+import majestic.shared.users.tools.UserStatus
 
 @Composable
 internal fun StatusHeader(

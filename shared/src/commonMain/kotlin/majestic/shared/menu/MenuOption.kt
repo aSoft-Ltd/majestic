@@ -29,14 +29,14 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.Popup
+import majestic.icons.Res
+import majestic.icons.ic_more_horizontal
 import majestic.popup.Inline
 import majestic.popup.Items
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
-import majestic.icons.Res
-import majestic.icons.ic_more_horizontal
 
 enum class MenuAction { Edit, Duplicate, Delete }
 
@@ -102,7 +102,9 @@ fun <T> MenuOption(
                     onAction(item.action)
                 },
                 label = item.label,
-                colors = if (item.action.toString().equals("delete", ignoreCase = true)) colorRed else colorNormal,
+                colors = if (item.action.toString()
+                        .equals("delete", ignoreCase = true)
+                ) colorRed else colorNormal,
             )
         }
     )
