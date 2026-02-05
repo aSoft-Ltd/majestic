@@ -20,7 +20,7 @@ import majestic.Checkbox
 import majestic.CheckboxColors
 import majestic.shared.users.label.table.ColumnLabels
 import majestic.tooling.onClick
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import org.jetbrains.compose.resources.DrawableResource
 import symphony.Table

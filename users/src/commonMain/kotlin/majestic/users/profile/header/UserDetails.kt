@@ -13,21 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
 import majestic.shared.users.label.profile.ProfileLabels
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.profile.UserDetailColors
+import majestic.shared.users.tools.UsersData
 import org.jetbrains.compose.resources.DrawableResource
 
-data class UserDetailColors(
-    val clientBackground: Color,
-    val barColors: ColorPair,
-    val detailHeader: DetailedHeaderColors
-)
 
 @Composable
 fun UserDetails(

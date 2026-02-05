@@ -1,7 +1,7 @@
 package majestic.users.profile.header.tools
 
 import majestic.shared.users.label.profile.ProfileLabels
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 
 
 internal fun UsersData.toProfileData(

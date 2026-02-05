@@ -1,4 +1,4 @@
-package majestic.shared.users
+package majestic.shared.users.dashboard
 
 enum class UserActionMenu {
     AssignRole,

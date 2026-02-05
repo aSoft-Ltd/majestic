@@ -14,17 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.ToggleSwitch
-import majestic.ToggleSwitchColors
 import majestic.icons.Res
 import majestic.icons.ic_access
 import majestic.shared.users.label.profile.security.SecurityLabels
+import majestic.shared.users.profile.TwoFactorColors
 
-data class TwoFactorColors(
-    val theme: ThemeColor,
-    val toggle: ToggleSwitchColors
-)
 
 @Composable
 internal fun ColumnScope.TwoFactor(

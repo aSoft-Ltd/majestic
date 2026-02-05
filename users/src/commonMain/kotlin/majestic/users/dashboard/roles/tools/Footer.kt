@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
+import majestic.shared.users.dashboard.CardStatColors
 
 @Composable
 fun Footer(
