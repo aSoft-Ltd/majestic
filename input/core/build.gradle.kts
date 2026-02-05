@@ -57,6 +57,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(libs.nation.flags.compose)
             api(projects.majesticTheme)
             api(projects.majesticScreen)
             api(compose.runtime)

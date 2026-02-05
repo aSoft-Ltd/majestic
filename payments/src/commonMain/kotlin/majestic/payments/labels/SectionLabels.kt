@@ -1,6 +1,6 @@
 package majestic.payments.labels
 
-data class SectionLabels(
+class SectionLabels(
     val label: String,
     val description: String
 )

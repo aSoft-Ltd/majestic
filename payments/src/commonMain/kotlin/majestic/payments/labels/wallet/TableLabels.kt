@@ -1,6 +1,6 @@
 package majestic.payments.labels.wallet
 
-data class TableLabels(
+class TableLabels(
     val checkbox: String,
     val wallet: String,
     val transactions: String,
