@@ -16,12 +16,12 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
-data class InfoEntryColors(
+class InfoEntryColors(
     val icon: Color,
     val text: Color
 )
 
-internal data class InfoEntryItem(
+class InfoEntryItem(
     val icon: DrawableResource,
     val title: String,
     val description: String

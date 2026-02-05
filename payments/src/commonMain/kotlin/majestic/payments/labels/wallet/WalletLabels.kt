@@ -4,7 +4,7 @@ import majestic.payments.labels.MenuLabels
 import majestic.payments.labels.SectionLabels
 import majestic.payments.labels.wallet.form.NewWalletLabels
 
-data class WalletLabels(
+class WalletLabels(
     val emptyList: SectionLabels,
     val transactions: String,
     val menu: MenuLabels,
