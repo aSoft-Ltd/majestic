@@ -2,7 +2,7 @@ package majestic.users.dashboard.table.body
 
 import majestic.Cell
 import majestic.shared.users.label.table.ColumnLabels
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.UsersData
 
 internal fun getLabels(cell: Cell<UsersData>, labels: ColumnLabels) = when (cell.column.key) {
     labels.email -> cell.row.item.email

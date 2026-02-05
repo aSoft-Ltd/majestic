@@ -20,10 +20,6 @@ internal fun RoleActionsLabels.getRoles() = listOf(
     OptionMenu(delete, RoleAction.Delete)
 )
 
-data class RoleHeaderColors(
-    val title: Color,
-    val menu: MenuOptionColors,
-)
 
 internal fun UsersRolesProps.stats(
     role: UserRole

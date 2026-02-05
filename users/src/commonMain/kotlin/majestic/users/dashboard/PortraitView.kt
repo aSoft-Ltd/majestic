@@ -50,8 +50,8 @@ import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
 import majestic.users.table.tools.data.permissions
 import majestic.users.table.tools.data.roles
-import majestic.users.tools.data.HeaderIcons
-import majestic.users.tools.data.UsersData
+import majestic.shared.users.tools.HeaderIcons
+import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import nation.Country
 import symphony.columnsOf

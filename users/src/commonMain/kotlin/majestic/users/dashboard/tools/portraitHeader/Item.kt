@@ -13,16 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
+import majestic.shared.users.dashboard.TabItemColors
 import majestic.tooling.onClick
 
-data class TabItemColors(
-    val surfaceContra: Color,
-    val dominantActual: Color
-)
 
 @Composable
 internal fun Item(

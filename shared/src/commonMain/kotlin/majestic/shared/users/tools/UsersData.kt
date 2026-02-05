@@ -1,4 +1,4 @@
-package majestic.users.tools.data
+package majestic.shared.users.tools
 
 import majestic.shared.profiles.Permission
 import majestic.shared.profiles.Permissions

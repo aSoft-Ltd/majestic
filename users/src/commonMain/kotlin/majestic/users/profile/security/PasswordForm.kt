@@ -26,8 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.NoRippleInteractionSource
 import majestic.TextField
-import majestic.TextFieldColors
-import majestic.ThemeColor
 import majestic.buttons.ActionButton
 import majestic.buttons.ButtonColors
 import majestic.icons.Res
@@ -35,12 +33,8 @@ import majestic.icons.ic_info_circle
 import majestic.icons.ic_view
 import majestic.icons.ic_view_off
 import majestic.shared.users.label.profile.security.PasswordFormLabels
+import majestic.shared.users.profile.PasswordFormColors
 import org.jetbrains.compose.resources.painterResource
-
-data class PasswordFormColors(
-    val theme: ThemeColor,
-    val field: TextFieldColors
-)
 
 @Composable
 internal fun PasswordForm(
@@ -81,7 +75,8 @@ internal fun PasswordForm(
     Column {
         var oldPass by remember { mutableStateOf("") }
         var oldPassShow by remember { mutableStateOf(false) }
-        val oldPassVisual = if (oldPassShow) VisualTransformation.None else PasswordVisualTransformation()
+        val oldPassVisual =
+            if (oldPassShow) VisualTransformation.None else PasswordVisualTransformation()
         TextField(
             modifier = Modifier.padding(bottom = 20.dp),
             value = oldPass,
@@ -113,7 +108,8 @@ internal fun PasswordForm(
 
         var newPass by remember { mutableStateOf("") }
         var newPassShow by remember { mutableStateOf(false) }
-        val newPassVisual = if (newPassShow) VisualTransformation.None else PasswordVisualTransformation()
+        val newPassVisual =
+            if (newPassShow) VisualTransformation.None else PasswordVisualTransformation()
         TextField(
             modifier = Modifier.padding(bottom = 20.dp),
             value = newPass,
