@@ -31,7 +31,11 @@ import majestic.icons.ic_user_multiple
 import majestic.icons.tz_flag
 import majestic.shared.menu.MenuOption
 import majestic.shared.users.UsersLabels
+import majestic.shared.users.data.Role.Companion.roles
+import majestic.shared.users.data.permissions
 import majestic.shared.users.label.table.StatusLabels
+import majestic.shared.users.tools.HeaderIcons
+import majestic.shared.users.tools.UsersData
 import majestic.tooling.onClick
 import majestic.users.dashboard.roles.RoleCard
 import majestic.users.dashboard.roles.RoleCardData
@@ -48,10 +52,6 @@ import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
 import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
-import majestic.users.table.tools.data.permissions
-import majestic.users.table.tools.data.roles
-import majestic.shared.users.tools.HeaderIcons
-import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import nation.Country
 import symphony.columnsOf
