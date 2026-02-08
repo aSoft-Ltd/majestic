@@ -39,7 +39,7 @@ internal fun Content(
                 .wrapContentHeight()
                 .padding(10.dp),
             props = DetailedItemProperties(
-                colors = colors.detail,
+                colors = colors.body,
                 item = permission,
                 itemState = switch
             ),
@@ -53,7 +53,7 @@ internal fun Content(
                 .padding(end = 8.dp)
                 .fillMaxWidth()
                 .height(1.dp)
-                .background(colors.background.copy(.05f))
+                .background(colors.separator.copy(.05f))
         )
     }
 }

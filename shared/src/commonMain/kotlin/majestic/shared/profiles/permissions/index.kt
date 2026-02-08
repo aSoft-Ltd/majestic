@@ -26,24 +26,22 @@ import majestic.shared.profiles.permissions.detail.PermissionsColors
 import majestic.shared.profiles.permissions.detail.toDetailProperties
 import majestic.shared.users.label.contacts.PermissionLabels
 
-internal fun Modifier.generalStyles(orientation: ScreenOrientation, color: Color) =
+internal fun Modifier.generalStyles(orientation: ScreenOrientation, sectionBg: Color) =
     when (orientation) {
         is Landscape -> this
             .clip(RoundedCornerShape(20.dp))
             .fillMaxWidth()
             .wrapContentHeight()
             .background(
-                color = color.copy(.5f),
+                color = sectionBg,
                 shape = RoundedCornerShape(20.dp)
             )
 
         is Portrait -> this.fillMaxSize()
     }
-
 data class GeneralPermissionColors(
-    val whiteBackground: Color,
-    val clientBackground: Color,
-    val permission: PermissionColors,
+    val background: Color,
+    val permission: PermissionsColors,
     val detail: DetailColors
 )
 
@@ -63,22 +61,22 @@ fun GeneralPermissions(
     when (current.view) {
         Main -> Permissions(
             modifier = Modifier
-                .generalStyles(orientation = orientation, color = colors.clientBackground)
+                .generalStyles(
+                    orientation = orientation,
+                    sectionBg = colors.background
+                )
                 .verticalScroll(rememberScrollState()),
             current = current,
             orientation = orientation,
             permissions = permissions,
-            colors = PermissionsColors(
-                background = colors.whiteBackground,
-                permission = colors.permission
-            )
+            colors = colors.permission
         )
 
         Detailed -> current.activeObj?.let { activePermissions ->
             Details(
                 modifier = Modifier.generalStyles(
                     orientation = orientation,
-                    color = colors.clientBackground
+                    sectionBg = colors.background
                 ),
                 current = current,
                 orientation = orientation,
