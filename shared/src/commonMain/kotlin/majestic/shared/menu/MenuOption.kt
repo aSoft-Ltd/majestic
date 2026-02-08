@@ -44,7 +44,8 @@ enum class MenuAction { Edit, Duplicate, Delete }
 data class OptionMenu<T>(
     val label: String,
     val action: T,
-    val icon: DrawableResource? = null
+    val icon: DrawableResource? = null,
+    val isDestructive: Boolean = false,
 )
 
 @Composable
