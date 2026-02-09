@@ -8,6 +8,8 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -84,9 +86,11 @@ fun MenuItem(
         ) {
             if (leading != null) {
                 leading(interactionSource)
+                Spacer(Modifier.width(15.dp))
             }
             label(TextStyle(color = color.foreground))
             if (trailing != null) {
+                Spacer(Modifier.width(15.dp))
                 trailing(interactionSource)
             }
         }
