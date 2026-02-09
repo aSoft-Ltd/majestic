@@ -14,6 +14,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.input.pointer.PointerIcon.Companion.Hand
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import majestic.ColorPair
 import majestic.button.internal.ButtonElement
@@ -35,6 +37,7 @@ fun Modifier.button(
 
     return then(element)
         .hoverable(element.source)
+        .pointerHoverIcon(icon = Hand)
         .clickable(interactionSource = element.source, indication = null, enabled = !element.disabled, onClickLabel = null, role = null, onClick = onClick)
         .background(color = element.colors.toResolved(hovered, pressed, disabled).background, shape = shape)
         .stroke(outline?.toResolved(hovered, pressed, disabled), shape)
