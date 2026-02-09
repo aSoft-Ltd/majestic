@@ -27,7 +27,7 @@ import majestic.icons.Res
 import majestic.icons.ic_arrow_right
 import majestic.shared.profiles.Permission
 import majestic.shared.profiles.permissions.Permission
-import majestic.shared.profiles.permissions.PermissionColors
+import majestic.shared.profiles.permissions.PermissionItemColors
 import majestic.shared.profiles.permissions.PermissionData
 import majestic.shared.profiles.permissions.PermissionScreen
 import majestic.tooling.onClick
@@ -35,7 +35,7 @@ import majestic.tooling.onClick
 internal fun Modifier.permissionItem(
     hovered: Boolean,
     permissions: List<Permission>,
-    background: Color,
+    hoverColor: Color,
     index: Int,
     current: PermissionScreen,
     item: Permission,
@@ -46,7 +46,7 @@ internal fun Modifier.permissionItem(
     .wrapContentHeight()
     .pointerHoverIcon(PointerIcon.Hand)
     .background(
-        color = if (hovered) background.copy(.05f) else Color.Transparent,
+        color = if (hovered) hoverColor.copy(.05f) else Color.Transparent,
         shape = when (index) {
             0 -> RoundedCornerShape(
                 topStart = if (orientation is Landscape) 20.dp else 0.dp,
@@ -69,8 +69,8 @@ internal fun Modifier.permissionItem(
     .padding(if (orientation is Landscape) 20.dp else 10.dp)
 
 data class PermissionsColors(
-    val background: Color,
-    val permission: PermissionColors
+    val hover: Color,
+    val permission: PermissionItemColors
 )
 
 @Composable
@@ -97,7 +97,7 @@ internal fun Permissions(
                 item = item,
                 interaction = interaction,
                 orientation = orientation,
-                background = colors.background
+                hoverColor = colors.hover
             ),
             item = PermissionData(
                 permission = item,
@@ -110,7 +110,7 @@ internal fun Permissions(
         if (index != permissions.lastIndex) Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .underline(colors.background.copy(.05f), 1.dp)
+                .underline(colors.hover.copy(.05f), 1.dp)
         )
     }
 }

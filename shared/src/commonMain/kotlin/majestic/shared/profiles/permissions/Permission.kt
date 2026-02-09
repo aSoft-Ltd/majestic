@@ -30,8 +30,7 @@ data class PermissionData(
     val trailIcon: DrawableResource
 )
 
-data class PermissionColors(
-    val background: Color,
+data class PermissionItemColors(
     val leadIcon: ColorPair,
     val title: Color,
     val description: Color,
@@ -44,7 +43,7 @@ internal fun Permission(
     modifier: Modifier,
     item: PermissionData,
     orientation: ScreenOrientation,
-    colors: PermissionColors
+    colors: PermissionItemColors
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),

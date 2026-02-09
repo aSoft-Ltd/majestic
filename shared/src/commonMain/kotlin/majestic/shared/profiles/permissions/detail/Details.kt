@@ -25,16 +25,17 @@ import org.jetbrains.compose.resources.DrawableResource
 
 internal fun Modifier.header(
     orientation: ScreenOrientation,
-    colors: DetailColors
+    background: Color
 ) = then(
     other = when (orientation) {
         is Landscape -> Modifier.wrapContentSize()
         is Portrait -> Modifier
             .fillMaxWidth()
-            .background(color = colors.background.copy(.05f))
+            .background(color = background)
     }
 )
     .padding(horizontal = 20.dp, vertical = 10.dp)
+
 internal data class DetailedProperties(
     val trailingIcon: DrawableResource,
     val trailingTitle: String,
@@ -43,9 +44,9 @@ internal data class DetailedProperties(
 
 data class DetailColors(
     val tint: Color,
-    val background: Color,
-    val breadCrumb: (tint: Color?) -> BreadCrumbTabColors,
-    val detail: DetailedItemColors
+    val separator: Color,
+    val head: DetailHeaderColors,
+    val body: DetailedItemColors
 )
 
 @Composable
@@ -62,12 +63,12 @@ internal fun Details(
     horizontalAlignment = Alignment.Start
 ) {
     Header(
-        modifier = Modifier.header(orientation, colors),
+        modifier = Modifier.header(orientation, colors.head.tabBg),
         props = props,
         orientation = orientation,
         current = current,
         labels = labels,
-        colors = colors.toHeaderDetailColors()
+        colors = colors.head
     )
     Content(
         modifier = Modifier
