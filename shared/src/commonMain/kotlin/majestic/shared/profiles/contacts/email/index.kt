@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
+import majestic.ThemeColor
 import majestic.icons.Res
 import majestic.icons.ic_mail
 import majestic.layouts.Flex
@@ -53,6 +54,7 @@ fun Email(
     isPrimary: Boolean,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
+    theme: ThemeColor,
     onAction: (EmailMenuAction) -> Unit,
 ) = Row(
     modifier = modifier,
@@ -102,6 +104,7 @@ fun Email(
     }
 
     MenuOption(
+        theme = theme,
         colors = colors.menuOption,
         orientation = orientation,
         actions = listOf(

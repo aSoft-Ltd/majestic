@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
+import majestic.ThemeColor
 import majestic.icons.Res
 import majestic.icons.ic_info_circle
 import majestic.shared.menu.MenuOption
@@ -29,7 +30,8 @@ internal fun CardHeader(
     actions: List<OptionMenu<RoleAction>>,
     colors: RoleHeaderColors,
     orientation: ScreenOrientation,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    theme: ThemeColor,
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.SpaceBetween,
@@ -58,5 +60,6 @@ internal fun CardHeader(
         orientation = orientation,
         actions = actions,
         onAction = {},
+        theme = theme,
     )
 }

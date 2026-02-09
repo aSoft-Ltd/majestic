@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
+import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.icons.Res
 import majestic.icons.allDrawableResources
@@ -83,7 +84,8 @@ internal fun PortraitView(
     manageUsers: () -> Unit,
     manageRoles: () -> Unit,
     addUser: () -> Unit,
-    addRole: () -> Unit
+    addRole: () -> Unit,
+    theme: ThemeColor,
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top,
@@ -178,6 +180,7 @@ internal fun PortraitView(
                         orientation = orientation,
                         actions = getOptions(labels.table),
                         colors = props.table.body.colors.row.menuOption,
+                        theme = theme
                     ) { action -> }
                 },
                 labels = ListLabels(
@@ -217,8 +220,9 @@ internal fun PortraitView(
                             )
                         )
                     ),
-                    orientation = orientation
-                )
+                    orientation = orientation,
+                    theme = theme,
+                    )
 
                 if (index != UserRole.roles.lastIndex) Spacer(
                     modifier = Modifier

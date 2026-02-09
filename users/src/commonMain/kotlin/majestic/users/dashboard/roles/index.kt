@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
+import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.shared.menu.OptionMenu
 import majestic.shared.users.dashboard.RoleCardColors
@@ -36,7 +37,8 @@ internal fun UsersRoles(
     orientation: ScreenOrientation,
     props: UsersRolesProps,
     add: () -> Unit,
-    manage: () -> Unit
+    manage: () -> Unit,
+    theme: ThemeColor
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top,
@@ -70,8 +72,9 @@ internal fun UsersRoles(
                         stats = props.stats(role)
                     )
                 ),
-                orientation = orientation
-            )
+                orientation = orientation,
+                theme = theme,
+                )
 
             if (index != UserRole.roles.lastIndex) Spacer(
                 modifier = Modifier

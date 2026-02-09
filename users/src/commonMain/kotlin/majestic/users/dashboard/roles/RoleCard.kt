@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.ThemeColor
 import majestic.shared.menu.OptionMenu
 import majestic.shared.users.dashboard.RoleCardColors
 import majestic.users.dashboard.roles.tools.CardHeader
@@ -34,7 +35,8 @@ internal data class RoleCardData(
 internal fun RoleCard(
     modifier: Modifier = Modifier,
     props: RoleCardProps,
-    orientation: ScreenOrientation
+    orientation: ScreenOrientation,
+    theme: ThemeColor,
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(16.dp),
     modifier = modifier
@@ -44,8 +46,9 @@ internal fun RoleCard(
         modifier = Modifier.fillMaxWidth(),
         actions = props.data.actions,
         colors = props.colors.head,
-        orientation = orientation
-    )
+        orientation = orientation,
+        theme = theme,
+        )
 
     Text(
         text = props.data.body,

@@ -1,16 +1,12 @@
 package majestic.shared.menu
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -20,22 +16,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.Popup
+import majestic.ThemeColor
+import majestic.button.Button
 import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
 import majestic.popup.Inline
 import majestic.popup.Items
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
 
 enum class MenuAction { Edit, Duplicate, Delete }
@@ -51,6 +45,7 @@ data class OptionMenu<T>(
 @Composable
 fun <T> MenuOption(
     colors: MenuOptionColors,
+    theme: ThemeColor,
     icon: (@Composable (color: Color) -> Unit)? = null,
     orientation: ScreenOrientation,
     actions: List<OptionMenu<T>>,
@@ -59,28 +54,29 @@ fun <T> MenuOption(
     var expanded by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
-    val bgColor = if (isHovered || expanded) colors.icon.background else Color.Transparent
 
     Popup(
         expanded = expanded,
         onDismissRequest = { expanded = false },
-        modifier = Modifier
-            .size(32.dp)
-            .clip(CircleShape)
-            .background(bgColor)
-            .pointerHoverIcon(PointerIcon.Hand)
-            .hoverable(interactionSource)
-            .clickable { expanded = !expanded },
-        inline = Inline(modifier = Modifier.fillMaxSize(), alignment = Alignment.Center) {
+        inline = Inline(alignment = Alignment.Center) {
             val color = if (isHovered) colors.icon.foreground else colors.icon.foreground.copy(.9f)
-            if (icon == null) Icon(
-                modifier = Modifier.size(24.dp).then(
-                    if (orientation is Portrait) Modifier.rotate(90f) else Modifier
-                ),
-                painter = painterResource(Res.drawable.ic_more_horizontal),
-                tint = color,
-                contentDescription = "Icon"
-            )
+            if (icon == null) Button(
+                modifier = Modifier.listItemIconButton(
+                    theme = theme,
+                    onClick = { expanded = !expanded }
+                )
+            ) {
+                Icon(
+                    imageVector = vectorResource(Res.drawable.ic_more_horizontal),
+                    contentDescription = null,
+                    tint = foreground,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .size(18.dp)
+                        .then(if (orientation is Portrait) Modifier.rotate(90f) else Modifier)
+
+                )
+            }
             else icon.invoke(color)
         },
         items = Items(
