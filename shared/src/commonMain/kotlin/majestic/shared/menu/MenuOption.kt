@@ -65,11 +65,11 @@ fun <T> MenuOption(
                     theme = theme,
                     onClick = { expanded = !expanded }
                 )
-            ) {
+            ) { colors ->
                 Icon(
                     imageVector = vectorResource(Res.drawable.ic_more_horizontal),
                     contentDescription = null,
-                    tint = foreground,
+                    tint = colors.foreground,
                     modifier = Modifier
                         .padding(8.dp)
                         .size(18.dp)
