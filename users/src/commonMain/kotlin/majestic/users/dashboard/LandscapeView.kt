@@ -17,7 +17,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.icons.Res
 import majestic.icons.allDrawableResources
 import majestic.icons.ic_calendar
@@ -66,7 +65,6 @@ internal fun LandscapeView(
     manageRoles: () -> Unit = {},
     addUser: () -> Unit = {},
     addRole: () -> Unit = {},
-    theme: ThemeColor,
     modifier: Modifier = Modifier
 ) = Row(
     modifier = modifier,
@@ -139,8 +137,7 @@ internal fun LandscapeView(
         MenuOption(
             orientation = orientation,
             actions = getOptions(labels.table),
-            colors = props.table.body.colors.row.menuOption,
-            theme = theme
+            colors = props.table.body.colors.row.menuOption
         ) { action -> }
     }
     UsersRoles(
@@ -170,6 +167,5 @@ internal fun LandscapeView(
         ),
         add = addRole,
         manage = manageRoles,
-        theme = theme,
         )
 }

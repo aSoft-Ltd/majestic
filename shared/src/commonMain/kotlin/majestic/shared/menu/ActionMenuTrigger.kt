@@ -16,32 +16,19 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import majestic.ColorPair
-import majestic.Light
-import majestic.ThemeColor
 import majestic.button.ButtonParams
 import majestic.button.button
 import majestic.button.toResolved
 
 @Composable
 internal fun Modifier.listItemIconButton(
-    theme: ThemeColor,
-    onClick: () -> Unit = { },
-): Modifier = translucentButton(theme = theme, onClick = onClick, alpha = 0f)
-
-@Composable
-internal fun Modifier.translucentButton(
-    theme: ThemeColor,
+    colors: ListIconButtonColors,
     disabled: Boolean = false,
     shape: Shape = RoundedCornerShape(percent = 50),
     source: MutableInteractionSource = remember { MutableInteractionSource() },
-    alpha: Float = 0.07f,
     onClick: () -> Unit = { },
 ): Modifier {
-    val fg = theme.surface.contra.color
-    val tint = if (this is Light) theme.dominant.actual.color else theme.surface.contra.color
-    val colors = ColorPair(foreground = fg, background = tint)
-
-    val alphaState = ButtonParams(alpha, 0.09f, 0.09f, 0.07f * 0.4f)
+    val alphaState = ButtonParams(0f, 0.09f, 0.09f, 0.07f * 0.4f)
     val pair = ColorPair(foreground = colors.foreground, background = Color.Transparent)
     return button(
         colors = pair.toButtonParams(),
@@ -51,7 +38,7 @@ internal fun Modifier.translucentButton(
         onClick = onClick
     )
         .hoverOverlay(
-            tint = colors.foreground,
+            tint = colors.tint,
             alpha = alphaState,
             source = source,
             disabled = disabled,

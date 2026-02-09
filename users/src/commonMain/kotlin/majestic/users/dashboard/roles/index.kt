@@ -38,7 +38,6 @@ internal fun UsersRoles(
     props: UsersRolesProps,
     add: () -> Unit,
     manage: () -> Unit,
-    theme: ThemeColor
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top,
@@ -73,8 +72,7 @@ internal fun UsersRoles(
                     )
                 ),
                 orientation = orientation,
-                theme = theme,
-                )
+            )
 
             if (index != UserRole.roles.lastIndex) Spacer(
                 modifier = Modifier

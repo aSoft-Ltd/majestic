@@ -85,7 +85,6 @@ internal fun PortraitView(
     manageRoles: () -> Unit,
     addUser: () -> Unit,
     addRole: () -> Unit,
-    theme: ThemeColor,
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top,
@@ -179,8 +178,7 @@ internal fun PortraitView(
                     MenuOption(
                         orientation = orientation,
                         actions = getOptions(labels.table),
-                        colors = props.table.body.colors.row.menuOption,
-                        theme = theme
+                        colors = props.table.body.colors.row.menuOption
                     ) { action -> }
                 },
                 labels = ListLabels(
@@ -221,8 +219,7 @@ internal fun PortraitView(
                         )
                     ),
                     orientation = orientation,
-                    theme = theme,
-                    )
+                )
 
                 if (index != UserRole.roles.lastIndex) Spacer(
                     modifier = Modifier

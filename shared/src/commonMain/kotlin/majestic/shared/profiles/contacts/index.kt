@@ -17,12 +17,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.boundsInParent
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogs
 import majestic.shared.profiles.contacts.email.dialogs.rememberEmailDialogState
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogs
@@ -53,8 +51,7 @@ fun Contacts(
     modifier: Modifier,
     colors: ContactsColors,
     labels: UsersLabels,
-    orientation: ScreenOrientation,
-    theme: ThemeColor
+    orientation: ScreenOrientation
 ) {
     val emailDialog = rememberEmailDialogState()
     val phoneDialog = rememberPhoneDialogState()
@@ -85,7 +82,6 @@ fun Contacts(
             labels = labels,
             emailDialog = emailDialog,
             phoneDialog = phoneDialog,
-            theme = theme,
             data = ContactListData()
         )
 

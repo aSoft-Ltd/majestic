@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.ThemeColor
 import majestic.icons.Res
 import majestic.icons.ic_call
 import majestic.icons.ic_calling_solid
@@ -60,7 +59,6 @@ fun Phone(
     isNormal: Boolean,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
-    theme: ThemeColor,
     onAction: (PhoneMenuAction) -> Unit
 ) = Row(
     modifier = modifier,
@@ -134,7 +132,6 @@ fun Phone(
     MenuOption(
         colors = colors.menuOption,
         orientation = orientation,
-        theme = theme,
         actions = listOf(
             OptionMenu(labels.actions.primary, PhoneMenuAction.Primary),
             OptionMenu(labels.actions.phone.edit, PhoneMenuAction.Edit),

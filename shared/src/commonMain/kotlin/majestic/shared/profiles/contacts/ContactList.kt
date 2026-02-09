@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.shared.profiles.contacts.email.Email
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogState
 import majestic.shared.profiles.contacts.phone.Phone
@@ -83,8 +82,7 @@ internal fun ContactList(
     labels: UsersLabels,
     data: ContactListData,
     emailDialog: EmailDialogState,
-    phoneDialog: PhoneDialogState,
-    theme: ThemeColor
+    phoneDialog: PhoneDialogState
 ) = Column(
     modifier = modifier
         .verticalScroll(rememberScrollState()),
@@ -106,8 +104,7 @@ internal fun ContactList(
             isPrimary = index == 0,
             labels = labels.profile.tabs.contacts.content,
             orientation = orientation,
-            colors = colors.email,
-            theme = theme
+            colors = colors.email
         ) {
             when (it) {
                 EmailMenuAction.Primary -> {}
@@ -136,8 +133,7 @@ internal fun ContactList(
             isWhatsapp = index == 0,
             isNormal = true,
             labels = labels.profile.tabs.contacts.content,
-            orientation = orientation,
-            theme = theme
+            orientation = orientation
         ) {
             when (it) {
                 PhoneMenuAction.Primary -> {}

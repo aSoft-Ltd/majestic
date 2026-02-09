@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.Popup
-import majestic.ThemeColor
 import majestic.button.Button
 import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
@@ -45,7 +44,6 @@ data class OptionMenu<T>(
 @Composable
 fun <T> MenuOption(
     colors: MenuOptionColors,
-    theme: ThemeColor,
     icon: (@Composable (color: Color) -> Unit)? = null,
     orientation: ScreenOrientation,
     actions: List<OptionMenu<T>>,
@@ -62,7 +60,7 @@ fun <T> MenuOption(
             val color = if (isHovered) colors.icon.foreground else colors.icon.foreground.copy(.9f)
             if (icon == null) Button(
                 modifier = Modifier.listItemIconButton(
-                    theme = theme,
+                    colors = colors.listIconButton,
                     onClick = { expanded = !expanded }
                 )
             ) { colors ->
