@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.profiles.Permission
+import majestic.shared.profiles.Action
 import majestic.shared.profiles.permissions.PermissionScreen
 import majestic.shared.users.label.contacts.PermissionLabels
 import org.jetbrains.compose.resources.DrawableResource
@@ -25,27 +25,28 @@ import org.jetbrains.compose.resources.DrawableResource
 
 internal fun Modifier.header(
     orientation: ScreenOrientation,
-    colors: DetailColors
+    background: Color
 ) = then(
     other = when (orientation) {
         is Landscape -> Modifier.wrapContentSize()
         is Portrait -> Modifier
             .fillMaxWidth()
-            .background(color = colors.background.copy(.05f))
+            .background(color = background)
     }
 )
     .padding(horizontal = 20.dp, vertical = 10.dp)
+
 internal data class DetailedProperties(
     val trailingIcon: DrawableResource,
     val trailingTitle: String,
-    val permissions: List<Permission>
+    val permissions: List<Action>
 )
 
 data class DetailColors(
     val tint: Color,
-    val background: Color,
-    val breadCrumb: (tint: Color?) -> BreadCrumbTabColors,
-    val detail: DetailedItemColors
+    val separator: Color,
+    val head: DetailHeaderColors,
+    val body: DetailedItemColors
 )
 
 @Composable
@@ -62,18 +63,19 @@ internal fun Details(
     horizontalAlignment = Alignment.Start
 ) {
     Header(
-        modifier = Modifier.header(orientation, colors),
+        modifier = Modifier.header(orientation, colors.head.tabBg),
         props = props,
         orientation = orientation,
         current = current,
         labels = labels,
-        colors = colors.toHeaderDetailColors()
+        colors = colors.head
     )
     Content(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+        ,
         props = props,
         colors = colors,
         orientation = orientation
