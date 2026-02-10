@@ -74,7 +74,8 @@ internal fun Details(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+        ,
         props = props,
         colors = colors,
         orientation = orientation
