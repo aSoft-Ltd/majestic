@@ -51,7 +51,7 @@ fun MenuItem(
     borderWidth: Dp = 0.dp,
     selected: Boolean = false,
     shape: Shape = RoundedCornerShape(10.dp),
-    arrangement: Arrangement.Horizontal = Arrangement.Start,
+    arrangement: Arrangement.Horizontal = Arrangement.spacedBy(15.dp, Alignment.Start),
     alignment: Alignment.Vertical = Alignment.CenterVertically,
     trailing: @Composable ((interactionSource: MutableInteractionSource) -> Unit)? = null,
     leading: @Composable ((interactionSource: MutableInteractionSource) -> Unit)? = null
@@ -75,7 +75,7 @@ fun MenuItem(
             )
             .background(color = color.background)
             .pointerHoverIcon(PointerIcon.Hand)
-            .hoverable(interactionSource = interactionSource)
+            .hoverable(interactionSource = interactionSource),
     ) {
         Row(
             modifier = modifier,
