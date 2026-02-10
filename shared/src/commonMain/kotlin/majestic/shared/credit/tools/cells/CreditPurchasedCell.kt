@@ -36,7 +36,7 @@ fun CreditPurchasedCell(
     credit: CreditUsage,
     colors: CreditTableColors,
     modifier: Modifier = Modifier
-) = Row(modifier = modifier.padding(end = 16.dp)) {
+) = Row(modifier = modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(end = 10.dp)

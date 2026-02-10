@@ -2,11 +2,13 @@ package majestic.shared.credit.tools
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.credit.CreditUsage
@@ -51,7 +53,7 @@ fun <T> CreditRow(
     CreditPurchasedCell(
         credit = credit,
         colors = colors,
-        modifier = Modifier.weight(weights.purchased)
+        modifier = Modifier.weight(weights.purchased).padding(end = 16.dp)
     )
     Text(
         text = credit.amount,
