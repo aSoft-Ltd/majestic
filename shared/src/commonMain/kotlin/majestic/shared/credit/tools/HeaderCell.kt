@@ -28,7 +28,6 @@ fun RowScope.HeaderCell(
         text = text,
         color = colors.surfaceColor.foreground.copy(.5f),
         fontSize = 14.sp,
-        fontWeight = FontWeight.Medium,
         textAlign = textAlign,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,

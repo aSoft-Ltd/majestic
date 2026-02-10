@@ -51,6 +51,7 @@ fun CreditPurchasedCell(
                 text = credit.itemName.first().toString(),
                 color = credit.itemColor,
                 fontSize = 12.sp,
+                lineHeight = 1.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.Center)
             )

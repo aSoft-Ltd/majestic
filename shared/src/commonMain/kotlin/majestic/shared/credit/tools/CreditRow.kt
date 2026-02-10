@@ -57,7 +57,6 @@ fun <T> CreditRow(
         text = credit.amount,
         color = colors.surfaceColor.foreground,
         fontSize = 15.sp,
-        fontWeight = FontWeight.Medium,
         modifier = Modifier.weight(weights.amount)
     )
     Box(modifier = Modifier.weight(weights.actions), contentAlignment = Alignment.CenterEnd) {

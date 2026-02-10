@@ -55,7 +55,6 @@ fun CreditTableHeader(
             text = "Recipient",
             color = colors.surfaceColor.foreground.copy(alpha = 0.6f),
             fontSize = 14.sp,
-            fontWeight = FontWeight.Medium
         )
     }
     Row(
@@ -66,7 +65,6 @@ fun CreditTableHeader(
             text = "Payer",
             color = colors.surfaceColor.foreground.copy(alpha = 0.6f),
             fontSize = 14.sp,
-            fontWeight = FontWeight.Medium
         )
     }
     HeaderCell(text = "Reference", weight = weights.ref, colors = colors)
