@@ -19,7 +19,7 @@ import org.jetbrains.compose.resources.vectorResource
 
 data class BreadCrumbTabColors(
     val tint: Color,
-    val background: Color,
+    val iconBg: Color,
     val label: Color
 )
 
@@ -40,7 +40,7 @@ internal fun BreadCrumbTab(
         contentDescription = null,
         tint = colors.tint,
         modifier = Modifier
-            .background(color = colors.background, shape = RoundedCornerShape(8.dp))
+            .background(color = colors.iconBg, shape = RoundedCornerShape(8.dp))
             .padding(10.dp)
             .size(24.dp)
     )
