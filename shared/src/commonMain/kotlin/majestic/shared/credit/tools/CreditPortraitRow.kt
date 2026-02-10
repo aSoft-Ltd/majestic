@@ -15,7 +15,7 @@ import majestic.shared.tools.PhotoBadge
 @Composable
 fun CreditPortraitRow(
     credit: CreditUsage,
-    props: CreditTableProps,
+    colors: CreditTableColors,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
     actions: List<OptionMenu<CreditAction>>,
@@ -38,11 +38,11 @@ fun CreditPortraitRow(
         badgeColor = credit.itemColor,
         amount = credit.amount,
         avatar = credit.logo,
-        props = props
+        colors = colors
     )
 
     MenuOption(
-        colors = props.colors.menu,
+        colors = colors.menu,
         orientation = orientation,
         actions = actions,
     ) { action ->

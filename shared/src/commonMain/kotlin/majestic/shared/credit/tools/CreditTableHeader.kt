@@ -30,7 +30,7 @@ data class CreditTableWeights(
 
 @Composable
 fun CreditTableHeader(
-    props: CreditTableProps,
+    colors: CreditTableColors,
     weights: CreditTableWeights,
     modifier: Modifier
 ) = Row(
@@ -44,16 +44,16 @@ fun CreditTableHeader(
         Icon(
             painter = painterResource(Res.drawable.ic_credict_card_accept),
             contentDescription = null,
-            tint = props.colors.surfaceColor.background.copy(alpha = .7f),
+            tint = colors.surfaceColor.background.copy(alpha = .7f),
             modifier = Modifier.padding(end = 12.dp)
                 .size(42.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(props.colors.surfaceColor.foreground.copy(alpha = .7f))
+                .background(colors.surfaceColor.foreground.copy(alpha = .7f))
                 .padding(10.dp)
         )
         Text(
             text = "Recipient",
-            color = props.colors.surfaceColor.foreground.copy(alpha = 0.6f),
+            color = colors.surfaceColor.foreground.copy(alpha = 0.6f),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium
         )
@@ -64,14 +64,14 @@ fun CreditTableHeader(
     ) {
         Text(
             text = "Payer",
-            color = props.colors.surfaceColor.foreground.copy(alpha = 0.6f),
+            color = colors.surfaceColor.foreground.copy(alpha = 0.6f),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium
         )
     }
-    HeaderCell(text = "Reference", weight = weights.ref, props = props)
-    HeaderCell(text = "Purchased", weight = weights.purchased, props = props)
-    HeaderCell(text = "Amount", weight = weights.amount, props = props)
+    HeaderCell(text = "Reference", weight = weights.ref, colors = colors)
+    HeaderCell(text = "Purchased", weight = weights.purchased, colors = colors)
+    HeaderCell(text = "Amount", weight = weights.amount, colors = colors)
 
     Box(modifier = Modifier.weight(weights.actions))
 }

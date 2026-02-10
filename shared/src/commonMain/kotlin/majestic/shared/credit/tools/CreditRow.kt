@@ -20,7 +20,7 @@ import majestic.shared.menu.OptionMenu
 fun <T> CreditRow(
     credit: CreditUsage,
     weights: CreditTableWeights,
-    props: CreditTableProps,
+    colors: CreditTableColors,
     actions: List<OptionMenu<T>>,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier
@@ -32,37 +32,37 @@ fun <T> CreditRow(
         logo = credit.recipientLogo,
         name = credit.recipientName,
         id = credit.recipientId,
-        props = props,
+        colors = colors,
         modifier = Modifier.weight(weights.recipient)
     )
     CreditActorCell(
         logo = credit.payerLogo,
         name = credit.payerName,
         id = credit.payerId,
-        props = props,
+        colors = colors,
         modifier = Modifier.weight(weights.payer)
     )
     CreditReferenceCell(
         invoiceRef = credit.invoiceRef,
         txnRef = credit.txnRef,
-        props = props,
+        colors = colors,
         modifier = Modifier.weight(weights.ref)
     )
     CreditPurchasedCell(
         credit = credit,
-        props = props,
+        colors = colors,
         modifier = Modifier.weight(weights.purchased)
     )
     Text(
         text = credit.amount,
-        color = props.colors.surfaceColor.foreground,
+        color = colors.surfaceColor.foreground,
         fontSize = 15.sp,
         fontWeight = FontWeight.Medium,
         modifier = Modifier.weight(weights.amount)
     )
     Box(modifier = Modifier.weight(weights.actions), contentAlignment = Alignment.CenterEnd) {
         MenuOption(
-            colors = props.colors.menu,
+            colors = colors.menu,
             orientation = orientation,
             actions = actions,
         ) { action ->

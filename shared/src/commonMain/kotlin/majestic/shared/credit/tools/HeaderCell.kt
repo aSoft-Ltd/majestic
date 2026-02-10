@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 fun RowScope.HeaderCell(
     text: String,
     weight: Float,
-    props: CreditTableProps,
+    colors: CreditTableColors,
     align: Alignment = Alignment.CenterStart
 ) {
     val textAlign = when (align) {
@@ -26,7 +26,7 @@ fun RowScope.HeaderCell(
 
     Text(
         text = text,
-        color = props.colors.surfaceColor.foreground.copy(.5f),
+        color = colors.surfaceColor.foreground.copy(.5f),
         fontSize = 14.sp,
         fontWeight = FontWeight.Medium,
         textAlign = textAlign,

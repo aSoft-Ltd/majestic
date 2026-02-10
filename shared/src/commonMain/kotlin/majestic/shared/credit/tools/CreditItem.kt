@@ -32,7 +32,7 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun CreditItem(
-    props: CreditTableProps,
+    colors: CreditTableColors,
     name: String,
     badgeText: String,
     badgeColor: Color,
@@ -44,7 +44,7 @@ fun CreditItem(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(space = 6.dp)
 ) {
-    val color = props.colors.surfaceColor.foreground
+    val color = colors.surfaceColor.foreground
     
     Row(
         verticalAlignment = Alignment.CenterVertically,
