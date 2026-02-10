@@ -51,15 +51,9 @@ private fun Modifier.breadCrumbTab(
     )
 
 data class DetailHeaderColors(
-    val tinted: Color,
+    val tint: Color,
     val breadCrumb: (tint: Color?) -> BreadCrumbTabColors,
-    val background: Color
-)
-
-internal fun DetailColors.toHeaderDetailColors(): DetailHeaderColors = DetailHeaderColors(
-    tinted = tint,
-    breadCrumb = breadCrumb,
-    background = background
+    val tabBg: Color
 )
 
 @Composable
@@ -78,7 +72,7 @@ internal fun Header(
     BreadCrumbTab(
         modifier = Modifier
             .breadCrumbTab(
-                container = colors.background.copy(.05f),
+                container = colors.tabBg,
                 orientation = orientation,
                 paddings = ContainerPadding(end = 50.dp)
             )
@@ -93,18 +87,18 @@ internal fun Header(
     if (orientation is Landscape) Icon(
         imageVector = vectorResource(Res.drawable.ic_arrow_right),
         contentDescription = null,
-        tint = colors.background,
+        tint = colors.tint,
         modifier = Modifier.size(12.dp)
     )
     BreadCrumbTab(
         modifier = Modifier.breadCrumbTab(
-            container = colors.background.copy(.05f),
+            container = colors.tabBg,
             orientation = orientation,
             paddings = ContainerPadding(end = 10.dp)
         ),
         showLabel = true,
         icon = Res.drawable.ic_admission,
         label = props.trailingTitle,
-        colors = colors.breadCrumb(colors.tinted)
+        colors = colors.breadCrumb(colors.tint)
     )
 }
