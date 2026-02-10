@@ -23,7 +23,7 @@ import majestic.shared.attachment.tools.iconButton
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun DialogHeader(
+internal fun PreviewHeader(
     title: String,
     colors: ColorPair,
     onDismiss: () -> Unit,

@@ -18,7 +18,7 @@ import majestic.shared.attachment.tools.iconButton
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun DialogFooter(
+internal fun PreviewFooter(
     colors: ColorPair,
     modifier: Modifier = Modifier
 ) = Row(
