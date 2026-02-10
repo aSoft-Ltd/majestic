@@ -8,8 +8,6 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -53,7 +51,7 @@ fun MenuItem(
     borderWidth: Dp = 0.dp,
     selected: Boolean = false,
     shape: Shape = RoundedCornerShape(10.dp),
-    arrangement: Arrangement.Horizontal = Arrangement.Start,
+    arrangement: Arrangement.Horizontal = Arrangement.spacedBy(15.dp, Alignment.Start),
     alignment: Alignment.Vertical = Alignment.CenterVertically,
     trailing: @Composable ((interactionSource: MutableInteractionSource) -> Unit)? = null,
     leading: @Composable ((interactionSource: MutableInteractionSource) -> Unit)? = null
@@ -77,7 +75,7 @@ fun MenuItem(
             )
             .background(color = color.background)
             .pointerHoverIcon(PointerIcon.Hand)
-            .hoverable(interactionSource = interactionSource)
+            .hoverable(interactionSource = interactionSource),
     ) {
         Row(
             modifier = modifier,
@@ -86,11 +84,9 @@ fun MenuItem(
         ) {
             if (leading != null) {
                 leading(interactionSource)
-                Spacer(Modifier.width(15.dp))
             }
             label(TextStyle(color = color.foreground))
             if (trailing != null) {
-                Spacer(Modifier.width(15.dp))
                 trailing(interactionSource)
             }
         }
