@@ -28,13 +28,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ThemeColor
 import majestic.shared.credit.CreditUsage
+import majestic.shared.credit.tools.CreditTableProps
 
 @Composable
 fun CreditPurchasedCell(
     credit: CreditUsage,
-    theme: ThemeColor,
+    props: CreditTableProps,
     modifier: Modifier = Modifier
 ) = Row(modifier = modifier.padding(end = 16.dp)) {
     Column(
@@ -74,7 +74,7 @@ fun CreditPurchasedCell(
             Box(Modifier.weight(1f))
             Text(
                 text = "${credit.used}/${credit.total} • ${credit.date}",
-                color = theme.surface.contra.color.copy(alpha = 0.5f),
+                color = props.colors.surfaceColor.foreground.copy(alpha = 0.5f),
                 fontSize = 13.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

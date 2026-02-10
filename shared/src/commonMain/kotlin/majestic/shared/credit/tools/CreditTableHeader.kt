@@ -15,7 +15,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ThemeColor
 import majestic.icons.Res
 import majestic.icons.ic_credict_card_accept
 import org.jetbrains.compose.resources.painterResource
@@ -31,7 +30,7 @@ data class CreditTableWeights(
 
 @Composable
 fun CreditTableHeader(
-    theme: ThemeColor,
+    props: CreditTableProps,
     weights: CreditTableWeights,
     modifier: Modifier
 ) = Row(
@@ -45,16 +44,16 @@ fun CreditTableHeader(
         Icon(
             painter = painterResource(Res.drawable.ic_credict_card_accept),
             contentDescription = null,
-            tint = theme.surface.actual.color.copy(alpha = .7f),
+            tint = props.colors.surfaceColor.background.copy(alpha = .7f),
             modifier = Modifier.padding(end = 12.dp)
                 .size(42.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(theme.surface.contra.color.copy(alpha = .7f))
+                .background(props.colors.surfaceColor.foreground.copy(alpha = .7f))
                 .padding(10.dp)
         )
         Text(
             text = "Recipient",
-            color = theme.surface.contra.color.copy(alpha = 0.6f),
+            color = props.colors.surfaceColor.foreground.copy(alpha = 0.6f),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium
         )
@@ -65,14 +64,14 @@ fun CreditTableHeader(
     ) {
         Text(
             text = "Payer",
-            color = theme.surface.contra.color.copy(alpha = 0.6f),
+            color = props.colors.surfaceColor.foreground.copy(alpha = 0.6f),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium
         )
     }
-    HeaderCell(text = "Reference", weight = weights.ref, theme = theme)
-    HeaderCell(text = "Purchased", weight = weights.purchased, theme = theme)
-    HeaderCell(text = "Amount", weight = weights.amount, theme = theme)
+    HeaderCell(text = "Reference", weight = weights.ref, props = props)
+    HeaderCell(text = "Purchased", weight = weights.purchased, props = props)
+    HeaderCell(text = "Amount", weight = weights.amount, props = props)
 
     Box(modifier = Modifier.weight(weights.actions))
 }

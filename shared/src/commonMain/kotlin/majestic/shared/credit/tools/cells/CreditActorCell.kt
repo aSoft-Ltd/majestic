@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ThemeColor
+import majestic.shared.credit.tools.CreditTableProps
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -23,12 +23,13 @@ fun CreditActorCell(
     logo: DrawableResource,
     name: String,
     id: String,
-    theme: ThemeColor,
+    props: CreditTableProps,
     modifier: Modifier = Modifier
 ) = Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically
 ) {
+    val txtColor = props.colors.surfaceColor.foreground
     Image(
         painter = painterResource(logo),
         contentDescription = null,
@@ -37,14 +38,14 @@ fun CreditActorCell(
     Column(modifier = Modifier.weight(1f)) {
         Text(
             text = name,
-            color = theme.surface.contra.color,
+            color = txtColor,
             fontSize = 14.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
         Text(
             text = id,
-            color = theme.surface.contra.color.copy(alpha = 0.6f),
+            color = txtColor.copy(alpha = 0.6f),
             fontSize = 12.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis

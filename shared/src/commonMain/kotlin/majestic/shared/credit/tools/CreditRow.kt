@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.shared.credit.CreditUsage
 import majestic.shared.credit.tools.cells.CreditActorCell
 import majestic.shared.credit.tools.cells.CreditPurchasedCell
@@ -21,7 +20,6 @@ import majestic.shared.menu.OptionMenu
 fun <T> CreditRow(
     credit: CreditUsage,
     weights: CreditTableWeights,
-    theme: ThemeColor,
     props: CreditTableProps,
     actions: List<OptionMenu<T>>,
     orientation: ScreenOrientation,
@@ -34,30 +32,30 @@ fun <T> CreditRow(
         logo = credit.recipientLogo,
         name = credit.recipientName,
         id = credit.recipientId,
-        theme = theme,
+        props = props,
         modifier = Modifier.weight(weights.recipient)
     )
     CreditActorCell(
         logo = credit.payerLogo,
         name = credit.payerName,
         id = credit.payerId,
-        theme = theme,
+        props = props,
         modifier = Modifier.weight(weights.payer)
     )
     CreditReferenceCell(
         invoiceRef = credit.invoiceRef,
         txnRef = credit.txnRef,
-        theme = theme,
+        props = props,
         modifier = Modifier.weight(weights.ref)
     )
     CreditPurchasedCell(
         credit = credit,
-        theme = theme,
+        props = props,
         modifier = Modifier.weight(weights.purchased)
     )
     Text(
         text = credit.amount,
-        color = theme.surface.contra.color,
+        color = props.colors.surfaceColor.foreground,
         fontSize = 15.sp,
         fontWeight = FontWeight.Medium,
         modifier = Modifier.weight(weights.amount)

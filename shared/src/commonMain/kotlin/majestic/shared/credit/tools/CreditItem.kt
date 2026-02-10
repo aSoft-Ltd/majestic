@@ -27,13 +27,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.ThemeColor
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun CreditItem(
-    theme: ThemeColor,
+    props: CreditTableProps,
     name: String,
     badgeText: String,
     badgeColor: Color,
@@ -45,6 +44,8 @@ fun CreditItem(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(space = 6.dp)
 ) {
+    val color = props.colors.surfaceColor.foreground
+    
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(3.dp)
@@ -56,7 +57,7 @@ fun CreditItem(
         )
         Text(
             text = name,
-            color = theme.surface.contra.color,
+            color = color,
             fontSize = 14.sp,
             lineHeight = 1.sp,
             maxLines = 1,
@@ -64,7 +65,7 @@ fun CreditItem(
         )
         Text(
             text = " • ",
-            color = theme.surface.contra.color.copy(0.3f),
+            color = color.copy(0.3f),
             fontSize = 14.sp,
             lineHeight = 1.sp
         )
@@ -89,13 +90,13 @@ fun CreditItem(
         Canvas(modifier = Modifier.width(24.dp).height(12.dp)) {
             val strokeWidth = 3f
             drawLine(
-                color = theme.surface.contra.color.copy(0.3f),
+                color = color.copy(0.3f),
                 start = Offset(size.width / 4, -10f),
                 end = Offset(size.width / 4, size.height),
                 strokeWidth = strokeWidth
             )
             drawLine(
-                color = theme.surface.contra.color.copy(0.3f),
+                color = color.copy(0.3f),
                 start = Offset(size.width / 4, size.height),
                 end = Offset(size.width, size.height),
                 strokeWidth = strokeWidth
@@ -104,7 +105,7 @@ fun CreditItem(
         Row(modifier = Modifier.padding(2.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = schoolName,
-                color = theme.surface.contra.color,
+                color = color,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
                 lineHeight = 1.sp,
@@ -113,14 +114,14 @@ fun CreditItem(
             )
             Text(
                 text = " • ",
-                color = theme.surface.contra.color.copy(0.3f),
+                color = color.copy(0.3f),
                 fontSize = 12.sp,
                 lineHeight = 1.sp
             )
             Text(
                 text = buildAnnotatedString {
-                    withStyle(SpanStyle(color = theme.surface.contra.color.copy(alpha = 0.5f))) { append("TZS ") }
-                    withStyle(SpanStyle(color = theme.surface.contra.color)) {
+                    withStyle(SpanStyle(color = color.copy(alpha = 0.5f))) { append("TZS ") }
+                    withStyle(SpanStyle(color = color)) {
                         append(amount)
                         append("/=")
                     }

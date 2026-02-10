@@ -7,7 +7,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.shared.credit.CreditUsage
 import majestic.shared.menu.MenuOption
 import majestic.shared.menu.OptionMenu
@@ -15,7 +14,6 @@ import majestic.shared.tools.PhotoBadge
 
 @Composable
 fun CreditPortraitRow(
-    theme: ThemeColor,
     credit: CreditUsage,
     props: CreditTableProps,
     orientation: ScreenOrientation,
@@ -40,7 +38,7 @@ fun CreditPortraitRow(
         badgeColor = credit.itemColor,
         amount = credit.amount,
         avatar = credit.logo,
-        theme = theme
+        props = props
     )
 
     MenuOption(
