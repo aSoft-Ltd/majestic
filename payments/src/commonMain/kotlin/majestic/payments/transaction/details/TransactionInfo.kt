@@ -36,6 +36,7 @@ import majestic.payments.tools.account.AccountProvider
 import majestic.payments.tools.document.FileDetail
 import majestic.payments.transaction.details.tools.AccountCard
 import majestic.payments.transaction.details.tools.TransactionDetail
+import majestic.tooling.onClick
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.bank_cheque
 
@@ -50,6 +51,7 @@ fun TransactionInfo(
     colors: ColorPair,
     orientation: ScreenOrientation,
     detail: TransactionDetail,
+    onPreview: () -> Unit = {},
     modifier: Modifier = Modifier
 ) = Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
     Flex(
@@ -118,6 +120,7 @@ fun TransactionInfo(
                 .background(bgColor)
                 .pointerHoverIcon(PointerIcon.Hand)
                 .hoverable(interactionSource = interactionSource)
+                .onClick(onPreview)
                 .padding(8.dp),
             name = "payment_receipt_22062024.pdf",
             description = "Payment Receipt",
