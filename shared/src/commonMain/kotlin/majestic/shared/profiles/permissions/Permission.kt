@@ -21,17 +21,16 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.shared.profiles.Permissions
+import majestic.shared.profiles.Permission
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
 data class PermissionData(
-    val permission: Permissions,
+    val permission: Permission,
     val trailIcon: DrawableResource
 )
 
-data class PermissionColors(
-    val background: Color,
+data class PermissionItemColors(
     val leadIcon: ColorPair,
     val title: Color,
     val description: Color,
@@ -44,7 +43,7 @@ internal fun Permission(
     modifier: Modifier,
     item: PermissionData,
     orientation: ScreenOrientation,
-    colors: PermissionColors
+    colors: PermissionItemColors
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),

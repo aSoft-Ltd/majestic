@@ -23,7 +23,7 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.ToggleSwitchColors
-import majestic.shared.profiles.Permission
+import majestic.shared.profiles.Action
 import org.jetbrains.compose.resources.vectorResource
 
 data class DetailedItemColors(
@@ -37,7 +37,7 @@ data class DetailedItemColors(
 data class DetailedItemProperties(
     val colors: DetailedItemColors,
     val itemState: Boolean,
-    val item: Permission
+    val item: Action
 )
 
 @Composable
