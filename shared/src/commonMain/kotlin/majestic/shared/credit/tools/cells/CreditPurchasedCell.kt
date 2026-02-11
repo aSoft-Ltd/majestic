@@ -45,7 +45,8 @@ fun CreditPurchasedCell(
             modifier = Modifier
                 .size(22.dp)
                 .clip(RoundedCornerShape(6.dp))
-                .background(credit.itemColor.copy(alpha = 0.2f))
+                .background(credit.itemColor.copy(alpha = 0.2f)),
+            contentAlignment = Alignment.Center
         ) {
             Text(
                 text = credit.itemName.first().toString(),

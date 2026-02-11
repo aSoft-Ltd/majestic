@@ -73,11 +73,13 @@ fun CreditItem(
             text = badgeText.first().toString(),
             color = badgeColor,
             fontSize = 12.sp,
+            lineHeight = 1.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.size(22.dp)
                 .clip(RoundedCornerShape(6.dp))
                 .background(badgeColor.copy(alpha = 0.2f))
                 .wrapContentSize(Alignment.Center)
+                .padding(3.dp)
         )
         Text(
             text = badgeText,
