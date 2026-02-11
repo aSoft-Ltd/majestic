@@ -31,7 +31,7 @@ import majestic.icons.ic_user_multiple
 import majestic.icons.tz_flag
 import majestic.shared.menu.MenuOption
 import majestic.shared.users.UsersLabels
-import majestic.shared.users.data.Role.Companion.roles
+import majestic.shared.profiles.roles.data.Role.Companion.roles
 import majestic.shared.users.data.permissions
 import majestic.shared.users.label.table.StatusLabels
 import majestic.shared.users.tools.HeaderIcons
