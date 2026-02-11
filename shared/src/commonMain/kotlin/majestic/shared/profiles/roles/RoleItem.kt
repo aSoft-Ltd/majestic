@@ -28,16 +28,16 @@ import majestic.shared.profiles.roles.utils.toBackgroundColor
 import majestic.shared.profiles.roles.utils.toShape
 
 data class RoleItemBackgrounds(
-    val portrait: Color, //colors.toBackground.copy(.5f)
-    val landscape: StateColors//StateColors(focused = colors.surface.contra.color.copy(.05f), unfocused = Color.Transparent)
+    val portrait: Color,
+    val landscape: StateColors
 )
 
 data class RoleItemColors(
     val backgrounds: RoleItemBackgrounds,
-    val icon: ColorPair,// val iconColor = Color(0xFF4DB6AC)
-    val title: Color, //colors.surface.contra.color
-    val subtitle: Color,//colors.surface.contra.color.copy(alpha = 0.7f)
-    val add: ColorPair,//ColorPair(background =colors.surface.actual.color.copy(.5f), foreground =  colors.surface.contra.color)
+    val icon: ColorPair,
+    val title: Color,
+    val subtitle: Color,
+    val add: ColorPair,
     val more: Color,
     val options: MenuOptionColors
 )

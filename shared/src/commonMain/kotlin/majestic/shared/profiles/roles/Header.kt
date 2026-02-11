@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
@@ -24,8 +23,8 @@ import org.jetbrains.compose.resources.painterResource
 
 data class HeaderColors(
     val background: Color,
-    val title: Color, //= //theme.surface.contra.color
-    val icon: Color //theme.surface.contra.color.copy(alpha = 0.7f)
+    val title: Color,
+    val icon: Color
 )
 
 internal fun Modifier.toHeader(
@@ -44,7 +43,7 @@ internal fun Header(
     modifier: Modifier,
     orientation: ScreenOrientation,
     colors: HeaderColors,
-    header:String
+    header: String
 ) = Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically,
