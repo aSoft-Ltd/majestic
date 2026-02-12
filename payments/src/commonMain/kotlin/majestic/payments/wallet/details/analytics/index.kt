@@ -5,9 +5,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -21,6 +26,8 @@ import majestic.layouts.Flex
 import majestic.layouts.FlexCol
 import majestic.layouts.FlexRow
 import majestic.payments.wallet.details.analytics.tools.AnalyticColors
+import majestic.payments.wallet.details.analytics.tools.TransactionFilter
+import majestic.payments.wallet.details.analytics.tools.TransactionFilters
 
 private fun Modifier.card(background: Color, orientation: ScreenOrientation) = this
     .clip(RoundedCornerShape(if (orientation is Landscape) 10.dp else 5.dp))
@@ -34,6 +41,11 @@ fun Analytics(
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier
 ) = Column(modifier = modifier) {
+    FilterHeader(
+        colors = colors.header,
+        orientation = orientation,
+        modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp)
+    )
     Flex(
         modifier = Modifier.fillMaxWidth(),
         orientation = orientation,
@@ -53,13 +65,23 @@ fun Analytics(
                 modifier = Modifier.fillMaxSize()
             )
         }
+
+        var transactionFilter by remember { mutableStateOf(TransactionFilter.SPLINT) }
         AnalyticCard(
             title = "Transactions",
             colors = colors.header,
+            filters = {
+                TransactionFilters(
+                    filter = transactionFilter,
+                    color = colors.foreground,
+                    orientation = orientation,
+                    onChange = { transactionFilter = it },
+                )
+            },
             modifier = Modifier.card(colors.background, orientation)
                 .then(
                     when (orientation) {
-                        is Portrait -> Modifier.fillMaxWidth()
+                        is Portrait -> Modifier.fillMaxWidth().heightIn(min = 200.dp, max = 400.dp)
                         is Landscape -> Modifier.weight(1f)
                     }
                 )

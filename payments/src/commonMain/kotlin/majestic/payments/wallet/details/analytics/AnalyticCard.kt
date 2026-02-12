@@ -33,7 +33,7 @@ internal fun AnalyticCard(
         modifier = Modifier.fillMaxWidth()
             .background(color = colors.background)
             .heightIn(min = 40.dp)
-            .separator(color = colors.foreground.copy(0.01f))
+            .separator(color = colors.foreground.copy(0.03f))
             .padding(horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
