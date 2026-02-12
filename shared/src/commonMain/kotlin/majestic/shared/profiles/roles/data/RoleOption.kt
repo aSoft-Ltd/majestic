@@ -1,9 +1,12 @@
 package majestic.shared.profiles.roles.data
 
-enum class RoleOption {
-    ViewRoles;
+data class OptionLabels(val view: String, val edit: String)
 
-    fun getRoleLabel(label: String = "View Roles") = when (this) {
-        ViewRoles -> label
+enum class RoleOption {
+    ViewRoles, Edit;
+
+    fun getRoleLabel(label: OptionLabels) = when (this) {
+        ViewRoles -> label.view
+        Edit -> label.edit
     }
 }
