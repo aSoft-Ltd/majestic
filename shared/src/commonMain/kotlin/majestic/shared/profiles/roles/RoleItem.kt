@@ -27,13 +27,8 @@ import majestic.shared.profiles.roles.item.Main
 import majestic.shared.profiles.roles.utils.toBackgroundColor
 import majestic.shared.profiles.roles.utils.toShape
 
-data class RoleItemBackgrounds(
-    val portrait: Color,
-    val landscape: StateColors
-)
-
 data class RoleItemColors(
-    val backgrounds: RoleItemBackgrounds,
+    val background: StateColors,
     val icon: ColorPair,
     val title: Color,
     val subtitle: Color,
@@ -53,7 +48,7 @@ internal fun Modifier.toRoleItem(
     .fillMaxWidth()
     .hoverable(interaction)
     .background(
-        color = colors.toBackgroundColor(orientation = orientation, hovered = hovered),
+        color = colors.toBackgroundColor(hovered = hovered),
         shape = orientation.toShape(stations = stations, campus = campus)
     )
     .padding(if (orientation is Landscape) 20.dp else 10.dp)

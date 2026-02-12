@@ -27,7 +27,7 @@ import majestic.shared.profiles.roles.data.RoleOption
 data class RoleColors(
     val header: HeaderColors,
     val item: RoleItemColors,
-    val separator: Color,//colors.surface.contra.color.copy(0.05f)
+    val separator: Color
 )
 
 @Composable
