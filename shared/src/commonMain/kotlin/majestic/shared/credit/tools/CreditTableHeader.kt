@@ -44,11 +44,11 @@ fun CreditTableHeader(
         Icon(
             painter = painterResource(Res.drawable.ic_credict_card_accept),
             contentDescription = null,
-            tint = colors.surfaceColor.background.copy(alpha = .7f),
+            tint = colors.surfaceColor.foreground.copy(alpha = .7f),
             modifier = Modifier.padding(end = 12.dp)
                 .size(42.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(colors.surfaceColor.foreground.copy(alpha = .7f))
+                .background(colors.surfaceColor.background.copy(alpha = .4f))
                 .padding(10.dp)
         )
         Text(
