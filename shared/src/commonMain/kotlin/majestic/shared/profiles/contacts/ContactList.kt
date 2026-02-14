@@ -133,7 +133,7 @@ internal fun ContactList(
             isWhatsapp = index == 0,
             isNormal = true,
             labels = labels.profile.tabs.contacts.content,
-            orientation = orientation,
+            orientation = orientation
         ) {
             when (it) {
                 PhoneMenuAction.Primary -> {}

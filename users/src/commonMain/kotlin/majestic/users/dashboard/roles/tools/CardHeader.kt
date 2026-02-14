@@ -29,7 +29,7 @@ internal fun CardHeader(
     actions: List<OptionMenu<RoleAction>>,
     colors: RoleHeaderColors,
     orientation: ScreenOrientation,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.SpaceBetween,
