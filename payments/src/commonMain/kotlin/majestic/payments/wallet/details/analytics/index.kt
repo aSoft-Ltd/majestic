@@ -42,7 +42,7 @@ fun Analytics(
     modifier: Modifier = Modifier
 ) = Column(modifier = modifier) {
     FilterHeader(
-        colors = colors.header,
+        colors = colors,
         orientation = orientation,
         modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp)
     )
