@@ -2,7 +2,7 @@ package majestic.shared.users.tools
 
 import majestic.shared.profiles.Action
 import majestic.shared.profiles.Permission
-import majestic.shared.users.data.Role
+import majestic.shared.profiles.roles.data.Role
 import org.jetbrains.compose.resources.DrawableResource
 
 private val dateJoined = listOf("24 Feb 2025", "28 Mar 2025", "30 Apr 2025", "26 May 2025")

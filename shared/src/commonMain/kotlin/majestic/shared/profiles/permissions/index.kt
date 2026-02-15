@@ -1,6 +1,5 @@
 package majestic.shared.profiles.permissions
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,19 +25,16 @@ import majestic.shared.profiles.permissions.detail.PermissionsColors
 import majestic.shared.profiles.permissions.detail.toDetailProperties
 import majestic.shared.users.label.contacts.PermissionLabels
 
-internal fun Modifier.generalStyles(orientation: ScreenOrientation, sectionBg: Color) =
+internal fun Modifier.generalStyles(orientation: ScreenOrientation) =
     when (orientation) {
         is Landscape -> this
             .clip(RoundedCornerShape(20.dp))
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(
-                color = sectionBg,
-                shape = RoundedCornerShape(20.dp)
-            )
 
         is Portrait -> this.fillMaxSize()
     }
+
 data class GeneralPermissionColors(
     val background: Color,
     val permission: PermissionsColors,
@@ -62,8 +58,7 @@ fun GeneralPermissions(
         Main -> Permissions(
             modifier = Modifier
                 .generalStyles(
-                    orientation = orientation,
-                    sectionBg = colors.background
+                    orientation = orientation
                 )
                 .verticalScroll(rememberScrollState()),
             current = current,
@@ -75,8 +70,7 @@ fun GeneralPermissions(
         Detailed -> current.activeObj?.let { activePermissions ->
             Details(
                 modifier = Modifier.generalStyles(
-                    orientation = orientation,
-                    sectionBg = colors.background
+                    orientation = orientation
                 ),
                 current = current,
                 orientation = orientation,

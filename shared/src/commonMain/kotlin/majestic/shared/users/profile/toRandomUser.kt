@@ -1,7 +1,7 @@
 package majestic.shared.users.profile
 
 import majestic.icons.*
-import majestic.shared.users.data.Role.Companion.roles
+import majestic.shared.profiles.roles.data.Role.Companion.roles
 import majestic.shared.users.data.avatars
 import majestic.shared.users.data.permissions
 import majestic.shared.users.tools.HeaderIcons

@@ -27,6 +27,8 @@ import majestic.shared.menu.MenuOption
 import majestic.shared.users.UsersLabels
 import majestic.shared.users.dashboard.PortraitHeaderColors
 import majestic.shared.users.dashboard.UserRoleColors
+import majestic.shared.profiles.roles.data.Role.Companion.roles
+import majestic.shared.users.data.permissions
 import majestic.shared.users.tools.HeaderIcons
 import majestic.shared.users.tools.UsersData
 import majestic.users.dashboard.roles.HeaderProps
@@ -41,8 +43,6 @@ import majestic.users.dashboard.table.UsersTable
 import majestic.users.dashboard.tools.toColumnLabels
 import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
-import majestic.users.table.tools.data.permissions
-import majestic.users.table.tools.data.roles
 import majestic.users.tools.data.getDashboardWeights
 import nation.Country
 import symphony.columnsOf
@@ -137,7 +137,7 @@ internal fun LandscapeView(
         MenuOption(
             orientation = orientation,
             actions = getOptions(labels.table),
-            colors = props.table.body.colors.row.menuOption,
+            colors = props.table.body.colors.row.menuOption
         ) { action -> }
     }
     UsersRoles(
@@ -167,5 +167,5 @@ internal fun LandscapeView(
         ),
         add = addRole,
         manage = manageRoles,
-    )
+        )
 }

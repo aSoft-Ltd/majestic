@@ -16,7 +16,7 @@ import majestic.button.internal.ButtonElement
 @Composable
 fun Button(
     modifier: Modifier = Modifier.button(),
-    label: @Composable ColorPair.() -> Unit,
+    label: @Composable (ColorPair) -> Unit,
 ) {
     val el = modifier.registered() ?: ButtonElement(
         colors = ButtonElement.colors,
@@ -33,6 +33,7 @@ fun Button(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        el.colors.toResolved(hovered,pressed,el.disabled).label()
+        val colors = el.colors.toResolved(hovered, pressed, el.disabled)
+        label(colors)
     }
 }

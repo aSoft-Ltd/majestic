@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
+import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.icons.Res
 import majestic.icons.allDrawableResources
@@ -31,7 +32,11 @@ import majestic.icons.ic_user_multiple
 import majestic.icons.tz_flag
 import majestic.shared.menu.MenuOption
 import majestic.shared.users.UsersLabels
+import majestic.shared.profiles.roles.data.Role.Companion.roles
+import majestic.shared.users.data.permissions
 import majestic.shared.users.label.table.StatusLabels
+import majestic.shared.users.tools.HeaderIcons
+import majestic.shared.users.tools.UsersData
 import majestic.tooling.onClick
 import majestic.users.dashboard.roles.RoleCard
 import majestic.users.dashboard.roles.RoleCardData
@@ -48,10 +53,6 @@ import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
 import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
-import majestic.users.table.tools.data.permissions
-import majestic.users.table.tools.data.roles
-import majestic.shared.users.tools.HeaderIcons
-import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import nation.Country
 import symphony.columnsOf
@@ -83,7 +84,7 @@ internal fun PortraitView(
     manageUsers: () -> Unit,
     manageRoles: () -> Unit,
     addUser: () -> Unit,
-    addRole: () -> Unit
+    addRole: () -> Unit,
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top,
@@ -177,7 +178,7 @@ internal fun PortraitView(
                     MenuOption(
                         orientation = orientation,
                         actions = getOptions(labels.table),
-                        colors = props.table.body.colors.row.menuOption,
+                        colors = props.table.body.colors.row.menuOption
                     ) { action -> }
                 },
                 labels = ListLabels(
@@ -217,7 +218,7 @@ internal fun PortraitView(
                             )
                         )
                     ),
-                    orientation = orientation
+                    orientation = orientation,
                 )
 
                 if (index != UserRole.roles.lastIndex) Spacer(
