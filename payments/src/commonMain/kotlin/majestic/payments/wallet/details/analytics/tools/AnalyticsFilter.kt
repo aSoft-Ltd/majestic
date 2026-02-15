@@ -1,12 +1,14 @@
 package majestic.payments.wallet.details.analytics.tools
 
+import majestic.payments.labels.wallet.AnalyticsLabels
+
 internal enum class AnalyticsFilter {
     ACCOUNT, ITEM;
 
-    fun getLabel(): String {
+    fun getDescription(labels: AnalyticsLabels): String {
         return when (this) {
-            ACCOUNT -> "Per Account"
-            ITEM -> "Per Class"
+            ACCOUNT -> labels.perAccount
+            ITEM -> labels.perItem
         }
     }
 }

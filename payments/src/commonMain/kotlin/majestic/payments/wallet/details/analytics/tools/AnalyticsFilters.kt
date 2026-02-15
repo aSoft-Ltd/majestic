@@ -15,10 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
 import majestic.button.Button
+import majestic.payments.labels.wallet.AnalyticsLabels
 import majestic.tooling.onClick
 
 @Composable
 internal fun AnalyticsFilters(
+    labels: AnalyticsLabels,
     filter: AnalyticsFilter,
     color: Color,
     orientation: ScreenOrientation,
@@ -38,7 +40,7 @@ internal fun AnalyticsFilters(
             .padding(10.dp)
             .onClick { onChange(AnalyticsFilter.ACCOUNT) }
     ) {
-        Text(text = "Per Account", fontSize = 14.sp, lineHeight = 1.sp, color = color)
+        Text(text = labels.btnPerAccount, fontSize = 14.sp, lineHeight = 1.sp, color = color)
     }
     Button(
         modifier = Modifier.clip(CircleShape)
@@ -46,6 +48,6 @@ internal fun AnalyticsFilters(
             .padding(10.dp)
             .onClick { onChange(AnalyticsFilter.ITEM) }
     ) {
-        Text(text = "Per Class", fontSize = 14.sp, lineHeight = 1.sp, color = color)
+        Text(text = labels.btnPerItem, fontSize = 14.sp, lineHeight = 1.sp, color = color)
     }
 }

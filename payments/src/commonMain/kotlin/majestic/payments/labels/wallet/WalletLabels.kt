@@ -11,5 +11,6 @@ class WalletLabels(
     val table: TableLabels,
     val form: NewWalletLabels,
     val detail: DetailTabLabels,
-    val infoEntry: InfoEntryLabels
+    val infoEntry: InfoEntryLabels,
+    val analytics: AnalyticsLabels
 )

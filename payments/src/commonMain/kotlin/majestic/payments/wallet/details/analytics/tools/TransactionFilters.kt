@@ -15,10 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
 import majestic.button.Button
+import majestic.payments.labels.wallet.AnalyticsLabels
 import majestic.tooling.onClick
 
 @Composable
 internal fun TransactionFilters(
+    labels: AnalyticsLabels,
     filter: TransactionFilter,
     color: Color,
     orientation: ScreenOrientation,
@@ -38,7 +40,7 @@ internal fun TransactionFilters(
             .padding(vertical = 5.dp, horizontal = 10.dp)
             .onClick { onChange(TransactionFilter.SPLINT) }
     ) {
-        Text(text = "Split", fontSize = 12.sp, lineHeight = 1.sp, color = color)
+        Text(text = labels.split, fontSize = 12.sp, lineHeight = 1.sp, color = color)
     }
     Button(
         modifier = Modifier.clip(CircleShape)
@@ -46,6 +48,6 @@ internal fun TransactionFilters(
             .padding(vertical = 5.dp, horizontal = 10.dp)
             .onClick { onChange(TransactionFilter.COMBINE) }
     ) {
-        Text(text = "Combine", fontSize = 12.sp, lineHeight = 1.sp, color = color)
+        Text(text = labels.combine, fontSize = 12.sp, lineHeight = 1.sp, color = color)
     }
 }

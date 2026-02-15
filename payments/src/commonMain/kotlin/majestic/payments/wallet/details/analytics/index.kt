@@ -25,7 +25,9 @@ import majestic.graph.tools.Series
 import majestic.layouts.Flex
 import majestic.layouts.FlexCol
 import majestic.layouts.FlexRow
+import majestic.payments.labels.wallet.AnalyticsLabels
 import majestic.payments.wallet.details.analytics.tools.AnalyticColors
+import majestic.payments.wallet.details.analytics.tools.AnalyticsFilter
 import majestic.payments.wallet.details.analytics.tools.TransactionFilter
 import majestic.payments.wallet.details.analytics.tools.TransactionFilters
 
@@ -35,15 +37,19 @@ private fun Modifier.card(background: Color, orientation: ScreenOrientation) = t
 
 @Composable
 fun Analytics(
+    labels: AnalyticsLabels,
     colors: AnalyticColors,
     series: List<Series>,
     groups: List<TransactionGroup>,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier
 ) = Column(modifier = modifier) {
+    var analyticsFilter by remember { mutableStateOf(AnalyticsFilter.ACCOUNT) }
     FilterHeader(
+        labels = labels,
         colors = colors,
         orientation = orientation,
+        onFilter = { analyticsFilter = it },
         modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp)
     )
     Flex(
@@ -53,7 +59,7 @@ fun Analytics(
         row = FlexRow(arrangement = Arrangement.spacedBy(10.dp))
     ) {
         if (orientation is Landscape) AnalyticCard(
-            title = "Transactions",
+            title = analyticsFilter.getDescription(labels),
             colors = colors.header,
             modifier = Modifier.card(colors.background, orientation).weight(1f)
         ) {
@@ -68,10 +74,11 @@ fun Analytics(
 
         var transactionFilter by remember { mutableStateOf(TransactionFilter.SPLINT) }
         AnalyticCard(
-            title = "Transactions",
+            title = analyticsFilter.getDescription(labels),
             colors = colors.header,
             filters = {
                 TransactionFilters(
+                    labels = labels,
                     filter = transactionFilter,
                     color = colors.foreground,
                     orientation = orientation,

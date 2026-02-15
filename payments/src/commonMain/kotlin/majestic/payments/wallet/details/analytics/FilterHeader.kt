@@ -31,6 +31,7 @@ import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
 import majestic.Popup
 import majestic.button.Button
+import majestic.payments.labels.wallet.AnalyticsLabels
 import majestic.payments.wallet.details.analytics.tools.AnalyticColors
 import majestic.payments.wallet.details.analytics.tools.AnalyticsFilter
 import majestic.payments.wallet.details.analytics.tools.AnalyticsFilters
@@ -42,8 +43,10 @@ import majestic.tooling.onClick
 
 @Composable
 internal fun FilterHeader(
+    labels: AnalyticsLabels,
     colors: AnalyticColors,
     orientation: ScreenOrientation,
+    onFilter: (AnalyticsFilter) -> Unit,
     modifier: Modifier = Modifier
 ) = Row(
     modifier = modifier,
@@ -52,10 +55,14 @@ internal fun FilterHeader(
 ) {
     var analyticsFilter by remember { mutableStateOf(AnalyticsFilter.ACCOUNT) }
     AnalyticsFilters(
+        labels = labels,
         filter = analyticsFilter,
         color = colors.header.foreground,
         orientation = orientation,
-        onChange = { analyticsFilter = it },
+        onChange = {
+            analyticsFilter = it
+            onFilter(it)
+        },
     )
 
     var expanded by remember { mutableStateOf(false) }
@@ -76,11 +83,11 @@ internal fun FilterHeader(
                     .onClick { expanded = true }
                     .padding(horizontal = 10.dp)
             ) {
-                Text(text = "Start Date", fontSize = 14.sp, lineHeight = 1.sp, color = colors.header.foreground.copy(0.7f))
+                Text(text = labels.startDate, fontSize = 14.sp, lineHeight = 1.sp, color = colors.header.foreground.copy(0.7f))
                 Spacer(Modifier.width(10.dp))
                 Text(text = "-", fontSize = 30.sp, lineHeight = 1.sp, color = colors.header.foreground.copy(0.7f))
                 Spacer(Modifier.width(10.dp))
-                Text(text = "End Date", fontSize = 14.sp, lineHeight = 1.sp, color = colors.header.foreground.copy(0.7f))
+                Text(text = labels.endDate, fontSize = 14.sp, lineHeight = 1.sp, color = colors.header.foreground.copy(0.7f))
             }
         },
         overlay = Overlay(
