@@ -65,6 +65,7 @@ kotlin {
             api(projects.majesticInputCore)
             api(projects.majesticInputChoice)
             api(projects.majesticLayouts)
+            api(projects.majesticInputButton)
             api(projects.majesticInputText)
             api(projects.majesticInputChoice)
             api(projects.majesticInputColor)
