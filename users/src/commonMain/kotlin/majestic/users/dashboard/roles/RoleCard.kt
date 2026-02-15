@@ -34,7 +34,7 @@ internal data class RoleCardData(
 internal fun RoleCard(
     modifier: Modifier = Modifier,
     props: RoleCardProps,
-    orientation: ScreenOrientation
+    orientation: ScreenOrientation,
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(16.dp),
     modifier = modifier
@@ -44,7 +44,7 @@ internal fun RoleCard(
         modifier = Modifier.fillMaxWidth(),
         actions = props.data.actions,
         colors = props.colors.head,
-        orientation = orientation
+        orientation = orientation,
     )
 
     Text(

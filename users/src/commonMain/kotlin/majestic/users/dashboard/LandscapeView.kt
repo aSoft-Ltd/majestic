@@ -137,7 +137,7 @@ internal fun LandscapeView(
         MenuOption(
             orientation = orientation,
             actions = getOptions(labels.table),
-            colors = props.table.body.colors.row.menuOption,
+            colors = props.table.body.colors.row.menuOption
         ) { action -> }
     }
     UsersRoles(
@@ -167,5 +167,5 @@ internal fun LandscapeView(
         ),
         add = addRole,
         manage = manageRoles,
-    )
+        )
 }
