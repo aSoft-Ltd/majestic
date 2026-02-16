@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import majestic.shared.profiles.roles.data.Role
+import majestic.shared.profiles.roles.data.RoleAssignmentLabels
 import majestic.shared.profiles.roles.data.RoleData
 
 class AssignmentController(
