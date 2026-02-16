@@ -58,13 +58,13 @@ fun <T> MenuOption(
         onDismissRequest = { expanded = false },
         inline = Inline(alignment = Alignment.Center) {
             val color = if (isHovered) colors.icon.foreground else colors.icon.foreground.copy(.9f)
-            if (icon == null) Button(
+            Button(
                 modifier = Modifier.listItemIconButton(
                     colors = colors.listIconButton,
                     onClick = { expanded = !expanded }
                 )
             ) { colors ->
-                Icon(
+                if (icon == null) Icon(
                     imageVector = vectorResource(Res.drawable.ic_more_horizontal),
                     contentDescription = null,
                     tint = colors.foreground,
@@ -74,8 +74,8 @@ fun <T> MenuOption(
                         .then(if (orientation is Portrait) Modifier.rotate(90f) else Modifier)
 
                 )
+                else icon.invoke(color)
             }
-            else icon.invoke(color)
         },
         items = Items(
             modifier = Modifier.width(IntrinsicSize.Min)
