@@ -25,8 +25,8 @@ import majestic.LazyTable
 import majestic.payments.labels.transaction.TransactionLabels
 import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.separator
+import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
-import majestic.payments.transaction.table.tools.CommonCell
 import majestic.payments.transaction.tools.TransactionMenuAction
 import majestic.tooling.onClick
 import symphony.Table
@@ -131,7 +131,7 @@ fun TransactionTable(
                 avatar = cell.row.item.avatar,
                 title = cell.row.item.name,
                 subtitle = cell.row.item.info,
-                colors = colors
+                color = colors.foreground
             )
 
             labels.table.payer -> CommonCell(
@@ -146,7 +146,7 @@ fun TransactionTable(
                 avatarShape = RoundedCornerShape(5.dp),
                 title = cell.row.item.payer,
                 subtitle = cell.row.item.phone,
-                colors = colors
+                color = colors.foreground
             )
 
             labels.table.purpose -> CommonCell(
@@ -159,7 +159,7 @@ fun TransactionTable(
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.purpose,
                 subtitle = cell.row.item.date,
-                colors = colors
+                color = colors.foreground
             )
 
             labels.table.reference -> CommonCell(
@@ -172,7 +172,7 @@ fun TransactionTable(
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.reference,
                 subtitle = cell.row.item.receipt,
-                colors = colors
+                color = colors.foreground
             )
 
             labels.table.issued -> CommonCell(
@@ -185,7 +185,7 @@ fun TransactionTable(
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.date,
                 subtitle = cell.row.item.time,
-                colors = colors
+                color = colors.foreground
             )
 
             labels.table.confirmed -> CommonCell(
@@ -198,7 +198,7 @@ fun TransactionTable(
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.date,
                 subtitle = cell.row.item.time,
-                colors = colors
+                color = colors.foreground
             )
 
             labels.table.amount -> CommonCell(
@@ -213,7 +213,7 @@ fun TransactionTable(
                 avatarShape = RoundedCornerShape(5.dp),
                 title = cell.row.item.amountTitle,
                 subtitle = "TZS ${cell.row.item.amount}",
-                colors = colors
+                color = colors.foreground
             )
 
             "" -> Box(
