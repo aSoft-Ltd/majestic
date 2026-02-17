@@ -1,4 +1,4 @@
-package majestic.payments.labels.transaction
+package majestic.payments.labels
 
 class ActionLabels(
     val process: String,
