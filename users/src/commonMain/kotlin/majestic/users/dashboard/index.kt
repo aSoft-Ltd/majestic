@@ -93,7 +93,7 @@ fun UsersDashboard(
                 manageUsers = manageUsers,
                 manageRoles = manageRoles,
                 addUser = addUser,
-                addRole = addRole
+                addRole = addRole,
             )
 
             is Portrait -> PortraitView(
@@ -109,7 +109,7 @@ fun UsersDashboard(
                 addUser = addUser,
                 onItemClick = onItemClick,
                 addRole = addRole,
-            )
+                )
         }
     }
 }
