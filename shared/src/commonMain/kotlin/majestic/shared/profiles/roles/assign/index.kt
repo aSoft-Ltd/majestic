@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.form
+package majestic.shared.profiles.roles.assign
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.form
+package majestic.shared.profiles.roles.assign.form
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,19 +16,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
 import majestic.tooling.onClick
+data class ButtonColor(
+    val background: Color,
+    val foreground: Color,
+    val border: Color?
+)
+data class ItemColors(
+    val title: Color,
+    val description: Color,
+    val viewPermissions: Color,
+    val assignButton: ButtonColor,
+    val setupButton: ButtonColor
+)
 
 @Composable
-internal fun RoleAssignmentItem(
+internal fun Item(
     index: Int,
     role: Role,
     isSelected: Boolean,
-    colors: RoleAssignmentColors,
+    colors: ItemColors,
     labels: RoleAssignmentLabels,
     onToggle: () -> Unit
 ) = Column(modifier = Modifier.fillMaxWidth()) {
@@ -41,14 +54,14 @@ internal fun RoleAssignmentItem(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "$index.",
-                    color = colors.roleTitle,
+                    color = colors.title,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
                     text = role.title,
-                    color = colors.roleTitle,
+                    color = colors.title,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -56,7 +69,7 @@ internal fun RoleAssignmentItem(
             Spacer(Modifier.height(8.dp))
             Text(
                 text = role.description,
-                color = colors.roleDescription,
+                color = colors.description,
                 fontSize = 13.sp,
                 lineHeight = 18.sp
             )
@@ -92,4 +105,5 @@ internal fun RoleAssignmentItem(
             fontWeight = FontWeight.SemiBold
         )
     }
+    Spacer(Modifier.height(16.dp))
 }

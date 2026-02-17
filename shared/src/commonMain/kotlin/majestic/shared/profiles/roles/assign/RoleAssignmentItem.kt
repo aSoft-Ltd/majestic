@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.form
+package majestic.shared.profiles.roles.assign
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,13 +19,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.shared.profiles.roles.RoleAssignmentColors
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
 import majestic.tooling.onClick
 
 @Composable
-fun RoleAssignmentItem(
+internal fun RoleAssignmentItem(
     index: Int,
     role: Role,
     isSelected: Boolean,
@@ -93,5 +92,4 @@ fun RoleAssignmentItem(
             fontWeight = FontWeight.SemiBold
         )
     }
-    Spacer(Modifier.height(16.dp))
 }

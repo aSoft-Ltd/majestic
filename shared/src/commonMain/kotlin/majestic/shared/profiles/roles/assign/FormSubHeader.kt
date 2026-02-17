@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.form
+package majestic.shared.profiles.roles.assign
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,8 +22,6 @@ import majestic.icons.Res
 import majestic.icons.ic_search
 import majestic.icons.ic_vertical_settings
 import majestic.search.SearchField
-import majestic.shared.profiles.roles.AssignmentController
-import majestic.shared.profiles.roles.RoleAssignmentColors
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
 import org.jetbrains.compose.resources.painterResource
 
