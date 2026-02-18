@@ -64,8 +64,8 @@ class AssignmentController(
 @Composable
 fun rememberAssignmentController(
     userName: String,
-    totalStations: List<RoleData>,
-    assignedStations: List<RoleData>
+    total: List<RoleData>,
+    assigned: List<RoleData>
 ) = remember {
     AssignmentController(
         userName = userName,
