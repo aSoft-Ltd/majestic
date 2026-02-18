@@ -2,9 +2,14 @@ package majestic.users.tools.data
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import kollections.Set
-import majestic.users.tools.UsersData
+import majestic.shared.users.label.table.ColumnLabels
+import majestic.shared.users.tools.UsersData
 import symphony.Table
 import symphony.columns.Column
 import symphony.selected.LinearSelected
@@ -13,22 +18,33 @@ import symphony.selected.LinearSelectedItem
 import symphony.selected.LinearSelectedItems
 import symphony.selected.LinearSelectedNone
 
-data class HeaderLabels(
-    val checkbox: String,
-    val name: String,
-    val email: String,
-    val id: String,
-    val dateJoined: String,
-    val lastActive: String,
-    val roles: String,
-    val permission: String,
-    val status: String,
-)
-
 @Composable
 fun getWeights(
     columns: Set<Column<UsersData>>,
-    labels: HeaderLabels
+    labels: ColumnLabels
+): Map<Column<UsersData>, Float> = remember(columns) {
+    buildMap {
+        for (column in columns) {
+            this[column] = when (column.key) {
+                labels.checkbox -> 2f
+                labels.name -> 6f
+                labels.email -> 6.5f
+                labels.id -> 8f
+                labels.dateJoined -> 4f
+                labels.lastActive -> 5f
+                labels.roles -> 4f
+                labels.permission -> 4f
+                labels.status -> 4f
+                else -> 2f
+            }
+        }
+    }
+}
+
+@Composable
+fun getDashboardWeights(
+    columns: Set<Column<UsersData>>,
+    labels: ColumnLabels
 ): Map<Column<UsersData>, Float> = remember(columns) {
     buildMap {
         for (column in columns) {
@@ -36,7 +52,6 @@ fun getWeights(
                 labels.checkbox -> 2f
                 labels.name -> 4.5f
                 labels.email -> 6f
-                labels.id -> 8f
                 labels.dateJoined -> 4f
                 labels.lastActive -> 4f
                 labels.roles -> 4f
@@ -57,38 +72,13 @@ fun getSelectedRows(table: Table<UsersData>): Int =
         is LinearSelectedNone -> 0
     }
 
-//internal fun getEnrolledData(
-//    cell: Cell<EnrolledData>,
-//    labels: BulkLabels,
-//    table: Table<EnrolledData>,
-//    selected: Boolean,
-//    theme: ThemeColor,
-//    hovered: Color
-//) = Data(
-//    item = DataItem(
-//        title = cell.row.item.title,
-//        campus = cell.row.item.campus,
-//        count = cell.row.item.enrolledCount,
-//        status = cell.row.item.status.getLabel(labels.table.enrolled.body.status),
-//        actions = listOf(
-//            OptionMenu(
-//                BulkMenuAction.Recall.getLabel(labels.table.enrolled.body.bulkActions),
-//                BulkMenuAction.Recall
-//            ),
-//            OptionMenu(
-//                BulkMenuAction.Select.getLabel(labels.table.enrolled.body.bulkActions),
-//                BulkMenuAction.Select
-//            )
-//        ),
-//        isLast = cell.row.index == table.rows.lastIndex,
-//        selected = selected
-//    ),
-//    colors = Colors(
-//        title = theme.surface.actual.color,
-//        campus = theme.surface.contra.color,
-//        status = cell.row.item.status.getColor(theme),
-//        hovered = hovered
-//    )
-//)
-//
-//
+
+internal fun Modifier.separator(isLast: Boolean, color: Color) = drawBehind {
+    val strokeWidth = 1.dp.toPx()
+    drawLine(
+        color = if (isLast) Color.Transparent else color,
+        start = Offset(0f, size.height - strokeWidth / 2),
+        end = Offset(size.width, size.height - strokeWidth / 2),
+        strokeWidth = strokeWidth
+    )
+}

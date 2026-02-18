@@ -27,33 +27,42 @@ android {
 }
 
 kotlin {
+    androidTarget { }
     jvm {
         tasks.withType<Test> {
             useJUnitPlatform()
         }
     }
-    js(IR) {
-        browser()
-        nodejs()
-    }
+//    js(IR) {
+//        browser()
+//        nodejs()
+//    }
 
     wasmJs { browser() }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
-    macosArm64()
+//    macosX64()
+//    macosArm64()
 
     sourceSets {
         commonMain.dependencies {
             api(compose.runtime)
             api(compose.foundation)
+            api(compose.components.resources)
             api(compose.material3)?.because("We need to access LocalContentColor")
             api(compose.materialIconsExtended)?.because("We need default icons")
             api(libs.symphony.table)?.because("We need a table manager of some sorts")
             api(libs.cinematic.live.compose)?.because("We need to watchAsState")
+            api(projects.majesticInputCore)
+            api(projects.majesticLayouts)
             api(projects.majesticTheme)
             api(projects.majesticScreen)
+            api(projects.majesticInputText)
+            api(projects.majesticInputChoice)
+            api(projects.majesticInputButton)
+            api(projects.majesticGraphs)
+            api(projects.majesticTable)
         }
 
         commonTest.dependencies {

@@ -1,7 +1,7 @@
 @file:OptIn(ExperimentalComposeLibrary::class)
 
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -47,11 +47,7 @@ kotlin {
 //    }
 
     wasmJs { browser() }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-//    macosX64()
-//    macosArm64()
+    iosTargets()
 
     sourceSets {
         commonMain.dependencies {
@@ -65,20 +61,24 @@ kotlin {
             api(projects.majesticScreen)?.because("We need access to NoRippleInteractionSource")
             api(compose.materialIconsExtended)
             api(libs.kiota.file.manager.core)
-            api(libs.majestic.input.core)
-            api(libs.majestic.input.text)
-            api(libs.majestic.input.choice)
-            api(libs.majestic.input.color)
-            api(libs.majestic.input.phone)
-            api(libs.majestic.input.chrono)?.because("We need good ui for date, time and calendar pickers")
-            api(libs.majestic.table)
-            api(libs.majestic.graphs)
-            api(libs.majestic.screen)
-            api(libs.majestic.drawers)
-            api(libs.majestic.loaders)
-            api(libs.majestic.overlays)
+            api(projects.majesticInputCore)
+            api(projects.majesticInputText)
+            api(projects.majesticInputChoice)
+            api(projects.majesticInputColor)
+            api(projects.majesticInputPhone)
+            api(projects.majesticLayouts)
+            api(projects.majesticInputChrono)?.because("We need good ui for date, time and calendar pickers")
+            api(projects.majesticTable)
+            api(projects.majesticGraphs)
+            api(projects.majesticScreen)
+            api(projects.majesticDrawers)
+            api(projects.majesticLoaders)
+            api(projects.majesticOverlays)
             api(libs.nation.flags.compose)
             api(libs.nation.countries)
+            api(libs.nation.flags.compose)
+            api(projects.majesticShared)?.because("We need to for shared dashboard components, reducing duplications")
+            api(projects.majesticIcons)
             api(libs.nation.currencies)
             api(libs.captain.router.compose.core)
             api(github.compottie)
