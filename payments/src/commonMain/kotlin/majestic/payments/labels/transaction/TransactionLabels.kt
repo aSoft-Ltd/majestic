@@ -1,5 +1,6 @@
 package majestic.payments.labels.transaction
 
+import majestic.payments.labels.ActionLabels
 import majestic.payments.labels.MenuLabels
 import majestic.payments.labels.SectionLabels
 
