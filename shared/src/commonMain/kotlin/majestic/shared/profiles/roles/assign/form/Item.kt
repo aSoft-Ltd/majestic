@@ -91,7 +91,7 @@ internal fun Item(
             lineHeight = 18.sp
         )
         Text(
-            text = labels.viewPermissions,
+            text = labels.view,
             color = colors.view,
             fontSize = 13.sp,
             textDecoration = TextDecoration.Underline,

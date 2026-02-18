@@ -69,7 +69,7 @@ fun rememberAssignmentController(
 ) = remember {
     AssignmentController(
         userName = userName,
-        totalStations = totalStations,
-        assignedStations = assignedStations
+        totalStations = total,
+        assignedStations = assigned
     )
 }

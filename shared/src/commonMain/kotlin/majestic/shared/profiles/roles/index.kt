@@ -44,8 +44,8 @@ fun RoleArea(
 
     val controller = rememberAssignmentController(
         userName = username,
-        totalStations = stations,
-        assignedStations = assignedStations
+        total = stations,
+        assigned = assignedStations
     )
     PromptWrapper(controller, colors, orientation, labels)
 
