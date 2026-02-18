@@ -1,5 +1,6 @@
 package majestic.shared.profiles.roles.assign.form
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +36,8 @@ internal fun Headings(
     Header(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .background(colors.header.background)
+            .padding(horizontal = 16.dp, vertical = 24.dp),
         labels = labels,
         controller = controller,
         colors = colors.header,
@@ -49,7 +51,8 @@ internal fun Headings(
     SubHeader(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 8.dp),
+            .background(colors.subheading.background)
+            .padding(horizontal = 16.dp, vertical = 10.dp),
         colors = colors.subheading,
         controller = controller,
         labels = labels

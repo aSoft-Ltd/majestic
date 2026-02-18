@@ -32,6 +32,7 @@ import majestic.tooling.onClick
 import org.jetbrains.compose.resources.vectorResource
 
 data class HeaderColors(
+    val background: Color,
     val icon: Color,
     val title: Color,
     val iconBackground: Color,

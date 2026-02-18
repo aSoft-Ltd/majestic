@@ -24,7 +24,6 @@ import majestic.icons.Res
 import majestic.icons.ic_add
 import majestic.shared.menu.MenuOption
 import majestic.shared.menu.OptionMenu
-import majestic.shared.profiles.roles.RoleItemColors
 import majestic.shared.profiles.roles.data.RoleOption
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.painterResource

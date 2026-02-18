@@ -43,7 +43,8 @@ data class SearchColors(
 data class SubHeaderColors(
     val tint: Color,
     val stats: Color,
-    val search: SearchColors
+    val search: SearchColors,
+    val background: Color
 )
 
 @Composable
