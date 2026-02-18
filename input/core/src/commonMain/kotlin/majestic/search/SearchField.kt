@@ -59,7 +59,11 @@ fun ThemeColor.toSearchColors(): SearchColors {
         )
     }
 }
-@Deprecated("Use majestic.Search instead", replace)
+
+@Deprecated(
+    message = "This implementation is deprecated",
+    replaceWith = ReplaceWith("majestic.Search")
+)
 @Composable
 fun SearchField(
     theme: ThemeColor,

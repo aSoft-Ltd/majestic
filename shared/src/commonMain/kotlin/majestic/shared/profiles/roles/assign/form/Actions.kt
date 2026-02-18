@@ -13,8 +13,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.shared.profiles.roles.assign.AssignmentController
 import majestic.shared.profiles.roles.assign.FormColors
+import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
 import majestic.tooling.onClick
 
@@ -35,8 +35,8 @@ internal fun Actions(
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
             .background(colors.cancelButton.background)
-            .onClick { controller.close() }
-            .padding(horizontal = 24.dp, vertical = 10.dp),
+            .padding(horizontal = 24.dp, vertical = 10.dp)
+            .onClick { controller.close() },
         fontSize = 15.sp,
         fontWeight = FontWeight.SemiBold
     )
@@ -46,8 +46,8 @@ internal fun Actions(
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
             .background(colors.confirmButton.background)
-            .onClick { controller.close() }
-            .padding(horizontal = 24.dp, vertical = 10.dp),
+            .padding(horizontal = 24.dp, vertical = 10.dp)
+            .onClick { controller.close() },
         fontSize = 15.sp,
         fontWeight = FontWeight.SemiBold
     )

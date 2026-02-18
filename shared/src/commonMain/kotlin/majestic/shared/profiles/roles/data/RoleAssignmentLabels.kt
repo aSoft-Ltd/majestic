@@ -5,7 +5,7 @@ data class RoleAssignmentLabels(
     val search: String,
     val selected: String,
     val viewPermissions: String,
-    val setup: String,
+    val unassign: String,
     val assign: String,
     val cancel: String,
     val assignSelected: String

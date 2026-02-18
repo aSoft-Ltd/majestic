@@ -37,7 +37,10 @@ data class SearchFilterColors(
     val border: Color,
     val icon: Color
 )
-
+@Deprecated(
+    message = "This implementation is deprecated",
+    replaceWith = ReplaceWith("majestic.Search")
+)
 @Composable
 fun SearchBarFilter(
     colors: SearchFilterColors,
