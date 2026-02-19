@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.style.TextOverflow
 import majestic.ThemeColor
 import majestic.tooling.onClick
 
@@ -24,6 +25,8 @@ fun Breadcrumbs(
         for ((index, item) in breadcrumbs.withIndex()) {
             Text(
                 text = item.label,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick { onClick(item.url) },
