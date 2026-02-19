@@ -101,7 +101,7 @@ internal fun Item(
     }
 
     val buttonText = if (isSelected) labels.unassign else labels.assign
-    val interaction = remember{MutableInteractionSource()}
+    val interaction = remember{ MutableInteractionSource() }
     val hovered by interaction.collectIsHoveredAsState()
     Text(
         text = buttonText,

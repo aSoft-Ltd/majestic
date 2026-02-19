@@ -33,11 +33,15 @@ import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
 import org.jetbrains.compose.resources.painterResource
 
+data class ActionColors(
+    val foreground: StateColors,
+    val background: StateColors
+)
+
 data class SearchColors(
     val default: SearchDefaultColors,
     val searchField: Color,
-    val icon: Color,
-    val iconBackground: StateColors
+    val icon: ActionColors,
 )
 
 data class SubHeaderColors(
@@ -92,14 +96,14 @@ internal fun SubHeader(
             Icon(
                 painter = painterResource(Res.drawable.ic_search),
                 contentDescription = null,
-                tint = colors.search.icon,
+                tint = colors.search.icon.foreground.unfocused,
                 modifier = Modifier
                     .padding(2.dp)
                     .hoverable(interaction)
                     .background(
                         color = when (hovered) {
-                            true -> colors.search.iconBackground.focused
-                            false -> colors.search.iconBackground.unfocused
+                            true -> colors.search.icon.background.focused
+                            false -> colors.search.icon.background.unfocused
                         },
                         shape = CircleShape
                     )

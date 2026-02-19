@@ -22,7 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.editor.tools.StateColors
+import majestic.ColorPair
 import majestic.icons.Res
 import majestic.icons.ic_account_setting
 import majestic.icons.ic_cancel
@@ -33,11 +33,9 @@ import org.jetbrains.compose.resources.vectorResource
 
 data class HeaderColors(
     val background: Color,
-    val icon: Color,
+    val icon: ColorPair,
     val title: Color,
-    val iconBackground: Color,
-    val cancel: Color,
-    val cancelBackground: StateColors
+    val cancel: ActionColors
 )
 
 @Composable
@@ -60,9 +58,9 @@ internal fun Header(
         Icon(
             imageVector = vectorResource(Res.drawable.ic_account_setting),
             contentDescription = null,
-            tint = colors.icon,
+            tint = colors.icon.foreground,
             modifier = Modifier
-                .background(colors.iconBackground, shape = RoundedCornerShape(8.dp))
+                .background(colors.icon.background, shape = RoundedCornerShape(8.dp))
                 .padding(8.dp)
                 .size(24.dp)
         )
@@ -79,11 +77,14 @@ internal fun Header(
     Icon(
         imageVector = vectorResource(Res.drawable.ic_cancel),
         contentDescription = null,
-        tint = colors.cancel,
+        tint = colors.cancel.foreground.unfocused,
         modifier = Modifier
             .hoverable(interaction)
             .background(
-                color = if (hovered) colors.cancelBackground.focused else colors.cancelBackground.unfocused,
+                color = when (hovered) {
+                    true -> colors.cancel.background.focused
+                    false -> colors.cancel.background.unfocused
+                },
                 shape = CircleShape
             )
             .padding(8.dp)
