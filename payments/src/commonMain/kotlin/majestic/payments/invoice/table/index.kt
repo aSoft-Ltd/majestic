@@ -1,4 +1,4 @@
-package majestic.payments.wallet.details.transactions
+package majestic.payments.invoice.table
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,21 +19,24 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
+import composex.screen.orientation.Landscape
 import majestic.Checkbox
 import majestic.LazyTable
-import majestic.payments.labels.transaction.TransactionLabels
+import majestic.payments.invoice.tools.InvoiceMenuAction
+import majestic.payments.labels.invoice.InvoiceLabels
+import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.separator
 import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
-import majestic.payments.transaction.table.PaymentTransaction
 import majestic.tooling.onClick
 import symphony.Table
 
 @Composable
-fun WalletTransactions(
-    labels: TransactionLabels,
+fun InvoiceTable(
+    labels: InvoiceLabels,
     colors: TableColors,
-    table: Table<PaymentTransaction>,
+    table: Table<PaymentInvoice>,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val columns = table.columns.current.watchAsState()
@@ -41,12 +44,11 @@ fun WalletTransactions(
         buildMap {
             for (column in columns) {
                 this[column] = when (column.key) {
-                    labels.table.checkbox -> 2f
                     labels.table.name -> 5f
-                    labels.table.payer -> 5f
+                    labels.table.location -> 5f
                     labels.table.amount -> 5f
                     "" -> 2f
-                    else -> 4f
+                    else -> 3f
                 }
             }
         }
@@ -123,6 +125,7 @@ fun WalletTransactions(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 avatar = cell.row.item.avatar,
                 title = cell.row.item.name,
@@ -130,29 +133,28 @@ fun WalletTransactions(
                 color = colors.foreground
             )
 
-            labels.table.payer -> CommonCell(
+            labels.table.invoiceNo -> CommonCell(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
-                avatar = cell.row.item.account,
-                avatarShape = RoundedCornerShape(5.dp),
-                title = cell.row.item.payer,
-                subtitle = cell.row.item.phone,
+                title = cell.row.item.reference,
                 color = colors.foreground
             )
 
-            labels.table.reference -> CommonCell(
+            labels.table.campus -> CommonCell(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
-                title = cell.row.item.reference,
-                subtitle = cell.row.item.receipt,
+                title = cell.row.item.campus,
+                subtitle = "NECTA",
                 color = colors.foreground
             )
 
@@ -162,9 +164,33 @@ fun WalletTransactions(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.date,
-                subtitle = cell.row.item.time,
+                color = colors.foreground
+            )
+
+            labels.table.due -> CommonCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
+                    .padding(horizontal = 12.dp),
+                title = cell.row.item.date,
+                color = colors.foreground
+            )
+
+            labels.table.description -> CommonCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
+                    .padding(horizontal = 12.dp),
+                title = cell.row.item.description,
                 color = colors.foreground
             )
 
@@ -174,13 +200,39 @@ fun WalletTransactions(
                     .background(if (selected) colors.hovered else Color.Transparent)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
                     .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
                     .padding(horizontal = 12.dp),
-                avatar = cell.row.item.account,
-                avatarShape = RoundedCornerShape(5.dp),
-                title = cell.row.item.amountTitle,
-                subtitle = "TZS ${cell.row.item.amount}",
+                title = "${cell.row.item.amount}/=",
                 color = colors.foreground
             )
+
+            labels.table.status -> CommonCell(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick(onClick)
+                    .padding(horizontal = 12.dp),
+                title = cell.row.item.status.getLabel(labels.status),
+                color = cell.row.item.status.getColor()
+            )
+
+            "" -> Box(
+                modifier = Modifier.height(cellHeight)
+                    .weight(weight.getValue(cell.column))
+                    .background(if (selected) colors.hovered else Color.Transparent)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .pointerHoverIcon(PointerIcon.Hand),
+                contentAlignment = Alignment.Center
+            ) {
+                MenuOption(
+                    colors = colors.menu,
+                    orientation = Landscape,
+                    actions = InvoiceMenuAction.getMenus(labels.menu),
+                    onAction = { /* TODO */ }
+                )
+            }
         }
     }
 }

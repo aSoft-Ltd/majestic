@@ -1,4 +1,4 @@
-package majestic.payments.transaction.tools.data
+package majestic.payments.invoice.tools.data
 
 import majestic.payments.labels.ActionLabels
 import majestic.payments.tools.ActionDropdownItem
@@ -6,7 +6,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_apple_reminder
 
-internal enum class TransactionReview {
+internal enum class InvoiceReview {
     REMINDED;
 
     val icon: DrawableResource
@@ -18,7 +18,7 @@ internal enum class TransactionReview {
         REMINDED -> labels.reminded
     }
 
-    companion object {
+    companion object Companion {
         fun getActions(labels: ActionLabels) = listOf(
             ActionDropdownItem(
                 label = REMINDED.getLabel(labels),
