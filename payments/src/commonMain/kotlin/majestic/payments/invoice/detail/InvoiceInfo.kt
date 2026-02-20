@@ -22,6 +22,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.payments.invoice.detail.tools.DetailRow
 import majestic.payments.invoice.detail.tools.InvoiceDetail
+import majestic.payments.invoice.detail.tools.InvoiceItemList
 import majestic.payments.invoice.detail.tools.InvoiceTotal
 import majestic.payments.labels.invoice.InvoiceLabels
 
@@ -43,7 +44,7 @@ fun InvoiceInfo(
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Text(
-                text = "Address",
+                text = labels.address,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 lineHeight = 1.sp,
@@ -62,25 +63,32 @@ fun InvoiceInfo(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            DetailRow(modifier = Modifier.fillMaxWidth(), label = "Invoice #", description = detail.invoiceNo, color = colors.foreground)
-            DetailRow(modifier = Modifier.fillMaxWidth(), label = "Issued Date", description = detail.issued, color = colors.foreground)
-            DetailRow(modifier = Modifier.fillMaxWidth(), label = "Due Date", description = detail.due, color = colors.foreground)
+            DetailRow(modifier = Modifier.fillMaxWidth(), label = labels.invoiceNo, description = detail.invoiceNo, color = colors.foreground)
+            DetailRow(modifier = Modifier.fillMaxWidth(), label = labels.issued, description = detail.issued, color = colors.foreground)
+            DetailRow(modifier = Modifier.fillMaxWidth(), label = labels.due, description = detail.due, color = colors.foreground)
         }
     }
+    InvoiceItemList(
+        labels = labels,
+        color = colors.foreground,
+        orientation = orientation,
+        items = detail.items,
+        modifier = Modifier.fillMaxWidth()
+    )
     Column(
         modifier = Modifier.width(if (orientation is Landscape) 300.dp else 200.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        DetailRow(modifier = Modifier.fillMaxWidth(), label = "Sub-Total", description = detail.subTotal, color = colors.foreground)
-        DetailRow(modifier = Modifier.fillMaxWidth(), label = "TAX", description = detail.tax, color = colors.foreground)
-        DetailRow(modifier = Modifier.fillMaxWidth(), label = "Disc%", description = detail.discount, color = colors.foreground)
+        DetailRow(modifier = Modifier.fillMaxWidth(), label = labels.subTotal, description = detail.subTotal, color = colors.foreground)
+        DetailRow(modifier = Modifier.fillMaxWidth(), label = labels.tax, description = detail.tax, color = colors.foreground)
+        DetailRow(modifier = Modifier.fillMaxWidth(), label = "${labels.disc}%", description = detail.discount, color = colors.foreground)
     }
     InvoiceTotal(
         modifier = Modifier.then(
             if (orientation is Portrait) Modifier.fillMaxWidth()
             else Modifier.width(310.dp).clip(RoundedCornerShape(10.dp))
         ).padding(10.dp),
-        label = "Total",
+        label = labels.total,
         amount = detail.total,
         color = colors.foreground,
         orientation = orientation
