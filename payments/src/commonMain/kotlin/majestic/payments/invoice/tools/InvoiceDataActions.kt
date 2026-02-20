@@ -1,4 +1,4 @@
-package majestic.payments.transaction.tools
+package majestic.payments.invoice.tools
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -8,19 +8,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import majestic.ColorPair
+import majestic.payments.invoice.tools.data.InvoiceProcess
+import majestic.payments.invoice.tools.data.InvoiceReview
 import majestic.payments.labels.ActionLabels
 import majestic.payments.tools.ActionDropdown
 import majestic.payments.tools.ActionDropdownItem
 import majestic.payments.tools.filters.FilterByYear
 import majestic.payments.tools.filters.FilterDefault
-import majestic.payments.transaction.tools.data.TransactionProcess
-import majestic.payments.transaction.tools.data.TransactionReview
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_book_open_01
 import tz.co.asoft.majestic_payments.generated.resources.ic_cursor_rectangle_selection_02
 
 @Composable
-fun TransactionDataActions(
+fun InvoiceDataActions(
     labels: ActionLabels,
     colors: ColorPair,
     filterDefault: FilterDefault,
@@ -29,7 +29,7 @@ fun TransactionDataActions(
     ActionDropdown(
         modifier = Modifier.width(IntrinsicSize.Max),
         colors = colors,
-        actions = TransactionProcess.getActions(labels),
+        actions = InvoiceProcess.getActions(labels),
         placeholder = ActionDropdownItem(
             label = labels.process,
             icon = Res.drawable.ic_cursor_rectangle_selection_02
@@ -38,7 +38,7 @@ fun TransactionDataActions(
     ActionDropdown(
         modifier = Modifier.width(IntrinsicSize.Max),
         colors = colors,
-        actions = TransactionReview.getActions(labels),
+        actions = InvoiceReview.getActions(labels),
         placeholder = ActionDropdownItem(
             label = labels.review,
             icon = Res.drawable.ic_book_open_01
