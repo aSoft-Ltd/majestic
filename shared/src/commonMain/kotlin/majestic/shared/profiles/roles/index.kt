@@ -18,14 +18,16 @@ import majestic.shared.profiles.roles.assign.tools.rememberAssignmentController
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
-import majestic.shared.profiles.roles.item.RoleItemColors
+import majestic.shared.profiles.roles.item.StationItemColors
 import majestic.shared.profiles.roles.item.StationList
 
 data class RoleColors(
     val header: HeaderColors,
-    val item: RoleItemColors,
+    val station: StationItemColors,
     val form: FormColors,
-    val separator: Color
+    val separator: Color,
+    val roles: StationRolesColors,
+    val details: RoleDetailsColors
 )
 
 @Composable
@@ -49,27 +51,60 @@ fun RoleArea(
     )
     PromptWrapper(controller, colors, orientation, labels)
 
-    Header(
-        modifier = Modifier.toHeader(orientation, colors),
-        colors = colors.header,
-        orientation = orientation,
-        header = labels.header
-    )
-    StationList(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .then(
-                when (orientation) {
-                    is Portrait -> Modifier.fillMaxWidth()
-                    is Landscape -> Modifier.wrapContentSize()
-                }
-            ),
-        orientation = orientation,
-        stations = stations,
-        colors = colors,
-        controller = controller,
-        labels = labels,
-        actions = actions,
-        onOption = onOption
-    )
+    val screen = rememberRoleScreenController()
+
+    when (screen.view) {
+        Stations -> {
+            Header(
+                modifier = Modifier.toHeader(orientation, colors),
+                colors = colors.header,
+                orientation = orientation,
+                header = labels.header
+            )
+            StationList(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .then(
+                        when (orientation) {
+                            is Portrait -> Modifier.fillMaxWidth()
+                            is Landscape -> Modifier.wrapContentSize()
+                        }
+                    ),
+                orientation = orientation,
+                stations = stations,
+                colors = colors,
+                controller = controller,
+                labels = labels,
+                actions = actions,
+                onOption = onOption,
+                onStation = { station -> screen.roles(station) }
+            )
+        }
+
+        Roles -> screen.activeStation?.let { station ->
+            StationRoles(
+                modifier = Modifier,
+                orientation = orientation,
+                station = station,
+                labels = labels.screens,
+                colors = colors.roles,
+                onBack = { screen.back() },
+                onRole = { role -> screen.details(role) }
+            )
+        }
+
+        Details -> screen.activeRole?.let { role ->
+            RoleDetails(
+                modifier = Modifier
+                    .roleDetailsContainer(colors.details),
+                orientation = orientation,
+                role = role,
+                station = screen.activeStation,
+                labels = labels,
+                colors = colors.details,
+                onStations = { screen.stations() },
+                onRoles = { screen.activeStation?.let { station -> screen.roles(station) } }
+            )
+        }
+    }
 }

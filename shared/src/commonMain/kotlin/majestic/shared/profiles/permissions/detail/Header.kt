@@ -22,6 +22,8 @@ import majestic.icons.ic_access
 import majestic.icons.ic_admission
 import majestic.icons.ic_arrow_right
 import majestic.shared.profiles.permissions.PermissionScreen
+import majestic.shared.profiles.tools.BreadCrumbTab
+import majestic.shared.profiles.tools.BreadCrumbTabColors
 import majestic.shared.users.label.contacts.PermissionLabels
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.vectorResource

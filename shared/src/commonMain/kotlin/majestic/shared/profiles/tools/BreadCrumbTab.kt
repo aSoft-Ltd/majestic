@@ -1,4 +1,4 @@
-package majestic.shared.profiles.permissions.detail
+package majestic.shared.profiles.tools
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

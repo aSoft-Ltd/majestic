@@ -30,11 +30,11 @@ import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
-internal fun Actions(
+internal fun StationActions(
     modifier: Modifier,
     orientation: ScreenOrientation,
     onAdd: () -> Unit,
-    colors: RoleItemColors,
+    colors: StationItemColors,
     actions: List<OptionMenu<RoleOption>>,
     onOption: (RoleOption) -> Unit
 ) = Row(
@@ -65,4 +65,3 @@ internal fun Actions(
         onAction = onOption
     )
 }
-

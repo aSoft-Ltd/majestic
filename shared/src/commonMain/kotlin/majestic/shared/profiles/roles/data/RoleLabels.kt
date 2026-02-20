@@ -4,5 +4,6 @@ data class RoleLabels(
     val header: String,
     val roles: String,
     val options: OptionLabels,
-    val assignment: RoleAssignmentLabels
+    val assignment: RoleAssignmentLabels,
+    val screens: RoleScreenLabels
 )
