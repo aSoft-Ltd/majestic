@@ -11,5 +11,6 @@ class InvoiceLabels(
     val menu: MenuLabels,
     val action: ActionLabels,
     val table: TableLabels,
-    val status: PaymentStatusLabels
+    val status: PaymentStatusLabels,
+    val detail: DetailTabLabels
 )
