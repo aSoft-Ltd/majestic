@@ -1,4 +1,3 @@
-
 package majestic.shared.profiles.roles.details
 
 import androidx.compose.foundation.background
@@ -39,14 +38,12 @@ internal fun StationRoles(
     RolesHeader(
         modifier = Modifier.roleScreenHeader(colors.header, orientation),
         orientation = orientation,
-        stationName = station.station,
         count = station.roles.size,
         searchLabel = "Search Roles", // Or find in labels
         rolesLabel = labels.screens.rolesTitle,
-        breadcrumbLabel = labels.header,
+        breadcrumbs = breadcrumbs,
         colors = colors.header,
-        controller = controller,
-        onBack = onBack
+        controller = controller
     )
 
     RoleList(
