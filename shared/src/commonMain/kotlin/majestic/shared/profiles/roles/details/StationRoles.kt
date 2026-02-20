@@ -1,4 +1,5 @@
-package majestic.shared.profiles.roles
+
+package majestic.shared.profiles.roles.details
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +13,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.data.RoleData
-import majestic.shared.profiles.roles.data.RoleScreenLabels
+import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.item.RoleList
 
 internal fun Modifier.stationRolesContainer(colors: StationRolesColors) = this
@@ -25,7 +26,7 @@ internal fun StationRoles(
     modifier: Modifier,
     orientation: ScreenOrientation,
     station: RoleData,
-    labels: RoleScreenLabels,
+    labels: RoleLabels,
     colors: StationRolesColors,
     onBack: () -> Unit,
     onRole: (Role) -> Unit,
@@ -37,10 +38,14 @@ internal fun StationRoles(
 ) {
     RolesHeader(
         modifier = Modifier.roleScreenHeader(colors.header, orientation),
-        title = station.station,
-        controller = controller,
-        subtitle = labels.rolesTitle,
+        orientation = orientation,
+        stationName = station.station,
+        count = station.roles.size,
+        searchLabel = "Search Roles", // Or find in labels
+        rolesLabel = labels.screens.rolesTitle,
+        breadcrumbLabel = labels.header,
         colors = colors.header,
+        controller = controller,
         onBack = onBack
     )
 

@@ -28,7 +28,7 @@ import majestic.shared.users.label.contacts.PermissionLabels
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.vectorResource
 
-internal data class ContainerPadding(
+data class ContainerPadding(
     val start: Dp = 5.dp,
     val end: Dp = 5.dp,
     val bottom: Dp = 5.dp,

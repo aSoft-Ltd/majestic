@@ -1,3 +1,4 @@
+
 package majestic.shared.profiles.roles
 
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,15 @@ import majestic.shared.profiles.roles.assign.tools.rememberAssignmentController
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
+import majestic.shared.profiles.roles.details.Details
+import majestic.shared.profiles.roles.details.RoleDetails
+import majestic.shared.profiles.roles.details.RoleDetailsColors
+import majestic.shared.profiles.roles.details.Roles
+import majestic.shared.profiles.roles.details.StationRoles
+import majestic.shared.profiles.roles.details.StationRolesColors
+import majestic.shared.profiles.roles.details.Stations
+import majestic.shared.profiles.roles.details.rememberRoleScreenController
+import majestic.shared.profiles.roles.details.roleDetailsContainer
 import majestic.shared.profiles.roles.item.StationItemColors
 import majestic.shared.profiles.roles.item.StationList
 
@@ -86,7 +96,7 @@ fun RoleArea(
                 modifier = Modifier,
                 orientation = orientation,
                 station = station,
-                labels = labels.screens,
+                labels = labels,
                 controller = controller,
                 colors = colors.roles,
                 onBack = { screen.back() },

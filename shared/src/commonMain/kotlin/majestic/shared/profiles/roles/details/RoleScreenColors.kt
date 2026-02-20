@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles
+package majestic.shared.profiles.roles.details
 
 import androidx.compose.ui.graphics.Color
 import majestic.ColorPair

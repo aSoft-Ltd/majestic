@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
-import majestic.shared.profiles.roles.StationRolesColors
+import majestic.shared.profiles.roles.details.StationRolesColors
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.data.RoleData
 

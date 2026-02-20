@@ -1,4 +1,5 @@
-package majestic.shared.profiles.roles
+
+package majestic.shared.profiles.roles.details
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,13 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.Permission
 import majestic.shared.profiles.roles.data.Role
@@ -43,6 +40,7 @@ import majestic.icons.ic_access
 import majestic.icons.ic_admission
 import majestic.icons.ic_arrow_right
 import majestic.icons.ic_user
+import majestic.shared.profiles.tools.BreadCrumbTab
 import majestic.tooling.onClick
 
 internal fun Modifier.roleDetailsContainer(colors: RoleDetailsColors) = this
@@ -65,25 +63,13 @@ internal fun RoleDetails(
     verticalArrangement = Arrangement.spacedBy(16.dp)
 ) {
     RoleDetailsHeader(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(colors.header.background)
-            .padding(if (orientation is Landscape) 20.dp else 10.dp),
-        orientation = orientation,
+        modifier = Modifier.fillMaxWidth(),
         role = role,
         station = station,
         labels = labels,
         colors = colors.header,
         onStations = onStations,
         onRoles = onRoles
-    )
-
-    RoleSummary(
-        modifier = Modifier.fillMaxWidth(),
-        role = role,
-        colors = colors.summary,
-        orientation = orientation
     )
 
     Text(
@@ -106,7 +92,6 @@ internal fun RoleDetails(
 @Composable
 private fun RoleDetailsHeader(
     modifier: Modifier,
-    orientation: ScreenOrientation,
     role: Role,
     station: RoleData?,
     labels: RoleLabels,
@@ -118,13 +103,12 @@ private fun RoleDetailsHeader(
     horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    RoleDetailsTab(
-        modifier = Modifier,
+    BreadCrumbTab(
+        modifier = Modifier.onClick { onStations() },
         icon = Res.drawable.ic_access,
         label = labels.header,
-        active = false,
-        colors = colors,
-        onClick = onStations
+        colors = colors.breadCrumb,
+        showLabel = true
     )
 
     Icon(
@@ -134,13 +118,12 @@ private fun RoleDetailsHeader(
         modifier = Modifier.size(12.dp)
     )
 
-    RoleDetailsTab(
-        modifier = Modifier,
+    BreadCrumbTab(
+        modifier = Modifier.onClick { onRoles() },
         icon = Res.drawable.ic_admission,
         label = station?.let { "${it.station} ${labels.screens.rolesTitle}" } ?: labels.screens.rolesTitle,
-        active = false,
-        colors = colors,
-        onClick = onRoles
+        colors = colors.breadCrumb,
+        showLabel = true
     )
 
     Icon(
@@ -150,104 +133,13 @@ private fun RoleDetailsHeader(
         modifier = Modifier.size(12.dp)
     )
 
-    RoleDetailsTab(
+    BreadCrumbTab(
         modifier = Modifier,
         icon = Res.drawable.ic_user,
         label = role.title,
-        active = true,
-        colors = colors,
-        onClick = null
+        colors = colors.breadCrumb,
+        showLabel = true
     )
-}
-
-@Composable
-private fun RoleDetailsTab(
-    modifier: Modifier,
-    icon: org.jetbrains.compose.resources.DrawableResource,
-    label: String,
-    active: Boolean,
-    colors: RoleHeaderColors,
-    onClick: (() -> Unit)?
-) = Row(
-    modifier = modifier
-        .clip(RoundedCornerShape(10.dp))
-        .background(
-            colors.background.copy(alpha = if (active) 0.9f else 0.6f)
-        )
-        .then(
-            if (onClick != null) {
-                Modifier.pointerHoverIcon(PointerIcon.Hand).onClick { onClick() }
-            } else {
-                Modifier
-            }
-        )
-        .padding(horizontal = 12.dp, vertical = 8.dp),
-    horizontalArrangement = Arrangement.spacedBy(8.dp),
-    verticalAlignment = Alignment.CenterVertically
-) {
-    Icon(
-        imageVector = vectorResource(icon),
-        contentDescription = null,
-        tint = if (active) colors.title else colors.subtitle,
-        modifier = Modifier
-            .background(
-                color = colors.icon.copy(alpha = if (active) 0.2f else 0.12f),
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(6.dp)
-            .size(18.dp)
-    )
-    Text(
-        text = label,
-        color = if (active) colors.title else colors.subtitle,
-        fontSize = 14.sp,
-        fontWeight = if (active) FontWeight.SemiBold else FontWeight.Medium,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
-}
-
-@Composable
-private fun RoleSummary(
-    modifier: Modifier,
-    role: Role,
-    colors: RoleSummaryColors,
-    orientation: ScreenOrientation
-) = Row(
-    modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
-    verticalAlignment = Alignment.CenterVertically
-) {
-    Icon(
-        painter = painterResource(role.resource),
-        contentDescription = null,
-        tint = colors.icon.foreground,
-        modifier = Modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(colors.icon.background)
-            .padding(10.dp)
-            .size(26.dp)
-    )
-
-    Column(
-        modifier = Modifier.wrapContentSize(),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = role.title,
-            color = colors.title,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold
-        )
-        Text(
-            text = role.description,
-            color = colors.subtitle,
-            fontSize = 13.sp,
-            maxLines = if (orientation is Landscape) 3 else 5,
-            overflow = TextOverflow.Ellipsis
-        )
-    }
 }
 
 @Composable
@@ -289,7 +181,7 @@ private fun Modifier.responsibilityItem(
         color = if (hovered) colors.background.focused else colors.background.unfocused,
         shape = RoundedCornerShape(10.dp)
     )
-    .padding(if (orientation is Landscape) 20.dp else 10.dp)
+    .padding(20.dp)
 
 @Composable
 private fun ResponsibilityItem(
@@ -302,19 +194,8 @@ private fun ResponsibilityItem(
     horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    Icon(
-        painter = painterResource(permission.resource),
-        contentDescription = null,
-        tint = colors.icon.foreground,
-        modifier = Modifier
-            .clip(RoundedCornerShape(6.dp))
-            .background(colors.icon.background)
-            .padding(8.dp)
-            .size(24.dp)
-    )
 
     Column(
-        modifier = Modifier.wrapContentSize(),
         verticalArrangement = Arrangement.spacedBy(2.dp),
         horizontalAlignment = Alignment.Start
     ) {
