@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
+import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleScreenLabels
@@ -27,7 +28,8 @@ internal fun StationRoles(
     labels: RoleScreenLabels,
     colors: StationRolesColors,
     onBack: () -> Unit,
-    onRole: (Role) -> Unit
+    onRole: (Role) -> Unit,
+    controller: AssignmentController
 ) = Column(
     modifier = modifier
         .stationRolesContainer(colors),
@@ -36,6 +38,7 @@ internal fun StationRoles(
     RolesHeader(
         modifier = Modifier.roleScreenHeader(colors.header, orientation),
         title = station.station,
+        controller = controller,
         subtitle = labels.rolesTitle,
         colors = colors.header,
         onBack = onBack

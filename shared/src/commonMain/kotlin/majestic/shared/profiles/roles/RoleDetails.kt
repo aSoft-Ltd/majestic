@@ -191,7 +191,7 @@ private fun RoleDetailsTab(
         tint = if (active) colors.title else colors.subtitle,
         modifier = Modifier
             .background(
-                color = colors.back.copy(alpha = if (active) 0.2f else 0.12f),
+                color = colors.icon.copy(alpha = if (active) 0.2f else 0.12f),
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(6.dp)

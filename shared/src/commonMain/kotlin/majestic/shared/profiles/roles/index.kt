@@ -87,6 +87,7 @@ fun RoleArea(
                 orientation = orientation,
                 station = station,
                 labels = labels.screens,
+                controller = controller,
                 colors = colors.roles,
                 onBack = { screen.back() },
                 onRole = { role -> screen.details(role) }

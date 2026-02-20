@@ -3,14 +3,18 @@ package majestic.shared.profiles.roles
 import androidx.compose.ui.graphics.Color
 import majestic.ColorPair
 import majestic.editor.tools.StateColors
+import majestic.shared.profiles.roles.assign.form.SearchColors
 import majestic.shared.profiles.roles.item.RoleItemColors
+import majestic.shared.profiles.tools.BreadCrumbTabColors
 
 
 data class RoleHeaderColors(
     val background: Color,
     val title: Color,
     val subtitle: Color,
-    val back: Color
+    val icon: Color,
+    val search: SearchColors,
+    val breadCrumb: BreadCrumbTabColors,
 )
 
 data class StationRolesColors(

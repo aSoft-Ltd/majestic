@@ -14,12 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.ColorPair
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
 data class BreadCrumbTabColors(
-    val tint: Color,
-    val iconBg: Color,
+    val background: Color,
+    val icon: ColorPair,
     val label: Color
 )
 
@@ -38,9 +39,9 @@ internal fun BreadCrumbTab(
     Icon(
         imageVector = vectorResource(icon),
         contentDescription = null,
-        tint = colors.tint,
+        tint = colors.icon.foreground,
         modifier = Modifier
-            .background(color = colors.iconBg, shape = RoundedCornerShape(8.dp))
+            .background(color = colors.icon.background, shape = RoundedCornerShape(8.dp))
             .padding(10.dp)
             .size(24.dp)
     )
