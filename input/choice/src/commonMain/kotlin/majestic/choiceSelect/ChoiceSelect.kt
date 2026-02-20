@@ -54,8 +54,8 @@ fun ChoiceSelect(
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
     val activeHover = enableHover && isHovered
-    val fg = if (activeHover) colors.default.foreground else colors.default.foreground.copy(0.7f)
-    val bg = if (activeHover) colors.default.foreground.copy(0.1f)
+    val foreground = if (activeHover) colors.default.foreground else colors.default.foreground.copy(0.7f)
+    val background = if (activeHover) colors.default.foreground.copy(0.1f)
     else colors.default.foreground.copy(0.05f)
 
     SmartSelect(
@@ -72,7 +72,7 @@ fun ChoiceSelect(
         },
         selected = {
             SelectTrigger(
-                fg = fg,
+                foreground = foreground,
                 arrowTint = colors.default.foreground.copy(0.5f),
                 selected = selected,
                 icon = icon,
@@ -81,8 +81,9 @@ fun ChoiceSelect(
                 isExpanded = isExpanded,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .width(IntrinsicSize.Max)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(bg)
+                    .background(background)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .then(if (enableHover) Modifier.hoverable(interactionSource) else Modifier)
                     .padding(10.dp)
@@ -90,7 +91,7 @@ fun ChoiceSelect(
         },
         placeholder = {
             SelectTrigger(
-                fg = fg,
+                foreground = foreground,
                 arrowTint = colors.default.foreground.copy(0.5f),
                 selected = selected,
                 icon = icon,
@@ -99,8 +100,9 @@ fun ChoiceSelect(
                 isExpanded = isExpanded,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .width(IntrinsicSize.Max)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(bg)
+                    .background(background)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .then(if (enableHover) Modifier.hoverable(interactionSource) else Modifier)
                     .padding(10.dp)
@@ -108,8 +110,7 @@ fun ChoiceSelect(
         },
         onChange = { it?.let(onChange) },
         onExpanded = { isExpanded = it },
-        border = if (enableHover && borderWhenHover != null && isExpanded)
-            borderWhenHover else border,
+        border = if (enableHover && borderWhenHover != null && isExpanded) borderWhenHover else border,
         drawerContainerColor = colors.popup.background,
         shape = shape,
         dropDownShape = RoundedCornerShape(12.dp),
