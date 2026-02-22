@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.item
+package majestic.shared.profiles.roles.details.station
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState

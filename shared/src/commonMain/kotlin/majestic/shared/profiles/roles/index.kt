@@ -1,4 +1,3 @@
-
 package majestic.shared.profiles.roles
 
 import androidx.compose.foundation.layout.Column
@@ -12,6 +11,8 @@ import androidx.compose.ui.graphics.Color
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.icons.Res
+import majestic.icons.ic_account_setting_filled
 import majestic.shared.menu.OptionMenu
 import majestic.shared.profiles.roles.assign.FormColors
 import majestic.shared.profiles.roles.assign.PromptWrapper
@@ -19,17 +20,17 @@ import majestic.shared.profiles.roles.assign.tools.rememberAssignmentController
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
-import majestic.shared.profiles.roles.details.Details
-import majestic.shared.profiles.roles.details.RoleDetails
-import majestic.shared.profiles.roles.details.RoleDetailsColors
-import majestic.shared.profiles.roles.details.Roles
-import majestic.shared.profiles.roles.details.StationRoles
-import majestic.shared.profiles.roles.details.StationRolesColors
-import majestic.shared.profiles.roles.details.Stations
-import majestic.shared.profiles.roles.details.rememberRoleScreenController
-import majestic.shared.profiles.roles.details.roleDetailsContainer
-import majestic.shared.profiles.roles.item.StationItemColors
-import majestic.shared.profiles.roles.item.StationList
+import majestic.shared.profiles.roles.details.permissions.PermissionDetails
+import majestic.shared.profiles.roles.details.permissions.RoleDetailsColors
+import majestic.shared.profiles.roles.details.station.StationRoles
+import majestic.shared.profiles.roles.details.station.StationRolesColors
+import majestic.shared.profiles.roles.details.station.StationItemColors
+import majestic.shared.profiles.roles.details.station.StationList
+import majestic.shared.profiles.roles.tools.BreadCrumb
+import majestic.shared.profiles.roles.tools.Details
+import majestic.shared.profiles.roles.tools.Roles
+import majestic.shared.profiles.roles.tools.Stations
+import majestic.shared.profiles.roles.tools.rememberRoleScreenController
 
 data class RoleColors(
     val header: HeaderColors,
@@ -92,29 +93,54 @@ fun RoleArea(
         }
 
         Roles -> screen.activeStation?.let { station ->
+
             StationRoles(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 orientation = orientation,
                 station = station,
                 labels = labels,
                 controller = controller,
                 colors = colors.roles,
-                onBack = { screen.back() },
-                onRole = { role -> screen.details(role) }
+                onRole = { role -> screen.details(role) },
+                breadcrumbs = listOf(
+                    BreadCrumb(
+                        label = labels.roles,
+                        icon = station.resource,
+                        action = { screen.back() }
+                    ),
+                    BreadCrumb(
+                        label = "${station.station} ${labels.roles}",
+                        icon = Res.drawable.ic_account_setting_filled,
+                    )
+                )
             )
         }
 
         Details -> screen.activeRole?.let { role ->
-            RoleDetails(
+            PermissionDetails(
                 modifier = Modifier
-                    .roleDetailsContainer(colors.details),
+                    .fillMaxWidth()
+                    .wrapContentSize(),
                 orientation = orientation,
                 role = role,
-                station = screen.activeStation,
-                labels = labels,
                 colors = colors.details,
-                onStations = { screen.stations() },
-                onRoles = { screen.activeStation?.let { station -> screen.roles(station) } }
+                breadcrumbs = listOf(
+                    BreadCrumb(
+                        label = labels.roles,
+                        icon = screen.activeRole!!.resource,
+                        action = { screen.back() }
+                    ),
+                    BreadCrumb(
+                        label = "${screen.activeStation?.station} ${labels.roles}",
+                        icon = Res.drawable.ic_account_setting_filled,
+                        action = { screen.back() }
+                    ),
+                    BreadCrumb(
+                        label = role.title,
+                        icon = role.resource,
+                        action = { screen.back() }
+                    )
+                )
             )
         }
     }

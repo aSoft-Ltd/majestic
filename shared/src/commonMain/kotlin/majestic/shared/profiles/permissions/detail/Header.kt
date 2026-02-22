@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
@@ -39,6 +41,7 @@ fun Modifier.breadCrumbTab(
     orientation: ScreenOrientation,
     paddings: ContainerPadding = ContainerPadding()
 ) = this
+    .pointerHoverIcon(PointerIcon.Hand)
     .clip(RoundedCornerShape(8.dp))
     .wrapContentSize()
     .background(
@@ -84,7 +87,8 @@ internal fun Header(
         showLabel = orientation is Landscape,
         icon = Res.drawable.ic_access,
         label = labels.breadcrumb,
-        colors = colors.breadCrumb(null)
+        colors = colors.breadCrumb(null),
+        orientation = orientation
     )
     if (orientation is Landscape) Icon(
         imageVector = vectorResource(Res.drawable.ic_arrow_right),
@@ -101,6 +105,7 @@ internal fun Header(
         showLabel = true,
         icon = Res.drawable.ic_admission,
         label = props.trailingTitle,
-        colors = colors.breadCrumb(colors.tint)
+        colors = colors.breadCrumb(colors.tint),
+        orientation = orientation
     )
 }

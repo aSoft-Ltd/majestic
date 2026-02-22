@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.item
+package majestic.shared.profiles.roles.details.roles
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -16,17 +16,19 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
-import majestic.shared.profiles.roles.details.StationRolesColors
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.data.RoleData
+import majestic.shared.profiles.roles.details.station.StationRolesColors
 
 @Composable
 internal fun RoleList(
     modifier: Modifier,
     orientation: ScreenOrientation,
     station: RoleData,
+    labels: RoleActionLabels,
     colors: StationRolesColors,
-    onRole: (Role) -> Unit
+    onRole: (Role) -> Unit,
+    onUnassign: () -> Unit,
 ) = Column(
     modifier = modifier.verticalScroll(rememberScrollState()),
     verticalArrangement = when (orientation) {
@@ -42,13 +44,17 @@ internal fun RoleList(
                 interaction = interaction,
                 hovered = hovered,
                 orientation = orientation,
-                colors = colors.item
+                colors = colors.item,
+                index = index,
+                roles = station.roles
             ),
             index = index,
             role = role,
             colors = colors.item,
             orientation = orientation,
-            onClick = { onRole(role) }
+            onClick = { onRole(role) },
+            labels = labels,
+            onUnassign = onUnassign
         )
         if (station.roles.lastIndex != station.roles.indexOf(role) && orientation is Landscape) Spacer(
             modifier = Modifier

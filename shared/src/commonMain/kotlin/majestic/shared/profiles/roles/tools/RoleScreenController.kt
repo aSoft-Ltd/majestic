@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.details
+package majestic.shared.profiles.roles.tools
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

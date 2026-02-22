@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.item
+package majestic.shared.profiles.roles.details.station
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable

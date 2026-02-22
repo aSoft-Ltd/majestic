@@ -23,6 +23,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.ScreenOrientation
 import majestic.Search
 import majestic.SearchDefaultColors
 import majestic.editor.tools.StateColors
@@ -32,6 +34,7 @@ import majestic.icons.ic_search
 import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.vectorResource
 
 data class ActionColors(
     val foreground: StateColors,
@@ -55,6 +58,7 @@ data class SubHeaderColors(
 internal fun SubHeader(
     modifier: Modifier,
     colors: SubHeaderColors,
+    orientation: ScreenOrientation,
     controller: AssignmentController,
     labels: RoleAssignmentLabels
 ) = Row(
@@ -79,7 +83,7 @@ internal fun SubHeader(
         )
     }
 
-    Search(
+    if (orientation is Landscape) Search(
         modifier = Modifier
             .width(250.dp)
             .height(36.dp)
@@ -111,5 +115,11 @@ internal fun SubHeader(
                     .size(24.dp)
             )
         }
+    )
+    else Icon(
+        imageVector = vectorResource(Res.drawable.ic_search),
+        tint = colors.search.icon.foreground.unfocused,
+        contentDescription = null,
+        modifier = Modifier.size(24.dp)
     )
 }
