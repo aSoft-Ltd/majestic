@@ -42,7 +42,7 @@ data class RoleItemColors(
 )
 
 internal fun Modifier.toRoleItem(
-    interaction: MutableInteractionSource,
+    interaction: MutableInteractionSource = remember { MutableInteractionSource() },
     hovered: Boolean,
     index: Int,
     roles: List<Role>,
