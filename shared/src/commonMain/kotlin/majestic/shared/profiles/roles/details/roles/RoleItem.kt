@@ -41,7 +41,7 @@ data class RoleItemColors(
     val action: MenuOptionColors
 )
 
-internal fun Modifier.toRoleItem(
+internal fun Modifier.roleItem(
     interaction: MutableInteractionSource = remember { MutableInteractionSource() },
     hovered: Boolean,
     index: Int,
