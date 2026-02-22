@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.Search
 import majestic.SearchDefaultColors
@@ -83,43 +84,46 @@ internal fun SubHeader(
         )
     }
 
-    if (orientation is Landscape) Search(
-        modifier = Modifier
-            .width(250.dp)
-            .height(36.dp)
-            .clip(RoundedCornerShape(20.dp))
-            .background(color = colors.search.searchField, shape = RoundedCornerShape(20.dp))
-            .padding(horizontal = 16.dp),
-        value = controller.searchQuery,
-        onChange = { controller.searchQuery = it },
-        hint = labels.search,
-        colors = colors.search.default,
-        icon = {
-            val interaction = remember { MutableInteractionSource() }
-            val hovered by interaction.collectIsHoveredAsState()
-            Icon(
-                painter = painterResource(Res.drawable.ic_search),
-                contentDescription = null,
-                tint = colors.search.icon.foreground.unfocused,
-                modifier = Modifier
-                    .padding(2.dp)
-                    .hoverable(interaction)
-                    .background(
-                        color = when (hovered) {
-                            true -> colors.search.icon.background.focused
-                            false -> colors.search.icon.background.unfocused
-                        },
-                        shape = CircleShape
-                    )
-                    .padding(8.dp)
-                    .size(24.dp)
-            )
-        }
-    )
-    else Icon(
-        imageVector = vectorResource(Res.drawable.ic_search),
-        tint = colors.search.icon.foreground.unfocused,
-        contentDescription = null,
-        modifier = Modifier.size(24.dp)
-    )
+    when (orientation) {
+        is Landscape -> Search(
+            modifier = Modifier
+                .width(250.dp)
+                .height(36.dp)
+                .clip(RoundedCornerShape(20.dp))
+                .background(color = colors.search.searchField, shape = RoundedCornerShape(20.dp))
+                .padding(horizontal = 16.dp),
+            value = controller.searchQuery,
+            onChange = { controller.searchQuery = it },
+            hint = labels.search,
+            colors = colors.search.default,
+            icon = {
+                val interaction = remember { MutableInteractionSource() }
+                val hovered by interaction.collectIsHoveredAsState()
+                Icon(
+                    painter = painterResource(Res.drawable.ic_search),
+                    contentDescription = null,
+                    tint = colors.search.icon.foreground.unfocused,
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .hoverable(interaction)
+                        .background(
+                            color = when (hovered) {
+                                true -> colors.search.icon.background.focused
+                                false -> colors.search.icon.background.unfocused
+                            },
+                            shape = CircleShape
+                        )
+                        .padding(8.dp)
+                        .size(24.dp)
+                )
+            }
+        )
+
+        is Portrait -> Icon(
+            imageVector = vectorResource(Res.drawable.ic_search),
+            tint = colors.search.icon.foreground.unfocused,
+            contentDescription = null,
+            modifier = Modifier.size(24.dp)
+        )
+    }
 }

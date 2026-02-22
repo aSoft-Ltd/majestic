@@ -3,6 +3,7 @@ package majestic.shared.profiles.roles.details.roles
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,26 +44,29 @@ data class RoleItemColors(
     val action: MenuOptionColors
 )
 
+@Composable
 internal fun Modifier.toRoleItem(
-    interaction: MutableInteractionSource,
-    hovered: Boolean,
+    interaction: MutableInteractionSource = remember { MutableInteractionSource() },
     index: Int,
     roles: List<Role>,
     orientation: ScreenOrientation,
     colors: RoleItemColors
-) = this
-    .fillMaxWidth()
-    .hoverable(interaction)
-    .background(
-        color = if (hovered) colors.background.focused else colors.background.unfocused,
-        shape = RoundedCornerShape(
-            topStart = 0.dp,
-            topEnd = 0.dp,
-            bottomStart = if (index == roles.lastIndex) 10.dp else 0.dp,
-            bottomEnd = if (index == roles.lastIndex) 10.dp else 0.dp
+): Modifier {
+    val hovered by interaction.collectIsHoveredAsState()
+    return this
+        .fillMaxWidth()
+        .hoverable(interaction)
+        .background(
+            color = if (hovered) colors.background.focused else colors.background.unfocused,
+            shape = RoundedCornerShape(
+                topStart = 0.dp,
+                topEnd = 0.dp,
+                bottomStart = if (index == roles.lastIndex) 10.dp else 0.dp,
+                bottomEnd = if (index == roles.lastIndex) 10.dp else 0.dp
+            )
         )
-    )
-    .padding(if (orientation is Landscape) 20.dp else 10.dp)
+        .padding(if (orientation is Landscape) 20.dp else 10.dp)
+}
 
 @Composable
 internal fun RoleItem(

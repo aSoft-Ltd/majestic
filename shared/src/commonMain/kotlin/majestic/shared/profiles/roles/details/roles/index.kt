@@ -30,15 +30,13 @@ internal fun RoleList(
     onRole: (Role) -> Unit,
     onUnassign: () -> Unit,
 ) = Column(
-    modifier = modifier.verticalScroll(rememberScrollState()),
+    modifier = modifier,
     verticalArrangement = when (orientation) {
         is Landscape -> Arrangement.Top
         else -> Arrangement.spacedBy(6.dp)
     }
 ) {
     station.roles.forEachIndexed { index, role ->
-        val interaction = remember { MutableInteractionSource() }
-        val hovered by interaction.collectIsHoveredAsState()
         RoleItem(
             modifier = Modifier.toRoleItem(
                 interaction = interaction,
