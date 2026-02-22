@@ -38,9 +38,7 @@ internal fun RoleList(
 ) {
     station.roles.forEachIndexed { index, role ->
         RoleItem(
-            modifier = Modifier.toRoleItem(
-                interaction = interaction,
-                hovered = hovered,
+            modifier = Modifier.roleItem(
                 orientation = orientation,
                 colors = colors.item,
                 index = index,

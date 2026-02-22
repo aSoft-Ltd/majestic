@@ -44,7 +44,7 @@ internal fun StationList(
         val interaction = remember { MutableInteractionSource() }
         val hovered by interaction.collectIsHoveredAsState()
         StationItem(
-            modifier = Modifier.toStationItem(
+            modifier = Modifier.stationItem(
                 interaction = interaction,
                 orientation = orientation,
                 hovered = hovered,

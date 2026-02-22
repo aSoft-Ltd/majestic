@@ -45,7 +45,7 @@ data class RoleItemColors(
 )
 
 @Composable
-internal fun Modifier.toRoleItem(
+internal fun Modifier.roleItem(
     interaction: MutableInteractionSource = remember { MutableInteractionSource() },
     index: Int,
     roles: List<Role>,
