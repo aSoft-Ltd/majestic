@@ -61,7 +61,8 @@ fun TransactionTable(
         table = table,
         columns = { column ->
             val selectedAll = table.selector.isCurrentPageSelectedWholly()
-            val checkboxColors = if (selectedAll) colors.checkbox.selected else colors.checkbox.unselected
+            val checkboxColors =
+                if (selectedAll) colors.checkbox.selected else colors.checkbox.unselected
             val header = colors.header
 
             if (column.key == labels.table.checkbox) Box(
@@ -78,7 +79,11 @@ fun TransactionTable(
                     modifier = Modifier.size(16.dp)
                         .clip(RoundedCornerShape(5.dp))
                         .background(checkboxColors.background)
-                        .border(1.dp, color = checkboxColors.border, RoundedCornerShape(5.dp))
+                        .border(
+                            width = 1.dp,
+                            color = checkboxColors.border,
+                            shape = RoundedCornerShape(5.dp)
+                        )
                         .onClick { table.selector.toggleSelectionOfCurrentPage() }
                 )
             } else Text(
@@ -104,7 +109,8 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator),
                 contentAlignment = Alignment.Center
             ) {
-                val checkboxColors = if (selected) colors.checkbox.selected else colors.checkbox.unselected
+                val checkboxColors =
+                    if (selected) colors.checkbox.selected else colors.checkbox.unselected
                 Checkbox(
                     selected = selected,
                     colors = checkboxColors,
