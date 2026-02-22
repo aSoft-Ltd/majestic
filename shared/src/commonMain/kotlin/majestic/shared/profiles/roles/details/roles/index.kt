@@ -40,7 +40,7 @@ internal fun RoleList(
         val interaction = remember { MutableInteractionSource() }
         val hovered by interaction.collectIsHoveredAsState()
         RoleItem(
-            modifier = Modifier.toRoleItem(
+            modifier = Modifier.roleItem(
                 interaction = interaction,
                 hovered = hovered,
                 orientation = orientation,
