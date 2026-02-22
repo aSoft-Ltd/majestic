@@ -1,5 +1,6 @@
 package majestic.payments.invoice.detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,17 +20,17 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
 import majestic.payments.invoice.detail.tools.DetailRow
 import majestic.payments.invoice.detail.tools.InvoiceDetail
 import majestic.payments.invoice.detail.tools.InvoiceItemList
 import majestic.payments.invoice.detail.tools.InvoiceTotal
+import majestic.payments.invoice.tools.InvoiceColors
 import majestic.payments.labels.invoice.InvoiceLabels
 
 @Composable
 fun InvoiceInfo(
     labels: InvoiceLabels,
-    colors: ColorPair,
+    colors: InvoiceColors,
     orientation: ScreenOrientation,
     detail: InvoiceDetail,
     modifier: Modifier = Modifier
@@ -70,7 +71,7 @@ fun InvoiceInfo(
     }
     InvoiceItemList(
         labels = labels,
-        color = colors.foreground,
+        colors = colors.header,
         orientation = orientation,
         items = detail.items,
         modifier = Modifier.fillMaxWidth()
@@ -87,7 +88,9 @@ fun InvoiceInfo(
         modifier = Modifier.then(
             if (orientation is Portrait) Modifier.fillMaxWidth()
             else Modifier.width(310.dp).clip(RoundedCornerShape(10.dp))
-        ).padding(10.dp),
+        )
+            .background(colors.total)
+            .padding(10.dp),
         label = labels.total,
         amount = detail.total,
         color = colors.foreground,
