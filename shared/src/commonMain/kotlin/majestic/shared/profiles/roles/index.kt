@@ -1,5 +1,6 @@
 package majestic.shared.profiles.roles
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
@@ -93,7 +95,6 @@ fun RoleArea(
         }
 
         Roles -> screen.activeStation?.let { station ->
-
             StationRoles(
                 modifier = Modifier.fillMaxWidth(),
                 orientation = orientation,

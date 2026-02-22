@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.icons.Res
@@ -58,7 +60,10 @@ internal fun StationRoles(
     controller: AssignmentController
 ) = Box(modifier = modifier) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = when (orientation) {
+            is Landscape -> Modifier.wrapContentSize()
+            is Portrait -> Modifier.fillMaxSize()
+        },
         verticalArrangement = Arrangement.Top
     ) {
         RolesHeader(
