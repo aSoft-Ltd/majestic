@@ -39,7 +39,7 @@ data class StationItemColors(
     val options: MenuOptionColors
 )
 
-internal fun Modifier.toStationItem(
+internal fun Modifier.stationItem(
     interaction: MutableInteractionSource,
     orientation: ScreenOrientation,
     hovered: Boolean,
