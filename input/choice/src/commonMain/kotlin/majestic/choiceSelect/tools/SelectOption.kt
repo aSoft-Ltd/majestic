@@ -17,7 +17,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun SelectOption(
+fun SelectOption(
     colors: ChoiceFilterColors,
     name: String,
     icon: DrawableResource,

@@ -19,8 +19,10 @@ enum class StartWindow(val width: Int, val height: Int) {
     Desktop1366x768(1366, 768),
 
     @SerialName("1024x768")
-    Desktop1024x768(1366, 768),
+    Desktop1024x768(1024, 768),
 
+    @SerialName("1024x720")
+    Desktop1024x720(1024, 720),
     @SerialName("2k")
     Desktop1920x1080(1920, 1080),
 
