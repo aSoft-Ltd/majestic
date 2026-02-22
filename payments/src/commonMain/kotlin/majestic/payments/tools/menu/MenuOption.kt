@@ -41,8 +41,9 @@ import tz.co.asoft.majestic_payments.generated.resources.ic_more_horizontal
 internal data class OptionMenu<T>(
     val label: String,
     val action: T,
-    val icon: DrawableResource? = null
-)
+    val icon: DrawableResource? = null,
+    val isDestructive: Boolean = false,
+    )
 
 @Composable
 internal fun <T> MenuOption(

@@ -18,17 +18,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composex.screen.orientation.Portrait
 import majestic.ColorPair
+import majestic.dropdown.Dropdown
+import majestic.icons.Res
+import majestic.icons.ic_more_vertical
+import majestic.icons.ic_wallet_02_solid
 import majestic.payments.labels.wallet.WalletLabels
-import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
 import org.jetbrains.compose.resources.painterResource
-import tz.co.asoft.majestic_payments.generated.resources.Res
-import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid
+import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun WalletListRow(
@@ -114,10 +115,12 @@ fun WalletListRow(
             }
         }
     }
-    MenuOption(
-        colors = colors.menu,
-        orientation = Portrait,
-        actions = WalletMenuAction.getMenus(labels.menu),
-        onAction = { /* TODO */ }
+
+    Dropdown(
+        items = WalletMenuAction.getMenus(labels.menu).toDropdownItems(),
+        onAction = { /* TODO */ },
+        colors = colors.dropdown,
+        icon = vectorResource(Res.drawable.ic_more_vertical),
+        isListItem = true
     )
 }

@@ -6,12 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import composex.screen.orientation.Portrait
+import majestic.dropdown.Dropdown
+import majestic.icons.Res
+import majestic.icons.ic_more_vertical
 import majestic.payments.labels.transaction.TransactionLabels
-import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.table.PaymentTransaction
 import majestic.payments.transaction.tools.TransactionMenuAction
+import majestic.payments.wallet.table.toDropdownItems
+import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun TransactionListRow(
@@ -37,10 +40,11 @@ fun TransactionListRow(
         avatar = details.avatar,
         color = colors.foreground
     )
-    MenuOption(
-        colors = colors.menu,
-        orientation = Portrait,
-        actions = TransactionMenuAction.getMenus(labels.menu),
-        onAction = { /* TODO */ }
+    Dropdown(
+        items = TransactionMenuAction.getMenus(labels.menu).toDropdownItems(),
+        onAction = { /* TODO */ },
+        colors = colors.dropdown,
+        icon = vectorResource(Res.drawable.ic_more_vertical),
+        isListItem = true
     )
 }

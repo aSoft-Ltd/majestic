@@ -21,12 +21,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cinematic.watchAsState
-import composex.screen.orientation.Landscape
 import majestic.Checkbox
 import majestic.ColorPair
 import majestic.LazyTable
+import majestic.dropdown.Dropdown
+import majestic.dropdown.DropdownItem
 import majestic.payments.labels.wallet.WalletLabels
-import majestic.payments.tools.menu.MenuOption
+import majestic.payments.tools.menu.OptionMenu
 import majestic.payments.tools.separator
 import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.table.tools.CreatedCell
@@ -36,9 +37,23 @@ import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
 import majestic.tooling.onClick
+import org.jetbrains.compose.resources.vectorResource
 import symphony.Table
 import tz.co.asoft.majestic_payments.generated.resources.Res
+import tz.co.asoft.majestic_payments.generated.resources.ic_more_horizontal
 import tz.co.asoft.majestic_payments.generated.resources.user_avatar
+
+@Composable
+internal fun <T> List<OptionMenu<out T>>.toDropdownItems(): List<DropdownItem<T>> {
+    return map { option ->
+        DropdownItem(
+            value = option.action,
+            label = option.label,
+            isDestructive = option.isDestructive,
+            leadingIcon = if (option.icon !== null) vectorResource(option.icon) else null,
+        )
+    }
+}
 
 @Composable
 fun WalletTable(
@@ -236,11 +251,12 @@ fun WalletTable(
                     .pointerHoverIcon(PointerIcon.Hand),
                 contentAlignment = Alignment.Center
             ) {
-                MenuOption(
-                    colors = colors.menu,
-                    orientation = Landscape,
-                    actions = WalletMenuAction.getMenus(labels.menu),
-                    onAction = { /* TODO */ }
+                Dropdown(
+                    items = WalletMenuAction.getMenus(labels.menu).toDropdownItems(),
+                    onAction = { /* TODO */ },
+                    colors = colors.dropdown,
+                    icon = vectorResource(Res.drawable.ic_more_horizontal),
+                    isListItem = true
                 )
             }
         }

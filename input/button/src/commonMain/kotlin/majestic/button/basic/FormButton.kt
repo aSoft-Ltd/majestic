@@ -1,0 +1,40 @@
+package majestic.button.basic
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.sp
+import majestic.button.Button
+
+@Composable
+fun FormButton(icon: ImageVector, text: String, modifier: Modifier = Modifier) {
+    Button(modifier = modifier) { colors ->
+        BasicButtonContent(
+            text = text,
+            leadingIcon = icon,
+            fontSize = 14.sp,
+            colors = colors,
+        )
+    }
+}
+
+@Composable
+fun FormButton(icon: ImageVector, modifier: Modifier = Modifier) {
+    Button(modifier = modifier) { colors ->
+        BasicButtonContent(
+            icon = icon,
+            colors = colors,
+        )
+    }
+}
+
+@Composable
+fun FormButton(text: String, modifier: Modifier = Modifier) {
+    Button(modifier = modifier) { colors ->
+        BasicButtonContent(
+            text = text,
+            fontSize = 14.sp,
+            colors = colors,
+        )
+    }
+}

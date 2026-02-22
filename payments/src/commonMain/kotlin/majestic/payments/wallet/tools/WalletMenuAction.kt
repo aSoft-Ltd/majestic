@@ -32,7 +32,8 @@ internal enum class WalletMenuAction {
             ),
             OptionMenu(
                 label = Delete.getLabel(labels),
-                action = Delete
+                action = Delete,
+                isDestructive = true
             ),
         )
     }

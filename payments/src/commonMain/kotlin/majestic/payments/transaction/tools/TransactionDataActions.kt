@@ -7,14 +7,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import majestic.ColorPair
+import majestic.dropdown.Dropdown
+import majestic.dropdown.DropdownColors
 import majestic.payments.labels.ActionLabels
-import majestic.payments.tools.ActionDropdown
-import majestic.payments.tools.ActionDropdownItem
 import majestic.payments.tools.filters.FilterByYear
-import majestic.payments.tools.filters.FilterDefault
 import majestic.payments.transaction.tools.data.TransactionProcess
 import majestic.payments.transaction.tools.data.TransactionReview
+import majestic.payments.wallet.table.toDropdownItems
+import org.jetbrains.compose.resources.vectorResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_book_open_01
 import tz.co.asoft.majestic_payments.generated.resources.ic_cursor_rectangle_selection_02
@@ -22,32 +22,28 @@ import tz.co.asoft.majestic_payments.generated.resources.ic_cursor_rectangle_sel
 @Composable
 fun TransactionDataActions(
     labels: ActionLabels,
-    colors: ColorPair,
-    filterDefault: FilterDefault,
+    colors: DropdownColors,
     modifier: Modifier = Modifier,
 ) = Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-    ActionDropdown(
-        modifier = Modifier.width(IntrinsicSize.Max),
+    Dropdown(
+        items = TransactionProcess.getActions(labels).toDropdownItems(),
+        onAction = { /* TODO */ },
         colors = colors,
-        actions = TransactionProcess.getActions(labels),
-        placeholder = ActionDropdownItem(
-            label = labels.process,
-            icon = Res.drawable.ic_cursor_rectangle_selection_02
-        ),
+        label = "Process",
+        leadingIcon = vectorResource(Res.drawable.ic_cursor_rectangle_selection_02),
+        modifier = Modifier.width(IntrinsicSize.Max)
     )
-    ActionDropdown(
-        modifier = Modifier.width(IntrinsicSize.Max),
+    Dropdown(
+        items = TransactionReview.getActions(labels).toDropdownItems(),
+        onAction = { /* TODO */ },
         colors = colors,
-        actions = TransactionReview.getActions(labels),
-        placeholder = ActionDropdownItem(
-            label = labels.review,
-            icon = Res.drawable.ic_book_open_01
-        ),
+        label = "Review",
+        leadingIcon = vectorResource(Res.drawable.ic_book_open_01),
+        modifier = Modifier.width(IntrinsicSize.Max)
     )
     FilterByYear(
         years = listOf("2025", "2024", "2023"),
         selected = "2025",
-        modifier = Modifier.width(110.dp),
-        defaults = filterDefault
+        colors = colors,
     )
 }

@@ -63,6 +63,7 @@ kotlin {
             api(projects.majesticInputButton)
             api(projects.majesticGraphs)
             api(projects.majesticTable)
+            api(projects.majesticOverlays)
         }
 
         commonTest.dependencies {
