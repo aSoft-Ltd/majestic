@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun SelectTrigger(
+fun SelectTrigger(
     foreground: Color,
     arrowTint: Color,
     selected: List<String>,
@@ -55,11 +55,12 @@ internal fun SelectTrigger(
             fontSize = 14.sp,
             color = foreground,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f)
+            overflow = TextOverflow.Ellipsis
         )
         Icon(
-            modifier = Modifier.size(16.dp).graphicsLayer { rotationX = rotation },
+            modifier = Modifier
+                .size(16.dp)
+                .graphicsLayer { rotationX = rotation },
             painter = painterResource(arrowIcon),
             tint = arrowTint,
             contentDescription = null
