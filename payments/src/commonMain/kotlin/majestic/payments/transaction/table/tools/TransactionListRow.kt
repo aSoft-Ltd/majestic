@@ -10,10 +10,10 @@ import majestic.dropdown.Dropdown
 import majestic.icons.Res
 import majestic.icons.ic_more_vertical
 import majestic.payments.labels.transaction.TransactionLabels
-import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.table.PaymentTransaction
 import majestic.payments.transaction.tools.TransactionMenuAction
+import majestic.shared.tools.dropdown.toDropdownItems
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable

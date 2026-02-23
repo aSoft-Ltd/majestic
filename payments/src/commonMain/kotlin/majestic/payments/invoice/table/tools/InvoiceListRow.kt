@@ -12,8 +12,8 @@ import majestic.icons.ic_more_vertical
 import majestic.payments.invoice.table.PaymentInvoice
 import majestic.payments.invoice.tools.InvoiceMenuAction
 import majestic.payments.labels.invoice.InvoiceLabels
-import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.tools.table.TableColors
+import majestic.shared.tools.dropdown.toDropdownItems
 import nation.Country
 import org.jetbrains.compose.resources.vectorResource
 

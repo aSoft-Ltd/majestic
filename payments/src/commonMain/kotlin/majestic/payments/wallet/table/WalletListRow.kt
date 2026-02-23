@@ -24,11 +24,11 @@ import majestic.icons.Res
 import majestic.icons.ic_more_vertical
 import majestic.icons.ic_wallet_02_solid
 import majestic.payments.labels.wallet.WalletLabels
-import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
+import majestic.shared.tools.dropdown.toDropdownItems
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
 

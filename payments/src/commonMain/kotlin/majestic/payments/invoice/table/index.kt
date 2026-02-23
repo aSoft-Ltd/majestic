@@ -26,9 +26,9 @@ import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
 import majestic.payments.invoice.tools.InvoiceMenuAction
 import majestic.payments.labels.invoice.InvoiceLabels
-import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
 import majestic.tooling.separator
 import org.jetbrains.compose.resources.vectorResource

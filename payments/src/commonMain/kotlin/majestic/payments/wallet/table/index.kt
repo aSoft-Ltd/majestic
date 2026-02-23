@@ -27,13 +27,13 @@ import majestic.LazyTable
 import majestic.dropdown.Dropdown
 import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.table.TableColors
-import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.wallet.table.tools.CreatedCell
 import majestic.payments.wallet.table.tools.NameCell
 import majestic.payments.wallet.table.tools.RecentCell
 import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
 import majestic.tooling.separator
 import org.jetbrains.compose.resources.vectorResource

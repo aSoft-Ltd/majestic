@@ -1,7 +1,7 @@
 package majestic.payments.transaction.tools.data
 
 import majestic.payments.labels.ActionLabels
-import majestic.payments.tools.menu.OptionMenu
+import majestic.shared.menu.OptionMenu
 import org.jetbrains.compose.resources.DrawableResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_apple_reminder
