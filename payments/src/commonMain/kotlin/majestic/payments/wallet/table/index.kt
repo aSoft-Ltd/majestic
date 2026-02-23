@@ -27,7 +27,6 @@ import majestic.ColorPair
 import majestic.LazyTable
 import majestic.payments.labels.wallet.WalletLabels
 import majestic.payments.tools.menu.MenuOption
-import majestic.payments.tools.separator
 import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.table.tools.CreatedCell
 import majestic.payments.wallet.table.tools.NameCell
@@ -36,6 +35,7 @@ import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
 import majestic.tooling.onClick
+import majestic.tooling.separator
 import symphony.Table
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.user_avatar
