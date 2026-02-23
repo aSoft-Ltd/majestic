@@ -98,3 +98,24 @@ fun Modifier.dropdownTrigger(
 ): Modifier = this
     .translucentButton(color = color, onClick = onClick, alpha = 0.05f)
     .padding(horizontal = 20.dp, vertical = 7.dp)
+
+@Composable
+fun Modifier.stickyButton(
+    color: Color,
+    onClick: () -> Unit = { },
+): Modifier = this
+    .translucentButton(color = color, onClick = onClick, alpha = 0.05f)
+    .padding(horizontal = 20.dp, vertical = 7.dp)
+
+@Composable
+fun Modifier.transparentIconButton(
+    color: Color,
+    onClick: () -> Unit = { },
+): Modifier = translucentButton(color = color, onClick = onClick, alpha = 0f)
+
+@Composable
+fun Modifier.iconButton(
+    color: Color,
+    alpha: Float = 0.03f,
+    onClick: () -> Unit = { },
+): Modifier = translucentButton(color = color, onClick = onClick, alpha = alpha)
