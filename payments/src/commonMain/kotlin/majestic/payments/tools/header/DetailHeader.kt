@@ -21,9 +21,9 @@ import majestic.dropdown.DropdownColors
 import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
 import majestic.icons.ic_more_vertical
+import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.tools.menu.MenuOptionColors
 import majestic.payments.tools.menu.OptionMenu
-import majestic.payments.wallet.table.toDropdownItems
 import org.jetbrains.compose.resources.vectorResource
 
 data class DetailHeaderColors(

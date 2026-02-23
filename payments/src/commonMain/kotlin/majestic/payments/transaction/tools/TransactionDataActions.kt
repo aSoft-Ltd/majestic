@@ -10,10 +10,10 @@ import androidx.compose.ui.unit.dp
 import majestic.dropdown.Dropdown
 import majestic.dropdown.DropdownColors
 import majestic.payments.labels.ActionLabels
+import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.tools.filters.FilterByYear
 import majestic.payments.transaction.tools.data.TransactionProcess
 import majestic.payments.transaction.tools.data.TransactionReview
-import majestic.payments.wallet.table.toDropdownItems
 import org.jetbrains.compose.resources.vectorResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_book_open_01

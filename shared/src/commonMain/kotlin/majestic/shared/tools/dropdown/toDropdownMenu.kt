@@ -1,4 +1,4 @@
-package majestic.shared.tools
+package majestic.shared.tools.dropdown
 
 import androidx.compose.runtime.Composable
 import majestic.dropdown.DropdownItem

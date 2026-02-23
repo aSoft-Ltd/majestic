@@ -8,11 +8,9 @@ import majestic.icons.ic_cancel
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
-fun CloseModalButton(modifier: Modifier = Modifier) {
-    Button(modifier = modifier) { colors ->
+fun CloseModalButton(modifier: Modifier = Modifier) = Button(modifier = modifier) { colors ->
         BasicButtonContent(
             icon = vectorResource(Res.drawable.ic_cancel),
             colors = colors
         )
     }
-}

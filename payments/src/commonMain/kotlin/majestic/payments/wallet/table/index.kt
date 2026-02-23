@@ -25,10 +25,9 @@ import majestic.Checkbox
 import majestic.ColorPair
 import majestic.LazyTable
 import majestic.dropdown.Dropdown
-import majestic.dropdown.DropdownItem
 import majestic.payments.labels.wallet.WalletLabels
-import majestic.payments.tools.menu.OptionMenu
 import majestic.payments.tools.table.TableColors
+import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.wallet.table.tools.CreatedCell
 import majestic.payments.wallet.table.tools.NameCell
 import majestic.payments.wallet.table.tools.RecentCell
@@ -42,18 +41,6 @@ import symphony.Table
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_more_horizontal
 import tz.co.asoft.majestic_payments.generated.resources.user_avatar
-
-@Composable
-internal fun <T> List<OptionMenu<out T>>.toDropdownItems(): List<DropdownItem<T>> {
-    return map { option ->
-        DropdownItem(
-            value = option.action,
-            label = option.label,
-            isDestructive = option.isDestructive,
-            leadingIcon = if (option.icon !== null) vectorResource(option.icon) else null,
-        )
-    }
-}
 
 @Composable
 fun WalletTable(

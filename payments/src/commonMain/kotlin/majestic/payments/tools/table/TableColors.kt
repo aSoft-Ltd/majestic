@@ -15,6 +15,5 @@ data class TableColors(
     val icon: Color,
     val header: ColorPair,
     val checkbox: CheckboxColors,
-    val menu: MenuOptionColors,
     val dropdown: DropdownColors
 )

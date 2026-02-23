@@ -19,16 +19,19 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import composex.screen.orientation.Landscape
 import majestic.Checkbox
 import majestic.LazyTable
+import majestic.dropdown.Dropdown
+import majestic.icons.Res
+import majestic.icons.ic_more_horizontal
 import majestic.payments.invoice.tools.InvoiceMenuAction
 import majestic.payments.labels.invoice.InvoiceLabels
-import majestic.payments.tools.menu.MenuOption
+import majestic.payments.tools.dropdown.toDropdownItems
 import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
 import majestic.tooling.onClick
 import majestic.tooling.separator
+import org.jetbrains.compose.resources.vectorResource
 import symphony.Table
 
 @Composable
@@ -226,11 +229,12 @@ fun InvoiceTable(
                     .pointerHoverIcon(PointerIcon.Hand),
                 contentAlignment = Alignment.Center
             ) {
-                MenuOption(
-                    colors = colors.menu,
-                    orientation = Landscape,
-                    actions = InvoiceMenuAction.getMenus(labels.menu),
-                    onAction = { /* TODO */ }
+                Dropdown(
+                    items = InvoiceMenuAction.getMenus(labels.menu).toDropdownItems(),
+                    onAction = { /* TODO */ },
+                    colors = colors.dropdown,
+                    icon = vectorResource(Res.drawable.ic_more_horizontal),
+                    isListItem = true
                 )
             }
         }
