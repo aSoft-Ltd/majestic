@@ -27,8 +27,8 @@ import majestic.editor.tools.StateColors
 import majestic.icons.Res
 import majestic.icons.ic_arrow_right
 import majestic.icons.ic_more_vertical
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.MenuOptionColors
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.MenuOptionColors
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.details.roles.tools.actions
 import majestic.tooling.onClick

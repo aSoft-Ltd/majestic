@@ -1,7 +1,6 @@
 package majestic.shared.profiles.roles.details.permissions
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,34 +16,34 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.roles.data.Role
-import majestic.shared.profiles.roles.tools.BreadCrumb
-import majestic.shared.profiles.roles.tools.ViewControls
-import majestic.shared.profiles.roles.tools.ViewControlsColors
+import majestic.shared.tools.breadcrumb.BreadCrumb
+import majestic.shared.tools.breadcrumb.BreadCrumbControls
+import majestic.shared.tools.breadcrumb.BreadCrumbControlColors
 
 
-data class RoleDetailsColors(
+data class ResponsibilityDetailColors(
     val background: Color,
-    val view: ViewControlsColors,
+    val view: BreadCrumbControlColors,
     val responsibility: ResponsibilityColors,
     val divider: Color
 )
 
 @Composable
-internal fun PermissionDetails(
+internal fun ResponsibilitiesDetail(
     modifier: Modifier,
     orientation: ScreenOrientation,
     role: Role,
-    colors: RoleDetailsColors,
+    colors: ResponsibilityDetailColors,
     breadcrumbs: List<BreadCrumb>,
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top
 ) {
-    ViewControls(
+    BreadCrumbControls(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = colors.background,
+                color = colors.view.background,
                 shape = RoundedCornerShape(
                     topStart = if (orientation is Landscape) 10.dp else 0.dp,
                     topEnd = if (orientation is Landscape) 10.dp else 0.dp
@@ -56,11 +55,11 @@ internal fun PermissionDetails(
         orientation = orientation
     )
 
-    Permissions(
+    Responsibilities(
         modifier = Modifier
             .wrapContentSize()
             .verticalScroll(rememberScrollState()),
-        responsibilities = role.permissions,
+        responsibilities = role.responsibilities,
         colors = colors.responsibility,
         orientation = orientation
     )

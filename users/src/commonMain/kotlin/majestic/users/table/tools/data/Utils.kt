@@ -9,7 +9,7 @@ import majestic.icons.ic_cancel
 import majestic.icons.ic_delete
 import majestic.icons.ic_export
 import majestic.icons.ic_send_email
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.users.label.table.TableLabels
 import majestic.users.table.header.Action
 import majestic.users.table.header.Archive

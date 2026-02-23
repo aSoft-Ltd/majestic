@@ -27,7 +27,7 @@ data class ResponsibilityColors(
 )
 
 @Composable
-internal fun Permissions(
+internal fun Responsibilities(
     modifier: Modifier,
     responsibilities: List<Permission>,
     colors: ResponsibilityColors,
@@ -39,7 +39,7 @@ internal fun Permissions(
     responsibilities.forEachIndexed { index, responsibility ->
         val interaction = remember { MutableInteractionSource() }
         val hovered by interaction.collectIsHoveredAsState()
-        PermissionItem(
+        ResponsibilityItem(
             modifier = Modifier.responsibilityItem(
                 interaction = interaction,
                 hovered = hovered,

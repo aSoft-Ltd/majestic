@@ -36,7 +36,7 @@ import majestic.shared.profiles.roles.details.roles.RoleItemColors
 import majestic.shared.profiles.roles.details.roles.RoleList
 import majestic.shared.profiles.roles.details.roles.RolesHeader
 import majestic.shared.profiles.roles.details.roles.roleScreenHeader
-import majestic.shared.profiles.roles.tools.BreadCrumb
+import majestic.shared.tools.breadcrumb.BreadCrumb
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.painterResource
 

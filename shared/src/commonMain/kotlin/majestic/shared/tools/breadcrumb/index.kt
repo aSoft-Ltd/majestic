@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.tools
+package majestic.shared.tools.breadcrumb
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -13,17 +13,16 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.icons.Res
 import majestic.icons.ic_arrow_right
-import majestic.shared.profiles.permissions.detail.ContainerPadding
-import majestic.shared.profiles.permissions.detail.breadCrumbTab
-import majestic.shared.profiles.tools.BreadCrumbTab
-import majestic.shared.profiles.tools.BreadCrumbTabColors
+import majestic.shared.tools.breadcrumb.tools.BreadCrumbTabColors
+import majestic.shared.tools.breadcrumb.tools.ContainerPadding
+import majestic.shared.tools.breadcrumb.tools.breadCrumbTab
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
-data class ViewControlsColors(
+data class BreadCrumbControlColors(
     val background: Color,
-    val subtitle: Color,
+    val arrow: Color,
     val breadCrumb: BreadCrumbTabColors,
 )
 
@@ -34,10 +33,10 @@ internal data class BreadCrumb(
 )
 
 @Composable
-internal fun ViewControls(
+internal fun BreadCrumbControls(
     modifier: Modifier,
     breadcrumbs: List<BreadCrumb>,
-    colors: ViewControlsColors,
+    colors: BreadCrumbControlColors,
     orientation: ScreenOrientation
 ) = Row(
     modifier = modifier,
@@ -50,7 +49,7 @@ internal fun ViewControls(
         BreadCrumbTab(
             modifier = Modifier
                 .breadCrumbTab(
-                    container = colors.background,
+                    container = colors.breadCrumb.background,
                     orientation = orientation,
                     paddings = ContainerPadding(end = 50.dp)
                 )
@@ -66,7 +65,7 @@ internal fun ViewControls(
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_arrow_right),
                 contentDescription = null,
-                tint = colors.subtitle,
+                tint = colors.arrow,
                 modifier = Modifier.size(16.dp)
             )
         }

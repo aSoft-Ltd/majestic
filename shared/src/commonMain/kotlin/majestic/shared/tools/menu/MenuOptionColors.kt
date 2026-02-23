@@ -1,4 +1,4 @@
-package majestic.shared.menu
+package majestic.shared.tools.menu
 
 import androidx.compose.ui.graphics.Color
 import majestic.ColorPair

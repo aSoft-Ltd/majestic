@@ -19,14 +19,14 @@ import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.details.header.RolesHeaderLabels
 import majestic.shared.profiles.roles.details.header.TopHeader
 import majestic.shared.profiles.roles.details.header.TopHeaderColors
-import majestic.shared.profiles.roles.tools.BreadCrumb
-import majestic.shared.profiles.roles.tools.ViewControls
-import majestic.shared.profiles.roles.tools.ViewControlsColors
+import majestic.shared.tools.breadcrumb.BreadCrumb
+import majestic.shared.tools.breadcrumb.BreadCrumbControls
+import majestic.shared.tools.breadcrumb.BreadCrumbControlColors
 
 data class RoleHeaderColors(
     val background: Color,
     val top: TopHeaderColors,
-    val view: ViewControlsColors,
+    val view: BreadCrumbControlColors,
 )
 
 internal fun Modifier.roleScreenHeader(
@@ -79,7 +79,7 @@ internal fun RolesHeader(
             thickness = .5.dp
         )
     }
-    ViewControls(
+    BreadCrumbControls(
         modifier = Modifier
             .fillMaxWidth()
             .background(colors.view.background)

@@ -1,4 +1,4 @@
-package majestic.shared.menu
+package majestic.shared.tools.menu
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState

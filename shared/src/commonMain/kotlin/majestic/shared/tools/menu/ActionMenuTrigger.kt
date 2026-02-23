@@ -1,4 +1,4 @@
-package majestic.shared.menu
+package majestic.shared.tools.menu
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState

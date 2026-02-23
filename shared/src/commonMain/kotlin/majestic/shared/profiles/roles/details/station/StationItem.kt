@@ -19,8 +19,8 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.editor.tools.StateColors
-import majestic.shared.menu.MenuOptionColors
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.MenuOptionColors
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.RoleColors
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels

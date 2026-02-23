@@ -14,8 +14,8 @@ import majestic.shared.credit.CreditUsage
 import majestic.shared.credit.tools.cells.CreditActorCell
 import majestic.shared.credit.tools.cells.CreditPurchasedCell
 import majestic.shared.credit.tools.cells.CreditReferenceCell
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.OptionMenu
 
 @Composable
 fun <T> CreditRow(

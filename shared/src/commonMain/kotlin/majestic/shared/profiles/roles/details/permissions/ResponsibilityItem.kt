@@ -46,7 +46,7 @@ internal fun Modifier.responsibilityItem(
 
 
 @Composable
-internal fun PermissionItem(
+internal fun ResponsibilityItem(
     modifier: Modifier,
     index: Int,
     orientation: ScreenOrientation,

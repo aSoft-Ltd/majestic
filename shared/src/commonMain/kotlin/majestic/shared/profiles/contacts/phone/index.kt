@@ -24,9 +24,9 @@ import majestic.icons.ic_call
 import majestic.icons.ic_calling_solid
 import majestic.icons.ic_whatsapp_solid
 import majestic.layouts.Flex
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.MenuOptionColors
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.MenuOptionColors
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogsColors
 import majestic.shared.profiles.contacts.tools.PhoneMenuAction
 import majestic.shared.tools.Tooltip

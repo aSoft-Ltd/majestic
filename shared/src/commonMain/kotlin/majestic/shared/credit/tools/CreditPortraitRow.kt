@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.credit.CreditUsage
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.tools.PhotoBadge
 
 @Composable

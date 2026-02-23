@@ -1,4 +1,4 @@
-package majestic.shared.menu
+package majestic.shared.tools.menu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource

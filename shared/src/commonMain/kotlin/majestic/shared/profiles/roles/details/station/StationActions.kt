@@ -22,8 +22,8 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.icons.Res
 import majestic.icons.ic_add
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.data.RoleOption
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.painterResource

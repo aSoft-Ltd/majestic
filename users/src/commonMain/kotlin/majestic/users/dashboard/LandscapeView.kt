@@ -23,7 +23,7 @@ import majestic.icons.ic_calendar
 import majestic.icons.ic_clock_01
 import majestic.icons.ic_laptop_phone
 import majestic.icons.tz_flag
-import majestic.shared.menu.MenuOption
+import majestic.shared.tools.menu.MenuOption
 import majestic.shared.users.UsersLabels
 import majestic.shared.users.dashboard.PortraitHeaderColors
 import majestic.shared.users.dashboard.UserRoleColors

@@ -1,6 +1,6 @@
 package majestic.shared.profiles.roles.details.roles.tools
 
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.details.roles.RoleAction
 import majestic.shared.profiles.roles.details.roles.RoleActionLabels
 

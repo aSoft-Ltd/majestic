@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
-import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.icons.Res
 import majestic.icons.allDrawableResources
@@ -30,7 +29,7 @@ import majestic.icons.ic_key
 import majestic.icons.ic_laptop_phone
 import majestic.icons.ic_user_multiple
 import majestic.icons.tz_flag
-import majestic.shared.menu.MenuOption
+import majestic.shared.tools.menu.MenuOption
 import majestic.shared.users.UsersLabels
 import majestic.shared.profiles.roles.data.Role.Companion.roles
 import majestic.shared.users.data.permissions

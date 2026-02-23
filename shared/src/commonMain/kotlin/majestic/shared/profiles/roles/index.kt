@@ -1,6 +1,5 @@
 package majestic.shared.profiles.roles
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
@@ -9,26 +8,25 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.icons.Res
 import majestic.icons.ic_account_setting_filled
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.assign.FormColors
 import majestic.shared.profiles.roles.assign.PromptWrapper
 import majestic.shared.profiles.roles.assign.tools.rememberAssignmentController
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
-import majestic.shared.profiles.roles.details.permissions.PermissionDetails
-import majestic.shared.profiles.roles.details.permissions.RoleDetailsColors
+import majestic.shared.profiles.roles.details.permissions.ResponsibilitiesDetail
+import majestic.shared.profiles.roles.details.permissions.ResponsibilityDetailColors
 import majestic.shared.profiles.roles.details.station.StationRoles
 import majestic.shared.profiles.roles.details.station.StationRolesColors
 import majestic.shared.profiles.roles.details.station.StationItemColors
 import majestic.shared.profiles.roles.details.station.StationList
-import majestic.shared.profiles.roles.tools.BreadCrumb
+import majestic.shared.tools.breadcrumb.BreadCrumb
 import majestic.shared.profiles.roles.tools.Details
 import majestic.shared.profiles.roles.tools.Roles
 import majestic.shared.profiles.roles.tools.Stations
@@ -40,7 +38,7 @@ data class RoleColors(
     val form: FormColors,
     val separator: Color,
     val roles: StationRolesColors,
-    val details: RoleDetailsColors
+    val details: ResponsibilityDetailColors
 )
 
 @Composable
@@ -118,7 +116,7 @@ fun RoleArea(
         }
 
         Details -> screen.activeRole?.let { role ->
-            PermissionDetails(
+            ResponsibilitiesDetail(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentSize(),

@@ -1,4 +1,4 @@
-package majestic.shared.profiles.tools
+package majestic.shared.tools.breadcrumb
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,21 +11,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
+import majestic.shared.tools.breadcrumb.tools.BreadCrumbTabColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
-data class BreadCrumbTabColors(
-    val background: Color,
-    val icon: ColorPair,
-    val label: Color
-)
 
 @Composable
 internal fun BreadCrumbTab(
