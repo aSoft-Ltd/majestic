@@ -22,11 +22,11 @@ import cinematic.watchAsState
 import majestic.Checkbox
 import majestic.LazyTable
 import majestic.payments.labels.transaction.TransactionLabels
-import majestic.payments.tools.separator
 import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.table.PaymentTransaction
 import majestic.tooling.onClick
+import majestic.tooling.separator
 import symphony.Table
 
 @Composable

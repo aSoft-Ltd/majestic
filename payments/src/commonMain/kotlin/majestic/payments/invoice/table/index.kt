@@ -25,10 +25,10 @@ import majestic.LazyTable
 import majestic.payments.invoice.tools.InvoiceMenuAction
 import majestic.payments.labels.invoice.InvoiceLabels
 import majestic.payments.tools.menu.MenuOption
-import majestic.payments.tools.separator
 import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
 import majestic.tooling.onClick
+import majestic.tooling.separator
 import symphony.Table
 
 @Composable
