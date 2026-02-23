@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.payments.labels.transaction.TransactionLabels
 import majestic.payments.tools.account.AccountProvider
-import majestic.payments.tools.separator
+import majestic.tooling.separator
 
 @Composable
 internal fun AccountCard(
