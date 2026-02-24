@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import majestic.button.Button
 import majestic.icons.Res
 import majestic.icons.ic_angle_right
@@ -17,6 +18,7 @@ fun CardButton(
         BasicButtonContent(
             text = text,
             fontWeight = FontWeight.Normal,
+            fontSize = 14.sp,
             alpha = 0.7f,
             colors = colors
         )
