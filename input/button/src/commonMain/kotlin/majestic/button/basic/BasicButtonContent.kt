@@ -33,8 +33,7 @@ private fun LoadingWrapper(
     color: Color,
     size: Dp = 18.dp,
     content: @Composable () -> Unit
-) {
-    Box(contentAlignment = Alignment.Center) {
+) = Box(contentAlignment = Alignment.Center) {
         Box(modifier = Modifier.graphicsLayer { alpha = if (loading) 0f else 1f }) {
             content()
         }
@@ -47,7 +46,6 @@ private fun LoadingWrapper(
             )
         }
     }
-}
 
 // overload for text only button
 @Composable
@@ -58,8 +56,7 @@ fun BasicButtonContent(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Medium,
     alpha: Float = 1f,
-) {
-    LoadingWrapper(
+) = LoadingWrapper(
         loading = loading,
         color = colors.foreground
     ) {
@@ -72,7 +69,6 @@ fun BasicButtonContent(
             overflow = TextOverflow.Ellipsis,
         )
     }
-}
 
 // overload for icon only button
 @Composable
@@ -82,8 +78,7 @@ fun BasicButtonContent(
     loading: Boolean = false,
     rotation: Float? = null,
     alpha: Float = 1f,
-    ) {
-    LoadingWrapper(
+) = LoadingWrapper(
         loading = loading,
         color = colors.foreground
     ) {
@@ -102,7 +97,6 @@ fun BasicButtonContent(
                 .graphicsLayer { rotationZ = angle }
         )
     }
-}
 
 // overload for text with icons either leading or trailing
 @Composable
@@ -116,11 +110,9 @@ fun BasicButtonContent(
     fontWeight: FontWeight = FontWeight.Medium,
     leadingIconAlpha: Float = 1f,
     textAlpha: Float = 1f,
-) {
-    val foreground = colors.foreground
-    LoadingWrapper(
+) = LoadingWrapper(
         loading = loading,
-        color = foreground
+        color = colors.foreground
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             leadingIcon?.let {
@@ -128,14 +120,14 @@ fun BasicButtonContent(
                     imageVector = it,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp),
-                    tint = foreground.copy(alpha = leadingIconAlpha)
+                    tint = colors.foreground.copy(alpha = leadingIconAlpha)
                 )
                 Spacer(Modifier.width(8.dp))
             }
 
             Text(
                 text = text,
-                color = foreground.copy(alpha = textAlpha),
+                color = colors.foreground.copy(alpha = textAlpha),
                 fontWeight = fontWeight,
                 fontSize = fontSize,
                 maxLines = 1,
@@ -148,9 +140,8 @@ fun BasicButtonContent(
                     imageVector = it,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp),
-                    tint = foreground
+                    tint = colors.foreground
                 )
             }
         }
     }
-}
