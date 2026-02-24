@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import majestic.ColorPair
-import majestic.payments.labels.transaction.ActionLabels
+import majestic.payments.labels.ActionLabels
 import majestic.payments.tools.ActionDropdown
 import majestic.payments.tools.ActionDropdownItem
 import majestic.payments.tools.filters.FilterByYear

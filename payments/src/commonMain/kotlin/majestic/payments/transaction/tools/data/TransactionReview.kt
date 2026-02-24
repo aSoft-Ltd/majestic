@@ -1,6 +1,6 @@
 package majestic.payments.transaction.tools.data
 
-import majestic.payments.labels.transaction.ActionLabels
+import majestic.payments.labels.ActionLabels
 import majestic.payments.tools.ActionDropdownItem
 import org.jetbrains.compose.resources.DrawableResource
 import tz.co.asoft.majestic_payments.generated.resources.Res

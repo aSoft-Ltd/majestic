@@ -1,4 +1,4 @@
-package majestic.payments.transaction.table.tools
+package majestic.payments.tools.table
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -11,18 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.payments.tools.table.TableColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun CommonCell(
-    colors: TableColors,
+    color: Color,
     title: String,
     avatar: DrawableResource? = null,
     avatarShape: Shape = CircleShape,
@@ -42,7 +42,7 @@ internal fun CommonCell(
     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
         Text(
             text = title,
-            color = colors.foreground,
+            color = color,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             fontSize = 14.sp,
@@ -54,14 +54,14 @@ internal fun CommonCell(
 
 @Composable
 internal fun CommonCell(
-    colors: TableColors,
+    color: Color,
     title: String,
     subtitle: String,
     avatar: DrawableResource? = null,
     avatarShape: Shape = CircleShape,
     modifier: Modifier = Modifier
 ) = CommonCell(
-    colors = colors,
+    color = color,
     title = title,
     avatar = avatar,
     avatarShape = avatarShape,
@@ -69,7 +69,7 @@ internal fun CommonCell(
 ) {
     Text(
         text = subtitle,
-        color = colors.foreground.copy(0.3f),
+        color = color.copy(0.3f),
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         fontSize = 10.sp,

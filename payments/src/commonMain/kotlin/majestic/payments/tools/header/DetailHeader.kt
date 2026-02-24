@@ -73,29 +73,33 @@ internal fun <T> DetailHeader(
         modifier = Modifier.weight(1f),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        label()
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Top
+        ) {
+            label()
+            MenuOption(
+                colors = colors.menu,
+                orientation = orientation,
+                actions = options,
+                onAction = { /* TODO */ }
+            )
+        }
         Row(
             modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            details.forEach { detail ->
-                InfoEntry(
-                    colors = colors.info,
-                    icon = detail.icon,
-                    title = detail.title,
-                    description = detail.description,
-                    modifier = Modifier.widthIn(min = 120.dp)
-                )
-            }
+            for (detail in details) InfoEntry(
+                colors = colors.info,
+                icon = detail.icon,
+                title = detail.title,
+                description = detail.description,
+                modifier = Modifier.widthIn(min = 120.dp)
+            )
         }
     }
-    MenuOption(
-        colors = colors.menu,
-        orientation = orientation,
-        actions = options,
-        onAction = { /* TODO */ }
-    )
 }
 
 @Composable

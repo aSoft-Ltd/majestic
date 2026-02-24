@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles
+package majestic.shared.profiles.roles.item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
@@ -19,11 +19,10 @@ import majestic.ColorPair
 import majestic.editor.tools.StateColors
 import majestic.shared.menu.MenuOptionColors
 import majestic.shared.menu.OptionMenu
+import majestic.shared.profiles.roles.RoleColors
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
-import majestic.shared.profiles.roles.item.Actions
-import majestic.shared.profiles.roles.item.Main
 import majestic.shared.profiles.roles.utils.toBackgroundColor
 import majestic.shared.profiles.roles.utils.toShape
 
