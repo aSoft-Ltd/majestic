@@ -65,7 +65,7 @@ fun Header(
 
         is Portrait -> DetailHeader(
             modifier = modifier,
-            colors = colors.menu,
+            colors = colors,
             orientation = Portrait,
             options = WalletDetailMenuAction.getMenus(labels.menu),
             icon = {
