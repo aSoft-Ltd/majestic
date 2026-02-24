@@ -27,10 +27,10 @@ import majestic.editor.tools.StateColors
 import majestic.icons.Res
 import majestic.icons.ic_arrow_right
 import majestic.icons.ic_more_vertical
-import majestic.shared.tools.menu.MenuOption
-import majestic.shared.tools.menu.MenuOptionColors
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.details.roles.tools.actions
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.MenuOptionColors
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.vectorResource
 
@@ -55,6 +55,7 @@ internal fun Modifier.roleItem(
     val hovered by interaction.collectIsHoveredAsState()
     return this
         .fillMaxWidth()
+        .pointerHoverIcon(PointerIcon.Hand)
         .hoverable(interaction)
         .background(
             color = if (hovered) colors.background.focused else colors.background.unfocused,
@@ -76,12 +77,9 @@ internal fun RoleItem(
     colors: RoleItemColors,
     labels: RoleActionLabels,
     orientation: ScreenOrientation,
-    onClick: () -> Unit,
     onUnassign: () -> Unit
 ) = Row(
-    modifier = modifier
-        .pointerHoverIcon(PointerIcon.Hand)
-        .onClick { onClick() },
+    modifier = modifier,
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
 ) {
