@@ -64,6 +64,7 @@ kotlin {
             api(projects.majesticGraphs)
             api(projects.majesticTable)
             api(projects.majesticOverlays)
+            api(projects.majesticShared)
         }
 
         commonTest.dependencies {

@@ -28,6 +28,7 @@ import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
+import majestic.shared.tools.dropdown.toDropdownItems
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
 

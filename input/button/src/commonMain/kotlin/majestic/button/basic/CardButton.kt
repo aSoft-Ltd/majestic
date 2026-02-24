@@ -13,8 +13,7 @@ import org.jetbrains.compose.resources.vectorResource
 fun CardButton(
     text: String,
     modifier: Modifier = Modifier
-) {
-    Button(modifier = modifier) { colors ->
+) = Button(modifier = modifier) { colors ->
         BasicButtonContent(
             text = text,
             fontWeight = FontWeight.Normal,
@@ -22,18 +21,15 @@ fun CardButton(
             colors = colors
         )
     }
-}
 
 // mobile overload
 @Composable
 fun CardButton(
     icon: ImageVector = vectorResource(Res.drawable.ic_angle_right),
     modifier: Modifier = Modifier
-) {
-    Button(modifier = modifier) { colors ->
+) = Button(modifier = modifier) { colors ->
         BasicButtonContent(
             icon = icon,
             colors = colors
         )
     }
-}

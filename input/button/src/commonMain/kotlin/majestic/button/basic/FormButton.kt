@@ -7,8 +7,7 @@ import androidx.compose.ui.unit.sp
 import majestic.button.Button
 
 @Composable
-fun FormButton(icon: ImageVector, loading: Boolean = false, text: String, modifier: Modifier = Modifier) {
-    Button(modifier = modifier) { colors ->
+fun FormButton(icon: ImageVector, text: String, modifier: Modifier = Modifier) = Button(modifier = modifier) { colors ->
         BasicButtonContent(
             text = text,
             loading = loading,
@@ -17,22 +16,19 @@ fun FormButton(icon: ImageVector, loading: Boolean = false, text: String, modifi
             colors = colors,
         )
     }
-}
+
 
 @Composable
-fun FormButton(icon: ImageVector, loading: Boolean = false, modifier: Modifier = Modifier) {
-    Button(modifier = modifier) { colors ->
+fun FormButton(icon: ImageVector, modifier: Modifier = Modifier) = Button(modifier = modifier) { colors ->
         BasicButtonContent(
             icon = icon,
             loading = loading,
             colors = colors,
         )
     }
-}
 
 @Composable
-fun FormButton(text: String, loading: Boolean = false, modifier: Modifier = Modifier) {
-    Button(modifier = modifier) { colors ->
+fun FormButton(text: String, modifier: Modifier = Modifier) = Button(modifier = modifier) { colors ->
         BasicButtonContent(
             text = text,
             loading = loading,
@@ -40,4 +36,3 @@ fun FormButton(text: String, loading: Boolean = false, modifier: Modifier = Modi
             colors = colors,
         )
     }
-}

@@ -4,7 +4,6 @@ import androidx.compose.ui.graphics.Color
 import majestic.CheckboxColors
 import majestic.ColorPair
 import majestic.dropdown.DropdownColors
-import majestic.payments.tools.menu.MenuOptionColors
 
 data class TableColors(
     val background: Color,
@@ -15,6 +14,5 @@ data class TableColors(
     val icon: Color,
     val header: ColorPair,
     val checkbox: CheckboxColors,
-    val menu: MenuOptionColors,
     val dropdown: DropdownColors
 )

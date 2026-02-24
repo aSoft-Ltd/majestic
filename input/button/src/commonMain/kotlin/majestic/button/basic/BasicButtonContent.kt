@@ -82,7 +82,6 @@ fun BasicButtonContent(
     loading: Boolean = false,
     rotation: Float? = null,
     alpha: Float = 1f,
-
     ) {
     LoadingWrapper(
         loading = loading,

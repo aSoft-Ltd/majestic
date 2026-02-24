@@ -25,13 +25,13 @@ import majestic.dropdown.Dropdown
 import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
 import majestic.payments.labels.transaction.TransactionLabels
-import majestic.payments.tools.separator
 import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.tools.TransactionMenuAction
-import majestic.payments.wallet.table.toDropdownItems
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.vectorResource
+import majestic.tooling.separator
 import symphony.Table
 
 @Composable

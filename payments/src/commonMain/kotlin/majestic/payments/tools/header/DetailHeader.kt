@@ -21,9 +21,8 @@ import majestic.dropdown.DropdownColors
 import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
 import majestic.icons.ic_more_vertical
-import majestic.payments.tools.menu.MenuOptionColors
-import majestic.payments.tools.menu.OptionMenu
-import majestic.payments.wallet.table.toDropdownItems
+import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.dropdown.toDropdownItems
 import org.jetbrains.compose.resources.vectorResource
 
 data class DetailHeaderColors(
@@ -31,7 +30,6 @@ data class DetailHeaderColors(
     val foreground: Color,
     val icon: ColorPair,
     val info: InfoEntryColors,
-    val menu: MenuOptionColors,
     val dropdownColors: DropdownColors,
     val tooltip: ColorPair,
 )

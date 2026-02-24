@@ -13,7 +13,7 @@ import majestic.payments.labels.transaction.TransactionLabels
 import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.table.PaymentTransaction
 import majestic.payments.transaction.tools.TransactionMenuAction
-import majestic.payments.wallet.table.toDropdownItems
+import majestic.shared.tools.dropdown.toDropdownItems
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
