@@ -2,14 +2,16 @@ package majestic.dialogs
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import majestic.tooling.onClick
-import majestic.tools.CloseButton
-import majestic.tools.closeButton
+import majestic.button.appearence.closeModalIconButton
+import majestic.button.basic.CloseModalButton
 import org.jetbrains.compose.resources.DrawableResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,10 +29,14 @@ fun Modal(
 ) {
     Box {
         content()
-
-        if (closeIcon != null) CloseButton(
-            modifier = Modifier.closeButton(colors).onClick(onDismiss),
-            tint = colors.cancelContent,
+        if (closeIcon != null) CloseModalButton(
+            modifier = Modifier
+                .padding(top = 12.dp, end = 12.dp)
+                .align(Alignment.TopEnd)
+                .closeModalIconButton(
+                    color = colors.cancelBackground,
+                    onClick = onDismiss
+                ),
         )
     }
 }
