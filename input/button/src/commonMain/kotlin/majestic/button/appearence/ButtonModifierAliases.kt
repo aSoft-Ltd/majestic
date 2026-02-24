@@ -3,6 +3,7 @@ package majestic.button.appearence
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -34,7 +35,7 @@ fun Modifier.cardButton(
         onClick = onClick,
         alpha = 0.03f
     )
-    .width(120.dp)
+    .widthIn(max = 120.dp)
     .padding(horizontal = 15.dp, vertical = 8.dp)
 
 @Composable
