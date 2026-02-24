@@ -20,8 +20,10 @@ import majestic.shared.profiles.roles.assign.tools.rememberAssignmentController
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
-import majestic.shared.profiles.roles.details.permissions.ResponsibilitiesDetail
-import majestic.shared.profiles.roles.details.permissions.ResponsibilityDetailColors
+import majestic.shared.profiles.roles.details.responsibilities.NumberResponsibility
+import majestic.shared.profiles.roles.details.responsibilities.ResponsibilitiesDetail
+import majestic.shared.profiles.roles.details.responsibilities.ResponsibilityDetailColors
+import majestic.shared.profiles.roles.details.responsibilities.ResponsibilityType
 import majestic.shared.profiles.roles.details.station.StationRoles
 import majestic.shared.profiles.roles.details.station.StationRolesColors
 import majestic.shared.profiles.roles.details.station.StationItemColors
@@ -46,6 +48,7 @@ fun RoleArea(
     modifier: Modifier = Modifier,
     colors: RoleColors,
     labels: RoleLabels,
+    type: ResponsibilityType = NumberResponsibility,
     actions: List<OptionMenu<RoleOption>>,
     orientation: ScreenOrientation,
     stations: List<RoleData>,
@@ -123,6 +126,7 @@ fun RoleArea(
                 orientation = orientation,
                 role = role,
                 colors = colors.details,
+                type = type,
                 breadcrumbs = listOf(
                     BreadCrumb(
                         label = labels.roles,

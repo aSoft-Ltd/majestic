@@ -38,7 +38,7 @@ import org.jetbrains.compose.resources.vectorResource
 data class RoleItemColors(
     val background: StateColors,
     val icon: ColorPair,
-    val title: Color,
+    val title: StateColors,
     val subtitle: Color,
     val trail: Color,
     val action: MenuOptionColors

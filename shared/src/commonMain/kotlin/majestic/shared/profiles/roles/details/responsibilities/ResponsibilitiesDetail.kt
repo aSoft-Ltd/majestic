@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.details.permissions
+package majestic.shared.profiles.roles.details.responsibilities
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,8 +17,8 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.tools.breadcrumb.BreadCrumb
-import majestic.shared.tools.breadcrumb.BreadCrumbControls
 import majestic.shared.tools.breadcrumb.BreadCrumbControlColors
+import majestic.shared.tools.breadcrumb.BreadCrumbControls
 
 
 data class ResponsibilityDetailColors(
@@ -33,6 +33,7 @@ internal fun ResponsibilitiesDetail(
     modifier: Modifier,
     orientation: ScreenOrientation,
     role: Role,
+    type: ResponsibilityType,
     colors: ResponsibilityDetailColors,
     breadcrumbs: List<BreadCrumb>,
 ) = Column(
@@ -61,6 +62,7 @@ internal fun ResponsibilitiesDetail(
             .verticalScroll(rememberScrollState()),
         responsibilities = role.responsibilities,
         colors = colors.responsibility,
-        orientation = orientation
+        orientation = orientation,
+        type = type
     )
 }

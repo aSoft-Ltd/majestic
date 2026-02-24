@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.details.permissions
+package majestic.shared.profiles.roles.details.responsibilities
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -22,7 +22,7 @@ data class ResponsibilityColors(
     val background: StateColors,
     val separator: Color,
     val icon: ColorPair,
-    val title: Color,
+    val title: StateColors,
     val subtitle: Color
 )
 
@@ -30,6 +30,7 @@ data class ResponsibilityColors(
 internal fun Responsibilities(
     modifier: Modifier,
     responsibilities: List<Permission>,
+    type: ResponsibilityType,
     colors: ResponsibilityColors,
     orientation: ScreenOrientation
 ) = Column(
@@ -51,7 +52,8 @@ internal fun Responsibilities(
             index = index,
             responsibility = responsibility,
             colors = colors,
-            orientation = orientation
+            orientation = orientation,
+            type = type
         )
         if (responsibilities.lastIndex != responsibilities.indexOf(responsibility)) Spacer(
             modifier = Modifier
