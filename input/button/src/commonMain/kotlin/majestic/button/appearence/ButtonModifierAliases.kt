@@ -36,7 +36,7 @@ fun Modifier.cardButton(
         alpha = 0.03f
     )
     .widthIn(max = 120.dp)
-    .padding(horizontal = 15.dp, vertical = 8.dp)
+    .padding(horizontal = 9.dp, vertical = 4.dp)
 
 @Composable
 fun Modifier.cardButtonMobile(
