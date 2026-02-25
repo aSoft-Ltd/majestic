@@ -20,15 +20,15 @@ fun applyOverlayBlend(base: Color, overlay: Color) = Color(
 )
 
 fun Color.mix(
-    other: Color,
-    amount: Float
+    color: Color,
+    alpha: Float
 ): Color {
-    val inv = 1f - amount
+    val inv = 1f - alpha
     return Color(
-        red = red * inv + other.red * amount,
-        green = green * inv + other.green * amount,
-        blue = blue * inv + other.blue * amount,
-        alpha = alpha * inv + other.alpha * amount
+        red = red * inv + color.red * alpha,
+        green = green * inv + color.green * alpha,
+        blue = blue * inv + color.blue * alpha,
+        alpha = this@mix.alpha * inv + color.alpha * alpha
     )
 }
 
@@ -38,14 +38,13 @@ fun Color.withOverlay(overlay: Color, alpha: Float): Color {
 }
 
 fun ThemeColor.deriveColor(
-    dominantActualAmount: Float,
-    surfaceContraAmount: Float = 0f
+    dominantActual: Float,
+    surfaceContra: Float = 0f
 ): Color {
     return surface.actual.color
-        .mix(dominant.actual.color, dominantActualAmount)
-        .mix(surface.contra.color, surfaceContraAmount)
+        .mix(dominant.actual.color, dominantActual)
+        .mix(surface.contra.color, surfaceContra)
 }
 
 val ThemeColor.base: Color
-    get() =
-        surface.actual.color.mix(dominant.actual.color, 0.05f)
+    get() = surface.actual.color.mix(dominant.actual.color, 0.05f)
