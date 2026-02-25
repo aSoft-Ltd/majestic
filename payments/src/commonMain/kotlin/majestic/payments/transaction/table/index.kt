@@ -30,8 +30,8 @@ import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.tools.TransactionMenuAction
 import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
-import org.jetbrains.compose.resources.vectorResource
 import majestic.tooling.separator
+import org.jetbrains.compose.resources.vectorResource
 import symphony.Table
 
 @Composable
@@ -64,7 +64,8 @@ fun TransactionTable(
         table = table,
         columns = { column ->
             val selectedAll = table.selector.isCurrentPageSelectedWholly()
-            val checkboxColors = if (selectedAll) colors.checkbox.selected else colors.checkbox.unselected
+            val checkboxColors =
+                if (selectedAll) colors.checkbox.selected else colors.checkbox.unselected
             val header = colors.header
 
             if (column.key == labels.table.checkbox) Box(
@@ -81,7 +82,11 @@ fun TransactionTable(
                     modifier = Modifier.size(16.dp)
                         .clip(RoundedCornerShape(5.dp))
                         .background(checkboxColors.background)
-                        .border(1.dp, color = checkboxColors.border, RoundedCornerShape(5.dp))
+                        .border(
+                            width = 1.dp,
+                            color = checkboxColors.border,
+                            shape = RoundedCornerShape(5.dp)
+                        )
                         .onClick { table.selector.toggleSelectionOfCurrentPage() }
                 )
             } else Text(
