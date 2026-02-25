@@ -46,6 +46,9 @@ internal fun RoleList(
             colors = colors.item,
             orientation = orientation,
             labels = labels,
+            onView = {
+                onRole(role)
+            },
             onUnassign = onUnassign
         )
         if (station.roles.lastIndex != station.roles.indexOf(role) && orientation is Landscape) Spacer(

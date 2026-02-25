@@ -43,7 +43,7 @@ internal fun ResponsibilityItem(
     colors: ResponsibilityColors,
     type: ResponsibilityType
 ) = when (type) {
-    NumberResponsibility -> Description(
+    ResponsibilityType.NumberResponsibility -> Description(
         modifier = modifier,
         orientation = orientation,
         colors = colors,
@@ -52,7 +52,7 @@ internal fun ResponsibilityItem(
         type = type
     )
 
-    IconResponsibility -> IconDescription(
+    ResponsibilityType.IconResponsibility -> IconDescription(
         modifier = modifier,
         orientation = orientation,
         colors = colors,
