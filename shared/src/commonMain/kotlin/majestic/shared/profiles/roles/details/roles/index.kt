@@ -28,7 +28,7 @@ internal fun RoleList(
     modifier = modifier,
     verticalArrangement = when (orientation) {
         is Landscape -> Arrangement.Top
-        else -> Arrangement.spacedBy(6.dp)
+        is Portrait -> Arrangement.spacedBy(6.dp)
     }
 ) {
     station.roles.forEachIndexed { index, role ->
