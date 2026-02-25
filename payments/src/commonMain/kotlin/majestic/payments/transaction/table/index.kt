@@ -30,8 +30,8 @@ import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.tools.TransactionMenuAction
 import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
-import org.jetbrains.compose.resources.vectorResource
 import majestic.tooling.separator
+import org.jetbrains.compose.resources.vectorResource
 import symphony.Table
 
 @Composable
@@ -112,8 +112,7 @@ fun TransactionTable(
                     .separator(isLast = cell.row == table.rows.last(), color = colors.separator),
                 contentAlignment = Alignment.Center
             ) {
-                val checkboxColors =
-                    if (selected) colors.checkbox.selected else colors.checkbox.unselected
+                val checkboxColors = if (selected) colors.checkbox.selected else colors.checkbox.unselected
                 Checkbox(
                     selected = selected,
                     colors = checkboxColors,
