@@ -46,7 +46,7 @@ internal fun Description(
                 ) {
                     when (type) {
                         is NumberResponsibility -> append("${index + 1}  ")
-                        is IconResponsibility -> append("")
+                        is IconResponsibility -> {}
                     }
                 }
                 append(responsibility.title)
