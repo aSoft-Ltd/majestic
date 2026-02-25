@@ -14,14 +14,16 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.Permission
 
 
+@Composable
 internal fun Modifier.responsibilityItem(
-    interaction: MutableInteractionSource,
-    hovered: Boolean,
+    interaction: MutableInteractionSource = remember { MutableInteractionSource() },
     orientation: ScreenOrientation,
     colors: ResponsibilityColors,
     index: Int = 0,
     responsibilities: List<Permission>
-) = this
+) : Modifier {
+    val hovered by interaction.collectIsHoveredAsState()
+    return this
     .fillMaxWidth()
     .hoverable(interaction)
     .background(
@@ -32,6 +34,7 @@ internal fun Modifier.responsibilityItem(
         )
     )
     .padding(if (orientation is Landscape) 20.dp else 10.dp)
+}
 
 
 @Composable
