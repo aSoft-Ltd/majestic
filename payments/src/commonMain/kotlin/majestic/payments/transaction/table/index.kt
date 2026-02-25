@@ -19,15 +19,18 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import composex.screen.orientation.Landscape
 import majestic.Checkbox
 import majestic.LazyTable
+import majestic.dropdown.Dropdown
+import majestic.icons.Res
+import majestic.icons.ic_more_horizontal
 import majestic.payments.labels.transaction.TransactionLabels
-import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.tools.TransactionMenuAction
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
+import org.jetbrains.compose.resources.vectorResource
 import majestic.tooling.separator
 import symphony.Table
 
@@ -230,11 +233,12 @@ fun TransactionTable(
                     .pointerHoverIcon(PointerIcon.Hand),
                 contentAlignment = Alignment.Center
             ) {
-                MenuOption(
-                    colors = colors.menu,
-                    orientation = Landscape,
-                    actions = TransactionMenuAction.getMenus(labels.menu),
-                    onAction = { /* TODO */ }
+                Dropdown(
+                    items = TransactionMenuAction.getMenus(labels.menu).toDropdownItems(),
+                    onAction = { /* TODO */ },
+                    colors = colors.dropdown,
+                    icon = vectorResource(Res.drawable.ic_more_horizontal),
+                    isListItem = true
                 )
             }
         }
