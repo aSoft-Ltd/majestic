@@ -1,5 +1,8 @@
 package majestic.shared.profiles.roles.details.roles
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -27,13 +30,12 @@ import majestic.editor.tools.StateColors
 import majestic.icons.Res
 import majestic.icons.ic_arrow_right
 import majestic.icons.ic_more_vertical
-import majestic.shared.tools.menu.MenuOption
-import majestic.shared.tools.menu.MenuOptionColors
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.details.roles.tools.actions
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.MenuOptionColors
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.vectorResource
-
 
 data class RoleItemColors(
     val background: StateColors,
@@ -53,17 +55,29 @@ internal fun Modifier.roleItem(
     colors: RoleItemColors
 ): Modifier {
     val hovered by interaction.collectIsHoveredAsState()
+
+    val animatedAlpha by animateFloatAsState(
+        targetValue = if (hovered) 1f else 0f,
+        animationSpec = tween(450, easing = FastOutSlowInEasing),
+        label = "hoverOverlayAlpha"
+    )
+
+    val shape = RoundedCornerShape(
+        topStart = 0.dp,
+        topEnd = 0.dp,
+        bottomStart = if (index == roles.lastIndex) 10.dp else 0.dp,
+        bottomEnd = if (index == roles.lastIndex) 10.dp else 0.dp
+    )
+
     return this
         .fillMaxWidth()
         .hoverable(interaction)
+        .background(color = colors.background.unfocused, shape = shape)
         .background(
-            color = if (hovered) colors.background.focused else colors.background.unfocused,
-            shape = RoundedCornerShape(
-                topStart = 0.dp,
-                topEnd = 0.dp,
-                bottomStart = if (index == roles.lastIndex) 10.dp else 0.dp,
-                bottomEnd = if (index == roles.lastIndex) 10.dp else 0.dp
-            )
+            color = colors.background.focused.copy(
+                alpha = colors.background.focused.alpha * animatedAlpha
+            ),
+            shape = shape
         )
         .padding(if (orientation is Landscape) 20.dp else 10.dp)
 }
@@ -89,8 +103,7 @@ internal fun RoleItem(
         modifier = Modifier.weight(.9f),
         index = index,
         role = role,
-        colors = colors,
-        orientation = orientation
+        colors = colors
     )
 
     if (orientation is Landscape) Icon(
@@ -119,5 +132,3 @@ internal fun RoleItem(
         },
     )
 }
-
-

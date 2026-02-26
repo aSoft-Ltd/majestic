@@ -67,7 +67,7 @@ internal fun StationRoles(
         verticalArrangement = Arrangement.Top
     ) {
         RolesHeader(
-            modifier = Modifier.roleScreenHeader(colors = colors.header, orientation = orientation),
+            modifier = Modifier.roleScreenHeader(orientation = orientation),
             orientation = orientation,
             count = station.roles.size,
             breadcrumbs = breadcrumbs,

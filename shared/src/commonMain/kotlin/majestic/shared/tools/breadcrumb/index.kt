@@ -29,6 +29,7 @@ data class BreadCrumbControlColors(
 internal data class BreadCrumb(
     val icon: DrawableResource,
     val label: String,
+    val selected: Boolean,
     val action: (() -> Unit)? = null
 )
 
@@ -49,7 +50,10 @@ internal fun BreadCrumbControls(
         BreadCrumbTab(
             modifier = Modifier
                 .breadCrumbTab(
-                    container = colors.breadCrumb.background,
+                    container = when (crumb.selected) {
+                        true -> colors.breadCrumb.background.focused
+                        false -> colors.breadCrumb.background.unfocused
+                    },
                     orientation = orientation,
                     paddings = ContainerPadding(end = 50.dp)
                 )
@@ -58,6 +62,7 @@ internal fun BreadCrumbControls(
             label = crumb.label,
             colors = colors.breadCrumb,
             showLabel = orientation is Landscape || isLast,
+            selected = crumb.selected,
             orientation = orientation,
         )
 

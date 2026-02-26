@@ -13,8 +13,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composex.screen.orientation.Landscape
-import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.roles.data.Role
 
 @Composable
@@ -22,8 +20,7 @@ internal fun RoleItemMain(
     modifier: Modifier,
     index: Int,
     role: Role,
-    colors: RoleItemColors,
-    orientation: ScreenOrientation
+    colors: RoleItemColors
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -44,7 +41,7 @@ internal fun RoleItemMain(
         text = role.description,
         color = colors.subtitle,
         fontSize = 13.sp,
-        maxLines = if (orientation is Landscape) 1 else 2,
+        maxLines = 2,
         overflow = TextOverflow.Ellipsis
     )
 }

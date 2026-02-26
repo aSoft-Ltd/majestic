@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
@@ -20,19 +19,15 @@ import majestic.shared.profiles.roles.details.header.RolesHeaderLabels
 import majestic.shared.profiles.roles.details.header.TopHeader
 import majestic.shared.profiles.roles.details.header.TopHeaderColors
 import majestic.shared.tools.breadcrumb.BreadCrumb
-import majestic.shared.tools.breadcrumb.BreadCrumbControls
 import majestic.shared.tools.breadcrumb.BreadCrumbControlColors
+import majestic.shared.tools.breadcrumb.BreadCrumbControls
 
 data class RoleHeaderColors(
-    val background: Color,
     val top: TopHeaderColors,
     val view: BreadCrumbControlColors,
 )
 
-internal fun Modifier.roleScreenHeader(
-    colors: RoleHeaderColors,
-    orientation: ScreenOrientation
-) = this
+internal fun Modifier.roleScreenHeader(orientation: ScreenOrientation) = this
     .fillMaxWidth()
     .clip(
         RoundedCornerShape(
@@ -40,7 +35,6 @@ internal fun Modifier.roleScreenHeader(
             topEnd = if (orientation is Landscape) 10.dp else 0.dp
         )
     )
-    .background(colors.background)
 
 @Composable
 internal fun RolesHeader(

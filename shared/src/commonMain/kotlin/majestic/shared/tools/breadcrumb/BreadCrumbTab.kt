@@ -28,6 +28,7 @@ internal fun BreadCrumbTab(
     label: String,
     orientation: ScreenOrientation,
     colors: BreadCrumbTabColors,
+    selected: Boolean,
     showLabel: Boolean
 ) = Row(
     modifier = modifier,
@@ -37,15 +38,26 @@ internal fun BreadCrumbTab(
     Icon(
         imageVector = vectorResource(icon),
         contentDescription = null,
-        tint = colors.icon.foreground,
+        tint = when (selected) {
+            true -> colors.icon.foreground.focused
+            false -> colors.icon.foreground.unfocused
+        },
         modifier = Modifier
-            .background(color = colors.icon.background, shape = RoundedCornerShape(8.dp))
+            .background(
+                color = when (selected) {
+                    true -> colors.icon.background.focused
+                    false -> colors.icon.background.unfocused
+                }, shape = RoundedCornerShape(8.dp)
+            )
             .padding(10.dp)
             .size(24.dp)
     )
     if (showLabel) Text(
         text = label,
-        color = colors.label,
+        color = when (selected) {
+            true -> colors.label.focused
+            false -> colors.label.unfocused
+        },
         fontSize = 16.sp,
         maxLines = 1,
         overflow = if (orientation is Portrait) TextOverflow.MiddleEllipsis else TextOverflow.Visible

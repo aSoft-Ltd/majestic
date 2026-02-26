@@ -13,7 +13,6 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.icons.Res
 import majestic.icons.ic_account_setting_filled
-import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.assign.FormColors
 import majestic.shared.profiles.roles.assign.PromptWrapper
 import majestic.shared.profiles.roles.assign.tools.rememberAssignmentController
@@ -24,15 +23,16 @@ import majestic.shared.profiles.roles.details.responsibilities.NumberResponsibil
 import majestic.shared.profiles.roles.details.responsibilities.ResponsibilitiesDetail
 import majestic.shared.profiles.roles.details.responsibilities.ResponsibilityDetailColors
 import majestic.shared.profiles.roles.details.responsibilities.ResponsibilityType
-import majestic.shared.profiles.roles.details.station.StationRoles
-import majestic.shared.profiles.roles.details.station.StationRolesColors
 import majestic.shared.profiles.roles.details.station.StationItemColors
 import majestic.shared.profiles.roles.details.station.StationList
-import majestic.shared.tools.breadcrumb.BreadCrumb
+import majestic.shared.profiles.roles.details.station.StationRoles
+import majestic.shared.profiles.roles.details.station.StationRolesColors
 import majestic.shared.profiles.roles.tools.Details
 import majestic.shared.profiles.roles.tools.Roles
 import majestic.shared.profiles.roles.tools.Stations
 import majestic.shared.profiles.roles.tools.rememberRoleScreenController
+import majestic.shared.tools.breadcrumb.BreadCrumb
+import majestic.shared.tools.menu.OptionMenu
 
 data class RoleColors(
     val header: HeaderColors,
@@ -108,11 +108,13 @@ fun RoleArea(
                     BreadCrumb(
                         label = labels.roles,
                         icon = station.resource,
+                        selected = screen.view == Stations,
                         action = { screen.back() }
                     ),
                     BreadCrumb(
                         label = "${station.station} ${labels.roles}",
                         icon = Res.drawable.ic_account_setting_filled,
+                        selected = screen.view == Roles,
                     )
                 )
             )
@@ -131,16 +133,19 @@ fun RoleArea(
                     BreadCrumb(
                         label = labels.roles,
                         icon = screen.activeRole!!.resource,
+                        selected = screen.view == Stations,
                         action = { screen.back() }
                     ),
                     BreadCrumb(
                         label = "${screen.activeStation?.station} ${labels.roles}",
                         icon = Res.drawable.ic_account_setting_filled,
+                        selected = screen.view == Roles,
                         action = { screen.back() }
                     ),
                     BreadCrumb(
                         label = role.title,
                         icon = role.resource,
+                        selected = screen.view == Details,
                         action = { screen.back() }
                     )
                 )

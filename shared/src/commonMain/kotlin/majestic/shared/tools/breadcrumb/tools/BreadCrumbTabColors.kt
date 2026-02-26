@@ -1,10 +1,10 @@
 package majestic.shared.tools.breadcrumb.tools
 
-import androidx.compose.ui.graphics.Color
-import majestic.ColorPair
+import majestic.editor.tools.StateColors
+import majestic.shared.profiles.roles.assign.form.ActionColors
 
 data class BreadCrumbTabColors(
-    val background: Color,
-    val icon: ColorPair,
-    val label: Color
+    val background: StateColors,
+    val icon: ActionColors,
+    val label: StateColors
 )

@@ -20,6 +20,8 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.icons.Res
 import majestic.icons.ic_access
 import majestic.shared.profiles.Action
+import majestic.shared.profiles.permissions.Detailed
+import majestic.shared.profiles.permissions.Main
 import majestic.shared.profiles.permissions.PermissionScreen
 import majestic.shared.tools.breadcrumb.BreadCrumb
 import majestic.shared.tools.breadcrumb.BreadCrumbControlColors
@@ -73,11 +75,13 @@ internal fun Details(
             BreadCrumb(
                 icon = Res.drawable.ic_access,
                 label = labels.breadcrumb,
+                selected = current.view == Main,
                 action = { current.main() }
             ),
             BreadCrumb(
                 icon = props.trailingIcon,
-                label = props.trailingTitle
+                label = props.trailingTitle,
+                selected = current.view == Detailed,
             )
         ),
         colors = colors.view,
