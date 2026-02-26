@@ -3,10 +3,13 @@ package majestic.shared.profiles.roles.details.responsibilities
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
@@ -14,14 +17,16 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.Permission
 
 
+@Composable
 internal fun Modifier.responsibilityItem(
-    interaction: MutableInteractionSource,
-    hovered: Boolean,
+    interaction: MutableInteractionSource = remember { MutableInteractionSource() },
     orientation: ScreenOrientation,
     colors: ResponsibilityColors,
     index: Int = 0,
     responsibilities: List<Permission>
-) = this
+) : Modifier {
+    val hovered by interaction.collectIsHoveredAsState()
+    return this
     .fillMaxWidth()
     .hoverable(interaction)
     .background(
@@ -32,6 +37,7 @@ internal fun Modifier.responsibilityItem(
         )
     )
     .padding(if (orientation is Landscape) 20.dp else 10.dp)
+}
 
 
 @Composable
@@ -43,7 +49,7 @@ internal fun ResponsibilityItem(
     colors: ResponsibilityColors,
     type: ResponsibilityType
 ) = when (type) {
-    NumberResponsibility -> Description(
+    ResponsibilityType.NumberResponsibility -> Description(
         modifier = modifier,
         orientation = orientation,
         colors = colors,
@@ -52,7 +58,7 @@ internal fun ResponsibilityItem(
         type = type
     )
 
-    IconResponsibility -> IconDescription(
+    ResponsibilityType.IconResponsibility -> IconDescription(
         modifier = modifier,
         orientation = orientation,
         colors = colors,

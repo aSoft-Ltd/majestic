@@ -45,8 +45,8 @@ internal fun Description(
                     )
                 ) {
                     when (type) {
-                        is NumberResponsibility -> append("${index + 1}  ")
-                        is IconResponsibility -> append("")
+                        ResponsibilityType.NumberResponsibility -> append("${index + 1}  ")
+                        ResponsibilityType.IconResponsibility -> {}
                     }
                 }
                 append(responsibility.title)

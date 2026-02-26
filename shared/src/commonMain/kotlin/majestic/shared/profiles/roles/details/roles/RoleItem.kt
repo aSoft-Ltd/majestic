@@ -20,22 +20,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.editor.tools.StateColors
 import majestic.icons.Res
 import majestic.icons.ic_arrow_right
 import majestic.icons.ic_more_vertical
-import majestic.shared.profiles.roles.data.Role
-import majestic.shared.profiles.roles.details.roles.tools.actions
 import majestic.shared.tools.menu.MenuOption
 import majestic.shared.tools.menu.MenuOptionColors
-import majestic.tooling.onClick
+import majestic.shared.profiles.roles.data.Role
+import majestic.shared.profiles.roles.details.roles.tools.actions
 import org.jetbrains.compose.resources.vectorResource
+
 
 data class RoleItemColors(
     val background: StateColors,
@@ -90,12 +89,10 @@ internal fun RoleItem(
     colors: RoleItemColors,
     labels: RoleActionLabels,
     orientation: ScreenOrientation,
-    onClick: () -> Unit,
+    onView: () -> Unit,
     onUnassign: () -> Unit
 ) = Row(
-    modifier = modifier
-        .pointerHoverIcon(PointerIcon.Hand)
-        .onClick { onClick() },
+    modifier = modifier,
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
 ) {
@@ -106,29 +103,32 @@ internal fun RoleItem(
         colors = colors
     )
 
-    if (orientation is Landscape) Icon(
-        imageVector = vectorResource(Res.drawable.ic_arrow_right),
-        contentDescription = null,
-        tint = colors.trail,
-        modifier = Modifier.size(14.dp)
-    )
-    else MenuOption(
-        colors = colors.action,
-        icon = {
-            Icon(
-                imageVector = vectorResource(Res.drawable.ic_more_vertical),
-                modifier = Modifier.size(20.dp),
-                tint = colors.action.icon.foreground,
-                contentDescription = null
-            )
-        },
-        orientation = orientation,
-        actions = labels.actions(),
-        onAction = { action ->
-            when (action) {
-                RoleAction.View -> onClick()
-                RoleAction.Unassign -> onUnassign()
-            }
-        },
-    )
+    when (orientation) {
+        is Landscape -> Icon(
+            imageVector = vectorResource(Res.drawable.ic_arrow_right),
+            contentDescription = null,
+            tint = colors.trail,
+            modifier = Modifier.size(14.dp)
+        )
+
+        is Portrait -> MenuOption(
+            colors = colors.action,
+            icon = {
+                Icon(
+                    imageVector = vectorResource(Res.drawable.ic_more_vertical),
+                    modifier = Modifier.size(20.dp),
+                    tint = colors.action.icon.foreground,
+                    contentDescription = null
+                )
+            },
+            orientation = orientation,
+            actions = labels.actions(),
+            onAction = { action ->
+                when (action) {
+                    RoleAction.View -> onView()
+                    RoleAction.Unassign -> onUnassign()
+                }
+            },
+        )
+    }
 }

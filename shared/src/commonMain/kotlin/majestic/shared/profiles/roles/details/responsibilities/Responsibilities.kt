@@ -38,12 +38,8 @@ internal fun Responsibilities(
     verticalArrangement = Arrangement.Top
 ) {
     responsibilities.forEachIndexed { index, responsibility ->
-        val interaction = remember { MutableInteractionSource() }
-        val hovered by interaction.collectIsHoveredAsState()
         ResponsibilityItem(
             modifier = Modifier.responsibilityItem(
-                interaction = interaction,
-                hovered = hovered,
                 orientation = orientation,
                 colors = colors,
                 index = index,
