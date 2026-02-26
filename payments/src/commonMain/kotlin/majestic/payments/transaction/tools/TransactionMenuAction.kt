@@ -1,7 +1,7 @@
 package majestic.payments.transaction.tools
 
 import majestic.payments.labels.MenuLabels
-import majestic.payments.tools.menu.OptionMenu
+import majestic.shared.menu.OptionMenu
 
 internal enum class TransactionMenuAction {
     ViewReceipt,
