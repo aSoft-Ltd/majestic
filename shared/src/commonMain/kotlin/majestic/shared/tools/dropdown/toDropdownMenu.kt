@@ -2,7 +2,7 @@ package majestic.shared.tools.dropdown
 
 import androidx.compose.runtime.Composable
 import majestic.dropdown.DropdownItem
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 

@@ -22,11 +22,12 @@ import majestic.ColorPair
 import majestic.navigation.MenuItem
 import majestic.navigation.MenuItemColors
 
-
+@Deprecated("use the Action in majestic.shared.tools.menu")
 internal fun Modifier.navItem(height: Dp = 46.dp) = fillMaxWidth()
     .height(height)
     .padding(vertical = 14.dp, horizontal = 24.dp)
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 @Composable
 internal fun NavItem(
     label: String,
@@ -58,6 +59,7 @@ internal fun NavItem(
     )
 }
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 @Composable
 internal fun NavItem(
     modifier: Modifier,

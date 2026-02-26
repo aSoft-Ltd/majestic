@@ -22,6 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
+import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.icons.Res
 import majestic.icons.ic_account_setting
@@ -42,6 +45,7 @@ data class HeaderColors(
 internal fun Header(
     modifier: Modifier,
     labels: RoleAssignmentLabels,
+    orientation: ScreenOrientation,
     controller: AssignmentController,
     colors: HeaderColors,
     onDismiss: () -> Unit
@@ -55,7 +59,7 @@ internal fun Header(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start)
     ) {
-        Icon(
+        if (orientation is Landscape) Icon(
             imageVector = vectorResource(Res.drawable.ic_account_setting),
             contentDescription = null,
             tint = colors.icon.foreground,
@@ -81,9 +85,13 @@ internal fun Header(
         modifier = Modifier
             .hoverable(interaction)
             .background(
-                color = when (hovered) {
-                    true -> colors.cancel.background.focused
-                    false -> colors.cancel.background.unfocused
+                color = when (orientation) {
+                    is Landscape -> when (hovered) {
+                        true -> colors.cancel.background.focused
+                        false -> colors.cancel.background.unfocused
+                    }
+
+                    is Portrait -> Color.Transparent
                 },
                 shape = CircleShape
             )

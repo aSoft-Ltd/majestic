@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import majestic.ColorPair
 import majestic.navigation.MenuItemColors
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 data class MenuOptionColors(
     val icon: ColorPair,
     val dropDown: Color,

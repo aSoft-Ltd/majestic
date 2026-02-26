@@ -22,8 +22,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
+import composex.screen.orientation.ScreenOrientation
 import majestic.editor.tools.StateColors
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
@@ -49,12 +53,30 @@ data class ItemColors(
 )
 
 @Composable
+private fun Modifier.action(
+    interaction: MutableInteractionSource,
+    hovered: Boolean,
+    colors: ItemColors
+) = this
+    .hoverable(interaction)
+    .clip(RoundedCornerShape(18.dp))
+    .width(125.dp)
+    .background(
+        color = when (hovered) {
+            true -> colors.button.background.focused
+            false -> colors.button.background.unfocused
+        }
+    )
+    .padding(horizontal = 24.dp, vertical = 8.dp)
+
+@Composable
 internal fun Item(
     modifier: Modifier,
     index: Int,
     role: Role,
     isSelected: Boolean,
     colors: ItemColors,
+    orientation: ScreenOrientation,
     labels: RoleAssignmentLabels,
     onToggle: () -> Unit
 ) = Row(
@@ -62,26 +84,60 @@ internal fun Item(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
+    val buttonText = if (isSelected) labels.unassign else labels.assign
+    val interaction = remember { MutableInteractionSource() }
+    val hovered by interaction.collectIsHoveredAsState()
     Column(
-        modifier = Modifier.fillMaxWidth(.8f),
+        modifier = Modifier.fillMaxWidth(if (orientation is Landscape) .8f else 1f),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = if (orientation is Landscape) Arrangement.Start else Arrangement.SpaceBetween
         ) {
-            Text(
-                text = "$index.",
-                color = colors.title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
+            Row(
+                modifier = Modifier.weight(.9f),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "$index.",
+                    color = colors.title,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
 
-            Text(
-                text = role.title,
-                color = colors.title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                Text(
+                    text = role.title,
+                    color = colors.title,
+                    fontSize = 16.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            if (orientation is Portrait) Text(
+                text = buttonText,
+                color = when (isSelected) {
+                    true -> colors.button.foreground.focused
+                    false -> colors.button.foreground.unfocused
+                },
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .hoverable(interaction)
+                    .clip(RoundedCornerShape(18.dp))
+                    .width(112.dp)
+                    .background(
+                        color = when (hovered) {
+                            true -> colors.button.background.focused
+                            false -> colors.button.background.unfocused
+                        }
+                    )
+                    .padding(horizontal = 24.dp, vertical = 8.dp)
+                    .onClick { onToggle() },
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold
             )
         }
         Text(
@@ -100,10 +156,8 @@ internal fun Item(
         )
     }
 
-    val buttonText = if (isSelected) labels.unassign else labels.assign
-    val interaction = remember{ MutableInteractionSource() }
-    val hovered by interaction.collectIsHoveredAsState()
-    Text(
+
+    if (orientation is Landscape) Text(
         text = buttonText,
         color = when (isSelected) {
             true -> colors.button.foreground.focused
@@ -111,15 +165,8 @@ internal fun Item(
         },
         textAlign = TextAlign.Center,
         modifier = Modifier
-            .hoverable(interaction)
-            .clip(RoundedCornerShape(18.dp))
-            .width(125.dp)
-            .background(color =  when (hovered) {
-                true -> colors.button.background.focused
-                false -> colors.button.background.unfocused
-            })
-            .onClick { onToggle() }
-            .padding(horizontal = 24.dp, vertical = 8.dp),
+            .action(interaction, hovered, colors)
+            .onClick { onToggle() },
         fontSize = 14.sp,
         fontWeight = FontWeight.SemiBold
     )

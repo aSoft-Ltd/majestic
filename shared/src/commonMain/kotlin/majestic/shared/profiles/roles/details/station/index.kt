@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.item
+package majestic.shared.profiles.roles.details.station
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -15,7 +15,7 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.RoleColors
 import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.RoleData
@@ -31,7 +31,8 @@ internal fun StationList(
     controller: AssignmentController,
     labels: RoleLabels,
     actions: List<OptionMenu<RoleOption>>,
-    onOption: (RoleOption) -> Unit
+    onOption: (RoleOption) -> Unit,
+    onStation: (RoleData) -> Unit
 ) = Column(
     modifier = modifier,
     verticalArrangement = when (orientation) {
@@ -42,8 +43,8 @@ internal fun StationList(
     stations.forEach { station ->
         val interaction = remember { MutableInteractionSource() }
         val hovered by interaction.collectIsHoveredAsState()
-        RoleItem(
-            modifier = Modifier.toRoleItem(
+        StationItem(
+            modifier = Modifier.stationItem(
                 interaction = interaction,
                 orientation = orientation,
                 hovered = hovered,
@@ -51,9 +52,10 @@ internal fun StationList(
                 stations = stations,
                 campus = station
             ),
-            role = station,
-            colors = colors.item,
+            station = station,
+            colors = colors.station,
             orientation = orientation,
+            onStation = { onStation(station) },
             onAdd = { controller.open() },
             labels = labels,
             actions = actions,

@@ -52,7 +52,7 @@ internal fun Header(
     Text(
         text = header,
         color = colors.title,
-        fontSize = 18.sp,
+        fontSize = 16.sp,
     )
     if (orientation is Landscape) Icon(
         painter = painterResource(Res.drawable.ic_info_circle),

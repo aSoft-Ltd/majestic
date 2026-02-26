@@ -1,7 +1,7 @@
 package majestic.payments.wallet.tools
 
 import majestic.payments.labels.MenuLabels
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 
 internal enum class WalletMenuAction {
     View,

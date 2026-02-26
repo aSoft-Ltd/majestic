@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.item
+package majestic.shared.profiles.roles.details.station
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
@@ -12,21 +12,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.editor.tools.StateColors
-import majestic.shared.menu.MenuOptionColors
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.MenuOptionColors
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.RoleColors
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
 import majestic.shared.profiles.roles.utils.toBackgroundColor
 import majestic.shared.profiles.roles.utils.toShape
+import majestic.tooling.onClick
 
-data class RoleItemColors(
+data class StationItemColors(
     val background: StateColors,
     val icon: ColorPair,
     val title: Color,
@@ -36,7 +39,7 @@ data class RoleItemColors(
     val options: MenuOptionColors
 )
 
-internal fun Modifier.toRoleItem(
+internal fun Modifier.stationItem(
     interaction: MutableInteractionSource,
     orientation: ScreenOrientation,
     hovered: Boolean,
@@ -53,28 +56,31 @@ internal fun Modifier.toRoleItem(
     .padding(if (orientation is Landscape) 20.dp else 10.dp)
 
 @Composable
-internal fun RoleItem(
+internal fun StationItem(
     modifier: Modifier,
-    role: RoleData,
-    colors: RoleItemColors,
+    station: RoleData,
+    colors: StationItemColors,
     labels: RoleLabels,
     orientation: ScreenOrientation,
+    onStation: () -> Unit,
     onAdd: () -> Unit,
     actions: List<OptionMenu<RoleOption>>,
     onOption: (RoleOption) -> Unit
 ) = Row(
-    modifier = modifier,
+    modifier = modifier
+        .pointerHoverIcon(PointerIcon.Hand)
+        .onClick { onStation() },
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
-    Main(
+    StationMain(
         modifier = Modifier.wrapContentSize(),
-        role = role,
+        station = station,
         colors = colors,
         labels = labels
     )
 
-    Actions(
+    StationActions(
         modifier = Modifier.padding(end = 10.dp).wrapContentSize(),
         orientation = orientation,
         onAdd = onAdd,
