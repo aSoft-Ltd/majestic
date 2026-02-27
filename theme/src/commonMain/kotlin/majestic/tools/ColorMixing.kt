@@ -22,7 +22,7 @@ fun ThemeColor.deriveColor(
     dominantActual: Float = 0f,
     dominantVivid: Float = 0f,
     surfaceContra: Float = 0f,
-    pureBlack: Float = 0f
+    pureNeutral: Float = 0f
 ): Color {
     val sa = surface.actual.color
     val da = dominant.actual.color
@@ -33,15 +33,15 @@ fun ThemeColor.deriveColor(
         is DarkMode -> Color(0f, 0f, 0f, 1f)
     }
 
-    val totalIngredientWeight = dominantActual + dominantVivid + surfaceContra + pureBlack
+    val totalIngredientWeight = dominantActual + dominantVivid + surfaceContra + pureNeutral
     val surfaceActualWeight = (1f - totalIngredientWeight).coerceAtLeast(0f)
 
     val norm = if (totalIngredientWeight > 1f) totalIngredientWeight else 1f
 
     return Color(
-        red = (sa.red * surfaceActualWeight + da.red * dominantActual + dv.red * dominantVivid + sc.red * surfaceContra + neutral.red * pureBlack) / norm,
-        green = (sa.green * surfaceActualWeight + da.green * dominantActual + dv.green * dominantVivid + sc.green * surfaceContra + neutral.green * pureBlack) / norm,
-        blue = (sa.blue * surfaceActualWeight + da.blue * dominantActual + dv.blue * dominantVivid + sc.blue * surfaceContra + neutral.blue * pureBlack) / norm,
+        red = (sa.red * surfaceActualWeight + da.red * dominantActual + dv.red * dominantVivid + sc.red * surfaceContra + neutral.red * pureNeutral) / norm,
+        green = (sa.green * surfaceActualWeight + da.green * dominantActual + dv.green * dominantVivid + sc.green * surfaceContra + neutral.green * pureNeutral) / norm,
+        blue = (sa.blue * surfaceActualWeight + da.blue * dominantActual + dv.blue * dominantVivid + sc.blue * surfaceContra + neutral.blue * pureNeutral) / norm,
         alpha = 1f
     )
 }
