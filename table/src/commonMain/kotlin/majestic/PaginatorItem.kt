@@ -1,5 +1,8 @@
 package majestic
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
@@ -17,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -42,10 +46,9 @@ fun PaginatorItem(
     val isHovered by interactionSource.collectIsHoveredAsState()
     val state = PaginatorItemState(isActive = active, isHovered = isHovered)
 
-    // Determine if this is a direction button or page number
     val isDirection = icon != null
 
-    val bgColor = if (isDirection) {
+    val targetBgColor = if (isDirection) {
         if (isHovered) colors.direction.hovered.background else colors.direction.inactive.background
     } else {
         when {
@@ -54,6 +57,26 @@ fun PaginatorItem(
             else -> colors.page.inactive.background
         }
     }
+
+    val targetFgColor = when {
+        state.isActive -> colors.page.active.foreground
+        state.isHovered -> colors.page.hovered.foreground
+        else -> colors.page.inactive.foreground
+    }
+
+    val animationSpec = tween<Color>(durationMillis = 150, easing = EaseInOut)
+
+    val bgColor by animateColorAsState(
+        targetValue = targetBgColor,
+        animationSpec = animationSpec,
+        label = "bgColor"
+    )
+
+    val color by animateColorAsState(
+        targetValue = targetFgColor,
+        animationSpec = animationSpec,
+        label = "fgColor"
+    )
 
     Box(
         modifier = modifier
@@ -71,12 +94,6 @@ fun PaginatorItem(
     ) {
         when {
             text != null -> {
-                val color = when {
-                    state.isActive -> colors.page.active.foreground
-                    state.isHovered -> colors.page.hovered.foreground
-                    else -> colors.page.inactive.foreground
-                }
-
                 Box(
                     modifier = Modifier.size(24.dp),
                     contentAlignment = Alignment.Center
@@ -92,7 +109,7 @@ fun PaginatorItem(
             icon != null -> {
                 Icon(
                     painter = icon,
-                    tint = colors.direction.inactive.foreground,
+                    tint = color,
                     contentDescription = null,
                 )
             }

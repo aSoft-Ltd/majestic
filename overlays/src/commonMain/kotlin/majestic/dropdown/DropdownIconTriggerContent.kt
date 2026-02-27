@@ -22,7 +22,7 @@ internal fun DropdownIconTriggerContent(
     loading: Boolean = false,
     rotationTarget: Float? = null,
 ) {
-    val foregroundColor = colors.trigger.copy(alpha = 1f)
+    val foregroundColor = colors.triggerText.copy(alpha = 1f)
 
     if (loading) {
         CircularProgressIndicator(
