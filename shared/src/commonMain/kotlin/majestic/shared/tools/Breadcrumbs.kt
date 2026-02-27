@@ -10,8 +10,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import majestic.ThemeColor
 import majestic.tooling.onClick
 
-data class BreadcrumbItem(val label: String, val url: String)
+private data class BreadcrumbItem(val label: String, val url: String)
 
+@Deprecated(
+    message = "Use Breadcrumb with items instead",
+    replaceWith = ReplaceWith("Breadcrumb(color, items, onClick, modifier)", "majestic.shared.tools.breadcrumbs.Breadcrumb")
+)
 @Composable
 fun Breadcrumbs(
     url: String,
@@ -57,8 +61,7 @@ private fun parseUrl(url: String): List<BreadcrumbItem> {
     var currentUrl = ""
 
     for (segment in segments) {
-        val label =
-            segment.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+        val label = segment.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
         currentUrl += "/$segment"
         breadcrumbs.add(BreadcrumbItem(label, currentUrl))
     }
