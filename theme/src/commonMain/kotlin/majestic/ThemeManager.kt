@@ -1,24 +1,75 @@
 package majestic
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 
 class ThemeManager(
     val dominants: List<ColorPack> = listOf(
-        ColorPack(actual = ActualColor.of(0xFF0061FF), contra = ContraColor.light()),
-        ColorPack(actual = ActualColor.of(0xFF151A22), contra = ContraColor.light()),
-//        ColorPack(actual = ActualColor.of(0xFF0061FF), contra = ContraColor.light()),
-        ColorPack(actual = ActualColor.of(0xFF673AB7), contra = ContraColor.light()),
-        ColorPack(actual = ActualColor.of(0xFF26C6DA), contra = ContraColor.dark()),
-        ColorPack(actual = ActualColor.of(0xFF26A69A), contra = ContraColor.light()),
-        ColorPack(actual = ActualColor.of(0xFF4CAF50), contra = ContraColor.light()),
-        ColorPack(actual = ActualColor.of(0xFFCDDC39), contra = ContraColor.dark()),
-        ColorPack(actual = ActualColor.of(0xFFFFA000), contra = ContraColor.dark()),
-        ColorPack(actual = ActualColor.of(0xFFF57C00), contra = ContraColor.dark()),
-        ColorPack(actual = ActualColor.of(0xFFFF5722), contra = ContraColor.dark()),
+        ColorPack(
+            actual = ActualColor.of(0xFF0061FF),
+            contra = ContraColor.light(),
+            vivid = ActualColor.of(0xFF0000FF)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFF151A22),
+            contra = ContraColor.light(),
+            vivid = ActualColor.of(0xFF0022FF)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFF673AB7),
+            contra = ContraColor.light(),
+            vivid = ActualColor.of(0xFF6200EA)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFF26C6DA),
+            contra = ContraColor.dark(),
+            vivid = ActualColor.of(0xFF00E5FF)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFF26A69A),
+            contra = ContraColor.light(),
+            vivid = ActualColor.of(0xFF00FFA6)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFF4CAF50),
+            contra = ContraColor.light(),
+            vivid = ActualColor.of(0xFF00FF00)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFFCDDC39),
+            contra = ContraColor.dark(),
+            vivid = ActualColor.of(0xFFCCFF00)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFFFFA000),
+            contra = ContraColor.dark(),
+            vivid = ActualColor.of(0xFFFFC400)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFFF57C00),
+            contra = ContraColor.dark(),
+            vivid = ActualColor.of(0xFFFF9100)
+        ),
+
+        ColorPack(
+            actual = ActualColor.of(0xFFFF5722),
+            contra = ContraColor.dark(),
+            vivid = ActualColor.of(0xFFFF3D00)
+        ),
     ),
     val surfaces: List<ColorPack> = listOf(
-        ColorPack(actual = ActualColor.of(0xFF161616), contra = ContraColor.light())
+        ColorPack(
+            actual = ActualColor.of(0xFF161616),
+            contra = ContraColor.light(),
+            vivid = ActualColor.of(0xFF161616)
+        )
     )
 ) {
 //    val state = mutableStateOf<ThemeColor>(DarkThemeColor(dominants.first(), ColorPack.surfaceDark()))

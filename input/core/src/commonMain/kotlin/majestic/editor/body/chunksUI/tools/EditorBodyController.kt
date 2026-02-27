@@ -181,14 +181,18 @@ class EditorBodyController(
         chunks.add(index, newChunk)
     }
 
-    fun changeToImage(chunk: Chunk): Chunk {
+    fun changeToImage(chunk: Chunk) {
         val uid = getNextId()
-        return when (chunk) {
-            is Heading -> if (chunk.text.isEmpty()) Image(uid = uid, caption = null, uri = chunk.text) else chunk
-            is Paragraph -> if (chunk.text.isEmpty()) Image(uid = uid, caption = null, uri = chunk.text) else chunk
+        val newChunk = when (chunk) {
+            is Heading -> Image(uid = uid, caption = chunk.text.ifEmpty { null }, uri = "")
+            is Paragraph -> Image(uid = uid, caption = chunk.text.ifEmpty { null }, uri = "")
             is Image -> chunk
-            is List -> if (chunk.list.joinToString(" ").isEmpty()) Image(uid = uid, caption = null, uri = "") else chunk
+            is List -> Image(uid = uid, caption = chunk.list.joinToString(" ").ifEmpty { null }, uri = "")
         }
+        if (newChunk == chunk) return
+        val index = chunks.indexOf(chunk)
+        chunks.remove(chunk)
+        chunks.add(index, newChunk)
     }
 
     fun changeToList(chunk: Chunk): Chunk {

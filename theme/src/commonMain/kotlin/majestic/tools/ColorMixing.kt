@@ -1,23 +1,9 @@
 package majestic.tools
 
 import androidx.compose.ui.graphics.Color
+import majestic.DarkMode
+import majestic.LightMode
 import majestic.ThemeColor
-
-private fun overlayChannel(b: Float, a: Float): Float {
-    return if (b < 0.5f) {
-        2f * a * b
-    }
-    else {
-        1f - (2f * (1f - a) * (1f - b))
-    }
-}
-
-fun applyOverlayBlend(base: Color, overlay: Color) = Color(
-    red = overlayChannel(base.red, overlay.red),
-    green = overlayChannel(base.green, overlay.green),
-    blue = overlayChannel(base.blue, overlay.blue),
-    alpha = base.alpha
-)
 
 fun Color.mix(
     color: Color,
@@ -32,18 +18,32 @@ fun Color.mix(
     )
 }
 
-fun Color.withOverlay(overlay: Color, alpha: Float): Color {
-    val blended = applyOverlayBlend(base = this, overlay = overlay)
-    return this.mix(blended, alpha)
-}
-
 fun ThemeColor.deriveColor(
-    dominantActual: Float,
-    surfaceContra: Float = 0f
+    dominantActual: Float = 0f,
+    dominantVivid: Float = 0f,
+    surfaceContra: Float = 0f,
+    pureBlack: Float = 0f
 ): Color {
-    return surface.actual.color
-        .mix(dominant.actual.color, dominantActual)
-        .mix(surface.contra.color, surfaceContra)
+    val sa = surface.actual.color
+    val da = dominant.actual.color
+    val dv = dominant.vivid.color
+    val sc = surface.contra.color
+    val neutral = when (this.mode) {
+        is LightMode -> sa
+        is DarkMode -> Color(0f, 0f, 0f, 1f)
+    }
+
+    val totalIngredientWeight = dominantActual + dominantVivid + surfaceContra + pureBlack
+    val surfaceActualWeight = (1f - totalIngredientWeight).coerceAtLeast(0f)
+
+    val norm = if (totalIngredientWeight > 1f) totalIngredientWeight else 1f
+
+    return Color(
+        red = (sa.red * surfaceActualWeight + da.red * dominantActual + dv.red * dominantVivid + sc.red * surfaceContra + neutral.red * pureBlack) / norm,
+        green = (sa.green * surfaceActualWeight + da.green * dominantActual + dv.green * dominantVivid + sc.green * surfaceContra + neutral.green * pureBlack) / norm,
+        blue = (sa.blue * surfaceActualWeight + da.blue * dominantActual + dv.blue * dominantVivid + sc.blue * surfaceContra + neutral.blue * pureBlack) / norm,
+        alpha = 1f
+    )
 }
 
 val ThemeColor.base: Color
