@@ -28,7 +28,9 @@ internal fun HeadingChunk(
     heading: Heading,
     colors: EditorColors,
     labels: Labels
-) = Box(modifier = Modifier.wrapContentSize().background(color = colors.background, shape = RoundedCornerShape(12.dp))) {
+) = Box(
+    modifier = Modifier.wrapContentSize().background(color = colors.containerBg, shape = RoundedCornerShape(12.dp))
+) {
 
     var text by remember { mutableStateOf(heading.text) }
 

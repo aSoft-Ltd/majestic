@@ -94,7 +94,7 @@ internal fun ListChunk(
                         modifier = Modifier
                             .weight(1f)
                             .background(
-                                color = colors.background,
+                                color = colors.containerBg,
                                 shape = RoundedCornerShape(12.dp)
                             )
                             .wrapContentSize()

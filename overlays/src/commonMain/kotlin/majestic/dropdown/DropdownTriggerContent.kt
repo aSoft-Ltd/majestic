@@ -36,7 +36,7 @@ internal fun DropdownTriggerContent(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
 ) {
-    val foregroundColor = colors.trigger.copy(alpha = 1f)
+    val foregroundColor = colors.triggerText.copy(alpha = 1f)
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
