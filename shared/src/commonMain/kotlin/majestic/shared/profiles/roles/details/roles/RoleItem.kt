@@ -7,11 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -29,10 +25,10 @@ import majestic.editor.tools.StateColors
 import majestic.icons.Res
 import majestic.icons.ic_arrow_right
 import majestic.icons.ic_more_vertical
-import majestic.shared.tools.menu.MenuOption
-import majestic.shared.tools.menu.MenuOptionColors
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.details.roles.tools.actions
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.MenuOptionColors
 import org.jetbrains.compose.resources.vectorResource
 
 
@@ -64,8 +60,8 @@ internal fun Modifier.roleItem(
     val shape = RoundedCornerShape(
         topStart = 0.dp,
         topEnd = 0.dp,
-        bottomStart = if (index == roles.lastIndex) 10.dp else 0.dp,
-        bottomEnd = if (index == roles.lastIndex) 10.dp else 0.dp
+        bottomStart = if (index == roles.lastIndex && orientation is Landscape) 10.dp else 0.dp,
+        bottomEnd = if (index == roles.lastIndex && orientation is Landscape) 10.dp else 0.dp
     )
 
     return this
