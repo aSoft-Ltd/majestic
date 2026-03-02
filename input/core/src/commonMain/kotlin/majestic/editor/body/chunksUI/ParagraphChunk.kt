@@ -30,7 +30,7 @@ internal fun ParagraphChunk(
 ) = Box(
     modifier = Modifier
         .wrapContentSize()
-        .background(color = colors.background, shape = RoundedCornerShape(12.dp))
+        .background(color = colors.containerBg, shape = RoundedCornerShape(12.dp))
 ) {
     var text by remember { mutableStateOf(paragraph.text) }
 
