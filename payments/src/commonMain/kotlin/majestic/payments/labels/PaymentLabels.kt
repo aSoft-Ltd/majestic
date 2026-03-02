@@ -11,5 +11,6 @@ class PaymentLabels(
     val dashboard: DashboardLabels,
     val wallet: WalletLabels,
     val transaction: TransactionLabels,
-    val invoice: InvoiceLabels
+    val invoice: InvoiceLabels,
+    val breadcrumb: BreadcrumbLabels
 )
