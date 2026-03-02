@@ -60,6 +60,7 @@ kotlin {
             api(compose.components.resources)?.because("We need to model menu items with action menus")
             api(compose.foundation)
             api(projects.majesticIcons)
+            api(projects.majesticInputButton)
             api(projects.majesticInputCore)
             api(compose.material3)?.because("We need to provide icons for default Navigation drawer header")
             api(compose.materialIconsExtended)?.because("We need to provide icons for default Navigation drawer header")

@@ -21,21 +21,24 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
+import majestic.dropdown.Dropdown
+import majestic.dropdown.DropdownColors
 import majestic.payments.labels.wallet.WalletLabels
-import majestic.payments.tools.menu.MenuOption
-import majestic.payments.tools.menu.MenuOptionColors
 import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.WalletMenuAction
+import majestic.shared.tools.dropdown.toDropdownItems
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.vectorResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
+import tz.co.asoft.majestic_payments.generated.resources.ic_more_horizontal
 import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_02_solid
 
 data class WalletCardColors(
     val text: Color,
     val icon: Color,
     val background: Color,
-    val menu: MenuOptionColors
+    val dropdown: DropdownColors
 )
 
 @Composable
@@ -84,11 +87,12 @@ fun WalletCard(
                 )
             }
         }
-        MenuOption(
-            colors = colors.menu,
-            orientation = Landscape,
-            actions = WalletMenuAction.getMenus(labels.menu),
-            onAction = { /* TODO */ }
+        Dropdown(
+            items = WalletMenuAction.getMenus(labels.menu).toDropdownItems(),
+            onAction = { /* TODO */ },
+            colors = colors.dropdown,
+            icon = vectorResource(Res.drawable.ic_more_horizontal),
+            isListItem = true
         )
     }
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {

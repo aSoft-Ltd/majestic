@@ -137,7 +137,7 @@ fun SummaryCard(
                 lineHeight = 1.sp
             )
         } else if (type != SummaryType.COLLECTED) {
-            ViewButton(label = labels.view, color = colors.text, onClick = onView)
+            ViewButton(label = labels.view, color = colors.text, onClick = onView, orientation = orientation)
         }
     }
 }

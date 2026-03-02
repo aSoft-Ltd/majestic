@@ -16,22 +16,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.payments.tools.menu.MenuOption
-import majestic.payments.tools.menu.MenuOptionColors
-import majestic.payments.tools.menu.OptionMenu
+import majestic.dropdown.Dropdown
+import majestic.dropdown.DropdownColors
+import majestic.icons.Res
+import majestic.icons.ic_more_horizontal
+import majestic.icons.ic_more_vertical
+import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.dropdown.toDropdownItems
+import org.jetbrains.compose.resources.vectorResource
 
 data class DetailHeaderColors(
     val background: Color,
     val foreground: Color,
     val icon: ColorPair,
     val info: InfoEntryColors,
-    val menu: MenuOptionColors,
+    val dropdownColors: DropdownColors,
     val tooltip: ColorPair,
 )
 
 @Composable
 internal fun <T> DetailHeader(
-    colors: MenuOptionColors,
+    colors: DetailHeaderColors,
     orientation: ScreenOrientation,
     options: List<OptionMenu<T>>,
     modifier: Modifier = Modifier,
@@ -46,11 +51,12 @@ internal fun <T> DetailHeader(
     Column(modifier = Modifier.weight(1f)) {
         content()
     }
-    MenuOption(
-        colors = colors,
-        orientation = orientation,
-        actions = options,
-        onAction = { /* TODO */ }
+    Dropdown(
+        items = options.toDropdownItems(),
+        onAction = { /* TODO */ },
+        colors = colors.dropdownColors,
+        icon = vectorResource(Res.drawable.ic_more_vertical),
+        isListItem = true
     )
 }
 
@@ -79,11 +85,12 @@ internal fun <T> DetailHeader(
             verticalAlignment = Alignment.Top
         ) {
             label()
-            MenuOption(
-                colors = colors.menu,
-                orientation = orientation,
-                actions = options,
-                onAction = { /* TODO */ }
+            Dropdown(
+                items = options.toDropdownItems(),
+                onAction = { /* TODO */ },
+                colors = colors.dropdownColors,
+                icon = vectorResource(Res.drawable.ic_more_horizontal),
+                isListItem = true
             )
         }
         Row(

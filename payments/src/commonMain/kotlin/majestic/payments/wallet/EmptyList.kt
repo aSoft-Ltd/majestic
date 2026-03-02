@@ -1,30 +1,25 @@
 package majestic.payments.wallet
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.ColorPair
+import majestic.Light
 import majestic.ThemeColor
+import majestic.button.appearence.plusButton
+import majestic.button.basic.PlusButton
 import majestic.payments.labels.SectionLabels
-import majestic.payments.tools.addIcon
-import majestic.tooling.onClick
 import org.jetbrains.compose.resources.painterResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
-import tz.co.asoft.majestic_payments.generated.resources.ic_add
 import tz.co.asoft.majestic_payments.generated.resources.ic_wallet_add_01
 
 @Composable
@@ -59,19 +54,13 @@ fun EmptyList(
         color = theme.surface.contra.color.copy(alpha = 0.5f)
     )
 
-    val iconInteraction = remember { MutableInteractionSource() }
-    val iconHovered by iconInteraction.collectIsHoveredAsState()
-    val iconRotation by animateFloatAsState(targetValue = if (iconHovered) 90f else 0f, label = "Icon Rotation Animation")
-    Icon(
-        modifier = Modifier
-            .padding(top = 12.dp)
-            .addIcon(
-                theme = theme,
-                iconInteraction = iconInteraction,
-                iconRotation = iconRotation
-            ).onClick(onAdd),
-        painter = painterResource(Res.drawable.ic_add),
-        contentDescription = null,
-        tint = theme.surface.actual.color
+    PlusButton(
+        modifier = Modifier.plusButton(
+            colors = ColorPair(
+                foreground = theme.surface.actual.color,
+                background = if (this is Light) theme.dominant.actual.color else theme.surface.contra.color
+            ),
+            onClick = onAdd
+        )
     )
 }

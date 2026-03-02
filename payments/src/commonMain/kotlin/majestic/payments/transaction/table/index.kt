@@ -19,16 +19,19 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
-import composex.screen.orientation.Landscape
 import majestic.Checkbox
 import majestic.LazyTable
+import majestic.dropdown.Dropdown
+import majestic.icons.Res
+import majestic.icons.ic_more_horizontal
 import majestic.payments.labels.transaction.TransactionLabels
-import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.table.CommonCell
 import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.tools.TransactionMenuAction
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
 import majestic.tooling.separator
+import org.jetbrains.compose.resources.vectorResource
 import symphony.Table
 
 @Composable
@@ -61,7 +64,8 @@ fun TransactionTable(
         table = table,
         columns = { column ->
             val selectedAll = table.selector.isCurrentPageSelectedWholly()
-            val checkboxColors = if (selectedAll) colors.checkbox.selected else colors.checkbox.unselected
+            val checkboxColors =
+                if (selectedAll) colors.checkbox.selected else colors.checkbox.unselected
             val header = colors.header
 
             if (column.key == labels.table.checkbox) Box(
@@ -78,7 +82,11 @@ fun TransactionTable(
                     modifier = Modifier.size(16.dp)
                         .clip(RoundedCornerShape(5.dp))
                         .background(checkboxColors.background)
-                        .border(1.dp, color = checkboxColors.border, RoundedCornerShape(5.dp))
+                        .border(
+                            width = 1.dp,
+                            color = checkboxColors.border,
+                            shape = RoundedCornerShape(5.dp)
+                        )
                         .onClick { table.selector.toggleSelectionOfCurrentPage() }
                 )
             } else Text(
@@ -224,11 +232,12 @@ fun TransactionTable(
                     .pointerHoverIcon(PointerIcon.Hand),
                 contentAlignment = Alignment.Center
             ) {
-                MenuOption(
-                    colors = colors.menu,
-                    orientation = Landscape,
-                    actions = TransactionMenuAction.getMenus(labels.menu),
-                    onAction = { /* TODO */ }
+                Dropdown(
+                    items = TransactionMenuAction.getMenus(labels.menu).toDropdownItems(),
+                    onAction = { /* TODO */ },
+                    colors = colors.dropdown,
+                    icon = vectorResource(Res.drawable.ic_more_horizontal),
+                    isListItem = true
                 )
             }
         }

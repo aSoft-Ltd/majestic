@@ -1,7 +1,7 @@
 package majestic.payments.invoice.tools.data
 
 import majestic.payments.labels.ActionLabels
-import majestic.payments.tools.ActionDropdownItem
+import majestic.shared.menu.OptionMenu
 import org.jetbrains.compose.resources.DrawableResource
 import tz.co.asoft.majestic_payments.generated.resources.Res
 import tz.co.asoft.majestic_payments.generated.resources.ic_apple_reminder
@@ -20,8 +20,9 @@ internal enum class InvoiceReview {
 
     companion object Companion {
         fun getActions(labels: ActionLabels) = listOf(
-            ActionDropdownItem(
+            OptionMenu(
                 label = REMINDED.getLabel(labels),
+                action = labels,
                 icon = Res.drawable.ic_apple_reminder
             ),
         )

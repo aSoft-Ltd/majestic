@@ -58,7 +58,10 @@ internal fun ImageChunk(
     Box(
         modifier = Modifier
             .wrapContentSize()
-            .background(color = if (painter == null) colors.background else Color.Transparent, shape = RoundedCornerShape(20.dp))
+            .background(
+                color = if (painter == null) colors.containerBg else Color.Transparent,
+                shape = RoundedCornerShape(20.dp)
+            )
             .padding(15.dp),
         contentAlignment = Alignment.Center
     ) {

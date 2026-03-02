@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import majestic.Dark
 import majestic.Light
 import majestic.ThemeColor
+import majestic.tools.base
+import majestic.tools.withOverlay
 
 private val ThemeColor.searchBackgroundColor: Color
     get() {
@@ -36,26 +38,29 @@ data class SearchColors(
     val text: Color,
     val hint: Color,
     val border: Color,
-    val icon: Color
+    val iconBg: Color,
+    val iconTint: Color
 )
 
 fun ThemeColor.toSearchColors(): SearchColors {
     val baseColor = surface.contra.color
     return when (this) {
         is Dark -> SearchColors(
-            background = searchBackgroundColor,
+            background = base.withOverlay(surface.contra.color, 0.2f),
             text = baseColor.copy(alpha = 0.8f),
             hint = baseColor.copy(alpha = 0.4f),
             border = baseColor.copy(alpha = 0.1f),
-            icon = baseColor.copy(alpha = 0.8f)
+            iconBg = base.withOverlay(baseColor, 0.5f),
+            iconTint = baseColor
         )
 
         is Light -> SearchColors(
-            background = searchBackgroundColor,
+            background = base.withOverlay(surface.contra.color, 0.2f),
             text = baseColor.copy(alpha = 0.8f),
             hint = baseColor.copy(alpha = 0.4f),
             border = baseColor.copy(alpha = 0.12f),
-            icon = baseColor.copy(alpha = 0.8f)
+            iconBg = base.withOverlay(baseColor, 0.5f),
+            iconTint = baseColor
         )
     }
 }

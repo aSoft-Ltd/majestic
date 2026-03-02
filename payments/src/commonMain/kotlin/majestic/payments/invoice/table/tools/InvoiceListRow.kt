@@ -6,13 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import composex.screen.orientation.Portrait
+import majestic.dropdown.Dropdown
+import majestic.icons.Res
+import majestic.icons.ic_more_vertical
 import majestic.payments.invoice.table.PaymentInvoice
 import majestic.payments.invoice.tools.InvoiceMenuAction
 import majestic.payments.labels.invoice.InvoiceLabels
-import majestic.payments.tools.menu.MenuOption
 import majestic.payments.tools.table.TableColors
+import majestic.shared.tools.dropdown.toDropdownItems
 import nation.Country
+import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun InvoiceListRow(
@@ -36,10 +39,11 @@ fun InvoiceListRow(
         avatar = details.avatar,
         color = colors.foreground
     )
-    MenuOption(
-        colors = colors.menu,
-        orientation = Portrait,
-        actions = InvoiceMenuAction.getMenus(labels.menu),
-        onAction = { /* TODO */ }
+    Dropdown(
+        items = InvoiceMenuAction.getMenus(labels.menu).toDropdownItems(),
+        onAction = { /* TODO */ },
+        colors = colors.dropdown,
+        icon = vectorResource(Res.drawable.ic_more_vertical),
+        isListItem = true
     )
 }
