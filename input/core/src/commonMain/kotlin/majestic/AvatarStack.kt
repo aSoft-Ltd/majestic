@@ -71,8 +71,7 @@ fun AvatarStack(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         color = overflowTextColor,
-                        fontSize = overflowTextSize,
-                        fontWeight = FontWeight.SemiBold
+                        fontSize = overflowTextSize
                     )
                 }
             }
