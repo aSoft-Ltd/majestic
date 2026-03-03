@@ -6,6 +6,7 @@ class AnalyticsLabels(
     val btnPerAccount: String,
     val btnPerItem: String,
     val startDate: String,
+    val date: String,
     val endDate: String,
     val split: String,
     val combine: String

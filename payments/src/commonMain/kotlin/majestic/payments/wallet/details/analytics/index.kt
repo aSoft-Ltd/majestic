@@ -81,7 +81,6 @@ fun Analytics(
                     labels = labels,
                     filter = transactionFilter,
                     color = colors.foreground,
-                    orientation = orientation,
                     onChange = { transactionFilter = it },
                 )
             },
