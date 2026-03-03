@@ -91,6 +91,7 @@ fun <T> Dropdown(
     rotationTarget: Float? = null,
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
+    isListItem: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -102,6 +103,7 @@ fun <T> Dropdown(
         loading = loading,
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
+        isListItem = isListItem,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(
@@ -128,7 +130,7 @@ fun <T> Dropdown(
 @Composable
 fun <T> Dropdown(
     items: List<DropdownItem<T>>,
-    selected: List<T>,
+    selectedItems: List<T>,
     onSelection: (List<T>) -> Unit,
     colors: DropdownColors,
     placeholder: String = "Select...",
@@ -141,14 +143,14 @@ fun <T> Dropdown(
     matchButtonWidth: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    val label = if (selected.isEmpty()) placeholder else "${selected.size} selected"
+    val label = if (selectedItems.isEmpty()) placeholder else "${selectedItems.size} selected"
 
     DropdownBase(
         items = items,
         mode = DropdownMode.Multi,
         colors = colors,
         onItemClick = { value ->
-            val next = if (selected.contains(value)) selected - value else selected + value
+            val next = if (selectedItems.contains(value)) selectedItems - value else selectedItems + value
             onSelection(next)
         },
         enabled = enabled,
@@ -168,7 +170,7 @@ fun <T> Dropdown(
             )
         }
     ) { item ->
-        val isCurrent = selected.contains(item.value)
+        val isCurrent = selectedItems.contains(item.value)
         DropdownItemRow(
             item = item,
             colors = colors,
@@ -184,7 +186,7 @@ fun <T> Dropdown(
 @Composable
 fun <T> Dropdown(
     items: List<DropdownItem<T>>,
-    selected: List<T>,
+    selectedItems: List<T>,
     onSelection: (List<T>) -> Unit,
     colors: DropdownColors,
     icon: ImageVector,
@@ -201,7 +203,7 @@ fun <T> Dropdown(
         mode = DropdownMode.Multi,
         colors = colors,
         onItemClick = { value ->
-            val next = if (selected.contains(value)) selected - value else selected + value
+            val next = if (selectedItems.contains(value)) selectedItems - value else selectedItems + value
             onSelection(next)
         },
         enabled = enabled,
@@ -219,7 +221,7 @@ fun <T> Dropdown(
             )
         }
     ) { item ->
-        val isCurrent = selected.contains(item.value)
+        val isCurrent = selectedItems.contains(item.value)
         DropdownItemRow(
             item = item,
             colors = colors,
