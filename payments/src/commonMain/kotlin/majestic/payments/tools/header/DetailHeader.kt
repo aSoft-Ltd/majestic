@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.dropdown.Dropdown
 import majestic.dropdown.DropdownColors
@@ -37,7 +36,6 @@ data class DetailHeaderColors(
 @Composable
 internal fun <T> DetailHeader(
     colors: DetailHeaderColors,
-    orientation: ScreenOrientation,
     options: List<OptionMenu<T>>,
     modifier: Modifier = Modifier,
     icon: @Composable () -> Unit,
@@ -63,7 +61,6 @@ internal fun <T> DetailHeader(
 @Composable
 internal fun <T> DetailHeader(
     colors: DetailHeaderColors,
-    orientation: ScreenOrientation,
     options: List<OptionMenu<T>>,
     details: List<InfoEntryItem>,
     modifier: Modifier = Modifier,
@@ -112,7 +109,6 @@ internal fun <T> DetailHeader(
 @Composable
 internal fun <T> DetailHeader(
     colors: DetailHeaderColors,
-    orientation: ScreenOrientation,
     title: String,
     options: List<OptionMenu<T>>,
     details: List<InfoEntryItem>,
@@ -120,7 +116,6 @@ internal fun <T> DetailHeader(
     icon: @Composable () -> Unit,
 ) = DetailHeader(
     colors = colors,
-    orientation = orientation,
     icon = icon,
     options = options,
     details = details,
