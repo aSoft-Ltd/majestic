@@ -24,19 +24,19 @@ internal fun Modifier.responsibilityItem(
     colors: ResponsibilityColors,
     index: Int = 0,
     responsibilities: List<Permission>
-) : Modifier {
+): Modifier {
     val hovered by interaction.collectIsHoveredAsState()
     return this
-    .fillMaxWidth()
-    .hoverable(interaction)
-    .background(
-        color = if (hovered) colors.background.focused else colors.background.unfocused,
-        shape = RoundedCornerShape(
-            bottomStart = if (index == responsibilities.lastIndex) 10.dp else 0.dp,
-            bottomEnd = if (index == responsibilities.lastIndex) 10.dp else 0.dp
+        .fillMaxWidth()
+        .hoverable(interaction)
+        .background(
+            color = if (hovered) colors.background.focused else colors.background.unfocused,
+            shape = RoundedCornerShape(
+                bottomStart = if (index == responsibilities.lastIndex && orientation is Landscape) 10.dp else 0.dp,
+                bottomEnd = if (index == responsibilities.lastIndex && orientation is Landscape) 10.dp else 0.dp
+            )
         )
-    )
-    .padding(if (orientation is Landscape) 20.dp else 10.dp)
+        .padding(if (orientation is Landscape) 20.dp else 10.dp)
 }
 
 

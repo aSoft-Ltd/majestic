@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.details.header.RolesHeaderLabels
@@ -28,6 +29,7 @@ data class RoleHeaderColors(
 )
 
 internal fun Modifier.roleScreenHeader(orientation: ScreenOrientation) = this
+    .then(other = if (orientation is Portrait) Modifier.padding(top = 4.dp, bottom = 2.dp) else Modifier)
     .fillMaxWidth()
     .clip(
         RoundedCornerShape(

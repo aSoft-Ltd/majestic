@@ -29,16 +29,17 @@ internal fun RoleItemMain(
     Text(
         text = buildAnnotatedString {
             withStyle(style = SpanStyle(color = colors.title.unfocused)) {
-                append("${index + 1}. ")
+                val number = (index + 1).toString().padStart(2, '0')
+                append("$number ")
             }
-            append(role.title)
+            append(role.title.removeSuffix("."))
         },
         color = colors.title.focused,
         fontWeight = FontWeight.SemiBold,
         fontSize = 15.sp
     )
     Text(
-        text = role.description,
+        text = role.description.removeSuffix("."),
         color = colors.subtitle,
         fontSize = 13.sp,
         maxLines = 2,
