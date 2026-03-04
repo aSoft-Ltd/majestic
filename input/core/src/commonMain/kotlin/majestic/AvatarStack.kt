@@ -40,7 +40,7 @@ fun AvatarStack(
     val step = avatarSize * (1f - overlapFraction)
 
     Layout(
-        modifier = modifier.height(avatarSize),
+        modifier = modifier,
         content = {
             painters.take(maxVisible).forEach { painter ->
                 Box(
