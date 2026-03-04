@@ -77,7 +77,9 @@ internal fun StationRoles(
         )
 
         RoleList(
-            modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
             orientation = orientation,
             station = station,
             colors = colors,

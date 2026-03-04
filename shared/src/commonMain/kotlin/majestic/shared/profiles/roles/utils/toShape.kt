@@ -20,5 +20,5 @@ internal fun ScreenOrientation.toShape(
         else -> RoundedCornerShape(0.dp)
     }
 
-    is Portrait -> RoundedCornerShape(8.dp)
+    is Portrait -> RoundedCornerShape(0.dp)
 }

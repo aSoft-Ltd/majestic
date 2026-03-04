@@ -12,15 +12,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
-import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
-import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.RoleColors
 import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
+import majestic.shared.tools.menu.OptionMenu
 
 @Composable
 internal fun StationList(
@@ -35,10 +34,7 @@ internal fun StationList(
     onStation: (RoleData) -> Unit
 ) = Column(
     modifier = modifier,
-    verticalArrangement = when (orientation) {
-        is Landscape -> Arrangement.Top
-        is Portrait -> Arrangement.spacedBy(4.dp)
-    }
+    verticalArrangement = Arrangement.Top
 ) {
     stations.forEach { station ->
         val interaction = remember { MutableInteractionSource() }
@@ -61,10 +57,10 @@ internal fun StationList(
             actions = actions,
             onOption = onOption
         )
-        if (stations.lastIndex != stations.indexOf(station) && orientation is Landscape) Spacer(
+        if (stations.lastIndex != stations.indexOf(station)) Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .underline(colors.separator, 0.5.dp)
+                .underline(colors.separator, if (orientation is Landscape) 0.5.dp else 1.dp)
         )
     }
 }

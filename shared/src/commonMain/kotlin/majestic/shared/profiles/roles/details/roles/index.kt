@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
-import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
 import majestic.shared.profiles.roles.data.Role
@@ -27,10 +26,7 @@ internal fun RoleList(
     onUnassign: () -> Unit,
 ) = Column(
     modifier = modifier,
-    verticalArrangement = when (orientation) {
-        is Landscape -> Arrangement.Top
-        is Portrait -> Arrangement.spacedBy(6.dp)
-    }
+    verticalArrangement = Arrangement.Top
 ) {
     station.roles.forEachIndexed { index, role ->
         RoleItem(
@@ -52,10 +48,10 @@ internal fun RoleList(
             },
             onUnassign = onUnassign
         )
-        if (station.roles.lastIndex != station.roles.indexOf(role) && orientation is Landscape) Spacer(
+        if (station.roles.lastIndex != station.roles.indexOf(role)) Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .underline(colors.divider, 0.5.dp)
+                .underline(colors.divider, if (orientation is Landscape) 0.5.dp else 1.dp)
         )
     }
 }
