@@ -21,9 +21,9 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.icons.Res
 import majestic.icons.ic_mail
 import majestic.layouts.Flex
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.MenuOptionColors
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.MenuOptionColors
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogsColors
 import majestic.shared.profiles.contacts.tools.EmailMenuAction
 import majestic.shared.profiles.contacts.tools.dialogs.GeneralPromptColors

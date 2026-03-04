@@ -7,9 +7,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.editor.toolbar.underline
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.users.dashboard.RoleCardColors
 import majestic.users.dashboard.roles.tools.RoleAction
 import majestic.users.dashboard.roles.tools.UserRole

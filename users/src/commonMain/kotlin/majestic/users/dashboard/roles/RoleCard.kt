@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.users.dashboard.RoleCardColors
 import majestic.users.dashboard.roles.tools.CardHeader
 import majestic.users.dashboard.roles.tools.Footer

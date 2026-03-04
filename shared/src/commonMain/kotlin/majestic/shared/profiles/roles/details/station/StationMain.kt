@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.item
+package majestic.shared.profiles.roles.details.station
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,10 +22,10 @@ import majestic.shared.profiles.roles.data.RoleLabels
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun Main(
+internal fun StationMain(
     modifier: Modifier,
-    role: RoleData,
-    colors: RoleItemColors,
+    station: RoleData,
+    colors: StationItemColors,
     labels: RoleLabels
 ) = Row(
     modifier = modifier,
@@ -33,7 +33,7 @@ internal fun Main(
     horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start)
 ) {
     Icon(
-        painter = painterResource(role.resource),
+        painter = painterResource(station.resource),
         contentDescription = null,
         tint = colors.icon.foreground,
         modifier = Modifier
@@ -49,13 +49,13 @@ internal fun Main(
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
         Text(
-            text = role.station,
+            text = station.station,
             fontWeight = FontWeight.SemiBold,
             color = colors.title,
             fontSize = 15.sp,
         )
         Text(
-            text = "${role.roles.size} ${labels.roles}",
+            text = "${station.roles.size} ${labels.roles}",
             color = colors.subtitle,
             fontSize = 13.sp
         )
