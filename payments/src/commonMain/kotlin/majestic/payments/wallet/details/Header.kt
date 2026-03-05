@@ -47,6 +47,7 @@ fun Header(
         is Landscape -> DetailHeader(
             title = title,
             colors = colors,
+            orientation = Landscape,
             options = WalletDetailMenuAction.getMenus(labels.menu),
             details = details,
             modifier = modifier,
@@ -65,6 +66,7 @@ fun Header(
         is Portrait -> DetailHeader(
             modifier = modifier,
             colors = colors,
+            orientation = Portrait,
             options = WalletDetailMenuAction.getMenus(labels.menu),
             icon = {
                 Icon(

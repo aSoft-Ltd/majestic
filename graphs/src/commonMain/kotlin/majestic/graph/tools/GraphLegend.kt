@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.ThemeColor
 
 data class Series(
     val label: String,
@@ -24,7 +25,7 @@ data class Series(
 
 @Composable
 fun GraphLegend(
-    color: Color,
+    theme: ThemeColor,
     series: List<Series>,
     dotSize: Dp = 12.dp,
     modifier: Modifier = Modifier
@@ -45,7 +46,7 @@ fun GraphLegend(
                 Text(
                     text = item.label,
                     fontSize = 12.sp,
-                    color = color
+                    color = theme.surface.contra.color
                 )
             }
         }
