@@ -54,7 +54,7 @@ fun <T> SmartSelect(
         onExpanded = onExpanded,
         dropDownShape = dropDownShape,
         dropDownContainerColor = drawerContainerColor,
-        dropdownModifier = dropdownModifier.padding(8.dp),
+        dropdownModifier = dropdownModifier,
         containerShape = shape,
         shadowElevation = shadowElevation,
         border = border,
