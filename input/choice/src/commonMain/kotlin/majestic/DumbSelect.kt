@@ -93,7 +93,7 @@ fun <T> DumbSelect(
                 expanded = false
                 onExpanded?.invoke(false)
             },
-            modifier = dropdownModifier.exposedDropdownSize()
+            modifier = Modifier.exposedDropdownSize().then(dropdownModifier)
         ) {
             for (it in items) DropdownMenuItem(
                 modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(7.dp)),
