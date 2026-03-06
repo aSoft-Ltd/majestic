@@ -7,5 +7,6 @@ import majestic.shared.users.label.table.TableLabels
 data class UsersLabels(
     val dashboard: DashboardLabels,
     val profile: ProfileLabels,
-    val table: TableLabels
+    val table: TableLabels,
+    val breadcrumb: BreadcrumbLabels
 )

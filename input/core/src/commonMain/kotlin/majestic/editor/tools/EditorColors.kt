@@ -9,5 +9,6 @@ class EditorColors(
     val background: Color = Color.Transparent,
     val foreground: Color = Color.White,
     val brush: Color = Color.White,
-    val popUp: PopUpColors = PopUpColors()
+    val popUp: PopUpColors = PopUpColors(),
+    val containerBg: Color = Color.Transparent,
 )

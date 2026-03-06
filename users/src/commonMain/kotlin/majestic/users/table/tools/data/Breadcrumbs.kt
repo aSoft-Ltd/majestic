@@ -9,6 +9,10 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import majestic.ThemeColor
 
+@Deprecated(
+    message = "Use the one in shared module instead",
+    replaceWith = ReplaceWith("Breadcrumbs", "majestic.shared.tools.Breadcrumbs"),
+)
 @Composable
 internal fun Breadcrumbs(
     url: String,
