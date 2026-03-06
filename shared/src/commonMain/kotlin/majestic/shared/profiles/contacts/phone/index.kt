@@ -17,21 +17,26 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
+import majestic.dropdown.Dropdown
+import majestic.dropdown.DropdownColors
 import majestic.icons.Res
 import majestic.icons.ic_call
 import majestic.icons.ic_calling_solid
+import majestic.icons.ic_more_horizontal
+import majestic.icons.ic_more_vertical
 import majestic.icons.ic_whatsapp_solid
 import majestic.layouts.Flex
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.MenuOptionColors
 import majestic.shared.menu.OptionMenu
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogsColors
 import majestic.shared.profiles.contacts.tools.PhoneMenuAction
 import majestic.shared.tools.Tooltip
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.shared.users.label.contacts.ContactLabels
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.vectorResource
 
 data class Backgrounds(
     val portrait: Color,
@@ -45,7 +50,7 @@ data class PhoneColors(
     val primary: Color,
     val primaryBackground: Color,
     val tooltip: ColorPair,
-    val menuOption: MenuOptionColors,
+    val dropdownColors: DropdownColors,
     val dialog: PhoneDialogsColors,
 )
 
@@ -129,16 +134,21 @@ fun Phone(
             }
         }
     }
-    MenuOption(
-        colors = colors.menuOption,
-        orientation = orientation,
-        actions = listOf(
+    Dropdown(
+        items = listOf(
             OptionMenu(labels.actions.primary, PhoneMenuAction.Primary),
             OptionMenu(labels.actions.phone.edit, PhoneMenuAction.Edit),
             OptionMenu(labels.actions.phone.duplicate, PhoneMenuAction.Duplicate),
-            OptionMenu(labels.actions.phone.delete, PhoneMenuAction.Delete)
+            OptionMenu(labels.actions.phone.delete, PhoneMenuAction.Delete, isDestructive = true)
+        ).toDropdownItems(),
+        onAction = {
+            onAction(it)
+        },
+        colors = colors.dropdownColors,
+        icon = vectorResource(
+            if (orientation == Portrait) Res.drawable.ic_more_vertical
+            else Res.drawable.ic_more_horizontal
         ),
-    ) {
-        onAction(it)
-    }
+        isListItem = true
+    )
 }

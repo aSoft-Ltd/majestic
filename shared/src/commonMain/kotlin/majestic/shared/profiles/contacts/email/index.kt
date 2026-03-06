@@ -17,18 +17,23 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.dropdown.Dropdown
+import majestic.dropdown.DropdownColors
 import majestic.icons.Res
 import majestic.icons.ic_mail
+import majestic.icons.ic_more_horizontal
+import majestic.icons.ic_more_vertical
 import majestic.layouts.Flex
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.MenuOptionColors
 import majestic.shared.menu.OptionMenu
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogsColors
 import majestic.shared.profiles.contacts.tools.EmailMenuAction
 import majestic.shared.profiles.contacts.tools.dialogs.GeneralPromptColors
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.shared.users.label.contacts.ContactLabels
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.vectorResource
 
 data class PromptColors(
     val warning: GeneralPromptColors,
@@ -42,7 +47,7 @@ data class EmailColors(
     val primary: Color,
     val primaryBackground: Color,
     val dialog: EmailDialogsColors,
-    val menuOption: MenuOptionColors
+    val dropdownColors: DropdownColors
 )
 
 @Composable
@@ -101,16 +106,21 @@ fun Email(
         }
     }
 
-    MenuOption(
-        colors = colors.menuOption,
-        orientation = orientation,
-        actions = listOf(
+    Dropdown(
+        items = listOf(
             OptionMenu(labels.actions.primary, EmailMenuAction.Primary),
             OptionMenu(labels.actions.email.edit, EmailMenuAction.Edit),
             OptionMenu(labels.actions.email.duplicate, EmailMenuAction.Duplicate),
-            OptionMenu(labels.actions.email.delete, EmailMenuAction.Delete),
+            OptionMenu(labels.actions.email.delete, EmailMenuAction.Delete, isDestructive = true),
+        ).toDropdownItems(),
+        onAction = { action ->
+            onAction(action)
+        },
+        colors = colors.dropdownColors,
+        icon = vectorResource(
+            if (orientation == Portrait) Res.drawable.ic_more_vertical
+            else Res.drawable.ic_more_horizontal
         ),
-    ) { action ->
-        onAction(action)
-    }
+        isListItem = true
+    )
 }

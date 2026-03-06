@@ -2,8 +2,9 @@ package majestic.shared.profiles.contacts.email
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,14 +20,15 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ActionText
-import majestic.buttons.ActionButton
-import majestic.buttons.ButtonColors
+import majestic.ColorPair
+import majestic.button.appearence.constructiveFormButton
+import majestic.button.basic.FormButton
 import majestic.shared.profiles.contacts.tools.dialogs.ContactVerificationFormLabels
 import majestic.shared.profiles.contacts.tools.dialogs.OtpInput
 import majestic.shared.profiles.contacts.tools.dialogs.OtpInputColors
 
 data class EmailVerificationFormColors(
-    val buttonColors: ButtonColors,
+    val button: ColorPair,
     val otp: OtpInputColors,
     val description: Color,
     val email: Color,
@@ -43,63 +45,55 @@ fun EmailVerificationForm(
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
-    verticalArrangement = if (orientation is Landscape) Arrangement.spacedBy(20.dp) else Arrangement.SpaceBetween,
+    verticalArrangement = if (orientation is Landscape) Arrangement.spacedBy(20.dp) else Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
-    Column(
-        modifier = Modifier
-            .then(if (orientation is Portrait) Modifier.padding(top = 20.dp) else Modifier)
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = labels.sentCode,
-                color = colors.description
-            )
-            Text(
-                text = "amanihamduni@gmail.com",
-                fontWeight = FontWeight.Bold,
-                color = colors.email
-            )
-            Text(
-                text = labels.enterCode,
-                color = colors.enterCode
-            )
-        }
-
-        var otp by remember { mutableStateOf("") }
-        OtpInput(
-            value = otp,
-            length = 5,
-            colors = colors.otp,
-            onValueChange = { otp = it }
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = labels.sentCode,
+            color = colors.description
         )
-        if (orientation is Landscape) ActionButton(
-            modifier = Modifier.fillMaxWidth(),
-            text = labels.submit,
-            colors = colors.buttonColors,
-            onClick = onVerify
+        Text(
+            text = "amanihamduni@gmail.com",
+            fontWeight = FontWeight.Bold,
+            color = colors.email
         )
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            ActionText(
-                label = labels.resendCode,
-                onClick = {}
-            )
-            ActionText(
-                label = labels.changeContact,
-                onClick = onChangeEmail
-            )
-        }
+        Text(
+            text = labels.enterCode,
+            color = colors.enterCode
+        )
     }
 
-    if (orientation is Portrait) ActionButton(
-        modifier = Modifier
-            .padding(horizontal = 20.dp)
-            .fillMaxWidth(),
-        text = labels.submit,
-        colors = colors.buttonColors,
-        onClick = onVerify
+    var otp by remember { mutableStateOf("") }
+    OtpInput(
+        value = otp,
+        length = 5,
+        colors = colors.otp,
+        onValueChange = { otp = it }
     )
+
+    if (orientation == Portrait) {
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+
+    FormButton(
+        text = labels.submit,
+        modifier = Modifier
+            .fillMaxWidth()
+            .constructiveFormButton(
+                colors = colors.button, onClick = onVerify
+            )
+    )
+
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        ActionText(
+            label = labels.resendCode,
+            onClick = {}
+        )
+
+        ActionText(
+            label = labels.changeContact,
+            onClick = onChangeEmail
+        )
+    }
 }
