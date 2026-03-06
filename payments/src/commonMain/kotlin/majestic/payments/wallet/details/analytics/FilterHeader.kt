@@ -1,0 +1,122 @@
+package majestic.payments.wallet.details.analytics
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
+import composex.screen.orientation.ScreenOrientation
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.number
+import kotlinx.datetime.plus
+import kotlinx.datetime.todayIn
+import majestic.Popup
+import majestic.button.Button
+import majestic.button.basic.BasicButtonContent
+import majestic.icons.Res
+import majestic.icons.ic_calendar_04
+import majestic.payments.labels.wallet.AnalyticsLabels
+import majestic.payments.wallet.details.analytics.tools.AnalyticColors
+import majestic.payments.wallet.details.analytics.tools.AnalyticsFilter
+import majestic.payments.wallet.details.analytics.tools.AnalyticsFilters
+import majestic.popup.Inline
+import majestic.popup.Overlay
+import majestic.rememberDateRangePickerManager
+import majestic.shared.calendar.CalendarRangePicker
+import majestic.tooling.onClick
+import org.jetbrains.compose.resources.vectorResource
+
+@Composable
+internal fun FilterHeader(
+    labels: AnalyticsLabels,
+    colors: AnalyticColors,
+    orientation: ScreenOrientation,
+    onFilter: (AnalyticsFilter) -> Unit,
+    modifier: Modifier = Modifier
+) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically
+) {
+    var analyticsFilter by remember { mutableStateOf(AnalyticsFilter.ACCOUNT) }
+    AnalyticsFilters(
+        labels = labels,
+        filter = analyticsFilter,
+        color = colors.header.foreground,
+        onChange = {
+            analyticsFilter = it
+            onFilter(it)
+        },
+    )
+
+    var expanded by remember { mutableStateOf(false) }
+    val today = LocalDate.fromEpochDays(kotlin.time.Clock.System.todayIn(TimeZone.currentSystemDefault()).toEpochDays())
+    val nextMonth = today + DatePeriod(months = 1)
+    val manager = rememberDateRangePickerManager(
+        start = today,
+        end = LocalDate(nextMonth.year, nextMonth.month.number, nextMonth.day),
+        onPicked = { _, _ -> expanded = false }
+    )
+    Popup(
+        onDismissRequest = { expanded = false },
+        expanded = expanded,
+        inline = Inline {
+            Button(
+                modifier = Modifier.clip(CircleShape)
+                    .background(colors.header.foreground.copy(0.05f))
+                    .onClick { expanded = true }
+                    .padding(horizontal = 10.dp, vertical = 5.dp)
+            ) { colors ->
+                BasicButtonContent(
+                    leadingIcon = vectorResource(Res.drawable.ic_calendar_04),
+                    text = when (orientation) {
+                        is Landscape -> "${labels.startDate} - ${labels.endDate}"
+                        is Portrait -> labels.date
+                    },
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 14.sp,
+                    textAlpha = 0.7f,
+                    leadingIconAlpha = 0.7f,
+                    colors = colors
+                )
+            }
+        },
+        overlay = Overlay(
+            modifier = Modifier.width(IntrinsicSize.Max)
+                .background(colors.calendar.surface.background)
+                .padding(if (orientation is Landscape) 20.dp else 8.dp),
+            shape = RoundedCornerShape(if (orientation is Landscape) 40.dp else 8.dp)
+        ) {
+            CalendarRangePicker(
+                modifier = Modifier
+                    .width(IntrinsicSize.Max)
+                    .height(IntrinsicSize.Max),
+                arrangement = Arrangement.spacedBy(20.dp),
+                manager = manager,
+                from = "From",
+                to = "To",
+                colors = colors.calendar,
+                orientation = orientation
+            )
+        }
+    )
+}
