@@ -128,7 +128,7 @@ fun <T> Select(
         dropDownShape = dropDownShape,
         shadowElevation = shadowElevation,
         tonalElevation = tonalElevation,
-        dropdownModifier = dropdownModifier,
+        dropdownModifier = dropdownModifier.padding(8.dp),
         dropDownContainerColor = colors.dropdown.background,
         placeholder = { placeholder(expanded) },
         selected = selected,
