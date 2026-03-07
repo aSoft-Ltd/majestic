@@ -72,6 +72,7 @@ internal fun FloatingButtons(
 ) = when (orientation) {
     is Landscape -> Box(modifier = Modifier.offset(y = (-40).dp, x = (-30).dp)) {
         Box(modifier = Modifier.onPlaced { onPlaced(it) }) {
+            // TODO: replace this with majestic.button, apply haze like in "package tz.co.asoft.academia.admissions.guardian.contacts"
             Button(
                 label = labels.profile.tabs.contacts.content.addButton,
                 leadingIcon = { LeadingIcon(vectorResource(Res.drawable.ic_add)) },

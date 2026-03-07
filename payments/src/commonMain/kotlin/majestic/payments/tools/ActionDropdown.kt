@@ -50,7 +50,7 @@ internal fun ActionDropdown(
     drawerContainerColor = colors.background,
     shape = CircleShape,
     dropDownShape = RoundedCornerShape(12.dp),
-    dropdownModifier = Modifier.width(IntrinsicSize.Max)
+    dropdownModifier = Modifier.width(IntrinsicSize.Max).padding(8.dp)
 )
 
 @Composable

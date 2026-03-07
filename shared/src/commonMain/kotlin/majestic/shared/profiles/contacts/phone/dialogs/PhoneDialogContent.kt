@@ -2,11 +2,9 @@ package majestic.shared.profiles.contacts.phone.dialogs
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.contacts.email.PromptColors
@@ -16,7 +14,6 @@ import majestic.shared.profiles.contacts.phone.PhoneVerificationForm
 import majestic.shared.profiles.contacts.phone.PhoneVerificationFormColors
 import majestic.shared.profiles.contacts.tools.dialogs.Add
 import majestic.shared.profiles.contacts.tools.dialogs.Delete
-import majestic.shared.profiles.contacts.tools.dialogs.Dialog
 import majestic.shared.profiles.contacts.tools.dialogs.Duplicate
 import majestic.shared.profiles.contacts.tools.dialogs.Edit
 import majestic.shared.profiles.contacts.tools.dialogs.GeneralPrompt
@@ -30,24 +27,6 @@ data class PhoneDialogContentColors(
     val prompts: PromptColors
 )
 
-private fun Modifier.phoneForms(
-    orientation: ScreenOrientation,
-    state: PhoneDialogState
-) = when (orientation) {
-    is Landscape -> this
-        .padding(vertical = 30.dp, horizontal = 30.dp)
-        .wrapContentSize()
-
-    is Portrait -> when (state.dialogType) {
-        is Dialog -> this
-            .padding(bottom = 30.dp)
-            .fillMaxSize()
-
-        else -> this
-            .padding(vertical = 20.dp, horizontal = 20.dp)
-            .wrapContentSize()
-    }
-}
 
 @Composable
 internal fun PhoneDialogContent(
@@ -57,15 +36,15 @@ internal fun PhoneDialogContent(
     state: PhoneDialogState
 ) = when (state.active) {
     is Add -> PhoneForm(
-        modifier = Modifier.phoneForms(orientation = orientation, state = state),
-        labels = labels.forms.email.edit,
+        labels = labels.forms.phone.edit,
         onSubmit = { state.open(Verify) },
+        onCancel = { state.dismiss() },
         colors = colors.form,
         orientation = orientation,
     )
 
     is Verify -> PhoneVerificationForm(
-        modifier = Modifier.phoneForms(orientation = orientation, state = state),
+        modifier = Modifier.then(if (orientation == Portrait) Modifier.fillMaxSize(1f) else Modifier).padding(16.dp),
         colors = colors.verification,
         labels = labels.forms.phone.verify,
         onVerify = { state.dismiss() },
@@ -78,26 +57,25 @@ internal fun PhoneDialogContent(
         labels = labels.toPhoneDuplicateLabels(),
         onRejected = { state.dismiss() },
         contact = "",
-        modifier = Modifier.phoneForms(orientation = orientation, state = state),
         onApproved = { state.dismiss() },
         orientation = orientation
     )
 
     is Edit -> PhoneForm(
-        modifier = Modifier.phoneForms(orientation = orientation, state = state),
-        labels = labels.forms.email.edit,
+        labels = labels.forms.phone.edit,
         onSubmit = { state.open(Verify) },
+        onCancel = { state.dismiss() },
         colors = colors.form,
         orientation = orientation,
     )
 
     is Delete -> GeneralPrompt(
         labels = labels.toPhoneDeleteLabels(),
-        modifier = Modifier.phoneForms(orientation = orientation, state = state),
         onRejected = { state.dismiss() },
         onApproved = { state.dismiss() },
         colors = colors.prompts.delete,
-        orientation = orientation
+        orientation = orientation,
+        isDestructive = true
     )
 
     is None -> {}

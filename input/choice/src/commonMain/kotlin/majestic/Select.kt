@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import majestic.popup.Inline
@@ -106,7 +107,9 @@ fun <T> Select(
     icon: ImageVector = Icons.Filled.ArrowDropDown,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(8.dp),
-    dropDownShape: Shape = RoundedCornerShape(8.dp),
+    dropDownShape: Shape = RoundedCornerShape(14.dp),
+    shadowElevation: Dp = 16.dp,
+    tonalElevation: Dp = 1.dp,
     placeholder: @Composable (Boolean) -> Unit = { isExpanded ->
         Placeholder(icon, colors, isExpanded, hint)
     },
@@ -123,6 +126,8 @@ fun <T> Select(
         border = border,
         containerShape = shape,
         dropDownShape = dropDownShape,
+        shadowElevation = shadowElevation,
+        tonalElevation = tonalElevation,
         dropdownModifier = dropdownModifier,
         dropDownContainerColor = colors.dropdown.background,
         placeholder = { placeholder(expanded) },
