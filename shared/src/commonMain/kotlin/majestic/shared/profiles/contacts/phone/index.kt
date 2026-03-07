@@ -26,7 +26,6 @@ import majestic.icons.Res
 import majestic.icons.ic_call
 import majestic.icons.ic_calling_solid
 import majestic.icons.ic_more_horizontal
-import majestic.icons.ic_more_vertical
 import majestic.icons.ic_whatsapp_solid
 import majestic.layouts.Flex
 import majestic.shared.menu.OptionMenu
@@ -145,10 +144,8 @@ fun Phone(
             onAction(it)
         },
         colors = colors.dropdownColors,
-        icon = vectorResource(
-            if (orientation == Portrait) Res.drawable.ic_more_vertical
-            else Res.drawable.ic_more_horizontal
-        ),
+        icon = vectorResource(Res.drawable.ic_more_horizontal),
+        rotationTarget = if (orientation == Portrait) 90f else 0f,
         isListItem = true
     )
 }

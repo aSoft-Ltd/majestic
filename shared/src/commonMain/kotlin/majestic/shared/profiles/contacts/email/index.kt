@@ -24,7 +24,6 @@ import majestic.dropdown.DropdownColors
 import majestic.icons.Res
 import majestic.icons.ic_mail
 import majestic.icons.ic_more_horizontal
-import majestic.icons.ic_more_vertical
 import majestic.layouts.Flex
 import majestic.shared.menu.OptionMenu
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogsColors
@@ -117,10 +116,8 @@ fun Email(
             onAction(action)
         },
         colors = colors.dropdownColors,
-        icon = vectorResource(
-            if (orientation == Portrait) Res.drawable.ic_more_vertical
-            else Res.drawable.ic_more_horizontal
-        ),
+        icon = vectorResource(Res.drawable.ic_more_horizontal),
+        rotationTarget = if (orientation == Portrait) 90f else 0f,
         isListItem = true
     )
 }
