@@ -27,14 +27,15 @@ import majestic.icons.Res
 import majestic.icons.ic_arrow_right
 import majestic.shared.profiles.Permission
 import majestic.shared.profiles.permissions.Permission
-import majestic.shared.profiles.permissions.PermissionItemColors
 import majestic.shared.profiles.permissions.PermissionData
+import majestic.shared.profiles.permissions.PermissionItemColors
 import majestic.shared.profiles.permissions.PermissionScreen
 import majestic.tooling.onClick
 
 internal fun Modifier.permissionItem(
     hovered: Boolean,
     permissions: List<Permission>,
+    bgColor: Color,
     hoverColor: Color,
     index: Int,
     current: PermissionScreen,
@@ -46,7 +47,7 @@ internal fun Modifier.permissionItem(
     .wrapContentHeight()
     .pointerHoverIcon(PointerIcon.Hand)
     .background(
-        color = if (hovered) hoverColor.copy(.05f) else Color.Transparent,
+        color = if (hovered) hoverColor else bgColor,
         shape = when (index) {
             0 -> RoundedCornerShape(
                 topStart = if (orientation is Landscape) 20.dp else 0.dp,
@@ -70,6 +71,7 @@ internal fun Modifier.permissionItem(
 
 data class PermissionsColors(
     val hover: Color,
+    val bgColor: Color,
     val permission: PermissionItemColors
 )
 
@@ -97,7 +99,8 @@ internal fun Permissions(
                 item = item,
                 interaction = interaction,
                 orientation = orientation,
-                hoverColor = colors.hover
+                hoverColor = colors.hover,
+                bgColor = colors.bgColor
             ),
             item = PermissionData(
                 permission = item,

@@ -76,7 +76,7 @@ internal fun OtpInput(
                             .size(40.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(
-                                if (char.isNotEmpty()) colors.dominantActual.copy(alpha = 0.1f)
+                                if (char.isNotEmpty()) colors.dominantActual.copy(alpha = 0.05f)
                                 else Color.Transparent
                             )
                             .border(

@@ -59,7 +59,7 @@ fun Contacts(
         state = emailDialog,
         labels = labels.profile.tabs.contacts.content,
         colors = colors.email.dialog,
-        orientation = orientation
+        orientation = orientation,
     )
     PhoneDialogs(
         state = phoneDialog,
