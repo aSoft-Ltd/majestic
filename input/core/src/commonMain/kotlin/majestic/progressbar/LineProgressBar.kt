@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -32,8 +31,8 @@ fun LineProgressBar(
             } else if (current <= index) {
                 Brush.horizontalGradient(
                     listOf(
-                        Color.Black.copy(alpha = 0.1f),
-                        Color.Black.copy(alpha = 0.1f)
+                        colors.current.copy(0.05f),
+                        colors.current.copy(0.05f)
                     )
                 )
             } else {
