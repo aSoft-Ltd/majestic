@@ -46,17 +46,19 @@ internal fun StationMain(
     Column(
         modifier = Modifier.wrapContentSize(),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(2.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
             text = station.station,
             fontWeight = FontWeight.SemiBold,
             color = colors.title,
+            lineHeight = 1.sp,
             fontSize = 15.sp,
         )
         Text(
             text = "${station.roles.size} ${labels.roles}",
             color = colors.subtitle,
+            lineHeight = 1.sp,
             fontSize = 13.sp
         )
     }

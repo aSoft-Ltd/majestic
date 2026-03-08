@@ -7,6 +7,7 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -53,7 +54,8 @@ internal fun StationActions(
                 if (isAddHovered) colors.add.background else Color.Transparent,
                 shape = CircleShape
             )
-            .padding(8.dp),
+            .padding(8.dp)
+            .size(16.dp),
         painter = painterResource(Res.drawable.ic_add),
         contentDescription = "Add",
         tint = colors.add.foreground
