@@ -48,7 +48,7 @@ fun TransactionGraph(
             modifier = Modifier.fillMaxWidth().fillMaxHeight(.9f)
         )
         GraphLegend(
-            theme = theme,
+            color = theme.surface.contra.color,
             series = series,
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
         )

@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
@@ -28,6 +30,7 @@ internal fun Modifier.responsibilityItem(
     val hovered by interaction.collectIsHoveredAsState()
     return this
         .fillMaxWidth()
+        .pointerHoverIcon(PointerIcon.Hand)
         .hoverable(interaction)
         .background(
             color = if (hovered) colors.background.focused else colors.background.unfocused,

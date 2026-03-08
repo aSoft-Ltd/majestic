@@ -55,6 +55,7 @@ internal fun <T> FilterSelect(
 
     Select(
         modifier = modifier,
+        dropdownModifier = Modifier.padding(8.dp),
         items = items,
         value = value,
         expanded = expanded,

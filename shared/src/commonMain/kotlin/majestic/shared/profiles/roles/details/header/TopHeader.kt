@@ -88,7 +88,7 @@ internal fun TopHeader(
                     false -> colors.icon.background.unfocused
                 }, CircleShape
             )
-            .padding(16.dp)
+            .padding(12.dp)
             .size(20.dp),
         painter = painterResource(Res.drawable.ic_add),
         contentDescription = null,

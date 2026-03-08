@@ -47,4 +47,9 @@ fun ThemeColor.deriveColor(
 }
 
 val ThemeColor.base: Color
-    get() = surface.actual.color.mix(dominant.actual.color, 0.05f)
+    get() = deriveColor(
+        dominantActual = 0.0509f,
+        dominantVivid = 0.0000f,
+        surfaceContra = 0.0415f,
+        pureNeutral = 0.4328f
+    )

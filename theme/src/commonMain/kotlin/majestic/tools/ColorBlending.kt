@@ -18,6 +18,16 @@ fun applyOverlayBlend(base: Color, overlay: Color) = Color(
     alpha = base.alpha
 )
 
+fun Color.withNormal(overlay: Color, alpha: Float): Color {
+    val inv = 1f - alpha
+    return Color(
+        red = red * inv + overlay.red * alpha,
+        green = green * inv + overlay.green * alpha,
+        blue = blue * inv + overlay.blue * alpha,
+        alpha = this.alpha
+    )
+}
+
 fun Color.withOverlay(overlay: Color, alpha: Float): Color {
     val blended = applyOverlayBlend(base = this, overlay = overlay)
     return this.mix(blended, alpha)
