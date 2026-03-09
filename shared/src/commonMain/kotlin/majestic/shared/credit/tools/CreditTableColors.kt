@@ -3,7 +3,7 @@ package majestic.shared.credit.tools
 import androidx.compose.ui.graphics.Color
 import majestic.ColorPair
 import majestic.buttons.IconButtonColors
-import majestic.shared.menu.MenuOptionColors
+import majestic.shared.tools.menu.MenuOptionColors
 
 data class CreditTableColors(
     val menu: MenuOptionColors,

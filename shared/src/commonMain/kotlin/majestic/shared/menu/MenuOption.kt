@@ -31,9 +31,10 @@ import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 enum class MenuAction { Edit, Duplicate, Delete }
 
-
+@Deprecated("use the Action in majestic.shared.tools.menu")
 data class OptionMenu<T>(
     val label: String,
     val action: T,
@@ -41,6 +42,7 @@ data class OptionMenu<T>(
     val isDestructive: Boolean = false,
 )
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 @Composable
 fun <T> MenuOption(
     colors: MenuOptionColors,

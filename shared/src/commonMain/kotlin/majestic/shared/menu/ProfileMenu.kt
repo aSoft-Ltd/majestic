@@ -29,9 +29,11 @@ import majestic.ColorPair
 import majestic.navigation.MenuItem
 import majestic.navigation.MenuItemColors
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 internal fun Modifier.profileMenu() = fillMaxWidth()
-.padding(10.dp)
+    .padding(10.dp)
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 @Composable
 internal fun ProfileMenu(
     title: String,

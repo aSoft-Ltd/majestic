@@ -1,4 +1,4 @@
-package majestic.shared.profiles.permissions.detail
+package majestic.shared.tools.breadcrumb
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,24 +11,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Portrait
+import composex.screen.orientation.ScreenOrientation
+import majestic.shared.tools.breadcrumb.tools.BreadCrumbTabColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
-data class BreadCrumbTabColors(
-    val tint: Color,
-    val iconBg: Color,
-    val label: Color
-)
 
 @Composable
 internal fun BreadCrumbTab(
     modifier: Modifier,
     icon: DrawableResource,
     label: String,
+    orientation: ScreenOrientation,
     colors: BreadCrumbTabColors,
+    selected: Boolean,
     showLabel: Boolean
 ) = Row(
     modifier = modifier,
@@ -38,15 +38,28 @@ internal fun BreadCrumbTab(
     Icon(
         imageVector = vectorResource(icon),
         contentDescription = null,
-        tint = colors.tint,
+        tint = when (selected) {
+            true -> colors.icon.foreground.focused
+            false -> colors.icon.foreground.unfocused
+        },
         modifier = Modifier
-            .background(color = colors.iconBg, shape = RoundedCornerShape(8.dp))
+            .background(
+                color = when (selected) {
+                    true -> colors.icon.background.focused
+                    false -> colors.icon.background.unfocused
+                }, shape = RoundedCornerShape(8.dp)
+            )
             .padding(10.dp)
             .size(24.dp)
     )
     if (showLabel) Text(
         text = label,
-        color = colors.label,
+        color = when (selected) {
+            true -> colors.label.focused
+            false -> colors.label.unfocused
+        },
         fontSize = 16.sp,
+        maxLines = 1,
+        overflow = if (orientation is Portrait) TextOverflow.MiddleEllipsis else TextOverflow.Visible
     )
 }

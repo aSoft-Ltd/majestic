@@ -1,4 +1,4 @@
-package majestic.shared.profiles.roles.item
+package majestic.shared.profiles.roles.details.station
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
@@ -7,6 +7,7 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -22,19 +23,19 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.icons.Res
 import majestic.icons.ic_add
-import majestic.shared.menu.MenuOption
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.roles.data.RoleOption
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
-internal fun Actions(
+internal fun StationActions(
     modifier: Modifier,
     orientation: ScreenOrientation,
     onAdd: () -> Unit,
-    colors: RoleItemColors,
+    colors: StationItemColors,
     actions: List<OptionMenu<RoleOption>>,
     onOption: (RoleOption) -> Unit
 ) = Row(
@@ -53,7 +54,8 @@ internal fun Actions(
                 if (isAddHovered) colors.add.background else Color.Transparent,
                 shape = CircleShape
             )
-            .padding(8.dp),
+            .padding(8.dp)
+            .size(16.dp),
         painter = painterResource(Res.drawable.ic_add),
         contentDescription = "Add",
         tint = colors.add.foreground
@@ -65,4 +67,3 @@ internal fun Actions(
         onAction = onOption
     )
 }
-
