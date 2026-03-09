@@ -3,12 +3,15 @@ package majestic.button.basic
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -16,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -145,3 +149,39 @@ fun BasicButtonContent(
             }
         }
     }
+
+// overload for button with status beacon
+@Composable
+fun BasicButtonContent(
+    text: String,
+    colors: ColorPair,
+    statusBeacon: Color,
+    loading: Boolean = false,
+    fontSize: TextUnit = 16.sp,
+    fontWeight: FontWeight = FontWeight.Medium,
+    textAlpha: Float = 1f,
+) = LoadingWrapper(
+    loading = loading,
+    color = colors.foreground
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
+    ) {
+        Text(
+            text = text,
+            color = colors.foreground.copy(alpha = textAlpha),
+            fontWeight = fontWeight,
+            fontSize = fontSize,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+
+        Box(
+            modifier = Modifier
+                .size(8.dp)
+                .clip(CircleShape)
+                .background(statusBeacon)
+        )
+    }
+}
