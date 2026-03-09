@@ -44,12 +44,12 @@ internal fun Modifier.responsibilityItem(
 
 @Composable
 internal fun ResponsibilityItem(
-    modifier: Modifier,
     index: Int,
     orientation: ScreenOrientation,
     responsibility: Permission,
     colors: ResponsibilityColors,
-    type: ResponsibilityType
+    type: ResponsibilityType,
+    modifier: Modifier = Modifier,
 ) = when (type) {
     ResponsibilityType.NumberResponsibility -> Description(
         modifier = modifier,
