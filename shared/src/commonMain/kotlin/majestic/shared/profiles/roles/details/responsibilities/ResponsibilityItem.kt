@@ -18,7 +18,6 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.profiles.Permission
 
-
 @Composable
 internal fun Modifier.responsibilityItem(
     interaction: MutableInteractionSource = remember { MutableInteractionSource() },
