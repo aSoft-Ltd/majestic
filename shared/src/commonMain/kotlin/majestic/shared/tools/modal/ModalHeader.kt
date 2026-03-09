@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,7 @@ import majestic.button.basic.CloseModalButton
 @Composable
 fun ModalHeader(
     icon: ImageVector? = null,
+    iconPainter: Painter? = null,
     title: String,
     colors: ModalColors,
     subtitle: String? = null,
@@ -37,9 +39,20 @@ fun ModalHeader(
         horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
         modifier = modifier
     ) {
-        if (icon !== null) {
-            Icon(
+        when {
+            icon != null -> Icon(
                 imageVector = icon,
+                contentDescription = title,
+                tint = colors.headerIconTint,
+                modifier = Modifier
+                    .size(44.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(colors.headerIconBg)
+                    .padding(10.dp)
+            )
+
+            iconPainter != null -> Icon(
+                painter = iconPainter,
                 contentDescription = title,
                 tint = colors.headerIconTint,
                 modifier = Modifier
