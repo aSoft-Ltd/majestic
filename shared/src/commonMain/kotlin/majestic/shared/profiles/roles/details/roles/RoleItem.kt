@@ -37,7 +37,6 @@ import majestic.shared.tools.menu.MenuOption
 import majestic.shared.tools.menu.MenuOptionColors
 import org.jetbrains.compose.resources.vectorResource
 
-
 data class RoleItemColors(
     val background: StateColors,
     val icon: ColorPair,
