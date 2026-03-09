@@ -20,6 +20,7 @@ import majestic.button.ButtonParams
 import majestic.button.button
 import majestic.button.toResolved
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 @Composable
 internal fun Modifier.listItemIconButton(
     colors: ListIconButtonColors,
@@ -59,6 +60,7 @@ internal fun ColorPair.toButtonParams(): ButtonParams<ColorPair> {
     )
 }
 
+@Deprecated("use the Action in majestic.shared.tools.menu")
 @Composable
 internal fun Modifier.hoverOverlay(
     tint: Color,

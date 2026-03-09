@@ -1,11 +1,9 @@
 package majestic.users.dashboard.roles.tools
 
-import androidx.compose.ui.graphics.Color
 import majestic.icons.Res
 import majestic.icons.ic_key
 import majestic.icons.ic_user_multiple
-import majestic.shared.menu.MenuOptionColors
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.users.label.dashboard.RoleActionsLabels
 import majestic.users.dashboard.roles.UsersRolesProps
 
