@@ -3,7 +3,7 @@ package majestic.shared.tools.modal
 import androidx.compose.ui.graphics.Color
 
 data class ModalColors(
-    val container: Color,
+    val body: Color,
     val card: Color,
     val separator: Color,
     val header: Color,
