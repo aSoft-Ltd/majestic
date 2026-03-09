@@ -19,6 +19,7 @@ import majestic.LazyTable
 import majestic.editor.toolbar.underline
 import majestic.shared.users.UsersLabels
 import majestic.shared.users.label.table.StatusLabels
+import majestic.shared.users.tools.UsersData
 import majestic.tooling.onClick
 import majestic.users.dashboard.roles.Header
 import majestic.users.dashboard.roles.HeaderProps
@@ -29,7 +30,6 @@ import majestic.users.dashboard.table.header.UsersTableHeader
 import majestic.users.table.ListItem
 import majestic.users.table.ListLabels
 import majestic.users.table.body.UsersTableBodyProperties
-import majestic.shared.users.tools.UsersData
 import majestic.users.tools.data.separator
 import symphony.Table
 import symphony.columns.Column

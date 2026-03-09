@@ -8,6 +8,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -26,9 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import majestic.popup.Inline
-import majestic.popup.Item
-import majestic.popup.Items
 
 @Composable
 fun <T> DumbSelect(
@@ -74,7 +73,8 @@ fun <T> DumbSelect(
                         expanded = true
                         onExpanded?.invoke(true)
                     }
-                ),
+                )
+                .padding(bottom = 8.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             when (value) {
@@ -93,10 +93,10 @@ fun <T> DumbSelect(
                 expanded = false
                 onExpanded?.invoke(false)
             },
-            modifier = dropdownModifier.exposedDropdownSize()
+            modifier = Modifier.exposedDropdownSize().then(dropdownModifier)
         ) {
             for (it in items) DropdownMenuItem(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(7.dp)),
                 text = { item(it) },
                 onClick = {
                     expanded = false

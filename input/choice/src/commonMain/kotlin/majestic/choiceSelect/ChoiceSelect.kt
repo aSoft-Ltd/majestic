@@ -130,7 +130,7 @@ fun ChoiceSelect(
         drawerContainerColor = colors.popup.background,
         shape = shape,
         dropDownShape = RoundedCornerShape(12.dp),
-        dropdownModifier = Modifier.width(IntrinsicSize.Max)
+        dropdownModifier = Modifier.width(IntrinsicSize.Max).padding(8.dp)
     )
 }
 
@@ -185,6 +185,6 @@ fun <T> ChoiceSelect(
         drawerContainerColor = colors.popup.background,
         shape = shape,
         dropDownShape = RoundedCornerShape(12.dp),
-        dropdownModifier = Modifier.width(IntrinsicSize.Max)
+        dropdownModifier = Modifier.width(IntrinsicSize.Max).padding(8.dp)
     )
 }
