@@ -25,11 +25,11 @@ import majestic.icons.Res
 import majestic.icons.ic_mail
 import majestic.icons.ic_more_horizontal
 import majestic.layouts.Flex
-import majestic.shared.menu.OptionMenu
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogsColors
 import majestic.shared.profiles.contacts.tools.EmailMenuAction
 import majestic.shared.profiles.contacts.tools.dialogs.GeneralPromptColors
 import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.users.label.contacts.ContactLabels
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource

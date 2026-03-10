@@ -51,10 +51,10 @@ fun Modifier.modalPopupStyle(
         .width(width)
         .heightIn(heightIn.first, heightIn.second)
         .clip(RoundedCornerShape(20.dp))
-        .background(colors.container)
+        .background(colors.body)
 
     Portrait -> this
         .fillMaxSize()
         .clipToBounds()
-        .background(colors.container)
+        .background(colors.body)
 }
