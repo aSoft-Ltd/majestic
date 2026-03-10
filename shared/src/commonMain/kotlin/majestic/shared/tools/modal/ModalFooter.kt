@@ -128,3 +128,23 @@ fun ModalFooter(
         )
     }
 }
+
+@Composable
+fun ModalFooter(
+    modifier: Modifier = Modifier,
+    label: String,
+    colors: ModalFooterColors,
+    onClick: () -> Unit
+) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+    verticalAlignment = Alignment.CenterVertically
+) {
+    FormButton(
+        text = label,
+        modifier = Modifier.translucentFormButton(
+            color = colors.cancel,
+            onClick = onClick
+        )
+    )
+}
