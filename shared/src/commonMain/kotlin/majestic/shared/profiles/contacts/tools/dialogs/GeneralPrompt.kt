@@ -33,7 +33,8 @@ import org.jetbrains.compose.resources.painterResource
 data class GeneralPromptColors(
     val title: Color,
     val description: Color,
-    val contact: Color, val warning: Color = Color(0xFFE5A134), val modalFooterColors: ModalFooterColors
+    val contact: Color, val warning: Color = Color(0xFFE5A134),
+    val modalFooterColors: ModalFooterColors
 )
 
 @Composable

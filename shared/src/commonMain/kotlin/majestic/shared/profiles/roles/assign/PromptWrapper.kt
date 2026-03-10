@@ -9,7 +9,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.dialogs.flexible.FlexibleDialog
 import majestic.shared.profiles.roles.RoleColors
@@ -30,34 +33,41 @@ internal fun PromptWrapper(
         onDismiss = {
             controller.close()
         },
-        modifier = Modifier
-            .clip(RoundedCornerShape(12.dp))
-            .background(color = colors.form.background, shape = RoundedCornerShape(12.dp))
-            .size(700.dp, 800.dp),
+        modifier = when (orientation) {
+            is Portrait -> Modifier.fillMaxSize().background(color = colors.form.background)
+            is Landscape -> Modifier
+                .clip(RoundedCornerShape(12.dp))
+                .background(color = colors.form.background, shape = RoundedCornerShape(12.dp))
+                .size(700.dp, 800.dp)
+        },
         orientation = orientation,
         bar = {
             Headings(
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
                     .background(
-                        color = colors.form.headings.background,
-                        shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+                        color = if (orientation is Landscape) colors.form.headings.background else Color.Transparent,
+                        shape = RoundedCornerShape(
+                            topStart = if (orientation is Landscape) 12.dp else 0.dp,
+                            topEnd = if (orientation is Landscape) 12.dp else 0.dp
+                        )
                     )
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 labels = labels.assignment,
                 controller = controller,
                 colors = colors.form.headings,
-                onDismiss = { controller.close() }
+                onDismiss = { controller.close() },
+                orientation = orientation
             )
         }
     ) {
         RoleAssignment(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             colors = colors.form,
             labels = labels.assignment,
-            controller = controller
+            controller = controller,
+            orientation = orientation
         )
     }
 }

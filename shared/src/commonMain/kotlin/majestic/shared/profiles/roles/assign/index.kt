@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.dialogs.DialogColors
 import majestic.shared.profiles.roles.assign.form.Actions
@@ -36,6 +37,7 @@ data class FormColors(
 fun RoleAssignment(
     modifier: Modifier,
     colors: FormColors,
+    orientation: ScreenOrientation,
     labels: RoleAssignmentLabels,
     controller: AssignmentController
 ) = Column(modifier = modifier) {
@@ -55,6 +57,7 @@ fun RoleAssignment(
                 isSelected = controller.selectedRoles.contains(itemState.role),
                 colors = colors.item,
                 labels = labels,
+                orientation = orientation,
                 onToggle = { controller.toggleSelection(itemState.role) }
             )
         }

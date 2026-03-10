@@ -20,7 +20,7 @@ import majestic.dropdown.DropdownColors
 import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
 import majestic.icons.ic_more_vertical
-import majestic.shared.menu.OptionMenu
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.tools.dropdown.toDropdownItems
 import org.jetbrains.compose.resources.vectorResource
 
