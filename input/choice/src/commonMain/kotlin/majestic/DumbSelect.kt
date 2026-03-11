@@ -74,7 +74,7 @@ fun <T> DumbSelect(
                         onExpanded?.invoke(true)
                     }
                 )
-                .padding(bottom = 8.dp),
+                .padding(bottom = 0.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             when (value) {

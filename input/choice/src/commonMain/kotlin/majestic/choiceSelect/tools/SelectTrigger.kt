@@ -2,8 +2,8 @@ package majestic.choiceSelect.tools
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -39,10 +39,10 @@ fun SelectTrigger(
         selected.size == 1 -> selected.first()
         else -> "${selected.size} Selected"
     }
+
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(7.dp)
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             modifier = Modifier.size(16.dp),
@@ -55,7 +55,8 @@ fun SelectTrigger(
             fontSize = 14.sp,
             color = foreground,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f).padding(horizontal = 7.dp)
         )
         Icon(
             modifier = Modifier
