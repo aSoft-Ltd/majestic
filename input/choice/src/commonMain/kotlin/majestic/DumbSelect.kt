@@ -8,7 +8,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -61,6 +61,7 @@ fun <T> DumbSelect(
     ) {
         Box(
             modifier = Modifier
+                .wrapContentHeight()
                 .clip(shape = containerShape)
                 .border(border ?: BorderStroke(0.dp, Color.Transparent), shape = containerShape)
                 .background(color = Color.Transparent, shape = containerShape)
@@ -73,8 +74,7 @@ fun <T> DumbSelect(
                         expanded = true
                         onExpanded?.invoke(true)
                     }
-                )
-                .padding(bottom = 0.dp),
+                ),
             contentAlignment = Alignment.CenterStart
         ) {
             when (value) {
