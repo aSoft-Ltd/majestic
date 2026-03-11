@@ -22,8 +22,8 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun Loader(
     theme: ThemeColor,
-    title: String = "Submitting…",
-    subtitle: String = "Please wait while we complete your request.",
+    title: String,
+    subtitle: String,
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
