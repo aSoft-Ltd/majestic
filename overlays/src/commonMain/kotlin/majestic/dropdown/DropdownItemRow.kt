@@ -1,5 +1,6 @@
 package majestic.dropdown
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,8 +33,6 @@ internal fun <T> DropdownItemRow(
         else -> colors.itemsDefault.copy(0.8f)
     }
 
-    val trailingIconTint = colors.itemsSelected
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,7 +44,7 @@ internal fun <T> DropdownItemRow(
             Icon(
                 painter = painterResource(res),
                 contentDescription = null,
-                tint = if (isSelected) trailingIconTint else Color.Transparent,
+                tint = if (isSelected) tint else Color.Transparent,
                 modifier = Modifier.size(20.dp)
             )
         }

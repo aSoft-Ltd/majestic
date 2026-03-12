@@ -8,7 +8,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import majestic.icons.Res
-import majestic.icons.ic_check
 import majestic.icons.ic_circle
 import majestic.icons.ic_circle_check
 import majestic.icons.ic_tick_solid
@@ -54,6 +53,7 @@ fun <T> Dropdown(
         onItemClick = onSelection,
         enabled = enabled,
         loading = loading,
+        selected = selected,
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
         modifier = modifier,
@@ -89,6 +89,7 @@ fun <T> Dropdown(
     onSelection: (T) -> Unit,
     colors: DropdownColors,
     icon: ImageVector,
+    leadingCheckIcon: DrawableResource = Res.drawable.ic_tick_solid,
     enabled: Boolean = true,
     loading: Boolean = false,
     rotationTarget: Float? = null,
@@ -122,7 +123,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            leadingCheckIcon = if (isCurrent) Res.drawable.ic_check else null
+            leadingCheckIcon = leadingCheckIcon
         )
     }
 }
@@ -138,6 +139,7 @@ fun <T> Dropdown(
     colors: DropdownColors,
     placeholder: String = "Select...",
     leadingIcon: ImageVector? = null,
+    leadingCheckIcon: DrawableResource = Res.drawable.ic_tick_solid,
     enabled: Boolean = true,
     loading: Boolean = false,
     fontSize: TextUnit = 16.sp,
@@ -159,6 +161,7 @@ fun <T> Dropdown(
         enabled = enabled,
         loading = loading,
         popupWidth = popupWidth,
+        selectedItems = selectedItems,
         matchButtonWidth = matchButtonWidth,
         modifier = modifier,
         triggerContent = { expanded ->
@@ -178,7 +181,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            leadingCheckIcon = if (isCurrent) Res.drawable.ic_circle_check else Res.drawable.ic_circle
+            leadingCheckIcon = leadingCheckIcon
         )
     }
 }
