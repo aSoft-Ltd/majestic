@@ -1,5 +1,6 @@
 package majestic.dropdown
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,23 +26,29 @@ internal fun <T> DropdownItemRow(
     colors: DropdownColors,
     isSelected: Boolean,
     isDestructive: Boolean = false,
-    trailingIconRes: DrawableResource? = null
+    leadingCheckIcon: DrawableResource? = null
 ) {
     val tint = when {
         isDestructive -> Color(0xFFEF5350)
-        isSelected -> colors.itemsSelected
         else -> colors.itemsDefault.copy(0.8f)
     }
-
-    val trailingIconTint = colors.itemsSelected
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        leadingCheckIcon?.let { res ->
+            Icon(
+                painter = painterResource(res),
+                contentDescription = null,
+                tint = if (isSelected) tint else Color.Transparent,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+
         if (item.leadingIcon !== null) {
             Icon(
                 imageVector = item.leadingIcon,
@@ -52,21 +59,11 @@ internal fun <T> DropdownItemRow(
         }
         Text(
             text = item.label,
-            modifier = Modifier.weight(1f), // pushes trailing icon to the end
             color = tint,
             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
             fontSize = 14.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
-
-        trailingIconRes?.let { res ->
-            Icon(
-                painter = painterResource(res),
-                contentDescription = null,
-                tint = trailingIconTint,
-                modifier = Modifier.size(14.dp)
-            )
-        }
     }
 }

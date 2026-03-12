@@ -1,6 +1,7 @@
 package majestic.dropdown
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -40,6 +41,8 @@ internal fun <T> DropdownBase(
     isListItem: Boolean = false,
     loading: Boolean = false,
     popupWidth: Dp?,
+    selected: T? = null,
+    selectedItems: List<T> = emptyList(),
     matchButtonWidth: Boolean,
     modifier: Modifier = Modifier,
     triggerContent: @Composable (expanded: Boolean) -> Unit,
@@ -62,8 +65,7 @@ internal fun <T> DropdownBase(
                             it.listItemIconButton(
                                 color = colors.trigger,
                                 onClick = { if (enabled && !loading) expanded = !expanded })
-                        }
-                        else {
+                        } else {
                             it.dropdownTrigger(
                                 color = colors.trigger,
                                 onClick = { if (enabled && !loading) expanded = !expanded })
@@ -99,16 +101,19 @@ internal fun <T> DropdownBase(
                     .background(colors.dropdown)
             ) {
                 Column(
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
                         .verticalScroll(scrollState)
                 ) {
                     items.forEach { item ->
+                        val isCurrent = item.value == selected || selectedItems.contains(item.value)
                         DropdownItemWrapper(
                             item = item,
                             mode = mode,
                             color = colors.trigger,
+                            isSelected = isCurrent,
                             onClick = {
                                 onItemClick(item.value)
                                 if (mode != DropdownMode.Multi) expanded = false
