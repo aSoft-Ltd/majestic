@@ -11,6 +11,8 @@ import majestic.icons.Res
 import majestic.icons.ic_check
 import majestic.icons.ic_circle
 import majestic.icons.ic_circle_check
+import majestic.icons.ic_tick_solid
+import org.jetbrains.compose.resources.DrawableResource
 
 data class DropdownItem<T>(
     val value: T,
@@ -32,6 +34,7 @@ fun <T> Dropdown(
     colors: DropdownColors,
     placeholder: String = "Select...",
     leadingIcon: ImageVector? = null,
+    leadingCheckIcon: DrawableResource = Res.drawable.ic_tick_solid,
     enabled: Boolean = true,
     loading: Boolean = false,
     fontSize: TextUnit = 16.sp,
@@ -71,7 +74,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            trailingIconRes = if (isCurrent) Res.drawable.ic_check else null
+            leadingCheckIcon = leadingCheckIcon
         )
     }
 }
@@ -119,7 +122,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            trailingIconRes = if (isCurrent) Res.drawable.ic_check else null
+            leadingCheckIcon = if (isCurrent) Res.drawable.ic_check else null
         )
     }
 }
@@ -175,7 +178,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            trailingIconRes = if (isCurrent) Res.drawable.ic_circle_check else Res.drawable.ic_circle
+            leadingCheckIcon = if (isCurrent) Res.drawable.ic_circle_check else Res.drawable.ic_circle
         )
     }
 }
@@ -226,7 +229,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            trailingIconRes = if (isCurrent) Res.drawable.ic_circle_check else Res.drawable.ic_circle
+            leadingCheckIcon = if (isCurrent) Res.drawable.ic_circle_check else Res.drawable.ic_circle
         )
     }
 }
