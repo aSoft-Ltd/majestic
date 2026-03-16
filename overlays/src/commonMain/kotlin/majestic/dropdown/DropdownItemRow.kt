@@ -1,6 +1,5 @@
 package majestic.dropdown
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,7 +29,7 @@ internal fun <T> DropdownItemRow(
 ) {
     val tint = when {
         isDestructive -> Color(0xFFEF5350)
-        else -> colors.itemsDefault.copy(0.8f)
+        else -> colors.itemsDefault.copy(alpha = 0.8f)
     }
 
     Row(
@@ -40,23 +39,18 @@ internal fun <T> DropdownItemRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        leadingCheckIcon?.let { res ->
-            Icon(
-                painter = painterResource(res),
-                contentDescription = null,
-                tint = if (isSelected) tint else Color.Transparent,
-                modifier = Modifier.size(20.dp)
-            )
-        }
-
-        if (item.leadingIcon !== null) {
-            Icon(
-                imageVector = item.leadingIcon,
-                contentDescription = item.label,
-                tint = tint,
-                modifier = Modifier.size(18.dp)
-            )
-        }
+        if (isSelected && leadingCheckIcon != null) Icon(
+            painter = painterResource(leadingCheckIcon),
+            contentDescription = null,
+            tint = tint,
+            modifier = Modifier.size(20.dp)
+        )
+        if (item.leadingIcon != null) Icon(
+            imageVector = item.leadingIcon,
+            contentDescription = item.label,
+            tint = tint,
+            modifier = Modifier.size(18.dp)
+        )
         Text(
             text = item.label,
             color = tint,

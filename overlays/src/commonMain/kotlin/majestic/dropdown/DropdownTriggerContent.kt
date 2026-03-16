@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -35,18 +36,20 @@ internal fun DropdownTriggerContent(
     expanded: Boolean = false,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
+    arrowTint: Color? = null,
 ) {
     val foregroundColor = colors.triggerText.copy(alpha = 1f)
+    val resolvedArrowTint = arrowTint ?: foregroundColor
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        if (leadingIcon !== null) {
+        if (leadingIcon != null) {
             Icon(
                 imageVector = leadingIcon,
                 contentDescription = label,
-                tint = foregroundColor.copy(0.7f),
+                tint = foregroundColor.copy(alpha = 0.7f),
                 modifier = Modifier.size(18.dp)
             )
         }
@@ -69,8 +72,7 @@ internal fun DropdownTriggerContent(
                 color = foregroundColor,
                 strokeWidth = 2.dp
             )
-        }
-        else {
+        } else {
             val rotation by animateFloatAsState(
                 targetValue = if (expanded) 180f else 0f,
                 animationSpec = tween(300, easing = FastOutSlowInEasing),
@@ -79,7 +81,7 @@ internal fun DropdownTriggerContent(
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_arrow_down),
                 contentDescription = "Toggle",
-                tint = foregroundColor,
+                tint = resolvedArrowTint,
                 modifier = Modifier
                     .size(14.dp)
                     .graphicsLayer { rotationZ = rotation }
