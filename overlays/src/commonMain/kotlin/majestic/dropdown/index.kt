@@ -45,7 +45,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     arrowTint: Color? = null,
-    triggerShape: Shape = RoundedCornerShape(55.dp),
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     val selectedItem = items.find { it.value == selected }
@@ -104,7 +104,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
-    popupShape: Shape = RoundedCornerShape(14.dp),
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -117,7 +117,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
-        triggerShape = popupShape,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(
@@ -157,7 +157,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     arrowTint: Color? = null,
-    popupShape: Shape = RoundedCornerShape(14.dp),
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     val label = if (selectedItems.isEmpty()) placeholder else "${selectedItems.size} selected"
@@ -175,7 +175,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         selectedItems = selectedItems,
         matchButtonWidth = matchButtonWidth,
-        triggerShape = popupShape,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = { expanded ->
             DropdownTriggerContent(
@@ -216,7 +216,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
-    popupShape: Shape = RoundedCornerShape(55.dp),
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -232,7 +232,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
-        triggerShape = popupShape,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(
@@ -270,7 +270,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     arrowTint: Color? = null,
-    triggerShape: Shape = RoundedCornerShape(55.dp),
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -321,7 +321,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
-    popupShape: Shape = RoundedCornerShape(55.dp),
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -334,7 +334,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
-        triggerShape = popupShape,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(

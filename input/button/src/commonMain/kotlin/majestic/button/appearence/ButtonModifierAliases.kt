@@ -95,7 +95,7 @@ fun Modifier.listItemIconButton(
 fun Modifier.dropdownTrigger(
     color: Color,
     onClick: () -> Unit = { },
-    shape: Shape
+    shape: Shape = RoundedCornerShape(percent = 50)
 ): Modifier = this
     .translucentButton(color = color, onClick = onClick, shape = shape, alpha = 0.05f)
     .padding(horizontal = 20.dp, vertical = 7.dp)
