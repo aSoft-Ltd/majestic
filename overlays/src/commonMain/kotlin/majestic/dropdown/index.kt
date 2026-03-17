@@ -1,16 +1,21 @@
 package majestic.dropdown
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.icons.Res
-import majestic.icons.ic_check
 import majestic.icons.ic_circle
 import majestic.icons.ic_circle_check
+import majestic.icons.ic_tick_solid
+import org.jetbrains.compose.resources.DrawableResource
 
 data class DropdownItem<T>(
     val value: T,
@@ -32,12 +37,15 @@ fun <T> Dropdown(
     colors: DropdownColors,
     placeholder: String = "Select...",
     leadingIcon: ImageVector? = null,
+    leadingCheckIcon: DrawableResource = Res.drawable.ic_tick_solid,
     enabled: Boolean = true,
     loading: Boolean = false,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
+    arrowTint: Color? = null,
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     val selectedItem = items.find { it.value == selected }
@@ -51,8 +59,10 @@ fun <T> Dropdown(
         onItemClick = onSelection,
         enabled = enabled,
         loading = loading,
+        selected = selected,
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = { expanded ->
             DropdownTriggerContent(
@@ -62,7 +72,8 @@ fun <T> Dropdown(
                 loading = loading,
                 expanded = expanded,
                 fontSize = fontSize,
-                fontWeight = fontWeight
+                fontWeight = fontWeight,
+                arrowTint = arrowTint
             )
         }
     ) { item ->
@@ -71,7 +82,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            trailingIconRes = if (isCurrent) Res.drawable.ic_check else null
+            leadingCheckIcon = leadingCheckIcon
         )
     }
 }
@@ -86,12 +97,14 @@ fun <T> Dropdown(
     onSelection: (T) -> Unit,
     colors: DropdownColors,
     icon: ImageVector,
+    leadingCheckIcon: DrawableResource = Res.drawable.ic_tick_solid,
     enabled: Boolean = true,
     loading: Boolean = false,
     rotationTarget: Float? = null,
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -104,6 +117,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(
@@ -119,7 +133,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            trailingIconRes = if (isCurrent) Res.drawable.ic_check else null
+            leadingCheckIcon = leadingCheckIcon
         )
     }
 }
@@ -135,12 +149,15 @@ fun <T> Dropdown(
     colors: DropdownColors,
     placeholder: String = "Select...",
     leadingIcon: ImageVector? = null,
+    leadingCheckIcon: DrawableResource = Res.drawable.ic_tick_solid,
     enabled: Boolean = true,
     loading: Boolean = false,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
+    arrowTint: Color? = null,
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     val label = if (selectedItems.isEmpty()) placeholder else "${selectedItems.size} selected"
@@ -156,7 +173,9 @@ fun <T> Dropdown(
         enabled = enabled,
         loading = loading,
         popupWidth = popupWidth,
+        selectedItems = selectedItems,
         matchButtonWidth = matchButtonWidth,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = { expanded ->
             DropdownTriggerContent(
@@ -166,7 +185,8 @@ fun <T> Dropdown(
                 loading = loading,
                 expanded = expanded,
                 fontSize = fontSize,
-                fontWeight = fontWeight
+                fontWeight = fontWeight,
+                arrowTint = arrowTint
             )
         }
     ) { item ->
@@ -175,7 +195,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            trailingIconRes = if (isCurrent) Res.drawable.ic_circle_check else Res.drawable.ic_circle
+            leadingCheckIcon = leadingCheckIcon
         )
     }
 }
@@ -196,6 +216,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -211,6 +232,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(
@@ -226,7 +248,7 @@ fun <T> Dropdown(
             item = item,
             colors = colors,
             isSelected = isCurrent,
-            trailingIconRes = if (isCurrent) Res.drawable.ic_circle_check else Res.drawable.ic_circle
+            leadingCheckIcon = if (isCurrent) Res.drawable.ic_circle_check else Res.drawable.ic_circle
         )
     }
 }
@@ -247,6 +269,8 @@ fun <T> Dropdown(
     fontWeight: FontWeight = FontWeight.Normal,
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
+    arrowTint: Color? = null,
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -258,6 +282,7 @@ fun <T> Dropdown(
         loading = loading,
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = { expanded ->
             DropdownTriggerContent(
@@ -267,7 +292,8 @@ fun <T> Dropdown(
                 loading = loading,
                 expanded = expanded,
                 fontSize = fontSize,
-                fontWeight = fontWeight
+                fontWeight = fontWeight,
+                arrowTint = arrowTint
             )
         }
     ) { item ->
@@ -295,6 +321,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
+    triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -307,6 +334,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
+        triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(

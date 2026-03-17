@@ -19,8 +19,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Landscape
+import composex.screen.orientation.ScreenOrientation
 import majestic.button.appearence.closeModalIconButton
 import majestic.button.basic.CloseModalButton
 
@@ -29,6 +32,7 @@ fun ModalHeader(
     icon: ImageVector? = null,
     iconPainter: Painter? = null,
     title: String,
+    orientation: ScreenOrientation,
     colors: ModalColors,
     subtitle: String? = null,
     onClose: () -> Unit,
@@ -69,16 +73,22 @@ fun ModalHeader(
         ) {
             Text(
                 text = title,
-                fontSize = 16.sp,
+                fontSize = if (orientation is Landscape) 16.sp else 14.sp,
+                lineHeight = 2.sp,
                 fontWeight = FontWeight.Medium,
-                color = colors.text
+                color = colors.text,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             if (subtitle != null) {
                 Spacer(Modifier.height(0.5.dp))
                 Text(
                     text = subtitle,
-                    fontSize = 14.sp,
-                    color = colors.text.copy(0.4f)
+                    fontSize = if (orientation is Landscape) 14.sp else 12.sp,
+                    lineHeight = 2.sp,
+                    color = colors.text.copy(0.4f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
         }
