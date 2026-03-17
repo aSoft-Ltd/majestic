@@ -43,6 +43,7 @@ fun PhoneDialogs(
                 title = state.active.getTitle(labels),
                 onClose = { state.dismiss() },
                 colors = colors.modalColors,
+                orientation = orientation,
                 modifier = Modifier.modalHeaderStyle(colors = colors.modalColors)
             )
         },
