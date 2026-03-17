@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,6 +30,7 @@ import kotlin.jvm.JvmName
 fun <D> LazyTable(
     table: Table<D>,
     modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
     columns: (@Composable RowScope.(Column<D>) -> Unit)? = { Text(it.name, modifier = Modifier.weight(1f)) },
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
 ) {
@@ -38,6 +41,7 @@ fun <D> LazyTable(
         rows = rows,
         columns = Columns(cols, renderer = columns),
         modifier = modifier,
+        state = state,
         cell = cell
     )
 }
@@ -48,6 +52,7 @@ fun <D> LazyTable(
 fun <D> LazyTable(
     rows: List<Row<D>>,
     columns: Columns<D>,
+    state: LazyListState = rememberLazyListState(),
     modifier: Modifier = Modifier,
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
 ) {
@@ -55,14 +60,17 @@ fun <D> LazyTable(
 
     val density = LocalDensity.current
 
-    LazyColumn(modifier.onPlaced { width = with(density) { (it.parentCoordinates?.size?.width ?: 300).toDp() } }) {
+    LazyColumn(
+        modifier.onPlaced { width = with(density) { (it.parentCoordinates?.size?.width ?: 300).toDp() } },
+        state = state
+    ) {
         if (columns.renderer != null) stickyHeader {
             Row(modifier = columns.modifier.width(width)) {
                 for (column in columns.data) columns.renderer.invoke(this, column)
             }
         }
         items(rows) { row ->
-            Row(modifier = Modifier.width(width)){
+            Row(modifier = Modifier.width(width)) {
                 for (column in columns.data) cell(this, Cell(column, row))
             }
         }
@@ -74,10 +82,12 @@ fun <D> LazyTable(
     data: List<D>,
     columns: Columns<D>,
     modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
 ) = LazyTable(
     rows = data.mapIndexed { index, item -> Row(index, item) },
     columns = columns,
+    state = state,
     modifier = modifier,
     cell = cell
 )
