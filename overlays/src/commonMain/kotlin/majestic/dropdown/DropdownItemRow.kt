@@ -1,6 +1,5 @@
 package majestic.dropdown
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,15 +47,12 @@ internal fun <T> DropdownItemRow(
                 modifier = Modifier.size(20.dp)
             )
         }
-
-        if (item.leadingIcon !== null) {
-            Icon(
-                imageVector = item.leadingIcon,
-                contentDescription = item.label,
-                tint = tint,
-                modifier = Modifier.size(18.dp)
-            )
-        }
+        if (item.leadingIcon !== null) Icon(
+            imageVector = item.leadingIcon,
+            contentDescription = item.label,
+            tint = tint,
+            modifier = Modifier.size(18.dp)
+        )
         Text(
             text = item.label,
             color = tint,
