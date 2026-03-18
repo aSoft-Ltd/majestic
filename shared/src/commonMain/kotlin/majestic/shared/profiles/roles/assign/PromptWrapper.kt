@@ -29,7 +29,6 @@ internal fun PromptWrapper(
     labels: RoleLabels
 ) {
     if (controller.isVisible) FlexibleDialog(
-        colors = colors.form.modal,
         onDismiss = {
             controller.close()
         },
@@ -40,7 +39,6 @@ internal fun PromptWrapper(
                 .background(color = colors.form.background, shape = RoundedCornerShape(12.dp))
                 .size(700.dp, 800.dp)
         },
-        orientation = orientation,
         bar = {
             Headings(
                 modifier = Modifier
