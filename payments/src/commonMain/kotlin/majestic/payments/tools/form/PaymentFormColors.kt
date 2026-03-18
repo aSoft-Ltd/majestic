@@ -9,9 +9,6 @@ import majestic.shared.tools.modal.ModalFooterColors
 
 data class PaymentFormColors(
     val foreground: Color,
-    val background: Color,
-    val header: FormHeaderColors,
-    val footer: FormFooterColors,
     val card: PaymentCardColors,
     val textField: TextFieldColors,
     val modalFooterColors: ModalFooterColors,
