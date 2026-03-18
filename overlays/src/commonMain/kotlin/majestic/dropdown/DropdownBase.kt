@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -57,7 +58,7 @@ internal fun <T> DropdownBase(
     val overlayWidthModifier = when {
         popupWidth != null -> Modifier.width(popupWidth)
         matchButtonWidth && buttonWidthPx > 0 -> Modifier.width(buttonWidthDp)
-        else -> Modifier
+        else -> Modifier.width(IntrinsicSize.Max)
     }
 
     Popup(
