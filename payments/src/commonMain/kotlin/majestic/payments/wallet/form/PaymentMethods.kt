@@ -29,6 +29,7 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.payments.wallet.tools.PaymentCardColors
 import majestic.payments.wallet.tools.PaymentMethod
 import majestic.tooling.onClick
+import majestic.tools.withOverlay
 
 @Composable
 internal fun PaymentMethods(
@@ -58,7 +59,11 @@ internal fun PaymentMethods(
             val interactionSource = remember { MutableInteractionSource() }
             val isHovered by interactionSource.collectIsHoveredAsState()
             var isSelected by remember { mutableStateOf(false) }
-            val background = if (isSelected || isHovered) colors.background else colors.foreground.copy(0.02f)
+            val background = if (isSelected || isHovered) colors.background.withOverlay(
+                colors.foreground,
+                0.1f
+            )
+            else colors.background
 
             PaymentCard(
                 modifier = Modifier.fillMaxWidth()

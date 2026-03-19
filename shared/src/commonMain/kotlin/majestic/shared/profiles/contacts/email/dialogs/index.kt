@@ -33,10 +33,8 @@ fun EmailDialogs(
     if (state.active == None) return
 
     FlexibleDialog(
-        orientation = orientation,
         onDismiss = { state.dismiss() },
         modifier = Modifier.modalPopupStyle(orientation, colors.modalColors),
-        colors = colors.dialog,
         bar = {
             ModalHeader(
                 title = state.active.getTitle(labels),
