@@ -2,7 +2,6 @@ package majestic.dialogs.flexible
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -14,34 +13,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.DialogProperties
 import composex.screen.orientation.ScreenOrientation
-import majestic.dialogs.DialogColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlexibleDialog(
-    colors: DialogColors,
+    bar: @Composable () -> Unit,
     onDismiss: () -> Unit,
-    title: String = "",
     modifier: Modifier,
-    orientation: ScreenOrientation,
-    bar: @Composable BoxScope.(
-        dialog: DialogColors
-    ) -> Unit = {
-        DefaultBar(
-            orientation,
-            onDismiss = onDismiss,
-            dialog = it,
-            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
-            title = title
-        )
-    },
-    content: @Composable (title: String) -> Unit
+    content: @Composable () -> Unit
 ) = BasicAlertDialog(
     modifier = modifier,
     onDismissRequest = onDismiss,
     properties = DialogProperties(usePlatformDefaultWidth = false),
 ) {
-
     Column(
         modifier = Modifier.wrapContentSize(),
         verticalArrangement = Arrangement.Top
@@ -50,8 +34,8 @@ fun FlexibleDialog(
             modifier = Modifier.fillMaxWidth().wrapContentHeight(),
             contentAlignment = Alignment.TopCenter
         ) {
-            bar(colors)
+            bar()
         }
-        content(title)
+        content()
     }
 }
