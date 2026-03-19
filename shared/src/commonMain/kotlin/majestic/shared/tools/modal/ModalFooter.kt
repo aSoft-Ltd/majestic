@@ -148,3 +148,24 @@ fun ModalFooter(
         )
     )
 }
+
+@Composable
+fun ModalFooter(
+    modifier: Modifier = Modifier,
+    buttons: List<ModalFooterExtraButton>
+) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+    verticalAlignment = Alignment.CenterVertically
+) {
+    buttons.forEach { button ->
+        FormButton(
+            icon = button.icon,
+            text = button.label,
+            modifier = Modifier.translucentFormButton(
+                color = button.color,
+                onClick = button.onClick
+            )
+        )
+    }
+}
