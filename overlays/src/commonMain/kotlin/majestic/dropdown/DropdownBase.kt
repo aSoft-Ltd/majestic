@@ -58,7 +58,7 @@ internal fun <T> DropdownBase(
     val overlayWidthModifier = when {
         popupWidth != null -> Modifier.width(popupWidth)
         matchButtonWidth && buttonWidthPx > 0 -> Modifier.width(buttonWidthDp)
-        else -> Modifier.width(IntrinsicSize.Max)
+        else -> Modifier
     }
 
     Popup(
