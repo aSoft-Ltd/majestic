@@ -42,6 +42,7 @@ internal fun <T> DropdownBase(
     isListItem: Boolean = false,
     loading: Boolean = false,
     popupWidth: Dp?,
+    intrinsicWidth: Boolean = true,
     selected: T? = null,
     selectedItems: List<T> = emptyList(),
     matchButtonWidth: Boolean,
@@ -58,6 +59,7 @@ internal fun <T> DropdownBase(
     val overlayWidthModifier = when {
         popupWidth != null -> Modifier.width(popupWidth)
         matchButtonWidth && buttonWidthPx > 0 -> Modifier.width(buttonWidthDp)
+        intrinsicWidth -> Modifier.width(IntrinsicSize.Max)
         else -> Modifier
     }
 
