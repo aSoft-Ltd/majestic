@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.icons.Res
 import majestic.icons.ic_circle
@@ -43,7 +42,7 @@ fun <T> Dropdown(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     popupWidth: Dp? = null,
-    matchButtonWidth: Boolean = false,
+    intrinsicWidth: Boolean = false,
     arrowTint: Color? = null,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
@@ -61,7 +60,7 @@ fun <T> Dropdown(
         loading = loading,
         selected = selected,
         popupWidth = popupWidth,
-        matchButtonWidth = matchButtonWidth,
+        intrinsicWidth = intrinsicWidth,
         triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = { expanded ->
@@ -102,7 +101,6 @@ fun <T> Dropdown(
     loading: Boolean = false,
     rotationTarget: Float? = null,
     popupWidth: Dp? = null,
-    matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
@@ -115,7 +113,6 @@ fun <T> Dropdown(
         enabled = enabled,
         loading = loading,
         popupWidth = popupWidth,
-        matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
         triggerShape = triggerShape,
         modifier = modifier,
@@ -155,7 +152,7 @@ fun <T> Dropdown(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     popupWidth: Dp? = null,
-    matchButtonWidth: Boolean = false,
+    intrinsicWidth: Boolean = false,
     arrowTint: Color? = null,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
@@ -173,8 +170,8 @@ fun <T> Dropdown(
         enabled = enabled,
         loading = loading,
         popupWidth = popupWidth,
+        intrinsicWidth = intrinsicWidth,
         selectedItems = selectedItems,
-        matchButtonWidth = matchButtonWidth,
         triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = { expanded ->
@@ -214,7 +211,6 @@ fun <T> Dropdown(
     loading: Boolean = false,
     rotationTarget: Float? = null,
     popupWidth: Dp? = null,
-    matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
@@ -230,7 +226,6 @@ fun <T> Dropdown(
         enabled = enabled,
         loading = loading,
         popupWidth = popupWidth,
-        matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
         triggerShape = triggerShape,
         modifier = modifier,
@@ -268,7 +263,7 @@ fun <T> Dropdown(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     popupWidth: Dp? = null,
-    matchButtonWidth: Boolean = false,
+    intrinsicWidth: Boolean = false,
     arrowTint: Color? = null,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
@@ -281,7 +276,7 @@ fun <T> Dropdown(
         enabled = enabled,
         loading = loading,
         popupWidth = popupWidth,
-        matchButtonWidth = matchButtonWidth,
+        intrinsicWidth = intrinsicWidth,
         triggerShape = triggerShape,
         modifier = modifier,
         triggerContent = { expanded ->
@@ -319,7 +314,6 @@ fun <T> Dropdown(
     loading: Boolean = false,
     rotationTarget: Float? = null,
     popupWidth: Dp? = null,
-    matchButtonWidth: Boolean = false,
     isListItem: Boolean = false,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
     modifier: Modifier = Modifier,
@@ -332,7 +326,6 @@ fun <T> Dropdown(
         enabled = enabled,
         loading = loading,
         popupWidth = popupWidth,
-        matchButtonWidth = matchButtonWidth,
         isListItem = isListItem,
         triggerShape = triggerShape,
         modifier = modifier,

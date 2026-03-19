@@ -8,4 +8,5 @@ data class DropdownColors(
     val dropdown: Color,
     val itemsDefault: Color,
     val itemsSelected: Color,
+    val itemsHovered: Color,
 )
