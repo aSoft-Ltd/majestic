@@ -20,8 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import majestic.Popup
@@ -45,7 +43,6 @@ internal fun <T> DropdownBase(
     intrinsicWidth: Boolean = true,
     selected: T? = null,
     selectedItems: List<T> = emptyList(),
-    matchButtonWidth: Boolean,
     triggerShape: Shape,
     modifier: Modifier = Modifier,
     triggerContent: @Composable (expanded: Boolean) -> Unit,
@@ -53,12 +50,8 @@ internal fun <T> DropdownBase(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
-    var buttonWidthPx by remember { mutableStateOf(0) }
-    val density = LocalDensity.current
-    val buttonWidthDp = remember(buttonWidthPx) { with(density) { buttonWidthPx.toDp() } }
     val overlayWidthModifier = when {
         popupWidth != null -> Modifier.width(popupWidth)
-        matchButtonWidth && buttonWidthPx > 0 -> Modifier.width(buttonWidthDp)
         intrinsicWidth -> Modifier.width(IntrinsicSize.Max)
         else -> Modifier
     }
@@ -83,7 +76,6 @@ internal fun <T> DropdownBase(
                             )
                         }
                     }
-                    .onSizeChanged { buttonWidthPx = it.width },
             ) {
                 triggerContent(expanded)
             }
