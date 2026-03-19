@@ -22,7 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -80,13 +82,16 @@ fun BasicButtonContent(
     icon: ImageVector,
     colors: ColorPair,
     loading: Boolean = false,
-    rotation: Float? = null,
     alpha: Float = 1f,
+    size: Dp? = null,
+    rotation: Float? = null,
 ) = LoadingWrapper(
         loading = loading,
         color = colors.foreground
     ) {
-        val angle by animateFloatAsState(
+    val finalSize = size ?: 18.dp
+
+    val angle by animateFloatAsState(
             targetValue = rotation ?: 0f,
             animationSpec = tween(300, easing = FastOutSlowInEasing),
             label = "Basic Button Icon Rotation"
@@ -97,9 +102,40 @@ fun BasicButtonContent(
             tint = colors.foreground.copy(alpha = alpha),
             modifier = Modifier
                 .padding(8.dp)
-                .size(18.dp)
+                .size(finalSize)
                 .graphicsLayer { rotationZ = angle }
         )
+}
+
+// overload for icon only button painter resource
+@Composable
+fun BasicButtonContent(
+    icon: Painter,
+    colors: ColorPair,
+    loading: Boolean = false,
+    size: Dp? = null,
+    alpha: Float = 1f,
+    rotation: Float? = null,
+) = LoadingWrapper(
+    loading = loading,
+    color = colors.foreground
+) {
+    val finalSize = size ?: 18.dp
+
+    val angle by animateFloatAsState(
+        targetValue = rotation ?: 0f,
+        animationSpec = tween(300, easing = FastOutSlowInEasing),
+        label = "Basic Button Icon Rotation"
+    )
+    Icon(
+        painter = icon,
+        contentDescription = null,
+        tint = colors.foreground.copy(alpha = alpha),
+        modifier = Modifier
+            .padding(8.dp)
+            .size(finalSize)
+            .graphicsLayer { rotationZ = angle }
+    )
     }
 
 // overload for text with icons either leading or trailing
@@ -114,8 +150,15 @@ fun BasicButtonContent(
     fontWeight: FontWeight = FontWeight.Medium,
     leadingIconAlpha: Float = 1f,
     textAlpha: Float = 1f,
-) = LoadingWrapper(
+) {
+    val fontSizeInDp = with(LocalDensity.current) {
+        fontSize.toDp()
+    }
+    val finalIconSize = fontSizeInDp + 2.dp
+
+    LoadingWrapper(
         loading = loading,
+        size = finalIconSize,
         color = colors.foreground
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -123,7 +166,7 @@ fun BasicButtonContent(
                 Icon(
                     imageVector = it,
                     contentDescription = null,
-                    modifier = Modifier.size(18.dp),
+                    modifier = Modifier.size(finalIconSize),
                     tint = colors.foreground.copy(alpha = leadingIconAlpha)
                 )
                 Spacer(Modifier.width(8.dp))
@@ -143,12 +186,74 @@ fun BasicButtonContent(
                 Icon(
                     imageVector = it,
                     contentDescription = null,
-                    modifier = Modifier.size(18.dp),
+                    modifier = Modifier.size(finalIconSize),
                     tint = colors.foreground
                 )
             }
         }
     }
+}
+
+// overload for text with icons either leading or trailing (painter resource)
+@Composable
+fun BasicButtonContent(
+    text: String,
+    colors: ColorPair,
+    leadingIcon: Painter? = null,
+    trailingIcon: Painter? = null,
+    loading: Boolean = false,
+    fontSize: TextUnit = 16.sp,
+    fontWeight: FontWeight = FontWeight.Medium,
+    leadingIconAlpha: Float = 1f,
+    textAlpha: Float = 1f,
+) {
+    val fontSizeInDp = with(LocalDensity.current) {
+        fontSize.toDp()
+    }
+    val finalIconSize = fontSizeInDp + 2.dp
+
+    LoadingWrapper(
+        loading = loading,
+        size = finalIconSize,
+        color = colors.foreground
+    ) {
+        val fontSizeInDp = with(LocalDensity.current) {
+            fontSize.toDp()
+        }
+        val finalIconSize = fontSizeInDp + 2.dp
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            leadingIcon?.let {
+                Icon(
+                    painter = it,
+                    contentDescription = null,
+                    modifier = Modifier.size(finalIconSize),
+                    tint = colors.foreground.copy(alpha = leadingIconAlpha)
+                )
+                Spacer(Modifier.width(8.dp))
+            }
+
+            Text(
+                text = text,
+                color = colors.foreground.copy(alpha = textAlpha),
+                fontWeight = fontWeight,
+                fontSize = fontSize,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            trailingIcon?.let {
+                Spacer(Modifier.width(8.dp))
+                Icon(
+                    painter = it,
+                    contentDescription = null,
+                    modifier = Modifier.size(finalIconSize),
+                    tint = colors.foreground
+                )
+            }
+        }
+    }
+}
 
 // overload for button with status beacon
 @Composable
