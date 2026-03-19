@@ -112,7 +112,7 @@ internal fun <T> DropdownBase(
                         DropdownItemWrapper(
                             item = item,
                             mode = mode,
-                            color = colors.trigger,
+                            color = colors,
                             isSelected = isCurrent,
                             onClick = {
                                 onItemClick(item.value)

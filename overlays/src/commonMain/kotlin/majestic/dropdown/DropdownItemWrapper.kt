@@ -24,7 +24,7 @@ internal fun <T> DropdownItemWrapper(
     item: DropdownItem<T>,
     mode: DropdownMode,
     onClick: () -> Unit,
-    color: Color,
+    color: DropdownColors,
     isSelected: Boolean = false,
     content: @Composable () -> Unit
 ) {
@@ -32,7 +32,7 @@ internal fun <T> DropdownItemWrapper(
     val hovered by interactionSource.collectIsHoveredAsState()
     val backgroundColor = when {
         mode == DropdownMode.Action && item.isDestructive && hovered -> Color(0xFFEF5350).copy(alpha = 0.07f)
-        hovered || isSelected -> color.copy(alpha = 0.05f)
+        hovered || isSelected -> color.itemsHovered
         else -> Color.Transparent
     }
 
