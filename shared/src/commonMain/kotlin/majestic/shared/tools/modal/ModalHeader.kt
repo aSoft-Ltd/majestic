@@ -81,7 +81,7 @@ fun ModalHeader(
                 overflow = TextOverflow.Ellipsis
             )
             if (subtitle != null) {
-                Spacer(Modifier.height(0.5.dp))
+                Spacer(Modifier.height(5.dp))
                 Text(
                     text = subtitle,
                     fontSize = if (orientation is Landscape) 14.sp else 12.sp,
