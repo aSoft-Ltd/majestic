@@ -19,7 +19,6 @@ data class TabItem(val label: String, val path: String) {
     private fun String.dropLastSlash() = if (endsWith("/")) dropLast(1) else this
 }
 
-
 @Composable
 fun Tabs(
     current: String,
