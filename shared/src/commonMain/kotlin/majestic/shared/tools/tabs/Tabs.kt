@@ -26,7 +26,7 @@ fun Tabs(
     pages: List<TabItem>,
     colors: TabItemColors,
     navigator: Navigator,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) = Tabs(
     items = pages,
     selected = pages.firstOrNull { it.isSelected(current) },
