@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
@@ -81,26 +80,26 @@ fun AvatarStack(
         val gapPx = overflowGap.roundToPx()
 
         val placeable = measurables.map { it.measure(Constraints.fixed(sizePx, sizePx)) }
-        val n = placeable.size
-
-        val widthNeeded = when {
-            n == 0 -> 0
-            n == 1 -> sizePx
+        val contentWidth = when (val n = placeable.size) {
+            0 -> 0
+            1 -> sizePx
             else -> {
                 val base = sizePx + (n - 1) * stepPx
                 if (showOverflow) base + gapPx else base
             }
         }
 
-        val width = widthNeeded.coerceIn(constraints.minWidth, constraints.maxWidth)
+        val width = constraints.maxWidth.coerceAtLeast(contentWidth)
         val height = sizePx.coerceIn(constraints.minHeight, constraints.maxHeight)
 
         layout(width, height) {
             var x = 0
+            val y = (height - sizePx) / 2
+
             placeable.forEachIndexed { index, p ->
                 val isOverflowBubble = showOverflow && index == placeable.lastIndex
                 if (isOverflowBubble) x += gapPx
-                p.placeRelative(x, 0)
+                p.placeRelative(x, y)
                 x += stepPx
             }
         }
