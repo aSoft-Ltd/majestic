@@ -36,7 +36,6 @@ fun Tabs(
     modifier = modifier,
 )
 
-
 @Composable
 fun <T> Tabs(
     items: List<T>,
