@@ -28,20 +28,29 @@ fun ThemeColor.deriveColor(
     val da = dominant.actual.color
     val dv = dominant.vivid.color
     val sc = surface.contra.color
-    val neutral = when (this.mode) {
-        is LightMode -> sa
-        is DarkMode -> Color(0f, 0f, 0f, 1f)
+
+    val (scAnchor, pbAnchor, intensity) = when (this.mode) {
+        is DarkMode -> {
+            Triple(sc, Color(0f, 0f, 0f, 1f), 1.0f)
+        }
+
+        is LightMode -> {
+            Triple(da, sa, 0.3f)
+        }
     }
 
-    val totalIngredientWeight = dominantActual + dominantVivid + surfaceContra + pureNeutral
-    val surfaceActualWeight = (1f - totalIngredientWeight).coerceAtLeast(0f)
+    val finalDA = dominantActual * intensity
+    val finalDV = dominantVivid * intensity
+    val finalSC = surfaceContra * intensity
 
+    val totalIngredientWeight = finalDA + finalDV + finalSC + pureNeutral
+    val surfaceActualWeight = (1f - totalIngredientWeight).coerceAtLeast(0f)
     val norm = if (totalIngredientWeight > 1f) totalIngredientWeight else 1f
 
     return Color(
-        red = (sa.red * surfaceActualWeight + da.red * dominantActual + dv.red * dominantVivid + sc.red * surfaceContra + neutral.red * pureNeutral) / norm,
-        green = (sa.green * surfaceActualWeight + da.green * dominantActual + dv.green * dominantVivid + sc.green * surfaceContra + neutral.green * pureNeutral) / norm,
-        blue = (sa.blue * surfaceActualWeight + da.blue * dominantActual + dv.blue * dominantVivid + sc.blue * surfaceContra + neutral.blue * pureNeutral) / norm,
+        red = (sa.red * surfaceActualWeight + da.red * finalDA + dv.red * finalDV + scAnchor.red * finalSC + pbAnchor.red * pureNeutral) / norm,
+        green = (sa.green * surfaceActualWeight + da.green * finalDA + dv.green * finalDV + scAnchor.green * finalSC + pbAnchor.green * pureNeutral) / norm,
+        blue = (sa.blue * surfaceActualWeight + da.blue * finalDA + dv.blue * finalDV + scAnchor.blue * finalSC + pbAnchor.blue * pureNeutral) / norm,
         alpha = 1f
     )
 }
