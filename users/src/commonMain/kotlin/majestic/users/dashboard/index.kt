@@ -100,7 +100,7 @@ fun UsersDashboard(
                 labels = labels,
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
-                    .background(props.background.copy(.5f))
+                    .background(props.background)
                     .padding(bottom = 10.dp),
                 manageUsers = manageUsers,
                 manageRoles = manageRoles,

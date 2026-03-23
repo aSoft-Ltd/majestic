@@ -57,7 +57,7 @@ internal fun Item(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            modifier = Modifier.padding(horizontal = 10.dp),
+            modifier = Modifier.padding(horizontal = 5.dp),
             text = label,
             fontSize = 14.sp,
             color = textColor

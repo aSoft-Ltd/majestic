@@ -3,10 +3,18 @@ package majestic.users.dashboard.table.body
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,7 +29,7 @@ import majestic.Cell
 import majestic.Checkbox
 import majestic.shared.users.label.table.InnerTableBodyLabels
 import majestic.shared.users.label.table.StatusLabels
-import majestic.shared.users.table.UsersTableRowColors
+import majestic.shared.users.table.UserTableBodyColors
 import majestic.shared.users.tools.UsersData
 import majestic.tooling.onClick
 import majestic.users.table.header.NameCell
@@ -35,107 +43,123 @@ internal fun RowScope.UsersTableRow(
     cellHeight: Dp,
     weight: Map<Column<UsersData>, Float>,
     selected: Boolean,
-    hovered: Color,
     table: Table<UsersData>,
     separator: Color,
-    colors: UsersTableRowColors,
+    colors: UserTableBodyColors,
     labels: InnerTableBodyLabels,
+    interactionSources: MutableMap<Int, MutableInteractionSource>,
     onItemClick: () -> Unit,
     menuAction: @Composable () -> Unit
-) = when (cell.column.key) {
-    "checkbox" -> Box(
-        modifier = Modifier.height(cellHeight)
-            .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
-            .separator(cell.row.index == table.rows.lastIndex, separator)
-            .padding(horizontal = 12.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        val checkboxColors =
-            if (selected) colors.checkBox.selected else colors.checkBox.unselected
-        Checkbox(
-            selected = selected,
-            colors = checkboxColors,
-            shape = RoundedCornerShape(5.dp),
-            modifier = Modifier.size(16.dp)
-                .clip(RoundedCornerShape(5.dp))
-                .background(checkboxColors.background)
-                .border(1.dp, color = checkboxColors.border, RoundedCornerShape(5.dp))
-                .onClick {
-                    if (selected) table.selector.unSelectRowInCurrentPage(row = cell.row.number)
-                    else table.selector.addSelection(row = cell.row.number)
-                }
+) {
+    val interactionSource = interactionSources.getOrPut(cell.row.number) { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
+
+    val selectedBg = colors.table.selected
+    val hoveredBg = colors.hovered
+    val hoveredSelectedBg = colors.table.selectedHovered
+    val backgroundColor = if (selected && isHovered) hoveredSelectedBg
+    else if (selected) selectedBg else if (isHovered) hoveredBg else Color.Transparent
+
+    when (cell.column.key) {
+        "checkbox" -> Box(
+            modifier = Modifier.height(cellHeight)
+                .weight(weight.getValue(cell.column))
+                .background(backgroundColor)
+                .separator(cell.row.index == table.rows.lastIndex, separator)
+                .hoverable(interactionSource)
+                .padding(horizontal = 12.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            val checkboxColors =
+                if (selected) colors.row.checkBox.selected else colors.row.checkBox.unselected
+            Checkbox(
+                selected = selected,
+                colors = checkboxColors,
+                shape = RoundedCornerShape(5.dp),
+                modifier = Modifier.size(16.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(checkboxColors.background)
+                    .border(1.dp, color = checkboxColors.border, RoundedCornerShape(5.dp))
+                    .onClick {
+                        if (selected) table.selector.unSelectRowInCurrentPage(row = cell.row.number)
+                        else table.selector.addSelection(row = cell.row.number)
+                    }
+            )
+        }
+
+        labels.columns.name -> NameCell(
+            modifier = Modifier.height(cellHeight)
+                .weight(weight.getValue(cell.column))
+                .background(backgroundColor)
+                .separator(cell.row.index == table.rows.lastIndex, separator)
+                .hoverable(interactionSource)
+                .pointerHoverIcon(PointerIcon.Hand)
+                .onClick(onItemClick)
+                .padding(horizontal = 12.dp),
+            resource = cell.row.item.userAvatar,
+            fullName = cell.row.item.fullName,
+            colors = colors.row.name
         )
-    }
 
-    labels.columns.name -> NameCell(
-        modifier = Modifier.height(cellHeight)
-            .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
-            .separator(cell.row.index == table.rows.lastIndex, separator)
-            .pointerHoverIcon(PointerIcon.Hand)
-            .onClick(onItemClick)
-            .padding(horizontal = 12.dp),
-        resource = cell.row.item.userAvatar,
-        fullName = cell.row.item.fullName,
-        colors = colors.name
-    )
+        labels.columns.email, labels.columns.dateJoined, labels.columns.lastActive -> Box(
+            modifier = Modifier.height(cellHeight)
+                .weight(weight.getValue(cell.column))
+                .background(backgroundColor)
+                .separator(cell.row.index == table.rows.lastIndex, separator)
+                .hoverable(interactionSource)
+                .onClick(onItemClick)
+                .padding(horizontal = 12.dp),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Text(
+                modifier = Modifier.onClick(onItemClick),
+                text = getLabels(cell, labels.columns).toString(),
+                color = colors.row.name.surfaceContra,
+                maxLines = 1,
+                fontSize = 15.sp,
+                overflow = TextOverflow.Ellipsis,
+                softWrap = false,
+            )
+        }
 
-    labels.columns.email, labels.columns.dateJoined, labels.columns.lastActive -> Box(
-        modifier = Modifier.height(cellHeight)
-            .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
-            .separator(cell.row.index == table.rows.lastIndex, separator)
-            .onClick(onItemClick)
-            .padding(horizontal = 12.dp),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Text(
-            modifier = Modifier.onClick(onItemClick),
-            text = getLabels(cell, labels.columns).toString(),
-            color = colors.name.surfaceContra,
-            maxLines = 1,
-            fontSize = 15.sp,
-            overflow = TextOverflow.Ellipsis,
-            softWrap = false,
-        )
-    }
+        labels.columns.status -> Box(
+            modifier = Modifier.height(cellHeight)
+                .weight(weight.getValue(cell.column))
+                .background(backgroundColor)
+                .separator(cell.row.index == table.rows.lastIndex, separator)
+                .hoverable(interactionSource)
+                .onClick(onItemClick)
+                .padding(horizontal = 12.dp),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Text(
+                modifier = Modifier.onClick(onItemClick),
+                maxLines = 1,
+                fontSize = 15.sp,
+                overflow = TextOverflow.Ellipsis,
+                softWrap = false,
+                text = cell.row.item.status.getLabels(
+                    StatusLabels(
+                        invited = labels.status.invited,
+                        active = labels.status.active,
+                        declined = labels.status.declined,
+                        revoked = labels.status.revoked
+                    )
+                ),
+                color = cell.row.item.status.getColors()
+            )
+        }
 
-    labels.columns.status -> Box(
-        modifier = Modifier.height(cellHeight)
-            .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
-            .separator(cell.row.index == table.rows.lastIndex, separator)
-            .onClick(onItemClick)
-            .padding(horizontal = 12.dp),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Text(
-            modifier = Modifier.onClick(onItemClick),
-            maxLines = 1,
-            fontSize = 15.sp,
-            overflow = TextOverflow.Ellipsis,
-            softWrap = false,
-            text = cell.row.item.status.getLabels(
-                StatusLabels(
-                    invited = labels.status.invited,
-                    active = labels.status.active,
-                    declined = labels.status.declined,
-                    revoked = labels.status.revoked
-                )
-            ),
-            color = cell.row.item.status.getColors()
-        )
-    }
-
-    else -> Box(
-        modifier = Modifier.height(cellHeight)
-            .weight(weight.getValue(cell.column))
-            .background(if (selected) hovered else Color.Transparent)
-            .separator(cell.row.index == table.rows.lastIndex, separator)
-            .padding(horizontal = 12.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        menuAction()
+        else -> Box(
+            modifier = Modifier.height(cellHeight)
+                .weight(weight.getValue(cell.column))
+                .background(backgroundColor)
+                .separator(cell.row.index == table.rows.lastIndex, separator)
+                .hoverable(interactionSource)
+                .padding(horizontal = 12.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            menuAction()
+        }
     }
 }
