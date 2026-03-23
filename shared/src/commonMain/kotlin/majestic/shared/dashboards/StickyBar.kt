@@ -2,7 +2,6 @@ package majestic.shared.dashboards
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,16 +10,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
-import majestic.layouts.Flex
 import majestic.filters.FilterByYear
-import majestic.filters.FilterDefault
+import majestic.layouts.Flex
+import majestic.shared.tools.StickyBarColors
 
 @Composable
 fun StickyBar(
     orientation: ScreenOrientation,
-    theme: ThemeColor,
-    filterDefaults: FilterDefault,
+    colors: StickyBarColors,
     modifier: Modifier,
     title: String,
     detail: String,
@@ -38,18 +35,17 @@ fun StickyBar(
             text = title,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = theme.surface.contra.color,
+            color = colors.title,
         )
         Text(
             text = detail,
             fontSize = 16.sp,
-            color = theme.surface.contra.color.copy(0.3f),
+            color = colors.subtitle,
         )
     }
     FilterByYear(
         years = years,
         selected = selected,
-        modifier = Modifier.width(120.dp),
-        defaults = filterDefaults
+        colors = colors.dropdown,
     )
 }
