@@ -21,10 +21,10 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.ThemeColor
 import majestic.editor.toolbar.underline
 import majestic.filters.FilterDefault
 import majestic.shared.dashboards.StickyBar
+import majestic.shared.tools.UsersDashbordColors
 import majestic.shared.users.UsersLabels
 import majestic.users.dashboard.summary.SummaryCardList
 import majestic.users.dashboard.tools.toSummaryCardProps
@@ -41,7 +41,7 @@ fun UsersDashboard(
     modifier: Modifier,
     props: UserDashboardProps,
     orientation: ScreenOrientation,
-    theme: ThemeColor,
+    colors: UsersDashbordColors,
     labels: UsersLabels,
     onItemClick: () -> Unit = {},
     manageUsers: () -> Unit = {},
@@ -50,9 +50,8 @@ fun UsersDashboard(
     addRole: () -> Unit = {},
 ) = Column(modifier = modifier) {
     if (orientation is Landscape) StickyBar(
-        theme = theme,
         modifier = Modifier
-            .underline(theme.surface.contra.color.copy(alpha = 0.05f))
+            .underline(colors.foreground.copy(alpha = 0.05f))
             .fillMaxWidth()
             .wrapContentHeight()
             .height(IntrinsicSize.Max)
@@ -60,8 +59,7 @@ fun UsersDashboard(
         title = labels.dashboard.insights.title,
         detail = labels.dashboard.insights.detail,
         orientation = orientation,
-        filterDefaults = props.filterDefaults,
-        selected = "2025"
+        colors = colors.stickyBarColors
     )
     Column(
         modifier = Modifier.padding(
@@ -109,7 +107,7 @@ fun UsersDashboard(
                 addUser = addUser,
                 onItemClick = onItemClick,
                 addRole = addRole,
-                )
+            )
         }
     }
 }
