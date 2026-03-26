@@ -26,7 +26,7 @@ import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
 import majestic.payments.labels.transaction.TransactionLabels
 import majestic.payments.tools.table.CommonCell
-import majestic.payments.tools.table.TableColors
+import majestic.payments.tools.table.OldTableColors
 import majestic.payments.transaction.tools.TransactionMenuAction
 import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
@@ -37,7 +37,7 @@ import symphony.Table
 @Composable
 fun TransactionTable(
     labels: TransactionLabels,
-    colors: TableColors,
+    colors: OldTableColors,
     table: Table<PaymentTransaction>,
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier,

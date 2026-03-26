@@ -5,7 +5,8 @@ import majestic.CheckboxColors
 import majestic.ColorPair
 import majestic.dropdown.DropdownColors
 
-data class TableColors(
+@Deprecated("use majestic.shared.tools.table.TableColors")
+data class OldTableColors(
     val background: Color,
     val headerBackground: Color,
     val foreground: Color,

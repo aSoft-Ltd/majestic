@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.Cell
 import majestic.Checkbox
+import majestic.shared.tools.rememberInteractiveRowBackground
 import majestic.shared.users.label.table.InnerTableBodyLabels
 import majestic.shared.users.label.table.StatusLabels
 import majestic.shared.users.table.UserTableBodyColors
@@ -52,13 +51,12 @@ internal fun RowScope.UsersTableRow(
     menuAction: @Composable () -> Unit
 ) {
     val interactionSource = interactionSources.getOrPut(cell.row.number) { MutableInteractionSource() }
-    val isHovered by interactionSource.collectIsHoveredAsState()
-
-    val selectedBg = colors.table.selected
-    val hoveredBg = colors.hovered
-    val hoveredSelectedBg = colors.table.selectedHovered
-    val backgroundColor = if (selected && isHovered) hoveredSelectedBg
-    else if (selected) selectedBg else if (isHovered) hoveredBg else Color.Transparent
+    val backgroundColor = rememberInteractiveRowBackground(
+        isActive = selected,
+        active = colors.table.active,
+        activeHovered = colors.table.activeHovered,
+        interactionSource = interactionSource
+    )
 
     when (cell.column.key) {
         "checkbox" -> Box(

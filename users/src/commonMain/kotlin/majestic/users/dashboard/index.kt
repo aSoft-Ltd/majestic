@@ -24,7 +24,7 @@ import majestic.ColorPair
 import majestic.editor.toolbar.underline
 import majestic.filters.FilterDefault
 import majestic.shared.dashboards.StickyBar
-import majestic.shared.tools.UsersDashbordColors
+import majestic.shared.tools.StickyBarColors
 import majestic.shared.users.UsersLabels
 import majestic.users.dashboard.summary.SummaryCardList
 import majestic.users.dashboard.tools.toSummaryCardProps
@@ -33,7 +33,9 @@ data class UserDashboardProps(
     val filterDefaults: FilterDefault,
     val view: TableViewProps,
     val background: Color,
-    val summaryCard: ColorPair
+    val summaryCard: ColorPair,
+    val foreground: Color,
+    val stickyBarColors: StickyBarColors
 )
 
 @Composable
@@ -41,7 +43,6 @@ fun UsersDashboard(
     modifier: Modifier,
     props: UserDashboardProps,
     orientation: ScreenOrientation,
-    colors: UsersDashbordColors,
     labels: UsersLabels,
     onItemClick: () -> Unit = {},
     manageUsers: () -> Unit = {},
@@ -51,7 +52,7 @@ fun UsersDashboard(
 ) = Column(modifier = modifier) {
     if (orientation is Landscape) StickyBar(
         modifier = Modifier
-            .underline(colors.foreground.copy(alpha = 0.05f))
+            .underline(props.foreground.copy(alpha = 0.05f))
             .fillMaxWidth()
             .wrapContentHeight()
             .height(IntrinsicSize.Max)
@@ -59,7 +60,7 @@ fun UsersDashboard(
         title = labels.dashboard.insights.title,
         detail = labels.dashboard.insights.detail,
         orientation = orientation,
-        colors = colors.stickyBarColors
+        colors = props.stickyBarColors
     )
     Column(
         modifier = Modifier.padding(

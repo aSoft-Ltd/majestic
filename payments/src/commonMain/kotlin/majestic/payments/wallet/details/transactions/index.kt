@@ -23,7 +23,7 @@ import majestic.Checkbox
 import majestic.LazyTable
 import majestic.payments.labels.transaction.TransactionLabels
 import majestic.payments.tools.table.CommonCell
-import majestic.payments.tools.table.TableColors
+import majestic.payments.tools.table.OldTableColors
 import majestic.payments.transaction.table.PaymentTransaction
 import majestic.tooling.onClick
 import majestic.tooling.separator
@@ -32,7 +32,7 @@ import symphony.Table
 @Composable
 fun WalletTransactions(
     labels: TransactionLabels,
-    colors: TableColors,
+    colors: OldTableColors,
     table: Table<PaymentTransaction>,
     modifier: Modifier = Modifier,
 ) {

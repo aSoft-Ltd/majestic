@@ -27,7 +27,7 @@ import majestic.icons.ic_more_horizontal
 import majestic.payments.invoice.tools.InvoiceMenuAction
 import majestic.payments.labels.invoice.InvoiceLabels
 import majestic.payments.tools.table.CommonCell
-import majestic.payments.tools.table.TableColors
+import majestic.payments.tools.table.OldTableColors
 import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.tooling.onClick
 import majestic.tooling.separator
@@ -37,7 +37,7 @@ import symphony.Table
 @Composable
 fun InvoiceTable(
     labels: InvoiceLabels,
-    colors: TableColors,
+    colors: OldTableColors,
     table: Table<PaymentInvoice>,
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier,

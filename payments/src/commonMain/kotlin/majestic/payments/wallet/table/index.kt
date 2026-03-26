@@ -26,7 +26,7 @@ import majestic.ColorPair
 import majestic.LazyTable
 import majestic.dropdown.Dropdown
 import majestic.payments.labels.wallet.WalletLabels
-import majestic.payments.tools.table.TableColors
+import majestic.payments.tools.table.OldTableColors
 import majestic.payments.wallet.table.tools.CreatedCell
 import majestic.payments.wallet.table.tools.NameCell
 import majestic.payments.wallet.table.tools.RecentCell
@@ -45,7 +45,7 @@ import tz.co.asoft.majestic_payments.generated.resources.user_avatar
 @Composable
 fun WalletTable(
     labels: WalletLabels,
-    colors: TableColors,
+    colors: OldTableColors,
     table: Table<PaymentWallet>,
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier,

@@ -7,16 +7,6 @@ data class TableColors(
     val body: Color,
     val headerBorder: Color,
     val bodyBorder: Color,
-    val hovered: Color,
-    val selected: Color,
-    val selectedHovered: Color
-)
-
-data class MobileTableColors(
-    val header: Color,
-    val headerBorder: Color,
-    val subHeader: Color,
-    val subHeaderBorder: Color,
-    val body: Color,
-    val itemsSeparator: Color,
+    val active: Color,
+    val activeHovered: Color
 )

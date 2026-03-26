@@ -10,7 +10,7 @@ import majestic.dropdown.Dropdown
 import majestic.icons.Res
 import majestic.icons.ic_more_vertical
 import majestic.payments.labels.transaction.TransactionLabels
-import majestic.payments.tools.table.TableColors
+import majestic.payments.tools.table.OldTableColors
 import majestic.payments.transaction.table.PaymentTransaction
 import majestic.payments.transaction.tools.TransactionMenuAction
 import majestic.shared.tools.dropdown.toDropdownItems
@@ -19,7 +19,7 @@ import org.jetbrains.compose.resources.vectorResource
 @Composable
 fun TransactionListRow(
     labels: TransactionLabels,
-    colors: TableColors,
+    colors: OldTableColors,
     details: PaymentTransaction,
     modifier: Modifier = Modifier
 ) = Row(

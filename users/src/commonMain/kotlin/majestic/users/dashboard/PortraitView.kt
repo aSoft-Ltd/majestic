@@ -171,7 +171,7 @@ internal fun PortraitView(
                     .onClick(callback = onItemClick)
                     .separator(
                         isLast = cell.row.index == table.rows.lastIndex,
-                        color = props.table.body.colors.mobileTableColors.itemsSeparator
+                        color = props.table.body.colors.table.bodyBorder
                     )
                     .padding(10.dp),
                 menuAction = {

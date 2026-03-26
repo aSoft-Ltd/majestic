@@ -12,7 +12,7 @@ import majestic.icons.ic_more_vertical
 import majestic.payments.invoice.table.PaymentInvoice
 import majestic.payments.invoice.tools.InvoiceMenuAction
 import majestic.payments.labels.invoice.InvoiceLabels
-import majestic.payments.tools.table.TableColors
+import majestic.payments.tools.table.OldTableColors
 import majestic.shared.tools.dropdown.toDropdownItems
 import nation.Country
 import org.jetbrains.compose.resources.vectorResource
@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.vectorResource
 @Composable
 fun InvoiceListRow(
     labels: InvoiceLabels,
-    colors: TableColors,
+    colors: OldTableColors,
     details: PaymentInvoice,
     modifier: Modifier = Modifier
 ) = Row(
