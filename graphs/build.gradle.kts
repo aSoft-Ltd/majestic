@@ -59,6 +59,7 @@ kotlin {
             api(compose.foundation)
             api(projects.majesticTheme)
             api(projects.majesticTheme)
+            api(projects.majesticScreen)?.because("We need access to NoRippleInteractionSource")
             api(compose.material3)?.because("We need default labels for graphs")
         }
     }
