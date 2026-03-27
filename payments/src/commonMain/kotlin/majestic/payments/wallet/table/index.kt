@@ -2,6 +2,8 @@ package majestic.payments.wallet.table
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
@@ -26,7 +27,6 @@ import majestic.ColorPair
 import majestic.LazyTable
 import majestic.dropdown.Dropdown
 import majestic.payments.labels.wallet.WalletLabels
-import majestic.payments.tools.table.TableColors
 import majestic.payments.wallet.table.tools.CreatedCell
 import majestic.payments.wallet.table.tools.NameCell
 import majestic.payments.wallet.table.tools.RecentCell
@@ -34,6 +34,8 @@ import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
 import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.tools.rememberInteractiveRowBackground
+import majestic.shared.tools.table.TableColors
 import majestic.tooling.onClick
 import majestic.tooling.separator
 import org.jetbrains.compose.resources.vectorResource
@@ -66,6 +68,7 @@ fun WalletTable(
         }
     }
     table.selector.selected.watchAsState()
+    val interactionSources = remember { mutableMapOf<Int, MutableInteractionSource>() }
 
     LazyTable(
         modifier = modifier,
@@ -73,13 +76,12 @@ fun WalletTable(
         columns = { column ->
             val selectedAll = table.selector.isCurrentPageSelectedWholly()
             val checkboxColors = if (selectedAll) colors.checkbox.selected else colors.checkbox.unselected
-            val header = colors.header
 
             if (column.key == labels.table.checkbox) Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.weight(weight.getValue(column))
-                    .background(colors.headerBackground)
-                    .separator(color = colors.separator)
+                    .background(colors.header)
+                    .separator(color = colors.headerBorder)
                     .padding(vertical = 24.dp, horizontal = 12.dp),
             ) {
                 Checkbox(
@@ -97,22 +99,32 @@ fun WalletTable(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(weight.getValue(column))
-                    .background(colors.headerBackground)
-                    .separator(color = colors.separator)
+                    .background(colors.header)
+                    .separator(color = colors.headerBorder)
                     .padding(vertical = 20.dp, horizontal = 12.dp),
-                color = header.foreground.copy(0.6f)
+                color = colors.foreground.copy(0.6f)
             )
         }
     ) { cell ->
         val cellHeight = 70.dp
         val selected = table.selector.isRowSelectedOnCurrentPage(cell.row.number)
 
+        val interactionSource = interactionSources.getOrPut(cell.row.number) { MutableInteractionSource() }
+
+        val backgroundColor = rememberInteractiveRowBackground(
+            isActive = selected,
+            active = colors.active,
+            activeHovered = colors.hovered,
+            interactionSource = interactionSource
+        )
+
         when (cell.column.key) {
             labels.table.checkbox -> Box(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator),
+                    .background(backgroundColor)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource),
                 contentAlignment = Alignment.Center
             ) {
                 val checkboxColors = if (selected) colors.checkbox.selected else colors.checkbox.unselected
@@ -134,8 +146,9 @@ fun WalletTable(
             labels.table.wallet -> NameCell(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .background(backgroundColor)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick(onClick)
                     .padding(horizontal = 12.dp),
@@ -145,7 +158,7 @@ fun WalletTable(
 
             labels.table.transactions -> {
                 Avatar(
-                    color = colors.background,
+                    color = colors.body,
                     images = cell.row.item.transactions,
                     size = 28.dp,
                     border = 3.dp,
@@ -162,8 +175,9 @@ fun WalletTable(
                     ),
                     modifier = Modifier.height(cellHeight)
                         .weight(weight.getValue(cell.column))
-                        .background(if (selected) colors.hovered else Color.Transparent)
-                        .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                        .background(backgroundColor)
+                        .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                        .hoverable(interactionSource)
                         .pointerHoverIcon(PointerIcon.Hand)
                         .onClick(onClick)
                         .padding(horizontal = 12.dp),
@@ -173,12 +187,13 @@ fun WalletTable(
             labels.table.accounts -> Avatar(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .background(backgroundColor)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick(onClick)
                     .padding(horizontal = 12.dp),
-                color = colors.background,
+                color = colors.body,
                 images = cell.row.item.accounts,
                 size = 32.dp,
                 shape = RoundedCornerShape(5.dp)
@@ -187,8 +202,9 @@ fun WalletTable(
             labels.table.created -> CreatedCell(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .background(backgroundColor)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick(onClick)
                     .padding(horizontal = 12.dp),
@@ -201,8 +217,9 @@ fun WalletTable(
             labels.table.recent -> RecentCell(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .background(backgroundColor)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick(onClick)
                     .padding(horizontal = 12.dp),
@@ -213,8 +230,9 @@ fun WalletTable(
             labels.table.amount -> Box(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .background(backgroundColor)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick(onClick)
                     .padding(horizontal = 12.dp),
@@ -233,8 +251,9 @@ fun WalletTable(
             "" -> Box(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
-                    .background(if (selected) colors.hovered else Color.Transparent)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.separator)
+                    .background(backgroundColor)
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand),
                 contentAlignment = Alignment.Center
             ) {

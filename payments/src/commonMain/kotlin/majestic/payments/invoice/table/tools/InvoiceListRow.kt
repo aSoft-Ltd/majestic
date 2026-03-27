@@ -8,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import majestic.dropdown.Dropdown
 import majestic.icons.Res
-import majestic.icons.ic_more_vertical
+import majestic.icons.ic_more_horizontal
 import majestic.payments.invoice.table.PaymentInvoice
 import majestic.payments.invoice.tools.InvoiceMenuAction
 import majestic.payments.labels.invoice.InvoiceLabels
-import majestic.payments.tools.table.TableColors
 import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.tools.table.TableColors
 import nation.Country
 import org.jetbrains.compose.resources.vectorResource
 
@@ -43,7 +43,8 @@ fun InvoiceListRow(
         items = InvoiceMenuAction.getMenus(labels.menu).toDropdownItems(),
         onAction = { /* TODO */ },
         colors = colors.dropdown,
-        icon = vectorResource(Res.drawable.ic_more_vertical),
+        icon = vectorResource(Res.drawable.ic_more_horizontal),
+        rotationTarget = 90f,
         isListItem = true
     )
 }
