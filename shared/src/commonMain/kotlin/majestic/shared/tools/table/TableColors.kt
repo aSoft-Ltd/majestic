@@ -1,6 +1,8 @@
 package majestic.shared.tools.table
 
 import androidx.compose.ui.graphics.Color
+import majestic.CheckboxColors
+import majestic.dropdown.DropdownColors
 
 data class TableColors(
     val header: Color,
@@ -8,5 +10,9 @@ data class TableColors(
     val headerBorder: Color,
     val bodyBorder: Color,
     val active: Color,
-    val activeHovered: Color
+    val activeHovered: Color,
+    val checkbox: CheckboxColors,
+    val dropdown: DropdownColors,
+    val rowIcon: Color,
+    val foreground: Color,
 )

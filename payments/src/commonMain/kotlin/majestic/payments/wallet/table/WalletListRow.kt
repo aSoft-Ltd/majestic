@@ -21,21 +21,21 @@ import androidx.compose.ui.unit.sp
 import majestic.ColorPair
 import majestic.dropdown.Dropdown
 import majestic.icons.Res
-import majestic.icons.ic_more_vertical
+import majestic.icons.ic_more_horizontal
 import majestic.icons.ic_wallet_02_solid
 import majestic.payments.labels.wallet.WalletLabels
-import majestic.payments.tools.table.OldTableColors
 import majestic.payments.wallet.tools.Avatar
 import majestic.payments.wallet.tools.AvatarOverflow
 import majestic.payments.wallet.tools.WalletMenuAction
 import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.tools.table.TableColors
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun WalletListRow(
     labels: WalletLabels,
-    colors: OldTableColors,
+    colors: TableColors,
     detail: PaymentWallet,
     modifier: Modifier = Modifier
 ) = Row(
@@ -46,10 +46,10 @@ fun WalletListRow(
     Icon(
         modifier = Modifier.size(42.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(colors.icon.copy(0.1f))
+            .background(colors.rowIcon.copy(0.1f))
             .padding(8.dp),
         painter = painterResource(Res.drawable.ic_wallet_02_solid),
-        tint = colors.icon,
+        tint = colors.rowIcon,
         contentDescription = null,
     )
     Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
@@ -66,7 +66,7 @@ fun WalletListRow(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Avatar(
-                color = colors.background,
+                color = colors.body,
                 images = detail.accounts,
                 size = 20.dp,
                 shape = RoundedCornerShape(5.dp),
@@ -78,7 +78,7 @@ fun WalletListRow(
                 lineHeight = 1.sp
             )
             Avatar(
-                color = colors.background,
+                color = colors.body,
                 images = detail.transactions,
                 size = 18.dp,
                 maxVisible = 3,
@@ -87,7 +87,7 @@ fun WalletListRow(
                     fontSize = 5.sp,
                     shape = CircleShape,
                     color = ColorPair(
-                        background = colors.background,
+                        background = colors.body,
                         foreground = colors.foreground
                     )
                 ),
@@ -121,7 +121,8 @@ fun WalletListRow(
         items = WalletMenuAction.getMenus(labels.menu).toDropdownItems(),
         onAction = { /* TODO */ },
         colors = colors.dropdown,
-        icon = vectorResource(Res.drawable.ic_more_vertical),
+        icon = vectorResource(Res.drawable.ic_more_horizontal),
+        rotationTarget = 90f,
         isListItem = true
     )
 }

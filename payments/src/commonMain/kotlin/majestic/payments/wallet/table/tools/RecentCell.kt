@@ -15,13 +15,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.payments.tools.table.OldTableColors
 import majestic.payments.wallet.table.PaymentWallet
+import majestic.shared.tools.table.TableColors
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun RecentCell(
-    colors: OldTableColors,
+    colors: TableColors,
     detail: PaymentWallet.Recent,
     modifier: Modifier = Modifier
 ) = Row(

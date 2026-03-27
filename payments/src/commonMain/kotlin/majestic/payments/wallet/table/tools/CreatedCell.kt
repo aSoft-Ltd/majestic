@@ -15,7 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.payments.tools.table.OldTableColors
+import majestic.shared.tools.table.TableColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -23,7 +23,7 @@ import org.jetbrains.compose.resources.painterResource
 internal fun CreatedCell(
     title: String,
     datetime: String,
-    colors: OldTableColors,
+    colors: TableColors,
     image: DrawableResource,
     modifier: Modifier = Modifier
 ) = Row(
