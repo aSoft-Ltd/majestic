@@ -8,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import majestic.dropdown.Dropdown
 import majestic.icons.Res
-import majestic.icons.ic_more_vertical
+import majestic.icons.ic_more_horizontal
 import majestic.payments.labels.transaction.TransactionLabels
-import majestic.payments.tools.table.TableColors
 import majestic.payments.transaction.table.PaymentTransaction
 import majestic.payments.transaction.tools.TransactionMenuAction
 import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.tools.table.TableColors
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
@@ -44,7 +44,8 @@ fun TransactionListRow(
         items = TransactionMenuAction.getMenus(labels.menu).toDropdownItems(),
         onAction = { /* TODO */ },
         colors = colors.dropdown,
-        icon = vectorResource(Res.drawable.ic_more_vertical),
+        icon = vectorResource(Res.drawable.ic_more_horizontal),
+        rotationTarget = 90f,
         isListItem = true
     )
 }

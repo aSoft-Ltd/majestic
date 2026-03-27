@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.LazyTable
+import majestic.dropdown.Dropdown
 import majestic.editor.toolbar.underline
 import majestic.icons.Res
 import majestic.icons.allDrawableResources
@@ -27,10 +28,11 @@ import majestic.icons.ic_calendar
 import majestic.icons.ic_clock_01
 import majestic.icons.ic_key
 import majestic.icons.ic_laptop_phone
+import majestic.icons.ic_more_horizontal
 import majestic.icons.ic_user_multiple
 import majestic.icons.tz_flag
 import majestic.shared.profiles.roles.data.Role.Companion.roles
-import majestic.shared.tools.menu.MenuOption
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.shared.users.UsersLabels
 import majestic.shared.users.data.permissions
 import majestic.shared.users.label.table.StatusLabels
@@ -54,6 +56,7 @@ import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
 import majestic.users.tools.data.separator
 import nation.Country
+import org.jetbrains.compose.resources.vectorResource
 import symphony.columnsOf
 import symphony.linearPaginatorOf
 import symphony.tableOf
@@ -134,12 +137,10 @@ internal fun PortraitView(
     PortraitHeader(
         modifier = Modifier
             .fillMaxWidth()
-            .background(
-                props.tabs.background.copy(.03f)
-            )
+            .background(props.table.body.colors.table.header)
             .height(65.dp)
             .padding(horizontal = 16.dp, vertical = 10.dp),
-        colors = props.tabs,
+        colors = props.table.header.colors,
         add = {
             when (it) {
                 Users -> addUser()
@@ -170,15 +171,18 @@ internal fun PortraitView(
                     .onClick(callback = onItemClick)
                     .separator(
                         isLast = cell.row.index == table.rows.lastIndex,
-                        color = props.table.body.colors.listItem.surfaceContra.copy(0.05f)
+                        color = props.table.body.colors.table.bodyBorder
                     )
                     .padding(10.dp),
                 menuAction = {
-                    MenuOption(
-                        orientation = orientation,
-                        actions = getOptions(labels.table),
-                        colors = props.table.body.colors.row.menuOption
-                    ) { action -> }
+                    Dropdown(
+                        items = getOptions(labels.table).toDropdownItems(),
+                        onAction = { },
+                        colors = props.table.body.colors.dropdownColors,
+                        icon = vectorResource(Res.drawable.ic_more_horizontal),
+                        rotationTarget = 90f,
+                        isListItem = true
+                    )
                 },
                 labels = ListLabels(
                     role = props.table.body.labels.columns.roles,

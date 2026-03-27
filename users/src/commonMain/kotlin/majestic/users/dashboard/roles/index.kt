@@ -1,7 +1,13 @@
 package majestic.users.dashboard.roles
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -77,7 +83,7 @@ internal fun UsersRoles(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(.05.dp)
-                    .underline(color = props.header.colors.add.copy(.05f), width = .5.dp)
+                    .underline(color = props.header.colors.title.copy(.05f), width = .5.dp)
             )
         }
     }

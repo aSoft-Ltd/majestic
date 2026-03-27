@@ -1,13 +1,14 @@
 package majestic.shared.users.dashboard
 
 import androidx.compose.ui.graphics.Color
-import majestic.buttons.ButtonColors
+import majestic.ColorPair
 
 data class HeaderColors(
     val background: Color,
-    val separator: Color? = null,
-    val manage: ButtonColors,
-    val add: Color,
+    val separator: Color,
+    val manage: Color,
+    val add: ColorPair,
     val tint: Color,
-    val title: Color
+    val title: Color,
+    val tabItemColors: TabItemColors,
 )

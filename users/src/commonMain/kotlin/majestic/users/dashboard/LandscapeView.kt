@@ -17,17 +17,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
 import composex.screen.orientation.ScreenOrientation
+import majestic.dropdown.Dropdown
 import majestic.icons.Res
 import majestic.icons.allDrawableResources
 import majestic.icons.ic_calendar
 import majestic.icons.ic_clock_01
 import majestic.icons.ic_laptop_phone
+import majestic.icons.ic_more_horizontal
 import majestic.icons.tz_flag
-import majestic.shared.tools.menu.MenuOption
-import majestic.shared.users.UsersLabels
-import majestic.shared.users.dashboard.PortraitHeaderColors
-import majestic.shared.users.dashboard.UserRoleColors
 import majestic.shared.profiles.roles.data.Role.Companion.roles
+import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.users.UsersLabels
+import majestic.shared.users.dashboard.UserRoleColors
 import majestic.shared.users.data.permissions
 import majestic.shared.users.tools.HeaderIcons
 import majestic.shared.users.tools.UsersData
@@ -45,6 +46,7 @@ import majestic.users.table.tools.data.avatars
 import majestic.users.table.tools.data.getOptions
 import majestic.users.tools.data.getDashboardWeights
 import nation.Country
+import org.jetbrains.compose.resources.vectorResource
 import symphony.columnsOf
 import symphony.linearPaginatorOf
 import symphony.tableOf
@@ -52,7 +54,6 @@ import symphony.tableOf
 data class TableViewProps(
     val table: UserTableProps,
     val roles: UserRoleColors,
-    val tabs: PortraitHeaderColors
 )
 
 @Composable
@@ -123,10 +124,9 @@ internal fun LandscapeView(
             .clip(RoundedCornerShape(20.dp))
             .weight(1f)
             .fillMaxWidth()
-            .background(props.table.body.colors.background, RoundedCornerShape(20.dp))
+            .background(props.table.body.colors.table.body, RoundedCornerShape(20.dp))
             .fillMaxHeight(),
         table = table,
-        orientation = orientation,
         props = props.table,
         onItemClick = onItemClick,
         weight = weight,
@@ -134,11 +134,13 @@ internal fun LandscapeView(
         manage = manageUsers,
         labels = labels
     ) {
-        MenuOption(
-            orientation = orientation,
-            actions = getOptions(labels.table),
-            colors = props.table.body.colors.row.menuOption
-        ) { action -> }
+        Dropdown(
+            items = getOptions(labels.table).toDropdownItems(),
+            onAction = { },
+            colors = props.table.body.colors.dropdownColors,
+            icon = vectorResource(Res.drawable.ic_more_horizontal),
+            isListItem = true
+        )
     }
     UsersRoles(
         modifier = Modifier

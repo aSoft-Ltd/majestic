@@ -11,6 +11,7 @@ import majestic.icons.ic_export
 import majestic.icons.ic_send_email
 import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.users.label.table.TableLabels
+import majestic.shared.users.tools.UsersData
 import majestic.users.table.header.Action
 import majestic.users.table.header.Archive
 import majestic.users.table.header.Assign
@@ -23,7 +24,6 @@ import majestic.users.table.header.SelectionBarProperties
 import majestic.users.table.header.SendMail
 import majestic.users.tools.MenuAction
 import majestic.users.tools.MenuActionLabels
-import majestic.shared.users.tools.UsersData
 import symphony.Table
 
 internal fun getMenuActionLabels(labels: TableLabels) = MenuActionLabels(
@@ -48,7 +48,8 @@ internal fun getOptions(labels: TableLabels): List<OptionMenu<MenuAction>> = lis
     ),
     OptionMenu(
         MenuAction.Delete.getLabel(getMenuActionLabels(labels)),
-        MenuAction.Delete
+        MenuAction.Delete,
+        isDestructive = true
     )
 )
 
