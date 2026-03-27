@@ -10,7 +10,7 @@ data class TableColors(
     val headerBorder: Color,
     val bodyBorder: Color,
     val active: Color,
-    val activeHovered: Color,
+    val hovered: Color,
     val checkbox: CheckboxColors,
     val dropdown: DropdownColors,
     val rowIcon: Color,

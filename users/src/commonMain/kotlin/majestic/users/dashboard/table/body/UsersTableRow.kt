@@ -54,7 +54,7 @@ internal fun RowScope.UsersTableRow(
     val backgroundColor = rememberInteractiveRowBackground(
         isActive = selected,
         active = colors.table.active,
-        activeHovered = colors.table.activeHovered,
+        activeHovered = colors.table.hovered,
         interactionSource = interactionSource
     )
 

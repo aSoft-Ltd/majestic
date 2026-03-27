@@ -114,7 +114,7 @@ fun WalletTable(
         val backgroundColor = rememberInteractiveRowBackground(
             isActive = selected,
             active = colors.active,
-            activeHovered = colors.activeHovered,
+            activeHovered = colors.hovered,
             interactionSource = interactionSource
         )
 
