@@ -32,7 +32,7 @@ fun <T> SmartMultiSelect(
         item = item,
         placeholder = placeholder,
         modifier = modifier,
-        leadingIcon = leadingIcon,
+        leadingIcon = { leadingIcon },
         trailingIcon = trailingIcon,
         multiSelectDefaults = multiSelectDefaults
     )
