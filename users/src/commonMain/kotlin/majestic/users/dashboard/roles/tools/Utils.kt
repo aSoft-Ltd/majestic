@@ -15,7 +15,7 @@ internal fun RoleActionsLabels.getRoles() = listOf(
     OptionMenu(view, RoleAction.View),
     OptionMenu(edit, RoleAction.Edit),
     OptionMenu(duplicate, RoleAction.Duplicate),
-    OptionMenu(delete, RoleAction.Delete)
+    OptionMenu(delete, RoleAction.Delete, isDestructive = true)
 )
 
 

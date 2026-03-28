@@ -228,7 +228,7 @@ internal fun PortraitView(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(.05.dp)
-                        .underline(color = props.roles.roleCard.body.copy(.05f), width = .5.dp)
+                        .underline(color = props.roles.roleCard.border)
                 )
             }
         }

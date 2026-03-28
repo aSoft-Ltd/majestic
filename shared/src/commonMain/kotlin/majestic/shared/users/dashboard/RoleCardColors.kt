@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 data class RoleCardColors(
     val head: RoleHeaderColors,
-    val body: Color,
+    val foreground: Color,
+    val background: Color,
+    val border: Color,
     val footer: CardStatColors
 )

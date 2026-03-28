@@ -1,9 +1,9 @@
 package majestic.shared.users.dashboard
 
 import androidx.compose.ui.graphics.Color
-import majestic.shared.tools.menu.MenuOptionColors
+import majestic.dropdown.DropdownColors
 
 data class RoleHeaderColors(
     val title: Color,
-    val menu: MenuOptionColors,
+    val dropdown: DropdownColors,
 )
