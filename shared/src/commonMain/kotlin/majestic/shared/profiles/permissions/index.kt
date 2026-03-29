@@ -21,7 +21,6 @@ import majestic.shared.profiles.Permission
 import majestic.shared.profiles.permissions.detail.DetailColors
 import majestic.shared.profiles.permissions.detail.Details
 import majestic.shared.profiles.permissions.detail.Permissions
-import majestic.shared.profiles.permissions.detail.PermissionsColors
 import majestic.shared.profiles.permissions.detail.toDetailProperties
 import majestic.shared.users.label.contacts.PermissionLabels
 
@@ -37,7 +36,7 @@ internal fun Modifier.generalStyles(orientation: ScreenOrientation) =
 
 data class GeneralPermissionColors(
     val background: Color,
-    val permission: PermissionsColors,
+    val permission: PermissionItemColors,
     val detail: DetailColors
 )
 

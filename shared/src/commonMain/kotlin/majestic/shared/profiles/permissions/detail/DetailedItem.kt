@@ -60,7 +60,7 @@ internal fun DetailedItem(
         Icon(
             imageVector = vectorResource(props.item.resource),
             contentDescription = null,
-            tint = props.colors.leadIcon.foreground,
+            tint = props.colors.leadIcon.foreground.copy(0.5f),
             modifier = Modifier.size(24.dp)
         )
         Column(
