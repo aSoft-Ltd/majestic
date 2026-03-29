@@ -36,7 +36,7 @@ internal fun Content(
                 .padding(vertical = 20.dp)
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(vertical = 10.dp, horizontal = 16.dp),
+                .padding(vertical = 12.dp, horizontal = 24.dp),
             props = DetailedItemProperties(
                 colors = colors.body,
                 item = permission,
