@@ -1,7 +1,7 @@
 @file:OptIn(ExperimentalComposeLibrary::class)
 
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -88,6 +88,8 @@ kotlin {
             api(kotlinx.datetime)?.because("Required for date time picker")
             implementation(libs.cinematic.live.compose)
             implementation(kotlinx.coroutines.core)
+            implementation("dev.chrisbanes.haze:haze:1.7.2")?.because("Cool blur effect")
+            implementation("dev.chrisbanes.haze:haze-materials:1.7.2")?.because("Cool blur effect")
         }
 
         commonTest.dependencies {

@@ -59,6 +59,8 @@ kotlin {
             api(projects.majesticInputCore)
             api(projects.majesticIcons)?.because("Buttons need Icons too")
             api(libs.symphony.input.text)?.because("We need text fields and the likes")
+            implementation("dev.chrisbanes.haze:haze:1.7.2")?.because("Cool blur effect")
+            implementation("dev.chrisbanes.haze:haze-materials:1.7.2")?.because("Cool blur effect")
         }
 
         commonTest.dependencies {

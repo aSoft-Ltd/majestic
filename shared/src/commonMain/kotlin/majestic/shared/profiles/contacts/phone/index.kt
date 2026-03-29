@@ -28,19 +28,14 @@ import majestic.icons.ic_calling_solid
 import majestic.icons.ic_more_horizontal
 import majestic.icons.ic_whatsapp_solid
 import majestic.layouts.Flex
-import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogsColors
 import majestic.shared.profiles.contacts.tools.PhoneMenuAction
 import majestic.shared.tools.Tooltip
 import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.users.label.contacts.ContactLabels
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
-
-data class Backgrounds(
-    val portrait: Color,
-    val landscape: Color
-)
 
 data class PhoneColors(
     val tint: Color,

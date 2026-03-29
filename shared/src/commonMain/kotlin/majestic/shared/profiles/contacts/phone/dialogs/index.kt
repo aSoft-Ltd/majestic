@@ -6,7 +6,6 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.dialogs.DialogColors
 import majestic.dialogs.flexible.FlexibleDialog
 import majestic.shared.profiles.contacts.email.dialogs.getTitle
-import majestic.shared.profiles.contacts.phone.Backgrounds
 import majestic.shared.profiles.contacts.tools.dialogs.BarColors
 import majestic.shared.profiles.contacts.tools.dialogs.None
 import majestic.shared.tools.modal.ModalColors
@@ -16,7 +15,6 @@ import majestic.shared.tools.modal.modalPopupStyle
 import majestic.shared.users.label.contacts.ContactLabels
 
 data class PhoneDialogsColors(
-    val backgrounds: Backgrounds,
     val bar: BarColors,
     val content: PhoneDialogContentColors,
     val dialog: DialogColors,

@@ -2,8 +2,6 @@ package majestic.shared.profiles.contacts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,8 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
@@ -27,44 +23,37 @@ import majestic.shared.profiles.contacts.email.dialogs.EmailDialogState
 import majestic.shared.profiles.contacts.phone.Phone
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogState
 import majestic.shared.profiles.contacts.tools.ContactsColors
-import majestic.shared.profiles.contacts.tools.ContactsItemBackground
+import majestic.shared.profiles.contacts.tools.ContactsItemColors
 import majestic.shared.profiles.contacts.tools.EmailMenuAction
 import majestic.shared.profiles.contacts.tools.PhoneMenuAction
 import majestic.shared.profiles.contacts.tools.dialogs.Delete
 import majestic.shared.profiles.contacts.tools.dialogs.Duplicate
 import majestic.shared.profiles.contacts.tools.dialogs.Edit
+import majestic.shared.tools.rememberHoverBackground
 import majestic.shared.tools.separator
 import majestic.shared.users.UsersLabels
 
 @Composable
 private fun Modifier.contact(
     orientation: ScreenOrientation,
-    colors: ContactsItemBackground,
+    colors: ContactsItemColors,
     lastItem: Boolean = false,
     shape: Shape = RoundedCornerShape(0.dp),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ): Modifier {
-    val isHovered by interactionSource.collectIsHoveredAsState()
+    val (background, interaction) = rememberHoverBackground(
+        background = colors.background,
+        foreground = colors.content
+    )
     return height(80.dp).fillMaxWidth().then(
         if (orientation is Landscape) Modifier
-            .separator(lastItem, colors.content.copy(0.05f))
-            .background(
-                color = when (isHovered) {
-                    true -> colors.contact.focused
-                    else -> colors.contact.unfocused
-                },
-                shape = shape
-            )
+            .clip(shape)
+            .background(background)
+            .separator(lastItem, colors.separator)
             .padding(horizontal = 30.dp)
-            .hoverable(interactionSource = interactionSource)
-        else Modifier.clip(RoundedCornerShape(12.dp))
-            .background(
-                color = when (isHovered) {
-                    true -> colors.profile.focused
-                    else -> colors.profile.unfocused
-                },
-                shape = shape
-            )
+            .hoverable(interaction)
+        else Modifier
+            .clip(RoundedCornerShape(12.dp))
+            .separator(lastItem, colors.separator)
             .padding(horizontal = 20.dp)
     )
 }

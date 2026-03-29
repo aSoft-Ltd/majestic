@@ -3,7 +3,6 @@ package majestic.shared.profiles.contacts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -13,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import dev.chrisbanes.haze.HazeState
 import majestic.shared.profiles.contacts.email.dialogs.EmailDialogs
 import majestic.shared.profiles.contacts.email.dialogs.rememberEmailDialogState
 import majestic.shared.profiles.contacts.phone.dialogs.PhoneDialogs
@@ -36,13 +37,11 @@ internal fun contactList(
 ): Modifier = when (orientation) {
     is Landscape -> Modifier
         .wrapContentSize()
-        .background(
-            color = colors.backgrounds.landscape.copy(.5f),
-            shape = RoundedCornerShape(20.dp)
-        )
+        .clip(RoundedCornerShape(20.dp))
+        .background(color = colors.background)
 
     is Portrait -> Modifier
-        .padding(10.dp)
+        .background(color = colors.background)
         .fillMaxSize()
 }
 
@@ -51,6 +50,7 @@ fun Contacts(
     modifier: Modifier,
     colors: ContactsColors,
     labels: UsersLabels,
+    hazeState: HazeState,
     orientation: ScreenOrientation
 ) {
     val emailDialog = rememberEmailDialogState()
@@ -72,7 +72,6 @@ fun Contacts(
         contentAlignment = if (orientation is Landscape) Alignment.TopEnd else Alignment.BottomEnd,
         modifier = modifier
     ) {
-        var isOpen by remember { mutableStateOf(false) }
         var buttonBox by remember { mutableStateOf(Rect(Offset.Zero, Size.Zero)) }
 
         ContactList(
@@ -85,30 +84,15 @@ fun Contacts(
             data = ContactListData()
         )
 
-
         FloatingButtons(
             orientation = orientation,
             buttonBox = buttonBox,
             labels = labels,
-            isOpen = isOpen,
             colors = colors,
-            onEmailButtonClick = {
-                emailDialog.open(Add)
-                isOpen = false
-            },
-            onPhoneButtonClick = {
-                phoneDialog.open(Add)
-                isOpen = false
-            },
-            emailDialog = emailDialog,
-            phoneDialog = phoneDialog,
-            onDismiss = { isOpen = false },
-            onOpen = {
-                isOpen = !isOpen
-            },
-            onPlaced = {
-                buttonBox = it.boundsInParent()
-            }
+            onEmailButtonClick = { emailDialog.open(Add) },
+            onPhoneButtonClick = { phoneDialog.open(Add) },
+            onPlaced = { buttonBox = it.boundsInParent() },
+            hazeState = hazeState,
         )
     }
 }
