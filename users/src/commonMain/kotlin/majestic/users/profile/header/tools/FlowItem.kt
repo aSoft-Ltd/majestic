@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.shared.users.profile.FlowItemColors
+import majestic.shared.tools.CommonProfileColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
@@ -24,7 +24,7 @@ import org.jetbrains.compose.resources.vectorResource
 internal fun FlowItem(
     title: String,
     description: String,
-    colors: FlowItemColors,
+    colors: CommonProfileColors,
     resource: DrawableResource,
     resourceSize: Dp,
     titleSize: TextUnit = 16.sp,
@@ -45,7 +45,7 @@ internal fun FlowItem(
             modifier = Modifier.size(resourceSize),
             imageVector = vectorResource(resource),
             contentDescription = null,
-            tint = colors.icon
+            tint = colors.headerIcons
         )
 
         Text(
@@ -54,7 +54,7 @@ internal fun FlowItem(
             fontSize = subtitleSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            color = colors.title
+            color = colors.foreground
         )
     }
     Text(
@@ -63,6 +63,6 @@ internal fun FlowItem(
         fontSize = titleSize,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        color = colors.summary
+        color = colors.headerText.copy(0.3f)
     )
 }

@@ -73,6 +73,8 @@ import majestic.ThemeColor
  * @param trailingIcon Optional icon displayed after text. Also supports rotation and DrawableResource or ImageVector.
  * @param modifier Good old modifier.
  */
+
+@Deprecated("use majestic.button")
 @Composable
 fun Button(
     label: String? = null,

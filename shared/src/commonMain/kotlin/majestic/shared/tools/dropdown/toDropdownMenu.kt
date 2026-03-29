@@ -20,16 +20,16 @@ fun <T> List<OptionMenu<out T>>.toDropdownItems(): List<DropdownItem<T>> {
 
 @Composable
 fun <T> List<T>.toDropdownItems(
-    labelSelector: (T) -> String = { it.toString() },
-    iconSelector: ((T) -> DrawableResource)? = null,
-    isDestructiveSelector: (T) -> Boolean = { false }
+    label: (T) -> String = { it.toString() },
+    icon: ((T) -> DrawableResource)? = null,
+    isDestructive: (T) -> Boolean = { false }
 ): List<DropdownItem<T>> {
     return map { item ->
         DropdownItem(
             value = item,
-            label = labelSelector(item),
-            isDestructive = isDestructiveSelector(item),
-            leadingIcon = iconSelector?.let { vectorResource(it(item)) }
+            label = label(item),
+            isDestructive = isDestructive(item),
+            leadingIcon = icon?.let { vectorResource(it(item)) }
         )
     }
 }
