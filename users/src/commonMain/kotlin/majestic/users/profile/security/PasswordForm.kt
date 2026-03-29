@@ -26,19 +26,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.NoRippleInteractionSource
 import majestic.TextField
-import majestic.buttons.ActionButton
-import majestic.buttons.ButtonColors
+import majestic.button.appearence.constructiveFormButton
+import majestic.button.basic.FormButton
 import majestic.icons.Res
 import majestic.icons.ic_info_circle
 import majestic.icons.ic_view
 import majestic.icons.ic_view_off
 import majestic.shared.users.label.profile.security.PasswordFormLabels
-import majestic.shared.users.profile.PasswordFormColors
+import majestic.shared.users.profile.SecurityColors
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun PasswordForm(
-    colors: PasswordFormColors,
+    colors: SecurityColors,
     labels: PasswordFormLabels,
     onSubmit: () -> Unit,
     modifier: Modifier = Modifier
@@ -51,7 +51,7 @@ internal fun PasswordForm(
         text = labels.title,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
-        color = colors.theme.surface.contra.color
+        color = colors.foreground
     )
     Row(
         modifier = Modifier
@@ -87,7 +87,7 @@ internal fun PasswordForm(
                 Text(
                     modifier = Modifier.padding(bottom = 8.dp),
                     text = labels.oldPass.label,
-                    color = colors.theme.surface.contra.color.copy(alpha = 0.7f)
+                    color = colors.foreground.copy(alpha = 0.7f)
                 )
             },
             trailingIcon = {
@@ -100,7 +100,7 @@ internal fun PasswordForm(
                     ),
                     painter = painterResource(icon),
                     contentDescription = "Icon",
-                    tint = colors.theme.surface.contra.color
+                    tint = colors.foreground
                 )
             },
             onChange = { oldPass = it }
@@ -120,7 +120,7 @@ internal fun PasswordForm(
                 Text(
                     modifier = Modifier.padding(bottom = 8.dp),
                     text = labels.newPass.label,
-                    color = colors.theme.surface.contra.color.copy(alpha = 0.7f)
+                    color = colors.foreground.copy(alpha = 0.7f)
                 )
             },
             trailingIcon = {
@@ -133,20 +133,19 @@ internal fun PasswordForm(
                     ),
                     painter = painterResource(icon),
                     contentDescription = "Icon",
-                    tint = colors.theme.surface.contra.color
+                    tint = colors.foreground
                 )
             },
             onChange = { newPass = it }
         )
     }
 
-    ActionButton(
-        modifier = Modifier.fillMaxWidth(),
+    // TODO: Use modal footer
+    FormButton(
         text = labels.submit,
-        colors = ButtonColors(
-            contentColor = colors.theme.surface.actual.color,
-            containerColor = colors.theme.surface.contra.color
-        ),
-        onClick = onSubmit
+        modifier = Modifier.fillMaxWidth().constructiveFormButton(
+            colors = colors.solidConstructive,
+            onClick = onSubmit
+        )
     )
 }

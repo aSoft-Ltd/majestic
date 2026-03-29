@@ -32,6 +32,7 @@ data class ButtonAnimateColors(
     }
 }
 
+@Deprecated("Use ExpandableButton")
 @Composable
 fun ButtonAnimate(
 
