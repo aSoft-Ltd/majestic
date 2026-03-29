@@ -49,7 +49,7 @@ internal fun RoleCard(
 
     Text(
         text = props.data.body,
-        color = props.colors.body,
+        color = props.colors.foreground.copy(.7f),
         fontSize = if (orientation is Portrait) 13.sp else 15.sp,
     )
     Footer(

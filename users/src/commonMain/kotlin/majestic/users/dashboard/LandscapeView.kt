@@ -147,8 +147,7 @@ internal fun LandscapeView(
             .clip(RoundedCornerShape(20.dp))
             .weight(1f)
             .fillMaxWidth()
-            .fillMaxHeight()
-            .background(props.roles.background, RoundedCornerShape(20.dp)),
+            .fillMaxHeight(),
         orientation = orientation,
         props = UsersRolesProps(
             header = HeaderProps(

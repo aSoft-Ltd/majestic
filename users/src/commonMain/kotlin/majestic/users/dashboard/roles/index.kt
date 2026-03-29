@@ -1,6 +1,7 @@
 package majestic.users.dashboard.roles
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
 import majestic.editor.toolbar.underline
 import majestic.shared.tools.menu.OptionMenu
+import majestic.shared.tools.rememberHoverBackground
 import majestic.shared.users.dashboard.RoleCardColors
 import majestic.users.dashboard.roles.tools.RoleAction
 import majestic.users.dashboard.roles.tools.UserRole
@@ -53,20 +55,29 @@ internal fun UsersRoles(
             .background(props.header.colors.background)
             .fillMaxWidth()
             .wrapContentHeight()
-            .underline(
-                color = props.header.colors.separator?.copy(.03f) ?: props.header.colors.background
-            )
+            .underline(props.header.colors.separator)
             .padding(horizontal = 20.dp, vertical = 5.dp)
-            .height(80.dp),
+            .height(60.dp),
         props = props.header,
         add = add,
         manage = manage
     )
 
     Column(modifier = Modifier.weight(1f).fillMaxWidth()) {
+
         UserRole.roles.forEachIndexed { index, role ->
+            val (background, interactionSource) = rememberHoverBackground(
+                background = props.body.colors.background,
+                foreground = props.body.colors.foreground
+            )
+
             RoleCard(
-                modifier = Modifier.fillMaxWidth().wrapContentHeight().padding(10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(background)
+                    .wrapContentHeight()
+                    .hoverable(interactionSource = interactionSource)
+                    .padding(10.dp),
                 props = RoleCardProps(
                     colors = props.body.colors,
                     data = RoleCardData(
@@ -83,7 +94,7 @@ internal fun UsersRoles(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(.05.dp)
-                    .underline(color = props.header.colors.title.copy(.05f), width = .5.dp)
+                    .underline(color = props.body.colors.border, width = 1.dp)
             )
         }
     }

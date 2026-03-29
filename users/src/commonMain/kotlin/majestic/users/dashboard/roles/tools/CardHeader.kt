@@ -13,14 +13,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.dropdown.Dropdown
 import majestic.icons.Res
 import majestic.icons.ic_info_circle
-import majestic.shared.tools.menu.MenuOption
+import majestic.icons.ic_more_horizontal
+import majestic.shared.tools.dropdown.toDropdownItems
 import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.users.dashboard.RoleHeaderColors
 import org.jetbrains.compose.resources.vectorResource
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,10 +55,12 @@ internal fun CardHeader(
         )
     }
 
-    MenuOption(
-        colors = colors.menu,
-        orientation = orientation,
-        actions = actions,
-        onAction = {},
+    Dropdown(
+        items = actions.toDropdownItems(),
+        onAction = { },
+        colors = colors.dropdown,
+        icon = vectorResource(Res.drawable.ic_more_horizontal),
+        rotationTarget = if (orientation == Portrait) 90f else 0f,
+        isListItem = true
     )
 }
