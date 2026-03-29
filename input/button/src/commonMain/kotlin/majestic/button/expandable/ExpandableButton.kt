@@ -8,36 +8,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
 import majestic.button.Button
-import majestic.button.appearence.expandableButton
+import majestic.button.appearence.ExpandableButtonElement
 
 @Composable
 fun ExpandableButton(
     label: String,
     icon: ImageVector,
-    colors: ColorPair,
-    source: MutableInteractionSource = remember { MutableInteractionSource() },
     orientation: ScreenOrientation,
     forceExpanded: Boolean = false,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val hovered by source.collectIsHoveredAsState()
+    val buttonInteraction = modifier.source()
+    val buttonHovered by buttonInteraction.collectIsHoveredAsState()
 
-    Button(
-        modifier = modifier.expandableButton(
-            colors = colors,
-            source = source, onClick = onClick
-        )
-    ) { colors ->
+    Button(modifier = modifier) { colors ->
         ExpandableButtonContent(
             icon = icon,
             text = label,
-            isHovered = hovered,
+            isHovered = buttonHovered,
             orientation = orientation,
             forceExpanded = forceExpanded,
             colors = colors,
         )
     }
+}
+
+@Composable
+private fun Modifier.source(): MutableInteractionSource {
+    var source: MutableInteractionSource? = null
+
+    any { element ->
+        (element as? ExpandableButtonElement)?.let { source = it.source } != null
+    }
+
+    return source ?: remember { MutableInteractionSource() }
 }
