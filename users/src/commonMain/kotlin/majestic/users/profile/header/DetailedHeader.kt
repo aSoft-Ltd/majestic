@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,21 +16,24 @@ import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.button.appearence.headerIconButton
+import majestic.button.basic.HeaderIconButton
+import majestic.icons.Res
+import majestic.icons.ic_arrow_left
+import majestic.shared.tools.CommonProfileColors
 import majestic.shared.users.label.profile.ProfileLabels
-import majestic.shared.users.profile.DetailedHeaderColors
 import majestic.shared.users.tools.UsersData
-import majestic.tooling.onClick
 import majestic.users.profile.Head
 import majestic.users.profile.header.tools.HeadData
 import majestic.users.profile.header.tools.toProfileData
 import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun DetailHeader(
     labels: ProfileLabels,
     user: UsersData,
-    colors: DetailedHeaderColors,
+    colors: CommonProfileColors,
     navigator: Navigator,
     back: DrawableResource,
     tabs: @Composable () -> Unit = {},
@@ -54,11 +55,13 @@ fun DetailHeader(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            if (orientation is Portrait) Icon(
-                modifier = Modifier.size(24.dp).onClick { navigator.go(-1) },
-                painter = painterResource(back),
-                tint = colors.icon,
-                contentDescription = "Icon"
+            if (orientation is Portrait) HeaderIconButton(
+                icon = vectorResource(Res.drawable.ic_arrow_left),
+                modifier = Modifier.headerIconButton(
+                    color = colors.iconButton,
+                    alpha = 0f,
+                    onClick = { navigator.go(-1) },
+                )
             )
             Head(
                 modifier = Modifier
@@ -78,7 +81,7 @@ fun DetailHeader(
                     list = user.toProfileData(labels),
                     flag = user.flag
                 ),
-                colors = colors.head,
+                colors = colors,
                 orientation = orientation,
             )
         }

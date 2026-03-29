@@ -24,17 +24,16 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.shared.users.profile.HeadColors
+import majestic.shared.tools.CommonProfileColors
 import majestic.users.profile.header.tools.Body
 import majestic.users.profile.header.tools.HeadData
-import majestic.users.profile.header.tools.toHeadContentColors
 import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
 fun Head(
     data: HeadData,
-    colors: HeadColors,
+    colors: CommonProfileColors,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier
 ) = Row(
@@ -49,12 +48,12 @@ fun Head(
             = Modifier
                 .size(if (orientation is Landscape) 140.dp else 70.dp)
                 .clip(CircleShape)
-                .background(colors.background.copy(.7f)),
+                .background(colors.dominantActual.copy(.7f)),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = data.name.firstOrNull()?.uppercase() ?: "",
-                color = colors.content,
+                color = colors.foreground,
                 fontSize = if (orientation is Landscape) 40.sp else 20.sp,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1
@@ -73,7 +72,7 @@ fun Head(
                 modifier = Modifier
                     .padding(start = 15.dp, bottom = 10.dp)
                     .align(Alignment.BottomEnd)
-                    .border(1.dp, colors.background, CircleShape)
+                    .border(1.dp, colors.dominantActual, CircleShape)
                     .clip(CircleShape)
                     .size(15.dp),
                 contentScale = ContentScale.Crop,
@@ -88,7 +87,6 @@ fun Head(
         modifier = Modifier.wrapContentHeight().fillMaxWidth(),
         orientation = orientation,
         data = data,
-        colors = colors.toHeadContentColors()
+        colors = colors
     )
 }
-

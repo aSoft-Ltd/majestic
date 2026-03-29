@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
+import majestic.shared.tools.CommonProfileColors
 import majestic.shared.users.label.profile.ProfileLabels
-import majestic.shared.users.profile.UserDetailColors
 import majestic.shared.users.tools.UsersData
 import org.jetbrains.compose.resources.DrawableResource
 
@@ -27,7 +27,7 @@ import org.jetbrains.compose.resources.DrawableResource
 fun UserDetails(
     orientation: ScreenOrientation,
     user: UsersData,
-    colors: UserDetailColors,
+    colors: CommonProfileColors,
     tabs: @Composable () -> Unit,
     navigator: Navigator,
     labels: ProfileLabels,
@@ -37,8 +37,6 @@ fun UserDetails(
     bars: @Composable () -> Unit = {},
     content: @Composable (() -> Unit) = {},
 ) = Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-
-    val barColors = colors.barColors
     bars()
     Column(
         modifier = Modifier
@@ -52,10 +50,10 @@ fun UserDetails(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .clip(RoundedCornerShape(if (orientation is Landscape) 20.dp else 0.dp))
-                .background(if (orientation is Landscape) colors.clientBackground.copy(.5f) else barColors.background),
+                .background(colors.header),
             user = user,
             labels = labels,
-            colors = colors.detailHeader,
+            colors = colors,
             orientation = orientation,
             navigator = navigator,
             tabs = tabs,

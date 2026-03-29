@@ -2,7 +2,12 @@ package majestic.users.profile.header.tools
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -10,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -21,25 +25,10 @@ import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import majestic.shared.users.profile.FlowItemColors
-import majestic.shared.users.profile.HeadColors
+import majestic.shared.tools.CommonProfileColors
 import org.jetbrains.compose.resources.painterResource
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
-
-data class HeadContentColors(
-    val background: Color,
-    val content: Color,
-    val title: Color,
-    val flow: FlowItemColors
-)
-
-internal fun HeadColors.toHeadContentColors(): HeadContentColors = HeadContentColors(
-    background = background,
-    content = content,
-    title = title,
-    flow = flow
-)
 
 @OptIn(ExperimentalTime::class)
 @Composable
@@ -47,7 +36,7 @@ internal fun Body(
     modifier: Modifier,
     orientation: ScreenOrientation,
     data: HeadData,
-    colors: HeadContentColors
+    colors: CommonProfileColors
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(if (orientation is Landscape) 10.dp else 5.dp)
@@ -61,7 +50,7 @@ internal fun Body(
     ) {
         Text(
             text = data.name,
-            color = colors.title,
+            color = colors.foreground,
             fontSize = if (orientation is Landscape) 20.sp else 14.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 1.sp,
@@ -80,14 +69,14 @@ internal fun Body(
         if (orientation is Landscape) Text(
             modifier = Modifier
                 .clip(RoundedCornerShape(5.dp))
-                .background(colors.background.copy(.3f))
+                .background(colors.dominantActual.copy(.3f))
                 .padding(horizontal = 5.dp, vertical = 2.dp),
             text = data.gender,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
             fontSize = 10.sp,
             lineHeight = 1.sp,
-            color = colors.content,
+            color = colors.foreground,
         )
     }
     when (orientation) {
@@ -100,7 +89,7 @@ internal fun Body(
                 FlowItem(
                     title = item.title,
                     description = item.description,
-                    colors = colors.flow,
+                    colors = colors,
                     titleSize = 12.sp,
                     subtitleSize = 14.sp,
                     fontWeight = FontWeight.Normal,
@@ -118,15 +107,17 @@ internal fun Body(
             Text(
                 modifier = Modifier
                     .clip(RoundedCornerShape(5.dp))
-                    .background(colors.background.copy(.05f))
+                    .background(colors.dominantActual.copy(.05f))
                     .padding(horizontal = 5.dp, vertical = 2.dp),
                 text = data.gender,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 fontSize = 10.sp,
                 lineHeight = 1.sp,
-                color = colors.content,
+                color = colors.foreground,
             )
+
+            // TODO: Hii kitu haita break mtu aki switch language?
             data.list.filter {
                 it.title.equals("Date of Birth", true) || it.title.equals(
                     "joined",
@@ -136,7 +127,7 @@ internal fun Body(
                 Text(
                     modifier = Modifier
                         .clip(RoundedCornerShape(2.dp))
-                        .background(colors.background.copy(.05f))
+                        .background(colors.dominantActual.copy(.05f))
                         .padding(horizontal = 5.dp, vertical = 2.dp),
                     text = if (item.title.equals("joined", true)) {
                         "${item.title} ${item.description.drop(2)}"
@@ -147,7 +138,7 @@ internal fun Body(
                     maxLines = 1,
                     fontSize = 10.sp,
                     lineHeight = 1.sp,
-                    color = colors.content,
+                    color = colors.foreground,
                 )
             }
         }

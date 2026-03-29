@@ -35,7 +35,8 @@ data class PermissionItemColors(
     val title: Color,
     val description: Color,
     val trailIcon: Color,
-    val separator: Color
+    val separator: Color,
+    val background: Color,
 )
 
 @Composable

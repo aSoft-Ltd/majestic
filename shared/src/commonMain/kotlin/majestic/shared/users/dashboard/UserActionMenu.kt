@@ -5,16 +5,16 @@ enum class UserActionMenu {
     ManagePermission,
     ViewUser,
     BlockAccess,
-    RemoveUser,
-    ResetPassword;
+    ResetPassword,
+    RemoveUser;
 
     fun getLabel(labels: UserActionLabels) = when (this) {
         AssignRole -> labels.assignRole
         ManagePermission -> labels.managePermission
         ViewUser -> labels.viewUser
         BlockAccess -> labels.blockAccess
-        RemoveUser -> labels.removeUser
         ResetPassword -> labels.resetPassword
+        RemoveUser -> labels.removeUser
     }
 }
 
@@ -23,6 +23,6 @@ data class UserActionLabels(
     val managePermission: String,
     val viewUser: String,
     val blockAccess: String,
+    val resetPassword: String,
     val removeUser: String,
-    val resetPassword: String
 )
