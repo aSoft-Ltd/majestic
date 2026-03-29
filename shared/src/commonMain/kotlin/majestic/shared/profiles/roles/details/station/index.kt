@@ -1,14 +1,10 @@
 package majestic.shared.profiles.roles.details.station
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
@@ -20,6 +16,7 @@ import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
 import majestic.shared.tools.menu.OptionMenu
+import majestic.shared.tools.rememberHoverBackground
 
 @Composable
 internal fun StationList(
@@ -37,14 +34,15 @@ internal fun StationList(
     verticalArrangement = Arrangement.Top
 ) {
     stations.forEach { station ->
-        val interaction = remember { MutableInteractionSource() }
-        val hovered by interaction.collectIsHoveredAsState()
+        val (background, interaction) = rememberHoverBackground(
+            background = colors.station.background,
+            foreground = colors.station.foreground
+        )
         StationItem(
             modifier = Modifier.stationItem(
                 interaction = interaction,
+                background = background,
                 orientation = orientation,
-                hovered = hovered,
-                colors = colors,
                 stations = stations,
                 campus = station
             ),
