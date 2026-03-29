@@ -30,6 +30,7 @@ import composex.screen.orientation.ScreenOrientation
 import dev.chrisbanes.haze.HazeState
 import majestic.button.Button
 import majestic.button.appearence.addContactOption
+import majestic.button.appearence.expandableButton
 import majestic.button.basic.BasicButtonContent
 import majestic.button.expandable.ExpandableButton
 import majestic.icons.Res
@@ -76,10 +77,12 @@ internal fun FloatingButtons(
             ExpandableButton(
                 icon = vectorResource(Res.drawable.ic_add),
                 label = labels.profile.tabs.contacts.content.addButton,
-                colors = colors.button,
                 orientation = orientation,
                 forceExpanded = isOpen,
-                onClick = { isOpen = !isOpen },
+                modifier = Modifier.expandableButton(
+                    colors = colors.button,
+                    onClick = { isOpen = !isOpen }
+                )
             )
         }
 
@@ -117,13 +120,14 @@ internal fun FloatingButtons(
 
 @Composable
 private fun ContactOptionsList(
-    modifier: Modifier = Modifier,
     colors: ContactsColors,
     labels: OptionLabels,
     hazeState: HazeState,
     onEmailButtonClick: () -> Unit,
     onPhoneButtonClick: () -> Unit,
-) {
+    modifier: Modifier = Modifier,
+
+    ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
