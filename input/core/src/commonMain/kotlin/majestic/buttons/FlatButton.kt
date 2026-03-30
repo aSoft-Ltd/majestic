@@ -24,6 +24,7 @@ data class FlatButtonColors(
     ),
 )
 
+@Deprecated("Use majestic.button")
 @Composable
 fun FlatButton(
     modifier: Modifier = Modifier,
@@ -35,6 +36,7 @@ fun FlatButton(
     content()
 }
 
+@Deprecated("Use majestic.button")
 @Composable
 fun FlatButton(
     label: String,

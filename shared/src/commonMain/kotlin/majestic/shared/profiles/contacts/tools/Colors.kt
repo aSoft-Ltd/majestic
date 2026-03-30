@@ -2,32 +2,26 @@ package majestic.shared.profiles.contacts.tools
 
 import androidx.compose.ui.graphics.Color
 import majestic.ColorPair
-import majestic.ThemeColor
 import majestic.shared.profiles.contacts.email.EmailColors
-import majestic.shared.profiles.contacts.phone.Backgrounds
 import majestic.shared.profiles.contacts.phone.PhoneColors
 
-data class ContactBackgroundColors(
-    val focused: Color,
-    val unfocused: Color
-)
-
-data class ProfileBackgroundColors(
-    val focused: Color,
-    val unfocused: Color
-)
-
-data class ContactsItemBackground(
+data class ContactsItemColors(
     val content: Color,
-    val contact: ContactBackgroundColors,
-    val profile: ProfileBackgroundColors
+    val separator: Color,
+    val background: Color,
+)
+
+data class HazeColors(
+    val edges: Color,
+    val middle: Color
 )
 
 data class ContactsColors(
-    val item: ContactsItemBackground,
-    val theme: ThemeColor,
-    val floatingButton: ColorPair,
-    val backgrounds: Backgrounds,
+    val item: ContactsItemColors,
+    val button: ColorPair,
+    val hazeButton: Color,
+    val hazeColors: HazeColors,
+    val background: Color,
     val email: EmailColors,
     val phone: PhoneColors
 )
