@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import majestic.ColorPair
 
+// These aliases are used to collect buttons that are appearing on similar places so that it is easy to modify them in one place.
 @Composable
 fun Modifier.closeModalIconButton(
     color: Color,
@@ -120,3 +121,15 @@ fun Modifier.iconButton(
     alpha: Float = 0.03f,
     onClick: () -> Unit = { },
 ): Modifier = translucentButton(color = color, onClick = onClick, alpha = alpha)
+
+@Composable
+fun Modifier.securityTabItemButton(
+    color: Color,
+    onClick: () -> Unit = { },
+): Modifier = this
+    .translucentButton(
+        color = color,
+        onClick = onClick,
+        alpha = 0.05f
+    )
+    .padding(horizontal = 20.dp, vertical = 7.dp)

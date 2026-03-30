@@ -9,15 +9,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.layouts.Flex
+import majestic.shared.users.profile.SecurityColors
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun SecurityRow(
     icon: DrawableResource,
-    theme: ThemeColor,
+    colors: SecurityColors,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
@@ -25,7 +25,7 @@ internal fun SecurityRow(
     Icon(
         painter = painterResource(icon),
         contentDescription = null,
-        tint = theme.surface.contra.color.copy(0.5f),
+        tint = colors.foreground.copy(0.5f),
         modifier = Modifier.padding(end = 20.dp)
     )
     Flex(

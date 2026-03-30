@@ -18,32 +18,31 @@ import majestic.ToggleSwitch
 import majestic.icons.Res
 import majestic.icons.ic_access
 import majestic.shared.users.label.profile.security.SecurityLabels
-import majestic.shared.users.profile.TwoFactorColors
-
+import majestic.shared.users.profile.SecurityColors
 
 @Composable
 internal fun ColumnScope.TwoFactor(
     modifier: Modifier = Modifier,
-    colors: TwoFactorColors,
+    colors: SecurityColors,
     orientation: ScreenOrientation,
     labels: SecurityLabels,
 ) = SecurityRow(
     modifier = modifier,
     icon = Res.drawable.ic_access,
-    theme = colors.theme,
+    colors = colors,
     orientation = orientation,
 ) {
     SectionHeading(
         modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(2f) else Modifier),
         labels = labels.twoFactor,
-        color = colors.theme.surface.contra.color
+        color = colors.foreground
     )
     Row(
         modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
         horizontalArrangement = Arrangement.End,
     ) {
         var checked by remember { mutableStateOf(false) }
-        val textColor = colors.theme.surface.contra.color
+        val textColor = colors.foreground
         Text(
             modifier = Modifier.padding(end = 10.dp),
             text = if (checked) labels.switch.on else labels.switch.off,

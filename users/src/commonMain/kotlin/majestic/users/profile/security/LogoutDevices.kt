@@ -9,29 +9,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
+import majestic.button.Button
+import majestic.button.appearence.securityTabItemButton
+import majestic.button.basic.BasicButtonContent
 import majestic.icons.Res
 import majestic.icons.ic_laptop_remove
 import majestic.layouts.Flex
-import majestic.shared.button.Button
 import majestic.shared.users.label.profile.security.SecurityLabels
+import majestic.shared.users.profile.SecurityColors
 
 @Composable
 internal fun ColumnScope.LogoutDevices(
     modifier: Modifier = Modifier,
-    theme: ThemeColor,
+    colors: SecurityColors,
     orientation: ScreenOrientation,
     labels: SecurityLabels,
 ) = SecurityRow(
     modifier = modifier,
     icon = Res.drawable.ic_laptop_remove,
-    theme = theme,
+    colors = colors,
     orientation = orientation,
 ) {
     SectionHeading(
         modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
         labels = labels.logout,
-        color = theme.surface.contra.color
+        color = colors.foreground
     )
     Flex(
         modifier = Modifier.then(if (orientation == Landscape) Modifier.weight(1f) else Modifier),
@@ -39,15 +41,27 @@ internal fun ColumnScope.LogoutDevices(
         orientation = orientation,
     ) {
         Button(
-            onClick = {},
-            label = labels.btnLogoutAll,
-            theme = theme
-        )
+            modifier = Modifier.securityTabItemButton(
+                color = colors.destructive,
+                onClick = { }
+            )
+        ) { colors ->
+            BasicButtonContent(
+                text = labels.btnLogoutAll,
+                colors = colors
+            )
+        }
         Spacer(modifier = Modifier.width(20.dp))
         Button(
-            onClick = {},
-            label = labels.btnLogout,
-            theme = theme
-        )
+            modifier = Modifier.securityTabItemButton(
+                color = colors.constructive,
+                onClick = { }
+            )
+        ) { colors ->
+            BasicButtonContent(
+                text = labels.btnLogout,
+                colors = colors
+            )
+        }
     }
 }
