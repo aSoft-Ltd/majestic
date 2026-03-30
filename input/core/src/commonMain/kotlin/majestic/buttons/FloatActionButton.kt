@@ -36,6 +36,7 @@ fun Modifier.floatActionButton(background: Color) = size(56.dp)
     .clip(CircleShape)
     .background(background)
 
+@Deprecated("Use PlusButton or ExpandableButton")
 @Composable
 fun FloatingActionButton(
     expanded: Boolean,

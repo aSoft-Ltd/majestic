@@ -41,6 +41,7 @@ data class OptionMenu<T>(
     val isDestructive: Boolean = false,
 )
 
+@Deprecated("Use Dropdown from majestic overlays")
 @Composable
 fun <T> MenuOption(
     colors: MenuOptionColors,

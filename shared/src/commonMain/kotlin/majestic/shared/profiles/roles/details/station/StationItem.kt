@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -18,41 +19,32 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
-import majestic.editor.tools.StateColors
-import majestic.shared.tools.menu.MenuOptionColors
-import majestic.shared.tools.menu.OptionMenu
-import majestic.shared.profiles.roles.RoleColors
+import majestic.dropdown.DropdownColors
 import majestic.shared.profiles.roles.data.RoleData
 import majestic.shared.profiles.roles.data.RoleLabels
 import majestic.shared.profiles.roles.data.RoleOption
-import majestic.shared.profiles.roles.utils.toBackgroundColor
 import majestic.shared.profiles.roles.utils.toShape
+import majestic.shared.tools.menu.OptionMenu
 import majestic.tooling.onClick
 
 data class StationItemColors(
-    val background: StateColors,
+    val background: Color,
+    val foreground: Color,
     val icon: ColorPair,
-    val title: Color,
-    val subtitle: Color,
-    val add: ColorPair,
-    val more: Color,
-    val options: MenuOptionColors
+    val dropdown: DropdownColors
 )
 
 internal fun Modifier.stationItem(
     interaction: MutableInteractionSource,
     orientation: ScreenOrientation,
-    hovered: Boolean,
-    colors: RoleColors,
+    background: Color,
     stations: List<RoleData>,
     campus: RoleData
 ) = this
     .fillMaxWidth()
+    .clip(orientation.toShape(stations = stations, campus = campus))
+    .background(background)
     .hoverable(interaction)
-    .background(
-        color = colors.toBackgroundColor(hovered = hovered),
-        shape = orientation.toShape(stations = stations, campus = campus)
-    )
     .padding(if (orientation is Landscape) 20.dp else 10.dp)
 
 @Composable

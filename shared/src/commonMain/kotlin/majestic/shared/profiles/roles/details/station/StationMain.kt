@@ -51,13 +51,13 @@ internal fun StationMain(
         Text(
             text = station.station,
             fontWeight = FontWeight.SemiBold,
-            color = colors.title,
+            color = colors.foreground,
             lineHeight = 1.sp,
             fontSize = 15.sp,
         )
         Text(
             text = "${station.roles.size} ${labels.roles}",
-            color = colors.subtitle,
+            color = colors.foreground.copy(0.7f),
             lineHeight = 1.sp,
             fontSize = 13.sp
         )
