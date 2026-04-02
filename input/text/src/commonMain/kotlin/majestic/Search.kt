@@ -1,12 +1,11 @@
 package majestic
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -28,7 +27,6 @@ import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEvent
@@ -42,8 +40,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import majestic.button.appearence.iconButton
+import majestic.button.basic.IconButton
 import majestic.editor.tools.StateColors
 
+@Deprecated("use SearchColors")
 data class SearchDefaultColors(
     val hint: Color,
     val text: Color,
@@ -67,13 +68,20 @@ data class SearchDefaultColors(
     }
 }
 
+data class SearchColors(
+    val placeholder: Color,
+    val text: Color,
+    val cursor: Color,
+    val iconButton: Color,
+    val background: Color,
+)
+
 @Composable
 fun Search(
     value: String,
     colors: SearchDefaultColors = SearchDefaultColors.Default,
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(30.dp),
     hint: String? = null,
     placeholder: @Composable (String?) -> Unit = {
         Text(
@@ -174,6 +182,111 @@ fun Search(
                     )
                 }
             }
+        }
+
+        suggestions(isFocused, containerWidth)
+    }
+}
+
+@Composable
+fun Search(
+    value: String,
+    colors: SearchColors,
+    onChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    placeholder: @Composable (String?) -> Unit = {
+        Text(
+            modifier = Modifier,
+            text = it ?: "Search",
+            color = colors.placeholder,
+            style = LocalTextStyle.current,
+        )
+    },
+    focusRequester: FocusRequester? = null,
+    textStyle: TextStyle? = null,
+    onSearch: () -> Unit = {},
+    onFocusChange: (Boolean) -> Unit = {},
+    onDismiss: () -> Unit = {},
+    icon: @Composable() (() -> Unit)? = null,
+    suggestions: @Composable (Boolean, Int) -> Unit = { _, _ -> },
+    onEnter: (keyEvent: KeyEvent) -> Unit = { },
+    onUpArrow: () -> Unit = {},
+    onDownArrow: () -> Unit = {},
+) {
+    var isFocused by remember { mutableStateOf(false) }
+    var containerWidth by remember { mutableStateOf(0) }
+    var containerHeight by remember { mutableStateOf(18) }
+
+    Box(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .onSizeChanged {
+                    containerWidth = it.width
+                    containerHeight = it.height
+                },
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            BasicTextField(
+                modifier = if (focusRequester != null) {
+                    Modifier.focusRequester(focusRequester).padding(start = 10.dp)
+                }
+                else {
+                    Modifier.padding(start = 10.dp)
+                }.weight(1f)
+                    .onFocusChanged {
+                        isFocused = it.isFocused
+                        onFocusChange(it.isFocused)
+                    }.onPreviewKeyEvent {
+                        when {
+                            it.key == Key.DirectionUp && it.type == KeyEventType.KeyUp -> {
+                                onUpArrow()
+                                true
+                            }
+
+                            it.key == Key.DirectionDown && it.type == KeyEventType.KeyUp -> {
+                                onDownArrow()
+                                true
+                            }
+
+                            else -> false
+                        }
+                    }
+                    .onKeyEvent {
+                        if (it.key != Key.Enter) return@onKeyEvent false
+                        onEnter(it)
+                        true
+                    },
+                value = value,
+                onValueChange = onChange,
+                textStyle = textStyle ?: LocalTextStyle.current.copy(
+                    fontSize = 16.sp,
+                    color = colors.text
+                ),
+                cursorBrush = SolidColor(colors.cursor),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                decorationBox = { innerTextField ->
+                    if (value.isEmpty()) {
+                        placeholder(hint)
+                    }
+                    innerTextField()
+                },
+                singleLine = true
+            )
+
+            IconButton(
+                icon = Icons.Default.Search,
+                size = (containerHeight / 2).dp,
+                modifier = Modifier
+                    .padding(2.dp)
+                    .iconButton(
+                        color = colors.iconButton,
+                        onClick = {}
+                    )
+
+            )
         }
 
         suggestions(isFocused, containerWidth)

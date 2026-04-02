@@ -15,16 +15,15 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
 import majestic.dialogs.DialogColors
 import majestic.shared.profiles.roles.assign.form.Actions
-import majestic.shared.profiles.roles.assign.form.HeadingsColor
 import majestic.shared.profiles.roles.assign.form.Item
 import majestic.shared.profiles.roles.assign.form.ItemColors
 import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
-
+import majestic.shared.tools.modal.ModalColors
 
 data class FormColors(
     val background: Color,
-    val headings: HeadingsColor,
+    val header: ModalColors,
     val confirmButton: ColorPair,
     val cancelButton: ColorPair,
     val divider: Color,
