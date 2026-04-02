@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
@@ -71,7 +70,7 @@ internal fun SubHeader(
                 .width(250.dp)
                 .height(36.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(color = Color.Black.copy(0.05f), shape = RoundedCornerShape(20.dp))
+                .background(color = colors.search.background, shape = RoundedCornerShape(20.dp))
                 .padding(start = 16.dp),
             value = controller.searchQuery,
             onChange = { controller.searchQuery = it },
@@ -81,7 +80,7 @@ internal fun SubHeader(
 
         is Portrait -> Icon(
             imageVector = vectorResource(Res.drawable.ic_search),
-            tint = Color.Red,
+            tint = colors.text.copy(0.6f),
             contentDescription = null,
             modifier = Modifier.size(24.dp)
         )
