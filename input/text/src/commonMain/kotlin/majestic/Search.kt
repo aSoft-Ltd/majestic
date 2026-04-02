@@ -81,7 +81,6 @@ fun Search(
     value: String,
     colors: SearchDefaultColors = SearchDefaultColors.Default,
     onChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
     hint: String? = null,
     placeholder: @Composable (String?) -> Unit = {
         Text(
@@ -101,7 +100,8 @@ fun Search(
     onEnter: (keyEvent: KeyEvent) -> Unit = { },
     onUpArrow: () -> Unit = {},
     onDownArrow: () -> Unit = {},
-) {
+    modifier: Modifier = Modifier,
+    ) {
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }
 
@@ -193,7 +193,6 @@ fun Search(
     value: String,
     colors: SearchColors,
     onChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
     hint: String? = null,
     placeholder: @Composable (String?) -> Unit = {
         Text(
@@ -213,6 +212,7 @@ fun Search(
     onEnter: (keyEvent: KeyEvent) -> Unit = { },
     onUpArrow: () -> Unit = {},
     onDownArrow: () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var containerWidth by remember { mutableStateOf(0) }

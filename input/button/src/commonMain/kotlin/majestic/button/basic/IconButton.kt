@@ -11,7 +11,7 @@ import majestic.button.Button
 fun IconButton(
     icon: ImageVector,
     size: Dp? = null,
-    modifier: Modifier = Modifier.Companion
+    modifier: Modifier = Modifier
 ) = Button(modifier = modifier) { colors ->
     BasicButtonContent(
         icon = icon,
@@ -24,7 +24,7 @@ fun IconButton(
 fun IconButton(
     icon: Painter,
     size: Dp? = null,
-    modifier: Modifier = Modifier.Companion
+    modifier: Modifier = Modifier
 ) = Button(modifier = modifier) { colors ->
     BasicButtonContent(
         icon = icon,
