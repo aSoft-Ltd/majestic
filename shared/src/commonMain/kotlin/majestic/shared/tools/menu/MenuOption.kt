@@ -45,6 +45,7 @@ data class OptionMenu<T>(
 @Composable
 fun <T> MenuOption(
     colors: MenuOptionColors,
+    shape: RoundedCornerShape = RoundedCornerShape(50),
     icon: (@Composable (color: Color) -> Unit)? = null,
     orientation: ScreenOrientation,
     actions: List<OptionMenu<T>>,
@@ -62,6 +63,7 @@ fun <T> MenuOption(
             Button(
                 modifier = Modifier.listItemIconButton(
                     colors = colors.listIconButton,
+                    shape = shape,
                     onClick = { expanded = !expanded }
                 )
             ) { colors ->
@@ -79,27 +81,20 @@ fun <T> MenuOption(
             }
         },
         items = Items(
-            modifier = Modifier.width(IntrinsicSize.Min)
-                .background(colors.dropDown)
-                .padding(horizontal = 12.dp, vertical = 6.dp),
+            modifier = Modifier.width(IntrinsicSize.Min).background(colors.dropDown).padding(horizontal = 12.dp, vertical = 6.dp),
             data = actions,
             shape = RoundedCornerShape(12.dp)
         ) { item ->
             val colorRed = colors.lastItem
             val colorNormal = colors.item
             NavItem(
-                leading = {
-                    if (item.icon != null) {
-                        Icon(imageVector = vectorResource(item.icon), contentDescription = null)
-                    }
-                },
+                leading = { if (item.icon != null) Icon(imageVector = vectorResource(item.icon), contentDescription = null) },
                 modifier = Modifier.navItem().onClick {
                     expanded = !expanded
                     onAction(item.action)
                 },
                 label = item.label,
-                colors = if (item.action.toString()
-                        .equals("delete", ignoreCase = true)
+                colors = if (item.action.toString().equals("delete", ignoreCase = true)
                 ) colorRed else colorNormal,
             )
         }
