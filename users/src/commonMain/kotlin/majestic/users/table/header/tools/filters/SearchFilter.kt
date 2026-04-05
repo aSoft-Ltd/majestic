@@ -56,7 +56,6 @@ internal fun SearchFilter(
             onChange(it)
         },
         focusRequester = focusRequester,
-        shape = RoundedCornerShape(8.dp),
         modifier = modifier,
         hint = hint,
         placeholder = {
