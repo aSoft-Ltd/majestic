@@ -35,7 +35,7 @@ import org.jetbrains.compose.resources.painterResource
  * @param theme The application [ThemeColor].
  */
 @Composable
-public fun <T> PageSelection(
+fun <T> PageSelection(
     items: List<T>,
     selected: T,
     onSelect: (T) -> Unit,
