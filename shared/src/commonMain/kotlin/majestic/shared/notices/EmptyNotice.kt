@@ -56,6 +56,7 @@ fun EmptyNotice(
     Text(
         text = labels.subtitle,
         fontSize = 14.sp,
+        lineHeight = 18.sp,
         color = colors.subtitle,
         textAlign = TextAlign.Center,
         modifier = Modifier.widthIn(max = 450.dp).padding(horizontal = 12.dp)
