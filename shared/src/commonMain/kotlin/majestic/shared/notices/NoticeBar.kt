@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.icons.Res
@@ -83,6 +84,9 @@ fun NoticeBar(
             Text(
                 text = notify,
                 fontSize = 16.sp,
+                maxLines = 1,
+                lineHeight = 1.sp,
+                overflow = TextOverflow.Ellipsis,
                 fontWeight = FontWeight.Medium,
                 color = colors.action
             )
