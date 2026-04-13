@@ -37,7 +37,6 @@ fun <T> NoticeList(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(if (orientation is Landscape) 16.dp else 0.dp)
 ) {
-
     items(items) { item ->
         val (background, interaction) = rememberHoverBackground(
             background = colors.background,

@@ -70,7 +70,6 @@ fun <T> Header(
                 .padding(12.dp)
         )
 
-
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

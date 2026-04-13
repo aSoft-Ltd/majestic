@@ -68,7 +68,6 @@ fun Footer(
                             .border(1.dp, colors.background, CircleShape)
                     )
                 }
-
             }
             Text(
                 text = item.progress,
