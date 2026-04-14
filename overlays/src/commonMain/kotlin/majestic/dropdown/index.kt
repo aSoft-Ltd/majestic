@@ -19,6 +19,7 @@ import org.jetbrains.compose.resources.DrawableResource
 data class DropdownItem<T>(
     val value: T,
     val label: String,
+    val image: DrawableResource? = null,
     val leadingIcon: ImageVector? = null,
     val isDestructive: Boolean = false
 )
@@ -45,6 +46,7 @@ fun <T> Dropdown(
     intrinsicWidth: Boolean = false,
     arrowTint: Color? = null,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
+    customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val selectedItem = items.find { it.value == selected }
@@ -62,6 +64,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         intrinsicWidth = intrinsicWidth,
         triggerShape = triggerShape,
+        customItemRow = customItemRow,
         modifier = modifier,
         triggerContent = { expanded ->
             DropdownTriggerContent(
@@ -103,6 +106,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     isListItem: Boolean = false,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
+    customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -115,6 +119,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         isListItem = isListItem,
         triggerShape = triggerShape,
+        customItemRow = customItemRow,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(
@@ -155,6 +160,7 @@ fun <T> Dropdown(
     intrinsicWidth: Boolean = false,
     arrowTint: Color? = null,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
+    customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val label = if (selectedItems.isEmpty()) placeholder else "${selectedItems.size} selected"
@@ -173,6 +179,7 @@ fun <T> Dropdown(
         intrinsicWidth = intrinsicWidth,
         selectedItems = selectedItems,
         triggerShape = triggerShape,
+        customItemRow = customItemRow,
         modifier = modifier,
         triggerContent = { expanded ->
             DropdownTriggerContent(
@@ -213,6 +220,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     isListItem: Boolean = false,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
+    customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -228,6 +236,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         isListItem = isListItem,
         triggerShape = triggerShape,
+        customItemRow = customItemRow,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(
@@ -266,6 +275,7 @@ fun <T> Dropdown(
     intrinsicWidth: Boolean = false,
     arrowTint: Color? = null,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
+    customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -278,6 +288,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         intrinsicWidth = intrinsicWidth,
         triggerShape = triggerShape,
+        customItemRow = customItemRow,
         modifier = modifier,
         triggerContent = { expanded ->
             DropdownTriggerContent(
@@ -316,6 +327,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     isListItem: Boolean = false,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
+    customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -328,6 +340,7 @@ fun <T> Dropdown(
         popupWidth = popupWidth,
         isListItem = isListItem,
         triggerShape = triggerShape,
+        customItemRow = customItemRow,
         modifier = modifier,
         triggerContent = {
             DropdownIconTriggerContent(
@@ -360,6 +373,7 @@ fun <T> Dropdown(
     loading: Boolean = false,
     popupWidth: Dp? = null,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
+    customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     DropdownBase(
@@ -371,6 +385,7 @@ fun <T> Dropdown(
         loading = loading,
         popupWidth = popupWidth,
         triggerShape = triggerShape,
+        customItemRow = customItemRow,
         customTrigger = customTrigger,
         modifier = modifier,
     ) { item ->
