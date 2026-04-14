@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -130,8 +131,9 @@ fun NumberInputStepper(
             onValueChange = { handleTextChange(it) },
             textStyle = LocalTextStyle.current.copy(
                 color = colors.foreground.copy(alpha = 0.8f),
+                fontSize = 13.sp,
+                lineHeight = 12.sp,
                 textAlign = TextAlign.Center,
-                fontSize = 13.sp
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = if (maxDecimals == 0) KeyboardType.Number else KeyboardType.Decimal
@@ -140,6 +142,7 @@ fun NumberInputStepper(
             cursorBrush = SolidColor(colors.foreground),
             modifier = Modifier
                 .width(inputWidth)
+                .height(35.dp)
                 .onFocusChanged { focusState ->
                     isFocused = focusState.isFocused
                     if (!focusState.isFocused && value.isNotEmpty()) {
@@ -153,7 +156,7 @@ fun NumberInputStepper(
                     color = borderColor,
                     shape = RoundedCornerShape(12.dp)
                 )
-                .padding(vertical = 7.dp, horizontal = 5.dp),
+                .padding(2.dp),
             decorationBox = { innerTextField ->
                 Box(contentAlignment = Alignment.Center) {
                     if (value.isEmpty()) {
@@ -161,6 +164,7 @@ fun NumberInputStepper(
                             text = "0",
                             color = colors.foreground.copy(alpha = 0.3f),
                             fontSize = 13.sp,
+                            lineHeight = 12.sp,
                             textAlign = TextAlign.Center
                         )
                     }
