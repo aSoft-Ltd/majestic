@@ -10,11 +10,13 @@ import majestic.button.Button
 @Composable
 fun IconButton(
     icon: ImageVector,
+    alpha: Float = 1f,
     size: Dp? = null,
     modifier: Modifier = Modifier
 ) = Button(modifier = modifier) { colors ->
     BasicButtonContent(
         icon = icon,
+        alpha = alpha,
         size = size,
         colors = colors
     )
@@ -23,11 +25,13 @@ fun IconButton(
 @Composable
 fun IconButton(
     icon: Painter,
+    alpha: Float = 1f,
     size: Dp? = null,
     modifier: Modifier = Modifier
 ) = Button(modifier = modifier) { colors ->
     BasicButtonContent(
         icon = icon,
+        alpha = alpha,
         size = size,
         colors = colors
     )

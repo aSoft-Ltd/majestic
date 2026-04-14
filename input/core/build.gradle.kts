@@ -76,6 +76,8 @@ kotlin {
 //            implementation(coil.compose)
 //            implementation(coil.network.ktor)
             api(compose.components.resources)
+            api(projects.majesticIcons)?.because("We need to use shared icons")
+            api(projects.majesticInputButton)?.because("We need buttons")
         }
 
         commonTest.dependencies {
