@@ -153,7 +153,7 @@ fun NumberInputStepper(
                     color = borderColor,
                     shape = RoundedCornerShape(12.dp)
                 )
-                .padding(vertical = 12.dp, horizontal = 8.dp),
+                .padding(vertical = 7.dp, horizontal = 5.dp),
             decorationBox = { innerTextField ->
                 Box(contentAlignment = Alignment.Center) {
                     if (value.isEmpty()) {
