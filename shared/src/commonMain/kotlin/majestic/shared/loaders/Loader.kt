@@ -22,7 +22,8 @@ import majestic.ColorPair
 import majestic.icons.Res
 import majestic.icons.ic_google_gemini
 import majestic.loaders.RevolvingLoader
-import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.vectorResource
 
 data class LoaderColors(
     val revolver: ColorPair,
@@ -51,6 +52,7 @@ fun Loader(
     colors: LoaderColors,
     title: String,
     subtitle: String,
+    icon: DrawableResource = Res.drawable.ic_google_gemini,
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
@@ -67,7 +69,7 @@ fun Loader(
         )
     ) {
         Icon(
-            painter = painterResource(Res.drawable.ic_google_gemini),
+            imageVector = vectorResource(icon),
             contentDescription = null,
             tint = colors.icon.foreground,
             modifier = Modifier

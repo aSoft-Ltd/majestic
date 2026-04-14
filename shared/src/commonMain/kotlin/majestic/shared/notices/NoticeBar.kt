@@ -1,7 +1,9 @@
 package majestic.shared.notices
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,6 +49,6 @@ fun <T> NoticeBar(
         colors = colors.dropdownColors,
         label = notify,
         leadingIcon = vectorResource(Res.drawable.ic_megaphone),
-        modifier = Modifier.wrapContentWidth()
+        modifier = Modifier.width(IntrinsicSize.Max)
     )
 }
