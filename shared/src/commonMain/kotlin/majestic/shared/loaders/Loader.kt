@@ -91,7 +91,7 @@ fun Loader(
     Text(
         text = subtitle,
         fontSize = 14.sp,
-        lineHeight = 14.sp,
+        lineHeight = 20.sp,
         textAlign = TextAlign.Center,
         color = colors.subtitle,
         modifier = Modifier.widthIn(350.dp)
