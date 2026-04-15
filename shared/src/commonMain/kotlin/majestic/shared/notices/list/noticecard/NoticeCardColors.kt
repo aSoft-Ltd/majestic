@@ -3,6 +3,7 @@ package majestic.shared.notices.list.noticecard
 import androidx.compose.ui.graphics.Color
 import majestic.ColorPair
 import majestic.dropdown.DropdownColors
+import majestic.shared.notices.list.view.NoticePopupColors
 
 data class NoticeStatusColors(
     val posting: Color,
@@ -21,5 +22,6 @@ data class NoticeCardColors(
     val description: Color,
     val tag: ColorPair,
     val dropdown: DropdownColors,
-    val status: NoticeStatusColors
+    val status: NoticeStatusColors,
+    val popup: NoticePopupColors
 )

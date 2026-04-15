@@ -1,8 +1,7 @@
-package majestic.shared.tools.modal
+package majestic.shared.notices.list.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -28,9 +26,10 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.button.appearence.closeModalIconButton
 import majestic.button.basic.CloseModalButton
+import majestic.shared.tools.modal.ModalColors
 
 @Composable
-fun ModalHeader(
+fun Header(
     icon: ImageVector? = null,
     iconPainter: Painter? = null,
     avatar: @Composable (() -> Unit)? = null,
