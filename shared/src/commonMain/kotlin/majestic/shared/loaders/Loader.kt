@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
@@ -53,8 +52,20 @@ fun Loader(
     colors: LoaderColors,
     title: String,
     subtitle: String,
-    icon: DrawableResource = Res.drawable.ic_google_gemini,
-    modifier: Modifier = Modifier
+    resource: DrawableResource? = null,
+    modifier: Modifier = Modifier,
+    icon: @Composable () -> Unit = {
+        Icon(
+            imageVector = vectorResource(resource ?: Res.drawable.ic_google_gemini),
+            contentDescription = null,
+            tint = colors.icon.foreground,
+            modifier = Modifier
+                .clip(CircleShape)
+                .fillMaxSize()
+                .background(color = colors.icon.background, shape = CircleShape)
+                .padding(16.dp)
+        )
+    },
 ) = Column(
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,16 +80,7 @@ fun Loader(
             background = colors.revolver.background
         )
     ) {
-        Icon(
-            imageVector = vectorResource(icon),
-            contentDescription = null,
-            tint = colors.icon.foreground,
-            modifier = Modifier
-                .clip(CircleShape)
-                .fillMaxSize()
-                .background(color = colors.icon.background, shape = CircleShape)
-                .padding(16.dp)
-        )
+        icon()
     }
     Text(
         text = title,
@@ -92,6 +94,6 @@ fun Loader(
         lineHeight = 14.sp,
         textAlign = TextAlign.Center,
         color = colors.subtitle,
-        modifier = Modifier.widthIn(max = 300.dp)
+        modifier = Modifier.widthIn(350.dp)
     )
 }
