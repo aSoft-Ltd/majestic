@@ -1,4 +1,4 @@
-package majestic.shared.notices.list.view
+package majestic.shared.tools.modal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,10 +26,9 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.button.appearence.closeModalIconButton
 import majestic.button.basic.CloseModalButton
-import majestic.shared.tools.modal.ModalColors
 
 @Composable
-fun Header(
+fun ModalHeader(
     icon: ImageVector? = null,
     iconPainter: Painter? = null,
     avatar: @Composable (() -> Unit)? = null,

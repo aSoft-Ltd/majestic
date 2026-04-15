@@ -2,7 +2,6 @@ package majestic.shared.notices.list.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,9 +13,10 @@ import majestic.shared.notices.list.NoticeItem
 @Composable
 internal fun SubHeader(
     item: NoticeItem,
-    colors: NoticePopupColors
+    colors: NoticePopupColors,
+    modifier: Modifier = Modifier
 ) = Row(
-    modifier = Modifier.fillMaxWidth(),
+    modifier = modifier,
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
 ) {
