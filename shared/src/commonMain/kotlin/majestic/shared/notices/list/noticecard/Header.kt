@@ -2,11 +2,15 @@ package majestic.shared.notices.list.noticecard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -98,32 +102,42 @@ fun <T> Header(
             }
 
             Row(
+                modifier = Modifier.wrapContentSize(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                if (orientation is Landscape) Text(
-                    text = labels.target,
-                    color = colors.info,
-                    fontSize = 13.sp,
-                    maxLines = 1,
-                    lineHeight = 1.sp,
-                    overflow = TextOverflow.Ellipsis
-                )
-                item.targets.forEach { target ->
-                    Tag(
-                        label = target,
-                        color = colors.tag.foreground,
-                        modifier = Modifier.tag(color = colors.tag.background)
+                Row(
+                    modifier = Modifier
+                        .weight(1f, fill = false)
+                        .horizontalScroll(rememberScrollState()),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    if (orientation is Landscape) Text(
+                        text = labels.target,
+                        color = colors.info,
+                        fontSize = 13.sp,
+                        maxLines = 1,
+                        lineHeight = 1.sp,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    item.targets.forEach { target ->
+                        Tag(
+                            label = target,
+                            maxLines = Int.MAX_VALUE,
+                            color = colors.tag.foreground,
+                            modifier = Modifier.tag(color = colors.tag.background)
+                        )
+                    }
+                    if (orientation is Landscape) Text(
+                        text = item.time,
+                        color = colors.info,
+                        fontSize = 13.sp,
+                        maxLines = 1,
+                        lineHeight = 1.sp,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
-                if (orientation is Landscape) Text(
-                    text = item.time,
-                    color = colors.info,
-                    fontSize = 13.sp,
-                    maxLines = 1,
-                    lineHeight = 1.sp,
-                    overflow = TextOverflow.Ellipsis
-                )
                 val statusColor = when (item.status) {
                     NoticeStatus.Posting -> colors.status.posting
                     NoticeStatus.Posted -> colors.status.posted
@@ -133,7 +147,7 @@ fun <T> Header(
                 if (orientation is Portrait) Tag(
                     label = labels.status.get(item.status),
                     color = statusColor,
-                    modifier = Modifier.tag(color = statusColor.copy(alpha = 0.15f))
+                    modifier = Modifier.tag(color = statusColor.copy(alpha = 0.15f)).widthIn(50.dp)
                 )
             }
         }
@@ -156,7 +170,6 @@ fun <T> Header(
                 tint = colors.dropdown.trigger
             )
         },
-        popupWidth = 150.dp,
-        modifier = Modifier.border(1.dp, Color.Red)
+        popupWidth = 150.dp
     )
 }
