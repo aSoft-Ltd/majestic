@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
@@ -22,10 +23,13 @@ internal fun SubHeader(
     modifier: Modifier = Modifier
 ) = Row(
     modifier = modifier,
-    horizontalArrangement = Arrangement.SpaceBetween,
+    horizontalArrangement = Arrangement.spacedBy(20.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    Row(horizontalArrangement = Arrangement.Start) {
+    Row(
+        modifier = Modifier.weight(1f),
+        horizontalArrangement = Arrangement.Start
+    ) {
         val limit = if (orientation is Landscape) 5 else 2
         val showMore = item.targets.size > limit
         val display = item.targets.take(limit)
@@ -81,9 +85,7 @@ internal fun SubHeader(
     Text(
         text = item.time,
         lineHeight = 1.sp,
-        maxLines = 1,
         color = colors.info,
-        overflow = TextOverflow.Ellipsis,
         fontSize = 14.sp
     )
 }

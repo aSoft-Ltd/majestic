@@ -19,7 +19,9 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.dialogs.DialogColors
 import majestic.icons.Res
-import majestic.icons.ic_presentation
+import majestic.icons.ic_mail
+import majestic.icons.ic_mail_send_02
+import majestic.icons.ic_send_email
 import majestic.shared.notices.list.NoticeItem
 import org.jetbrains.compose.resources.vectorResource
 
@@ -49,7 +51,7 @@ fun View(
     Header(
         title = item.title,
         subtitle = item.info.firstOrNull(),
-        icon = vectorResource(Res.drawable.ic_presentation),
+        icon = vectorResource(Res.drawable.ic_mail),
         onClose = onDismiss,
         colors = colors.header,
         orientation = orientation,
@@ -80,7 +82,7 @@ fun View(
             color = colors.description,
             fontSize = 15.sp,
             lineHeight = 20.sp,
-            maxLines = 20,
+            maxLines = 5,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Justify,
             modifier = Modifier.fillMaxWidth().padding(outerPadding)
