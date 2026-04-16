@@ -2,6 +2,7 @@ package majestic.payments.wallet.details.transactions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -108,7 +109,9 @@ fun WalletTransactions(
                 modifier = Modifier.height(cellHeight)
                     .weight(weight.getValue(cell.column))
                     .background(backgroundColor)
-                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder),
+                    .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
+                    .hoverable(interactionSource),
                 contentAlignment = Alignment.Center
             ) {
                 val checkboxColors = if (selected) colors.checkbox.selected else colors.checkbox.unselected
@@ -132,6 +135,7 @@ fun WalletTransactions(
                     .weight(weight.getValue(cell.column))
                     .background(backgroundColor)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
                 avatar = cell.row.item.avatar,
@@ -145,6 +149,7 @@ fun WalletTransactions(
                     .weight(weight.getValue(cell.column))
                     .background(backgroundColor)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
                 avatar = cell.row.item.account,
@@ -159,6 +164,7 @@ fun WalletTransactions(
                     .weight(weight.getValue(cell.column))
                     .background(backgroundColor)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.reference,
@@ -171,6 +177,7 @@ fun WalletTransactions(
                     .weight(weight.getValue(cell.column))
                     .background(backgroundColor)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
                 title = cell.row.item.date,
@@ -183,6 +190,7 @@ fun WalletTransactions(
                     .weight(weight.getValue(cell.column))
                     .background(backgroundColor)
                     .separator(isLast = cell.row == table.rows.last(), color = colors.bodyBorder)
+                    .hoverable(interactionSource)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .padding(horizontal = 12.dp),
                 avatar = cell.row.item.account,
