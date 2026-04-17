@@ -47,7 +47,6 @@ fun <T> DumbSelect(
     dropDownShape: Shape = MenuDefaults.shape,
     shadowElevation: Dp = MenuDefaults.ShadowElevation,
     border: BorderStroke? = null,
-    matchAnchorWidth: Boolean = true,
     tonalElevation: Dp = MenuDefaults.TonalElevation
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -94,7 +93,7 @@ fun <T> DumbSelect(
                 expanded = false
                 onExpanded?.invoke(false)
             },
-            modifier = if (matchAnchorWidth) Modifier.exposedDropdownSize().then(dropdownModifier) else dropdownModifier
+            modifier = Modifier.exposedDropdownSize().then(dropdownModifier)
         ) {
             for (it in items) DropdownMenuItem(
                 modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(7.dp)),

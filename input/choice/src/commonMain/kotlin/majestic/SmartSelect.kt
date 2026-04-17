@@ -35,7 +35,6 @@ fun <T> SmartSelect(
     dropdownModifier: Modifier = Modifier,
     shadowElevation: Dp = MenuDefaults.ShadowElevation,
     border: BorderStroke? = null,
-    matchAnchorWidth: Boolean = true,
     tonalElevation: Dp = MenuDefaults.TonalElevation
 ) {
     var candidate by remember(value) { mutableStateOf(value) }
@@ -59,7 +58,6 @@ fun <T> SmartSelect(
         containerShape = shape,
         shadowElevation = shadowElevation,
         border = border,
-        matchAnchorWidth = matchAnchorWidth,
         tonalElevation = tonalElevation
     )
 }
