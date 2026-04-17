@@ -1,6 +1,7 @@
 package majestic.shared.tools.modal
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -37,6 +38,7 @@ fun ModalFooter(
     labels: ModalFooterLabels,
     colors: ModalFooterColors,
     isDestructive: Boolean = false,
+    leftContent: (@Composable () -> Unit)? = null,
     onSubmit: () -> Unit,
     onClose: () -> Unit
 ) = Row(
@@ -44,6 +46,9 @@ fun ModalFooter(
     horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
     verticalAlignment = Alignment.CenterVertically
 ) {
+    if (leftContent != null) {
+        Box(modifier = Modifier.weight(1f)) { leftContent() }
+    }
     FormButton(
         text = labels.secondary,
         modifier = Modifier.translucentFormButton(
