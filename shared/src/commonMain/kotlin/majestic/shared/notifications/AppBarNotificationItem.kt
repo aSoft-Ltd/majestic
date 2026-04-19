@@ -28,7 +28,7 @@ import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
-data class AppBarNotification(
+data class NotificationItem(
     val icon: DrawableResource,
     val color: Long,
     val title: String,
@@ -36,6 +36,8 @@ data class AppBarNotification(
     val description: String,
     val sender: String,
     val isRead: Boolean,
+    val type: String,
+    val sentAt: String,
 )
 
 @Composable
@@ -52,7 +54,7 @@ fun Modifier.appBarNotificationItem(colors: AppBarNotificationsColors, onClick: 
 
 @Composable
 fun AppBarNotificationItem(
-    notification: AppBarNotification,
+    notification: NotificationItem,
     colors: AppBarNotificationsColors,
     modifier: Modifier = Modifier
 ) {

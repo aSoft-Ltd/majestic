@@ -15,6 +15,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +31,8 @@ import captain.Navigator
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.menu.PanelMenu
+import majestic.shared.tools.modal.Size
+import majestic.shared.tools.modal.dialog
 import majestic.shared.tools.rememberHoverBackground
 import majestic.shared.tools.separator
 import majestic.tooling.onClick
@@ -35,6 +41,7 @@ data class AppBarNotificationsColors(
     val foreground: Color,
     val appBarBackground: Color,
     val panelBackground: Color,
+    val viewNotificationColors: ViewNotificationColors,
 )
 
 data class AppBarNotificationsLabels(
@@ -45,14 +52,30 @@ data class AppBarNotificationsLabels(
 
 @Composable
 fun AppBarNotifications(
-    notifications: List<AppBarNotification>,
+    notifications: List<NotificationItem>,
     colors: AppBarNotificationsColors,
     labels: AppBarNotificationsLabels,
+    notificationLabels: NotificationLabels,
     navigator: Navigator,
     viewAllPath: String,
     orientation: ScreenOrientation,
     modifier: Modifier = Modifier,
 ) {
+    var notificationState by remember { mutableStateOf<NotificationItem?>(null) }
+
+    ViewNotification(
+        notification = notificationState,
+        onSetNotification = { notification -> notificationState = notification },
+        labels = notificationLabels,
+        orientation = orientation,
+        colors = colors.viewNotificationColors,
+        modifier = Modifier.dialog(
+            orientation = orientation,
+            background = colors.viewNotificationColors.modal.body,
+            size = Size(width = 604.dp, height = 230.dp)
+        )
+    )
+
     PanelMenu(
         modifier = modifier,
         trigger = { _, onToggle ->
@@ -75,7 +98,7 @@ fun AppBarNotifications(
                     .onClick { if (orientation == Landscape) onToggle() else navigator.navigate(viewAllPath) }
             )
         },
-        content = { _ ->
+        content = { onToggle ->
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
@@ -99,7 +122,11 @@ fun AppBarNotifications(
                     AppBarNotificationItem(
                         notification = notification,
                         colors = colors,
-                        modifier = Modifier.appBarNotificationItem(colors = colors, onClick = {})
+                        modifier = Modifier.appBarNotificationItem(
+                            colors = colors,
+                            onClick = {
+                                notificationState = notification
+                            })
                     )
                 }
             }
@@ -113,7 +140,10 @@ fun AppBarNotifications(
                     .padding(vertical = 9.dp, horizontal = 7.dp)
                     .wrapContentWidth(Alignment.CenterHorizontally)
                     .pointerHoverIcon(PointerIcon.Hand)
-                    .onClick { navigator.navigate(viewAllPath) }
+                    .onClick {
+                        navigator.navigate(viewAllPath)
+                        onToggle()
+                    }
             )
         }
     )
