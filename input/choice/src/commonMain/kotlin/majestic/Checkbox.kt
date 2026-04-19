@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 data class CheckboxMicroColors(
@@ -50,7 +51,8 @@ data class CheckboxColors(
     }
 }
 
-fun Modifier.checkbox(colors: CheckboxMicroColors, shape: Shape) = size(24.dp)
+fun Modifier.checkbox(colors: CheckboxMicroColors, shape: Shape, size: Dp = 24.dp) = this
+    .size(size)
     .clip(shape)
     .background(colors.background)
     .border(1.dp, color = colors.border, shape)
