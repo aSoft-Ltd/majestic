@@ -27,6 +27,10 @@ fun Modifier.tag(
 fun Tag(
     label: String,
     fontSize: TextUnit = 12.sp,
+    overflow: TextOverflow = TextOverflow.Ellipsis,
+    maxLines: Int = 1,
+    minLines: Int = 1,
+    lineHeight: TextUnit = 1.sp,
     color: Color = Color(0xFF66BB6A),
     modifier: Modifier = Modifier.tag()
 ) {
@@ -38,11 +42,11 @@ fun Tag(
             modifier = Modifier.padding(vertical = 2.dp, horizontal = 5.dp),
             text = label,
             color = color,
-            overflow = TextOverflow.Ellipsis,
-            minLines = 1,
-            maxLines = 1,
+            overflow = overflow,
+            minLines = minLines,
+            maxLines = maxLines,
             fontSize = fontSize,
-            lineHeight = 1.sp
+            lineHeight = lineHeight
         )
     }
 }
