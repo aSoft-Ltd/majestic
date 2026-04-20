@@ -14,7 +14,7 @@ import majestic.button.basic.BasicButtonContent
 import majestic.shared.notifications.NotificationFilterLabels
 
 @Composable
-internal fun NotificationFilters(
+fun NotificationFilters(
     colors: NotificationsPageContentColors,
     filter: NotificationFilter,
     labels: NotificationFilterLabels,
@@ -32,7 +32,7 @@ internal fun NotificationFilters(
                 color = colors.foreground,
                 alpha = if (selected) 0.15f else 0.06f,
                 onClick = { onFilterChange(item) }
-            ).widthIn(min = 72.dp).padding(horizontal = 8.dp, vertical = 4.dp),
+            ).widthIn(min = 72.dp).padding(horizontal = 12.dp, vertical = 4.dp),
         ) { buttonColors ->
             BasicButtonContent(
                 text = item.getLabel(labels),
