@@ -37,7 +37,7 @@ internal fun NotificationCard(
     notification: NotificationItem,
     orientation: ScreenOrientation,
     labels: NotificationActionLabels,
-    onAction: (NotificationActionClick) -> Unit,
+    onAction: (NotificationHandler) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val accent = Color(notification.color)

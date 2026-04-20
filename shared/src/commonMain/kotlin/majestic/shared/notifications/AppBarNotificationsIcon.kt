@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.icons.Res
-import majestic.icons.ic_notification_01_outlined
+import majestic.icons.ic_notification_01
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
@@ -45,7 +45,7 @@ fun AppBarNotificationsIcon(
         modifier = modifier
     ) {
         Icon(
-            imageVector = vectorResource(Res.drawable.ic_notification_01_outlined),
+            imageVector = vectorResource(Res.drawable.ic_notification_01),
             contentDescription = "Notifications",
             tint = colors.foreground.copy(iconTintAlpha),
             modifier = Modifier.size(24.dp).hoverable(interaction)

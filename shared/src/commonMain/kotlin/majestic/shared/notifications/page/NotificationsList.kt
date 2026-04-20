@@ -96,7 +96,7 @@ fun NotificationsList(
                 colors.notificationItemBackground,
                 colors.foreground
             )
-            val onNotificationAction: (NotificationActionClick) -> Unit = { action ->
+            val onNotificationAction: (NotificationHandler) -> Unit = { action ->
                 when (action.action) {
                     NotificationAction.View -> notificationState = action.notification
                     NotificationAction.Reply -> Unit

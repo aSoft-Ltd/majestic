@@ -20,8 +20,8 @@ enum class NotificationAction {
 
     fun handle(
         notification: NotificationItem,
-        onClickOption: (NotificationActionClick) -> Unit
+        onClickOption: (NotificationHandler) -> Unit
     ) {
-        onClickOption(NotificationActionClick(this, notification))
+        onClickOption(NotificationHandler(this, notification))
     }
 }

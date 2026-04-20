@@ -2,7 +2,7 @@ package majestic.shared.notifications.page
 
 import majestic.shared.notifications.NotificationItem
 
-data class NotificationActionClick(
+data class NotificationHandler(
     val action: NotificationAction,
     val notification: NotificationItem,
 )
