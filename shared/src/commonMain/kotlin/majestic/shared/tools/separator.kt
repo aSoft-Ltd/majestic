@@ -6,6 +6,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+@Deprecated("Use the one from majestic.tooling")
 internal fun Modifier.separator(isLast: Boolean, color: Color) = drawBehind {
     val strokeWidth = 1.dp.toPx()
     drawLine(
@@ -16,6 +17,7 @@ internal fun Modifier.separator(isLast: Boolean, color: Color) = drawBehind {
     )
 }
 
+@Deprecated("Use the one from majestic.tooling")
 internal fun Modifier.separator(color: Color) = drawBehind {
     val strokeWidth = 1.dp.toPx()
     drawLine(
