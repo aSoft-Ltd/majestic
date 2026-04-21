@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -12,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
@@ -57,4 +59,27 @@ fun Modifier.modalPopupStyle(
         .fillMaxSize()
         .clipToBounds()
         .background(colors.body)
+}
+
+data class Size(val width: Dp, val height: Dp) {
+    constructor(size: Dp) : this(size, size)
+}
+
+fun Modifier.dialog(
+    orientation: ScreenOrientation,
+    background: Color,
+    size: Size
+) = when (orientation) {
+    Landscape -> this
+        .clip(RoundedCornerShape(20.dp))
+        .width(size.width)
+        .height(size.height)
+        .background(
+            color = background,
+            shape = RoundedCornerShape(20.dp)
+        )
+
+    Portrait -> this
+        .fillMaxSize()
+        .background(background)
 }
