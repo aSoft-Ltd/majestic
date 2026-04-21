@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -64,7 +65,7 @@ fun NotificationsList(
     LazyColumn(
         modifier = Modifier
             .fillMaxHeight()
-            .fillMaxWidth(if (orientation is Landscape) 0.65f else 1f)
+            .width(1080.dp)
             .background(if (orientation is Portrait) colors.tableColors.body else Color.Transparent),
         verticalArrangement = Arrangement.spacedBy(if (orientation is Portrait) 0.dp else 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
