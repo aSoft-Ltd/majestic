@@ -69,10 +69,12 @@ fun AppBarNotifications(
         labels = notificationLabels,
         orientation = orientation,
         colors = colors.viewNotificationColors,
+        onSubmit = { notificationState = null },
+        onCancel = { notificationState = null },
         modifier = Modifier.dialog(
             orientation = orientation,
             background = colors.viewNotificationColors.modal.body,
-            size = Size(width = 604.dp, height = 230.dp)
+            size = Size(width = 604.dp, height = 304.dp)
         )
     )
 

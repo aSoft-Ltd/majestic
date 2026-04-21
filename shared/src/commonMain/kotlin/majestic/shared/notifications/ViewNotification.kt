@@ -16,8 +16,15 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
 import majestic.dialogs.flexible.FlexibleDialog
 import majestic.shared.tools.modal.ModalColors
+import majestic.shared.tools.modal.ModalFooter
+import majestic.shared.tools.modal.ModalFooterColors
+import majestic.shared.tools.modal.ModalFooterLabels
 import majestic.shared.tools.modal.ModalHeader
+import majestic.shared.tools.modal.modalFooterStyle
 import majestic.shared.tools.modal.modalHeaderStyle
+import majestic.tooling.DrawDirection
+import majestic.tooling.separator
+import majestic.tools.withOverlay
 import org.jetbrains.compose.resources.vectorResource
 
 data class NotificationLabels(
@@ -39,11 +46,13 @@ data class NotificationActionLabels(
     val reply: String,
     val pay: String,
     val markAsRead: String,
-    val delete: String
+    val delete: String,
+    val cancel: String
 )
 
 data class ViewNotificationColors(
     val modal: ModalColors,
+    val footer: ModalFooterColors,
     val foreground: Color,
 )
 
@@ -54,6 +63,8 @@ fun ViewNotification(
     labels: NotificationLabels,
     orientation: ScreenOrientation,
     colors: ViewNotificationColors,
+    onSubmit: () -> Unit,
+    onCancel: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (notification != null) FlexibleDialog(
@@ -65,12 +76,45 @@ fun ViewNotification(
                 title = notification.title,
                 subtitle = notification.sender,
                 onClose = { onSetNotification(null) },
-                colors = colors.modal.copy(headerIconTint = Color(notification.color)),
+                colors = colors.modal.copy(
+                    headerIconTint = Color(notification.color),
+                    headerIconBg = Color(notification.color).copy(alpha = 0.14f)
+                ),
                 orientation = orientation,
-                modifier = Modifier.modalHeaderStyle(colors.modal)
+                modifier = Modifier.modalHeaderStyle(
+                    colors.modal.copy(
+                        header = colors.modal.body
+                    )
+                )
             )
         }
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .separator(
+                    color = colors.modal.body.withOverlay(colors.foreground, 0.3f),
+                    direction = DrawDirection.TOP
+                )
+                .separator(colors.modal.body.withOverlay(colors.foreground, 0.3f))
+                .padding(horizontal = 21.dp, vertical = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = labels.dateSent,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                color = colors.foreground
+            )
+            Text(
+                text = notification.sentAt,
+                fontSize = 12.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = colors.foreground.copy(alpha = 0.5f)
+            )
+        }
+
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -78,25 +122,6 @@ fun ViewNotification(
                 .padding(horizontal = 24.dp, vertical = 18.dp),
             verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = labels.dateSent,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = colors.foreground
-                )
-                Text(
-                    text = notification.sentAt,
-                    fontSize = 12.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = colors.foreground.copy(alpha = 0.5f)
-                )
-            }
-
             Text(
                 text = notification.description,
                 fontSize = 13.sp,
@@ -104,5 +129,16 @@ fun ViewNotification(
                 color = colors.foreground
             )
         }
+
+        ModalFooter(
+            modifier = Modifier.modalFooterStyle(this),
+            labels = ModalFooterLabels(
+                primary = labels.actions.reply,
+                secondary = labels.actions.cancel
+            ),
+            colors = colors.footer,
+            onSubmit = onSubmit,
+            onClose = onCancel
+        )
     }
 }

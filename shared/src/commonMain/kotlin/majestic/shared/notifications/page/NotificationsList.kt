@@ -1,7 +1,6 @@
 package majestic.shared.notifications.page
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,7 +43,6 @@ fun NotificationsList(
     colors: NotificationsPageContentColors,
     notifications: List<NotificationItem>,
     filter: NotificationFilter,
-    onFilterChange: (NotificationFilter) -> Unit,
 ) {
     var notificationState by remember { mutableStateOf<NotificationItem?>(null) }
 
@@ -55,10 +52,12 @@ fun NotificationsList(
         labels = labels,
         orientation = orientation,
         colors = colors.viewNotificationColors,
+        onSubmit = { notificationState = null },
+        onCancel = { notificationState = null },
         modifier = Modifier.dialog(
             orientation = orientation,
             background = colors.modalBackground,
-            size = Size(width = 604.dp, height = 230.dp)
+            size = Size(width = 604.dp, height = 304.dp)
         )
     )
 
@@ -70,21 +69,6 @@ fun NotificationsList(
         verticalArrangement = Arrangement.spacedBy(if (orientation is Portrait) 0.dp else 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (orientation is Portrait) {
-            item {
-                NotificationFilters(
-                    colors = colors,
-                    filter = filter,
-                    labels = labels.filters,
-                    onFilterChange = onFilterChange,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState())
-                        .padding(horizontal = 10.dp, vertical = 10.dp)
-                )
-            }
-        }
-
         if (orientation is Landscape) {
             item {
                 Spacer(modifier = Modifier.height(2.dp))
@@ -113,15 +97,13 @@ fun NotificationsList(
                 onAction = onNotificationAction,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = if (orientation is Landscape) 18.dp else 0.dp)
                     .then(
                         if (orientation is Portrait) {
-                            Modifier
-                                .background(colors.tableColors.body)
-                                .separator(colors.tableColors.bodyBorder)
+                            Modifier.separator(colors.tableColors.bodyBorder)
                         }
                         else {
                             Modifier
+                                .padding(horizontal = 18.dp)
                                 .clip(RoundedCornerShape(14.dp))
                                 .background(background)
                                 .hoverable(interaction)
