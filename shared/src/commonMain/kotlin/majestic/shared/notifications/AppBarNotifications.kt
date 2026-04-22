@@ -102,9 +102,7 @@ fun AppBarNotifications(
                         colors = colors,
                         modifier = Modifier.appBarNotificationItem(
                             colors = colors,
-                            onClick = {
-                                notificationState = notification
-                            })
+                            onClick = { notificationState = notification })
                     )
                 }
             }
