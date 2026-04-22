@@ -58,15 +58,7 @@ fun DumbCountryDialingCodeSelector(
     val interaction = remember { NoRippleInteractionSource }
     val shape = RoundedCornerShape(12.dp)
 
-    Box(
-        modifier = modifier
-            .testTag("CountrySelector")
-            .clickable(
-                interactionSource = interaction,
-                indication = LocalIndication.current
-            ) { expanded = !expanded }
-            .pointerHoverIcon(PointerIcon.Hand)
-    ) {
+    Box(modifier = modifier) {
         when (value) {
             null -> placeholder()
             else -> selected(value)

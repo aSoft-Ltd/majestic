@@ -1,5 +1,7 @@
 package majestic
 
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,8 +12,14 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
@@ -37,9 +45,13 @@ fun PhoneField(
     onChange: ((String) -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = {
+        var expanded by remember { mutableStateOf(false) }
+        val interaction = remember { NoRippleInteractionSource }
         CountryDialingCodeSelector(
             field = field,
-            modifier = Modifier.width(110.dp).testTag("${field.name}-selector"),
+            modifier = Modifier.clickable(interactionSource = interaction, indication = LocalIndication.current) { expanded = !expanded }
+                .pointerHoverIcon(PointerIcon.Hand).width(110.dp)
+                .testTag("${field.name}-selector"),
             selected = selected,
             item = country
         )
