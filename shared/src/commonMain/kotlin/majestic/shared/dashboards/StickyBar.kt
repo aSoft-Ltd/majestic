@@ -1,7 +1,10 @@
 package majestic.shared.dashboards
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,19 +13,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composex.screen.orientation.ScreenOrientation
-import majestic.filters.FilterByYear
 import majestic.layouts.Flex
 import majestic.shared.tools.StickyBarColors
+import majestic.shared.tools.filters.SingleChoiceBulkAction
+import majestic.shared.tools.filters.SingleChoiceBulkActions
 
 @Composable
 fun StickyBar(
     orientation: ScreenOrientation,
     colors: StickyBarColors,
-    modifier: Modifier,
     title: String,
     detail: String,
-    selected: String = "2025",
-    years: List<String> = listOf("2023", "2024", "2025")
+    singleChoiceBulkActions: List<SingleChoiceBulkAction>,
+    modifier: Modifier = Modifier,
 ) = Flex(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -43,9 +46,14 @@ fun StickyBar(
             color = colors.subtitle,
         )
     }
-    FilterByYear(
-        years = years,
-        selected = selected,
-        colors = colors.dropdown,
-    )
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.horizontalScroll(rememberScrollState()),
+    ) {
+        SingleChoiceBulkActions(
+            colors = colors.dropdown,
+            actions = singleChoiceBulkActions
+        )
+    }
 }
