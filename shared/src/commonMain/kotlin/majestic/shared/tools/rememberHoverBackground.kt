@@ -15,14 +15,15 @@ import majestic.tools.withOverlay
 fun rememberHoverBackground(
     background: Color,
     foreground: Color,
-    alpha: Float = 0.1f,
+    targetAlpha: Float = 0.1f,
+    startingAlpha: Float = 0f,
     duration: Int = 300
 ): Pair<Color, MutableInteractionSource> {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
 
     val backgroundAlpha by animateFloatAsState(
-        targetValue = if (isHovered) alpha else 0f,
+        targetValue = if (isHovered) targetAlpha else startingAlpha,
         animationSpec = tween(duration, easing = FastOutSlowInEasing)
     )
 
