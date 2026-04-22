@@ -82,7 +82,8 @@ internal fun NotificationCard(
             Text(
                 text = notification.title,
                 color = colors.foreground,
-                fontSize = 14.sp,
+                fontSize = 16.sp,
+                lineHeight = 1.sp,
                 fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -90,15 +91,16 @@ internal fun NotificationCard(
             Text(
                 text = notification.description,
                 color = colors.foreground.copy(.62f),
-                fontSize = 11.sp,
-                lineHeight = 15.sp,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = notification.date,
                 color = colors.foreground.copy(.38f),
-                fontSize = 10.sp,
+                fontSize = 11.sp,
+                lineHeight = 20.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

@@ -1,7 +1,6 @@
 package majestic.shared.progressIndicator
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -60,13 +59,14 @@ fun FormProgress(
     stages: List<Stage>,
     current: Int,
     colors: FormProgressColors,
+    showLabel: Boolean = true,
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
     LineProgressBar(
-        modifier = Modifier.fillMaxWidth().padding( end = 10.dp),
+        modifier = Modifier.fillMaxWidth().padding(end = 10.dp),
         steps = stages.size,
         current = current,
         colors = colors.bar,
@@ -96,7 +96,7 @@ fun FormProgress(
             }
         )
     )
-    LabelsOnTrack(
+    if (showLabel) LabelsOnTrack(
         stages = stages,
         modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp, top = 12.dp)
     )
