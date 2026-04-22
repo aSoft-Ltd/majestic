@@ -4,11 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,7 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
@@ -44,6 +41,7 @@ fun NotificationsList(
     colors: NotificationsPageContentColors,
     notifications: List<NotificationItem>,
     filter: NotificationFilter,
+    modifier: Modifier = Modifier,
 ) {
     var notificationState by remember { mutableStateOf<NotificationItem?>(null) }
 
@@ -63,10 +61,7 @@ fun NotificationsList(
     )
 
     LazyColumn(
-        modifier = Modifier
-            .fillMaxHeight()
-            .width(1080.dp)
-            .background(if (orientation is Portrait) colors.tableColors.body else Color.Transparent),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(if (orientation is Portrait) 0.dp else 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
