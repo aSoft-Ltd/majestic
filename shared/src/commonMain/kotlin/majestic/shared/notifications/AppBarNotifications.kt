@@ -1,17 +1,13 @@
 package majestic.shared.notifications
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,14 +24,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import captain.Navigator
-import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.shared.menu.PanelMenu
 import majestic.shared.tools.modal.Size
 import majestic.shared.tools.modal.dialog
-import majestic.shared.tools.rememberHoverBackground
-import majestic.shared.tools.separator
 import majestic.tooling.onClick
+import majestic.tooling.separator
 
 data class AppBarNotificationsColors(
     val foreground: Color,
@@ -59,6 +53,7 @@ fun AppBarNotifications(
     navigator: Navigator,
     viewAllPath: String,
     orientation: ScreenOrientation,
+    trigger: @Composable ((onToggle: () -> Unit) -> Unit),
     modifier: Modifier = Modifier,
 ) {
     var notificationState by remember { mutableStateOf<NotificationItem?>(null) }
@@ -80,26 +75,7 @@ fun AppBarNotifications(
 
     PanelMenu(
         modifier = modifier,
-        trigger = { _, onToggle ->
-            val (background, interaction) = rememberHoverBackground(
-                background = colors.appBarBackground,
-                foreground = colors.foreground,
-                targetAlpha = 1f,
-                startingAlpha = 0.5f
-            )
-
-            AppBarNotificationsIcon(
-                count = 32,
-                colors = colors,
-                interaction = interaction,
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(color = background, shape = CircleShape)
-                    .hoverable(interaction)
-                    .pointerHoverIcon(PointerIcon.Hand)
-                    .onClick { if (orientation == Landscape) onToggle() else navigator.navigate(viewAllPath) }
-            )
-        },
+        trigger = { _, onToggle -> trigger(onToggle) },
         content = { onToggle ->
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
