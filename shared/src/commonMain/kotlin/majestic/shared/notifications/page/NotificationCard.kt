@@ -82,7 +82,7 @@ internal fun NotificationCard(
             Text(
                 text = notification.title,
                 color = colors.foreground,
-                fontSize = 15.sp,
+                fontSize = 16.sp,
                 lineHeight = 1.sp,
                 fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
