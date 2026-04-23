@@ -52,7 +52,6 @@ fun <T> Dropdown(
     val selectedItem = items.find { it.value == selected }
     val label = selectedItem?.label ?: placeholder
     val icon = selectedItem?.leadingIcon ?: leadingIcon
-    val isPlaceholder = selectedItem == null
 
     DropdownBase(
         items = items,
@@ -71,13 +70,12 @@ fun <T> Dropdown(
             DropdownTriggerContent(
                 label = label,
                 leadingIcon = icon,
-                colors = colors,
+                colors = colors.copy(triggerText = colors.triggerText.copy(if(selectedItem == null) .4f else 1f)),
                 loading = loading,
                 expanded = expanded,
                 fontSize = fontSize,
                 fontWeight = fontWeight,
-                arrowTint = arrowTint,
-                isPlaceholder = isPlaceholder
+                arrowTint = arrowTint
             )
         }
     ) { item ->
