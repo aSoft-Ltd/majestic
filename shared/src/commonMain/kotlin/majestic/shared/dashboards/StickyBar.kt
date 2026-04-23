@@ -49,7 +49,10 @@ fun StickyBar(
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.horizontalScroll(rememberScrollState()),
+        modifier = Modifier.horizontalScroll(
+            state = rememberScrollState(),
+            reverseScrolling = true
+        ),
     ) {
         SingleChoiceBulkActions(
             colors = colors.dropdown,
