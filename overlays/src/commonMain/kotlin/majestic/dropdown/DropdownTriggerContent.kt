@@ -37,8 +37,9 @@ internal fun DropdownTriggerContent(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     arrowTint: Color? = null,
+    isPlaceholder: Boolean = false,
 ) {
-    val foregroundColor = colors.triggerText.copy(alpha = 1f)
+    val foregroundColor = if (isPlaceholder) colors.triggerText.copy(alpha = 0.4f) else colors.triggerText.copy(alpha = 1f)
     val resolvedArrowTint = arrowTint ?: foregroundColor
 
     Row(

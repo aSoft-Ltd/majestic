@@ -52,6 +52,7 @@ fun <T> Dropdown(
     val selectedItem = items.find { it.value == selected }
     val label = selectedItem?.label ?: placeholder
     val icon = selectedItem?.leadingIcon ?: leadingIcon
+    val isPlaceholder = selectedItem == null
 
     DropdownBase(
         items = items,
@@ -75,7 +76,8 @@ fun <T> Dropdown(
                 expanded = expanded,
                 fontSize = fontSize,
                 fontWeight = fontWeight,
-                arrowTint = arrowTint
+                arrowTint = arrowTint,
+                isPlaceholder = isPlaceholder
             )
         }
     ) { item ->
