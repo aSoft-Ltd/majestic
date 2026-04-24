@@ -93,7 +93,7 @@ internal fun NotificationCard(
                 color = colors.foreground.copy(.62f),
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
-                maxLines = 2,
+                maxLines = if (orientation == Landscape) 2 else 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(

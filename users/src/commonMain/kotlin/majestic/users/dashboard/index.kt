@@ -25,6 +25,7 @@ import majestic.editor.toolbar.underline
 import majestic.filters.FilterDefault
 import majestic.shared.dashboards.StickyBar
 import majestic.shared.tools.StickyBarColors
+import majestic.shared.tools.filters.defaultSingleChoiceBulkActions
 import majestic.shared.users.UsersLabels
 import majestic.users.dashboard.summary.SummaryCardList
 import majestic.users.dashboard.tools.toSummaryCardProps
@@ -50,17 +51,21 @@ fun UsersDashboard(
     addUser: () -> Unit = {},
     addRole: () -> Unit = {},
 ) = Column(modifier = modifier) {
+    val singleChoiceBulkActions = defaultSingleChoiceBulkActions()
+
     if (orientation is Landscape) StickyBar(
+        title = labels.dashboard.insights.title,
+        detail = labels.dashboard.insights.detail,
+        orientation = orientation,
+        colors = props.stickyBarColors,
+        singleChoiceBulkActions = singleChoiceBulkActions,
         modifier = Modifier
             .underline(props.foreground.copy(alpha = 0.05f))
             .fillMaxWidth()
             .wrapContentHeight()
             .height(IntrinsicSize.Max)
             .padding(horizontal = 16.dp, vertical = 16.dp),
-        title = labels.dashboard.insights.title,
-        detail = labels.dashboard.insights.detail,
-        orientation = orientation,
-        colors = props.stickyBarColors
+
     )
     Column(
         modifier = Modifier.padding(
