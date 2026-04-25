@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import majestic.button.Button
 import majestic.icons.Res
@@ -13,12 +14,14 @@ import org.jetbrains.compose.resources.vectorResource
 @Composable
 fun CardButton(
     text: String,
+    fontWeight: FontWeight = FontWeight.Normal,
+    fontSize: TextUnit = 14.sp,
     modifier: Modifier = Modifier
 ) = Button(modifier = modifier) { colors ->
         BasicButtonContent(
             text = text,
-            fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
+            fontWeight = fontWeight,
+            fontSize = fontSize,
             alpha = 0.7f,
             colors = colors
         )

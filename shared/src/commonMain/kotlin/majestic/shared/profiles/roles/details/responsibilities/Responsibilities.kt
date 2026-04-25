@@ -1,14 +1,10 @@
 package majestic.shared.profiles.roles.details.responsibilities
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -19,7 +15,8 @@ import majestic.editor.tools.StateColors
 import majestic.shared.profiles.Permission
 
 data class ResponsibilityColors(
-    val background: StateColors,
+    val background: Color,
+    val foreground: Color,
     val separator: Color,
     val icon: ColorPair,
     val title: StateColors,

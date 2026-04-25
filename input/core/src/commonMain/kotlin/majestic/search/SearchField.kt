@@ -33,6 +33,10 @@ private val ThemeColor.searchBackgroundColor: Color
         return dominant.actual.color.copy(alpha = alpha).compositeOver(surface.actual.color)
     }
 
+@Deprecated(
+    message = "This implementation is deprecated",
+    replaceWith = ReplaceWith("majestic.Search")
+)
 data class SearchColors(
     val background: Color,
     val text: Color,
@@ -42,6 +46,10 @@ data class SearchColors(
     val iconTint: Color
 )
 
+@Deprecated(
+    message = "This implementation is deprecated",
+    replaceWith = ReplaceWith("majestic.Search")
+)
 fun ThemeColor.toSearchColors(): SearchColors {
     val baseColor = surface.contra.color
     return when (this) {

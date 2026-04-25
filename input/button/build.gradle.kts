@@ -56,7 +56,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.majesticInputCore)
+            api(projects.majesticTheme)?.because("We we need color types")
+            api(projects.majesticScreen)?.because("Expandable button needs orientation")
             api(projects.majesticIcons)?.because("Buttons need Icons too")
             api(libs.symphony.input.text)?.because("We need text fields and the likes")
             implementation("dev.chrisbanes.haze:haze:1.7.2")?.because("Cool blur effect")

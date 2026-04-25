@@ -57,6 +57,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.majesticInputCore)
+            api(projects.majesticInputButton)
+            api(projects.majesticIcons)
             api(libs.symphony.input.text)?.because("We need text fields and the likes")
         }
 

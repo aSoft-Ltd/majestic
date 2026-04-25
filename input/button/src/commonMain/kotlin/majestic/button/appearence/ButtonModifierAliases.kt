@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import majestic.ColorPair
 
@@ -25,6 +26,7 @@ fun Modifier.cardButton(
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(percent = 50),
     source: MutableInteractionSource = remember { MutableInteractionSource() },
+    maxWidth: Dp = 120.dp,
     onClick: () -> Unit = { },
 ): Modifier = this
     .translucentButton(
@@ -35,7 +37,26 @@ fun Modifier.cardButton(
         onClick = onClick,
         alpha = 0.03f
     )
-    .widthIn(max = 120.dp)
+    .widthIn(max = maxWidth)
+    .padding(horizontal = 9.dp, vertical = 4.dp)
+
+@Composable
+fun Modifier.cardButton(
+    colors: ColorPair,
+    enabled: Boolean = true,
+    shape: Shape = RoundedCornerShape(percent = 50),
+    source: MutableInteractionSource = remember { MutableInteractionSource() },
+    maxWidth: Dp = 120.dp,
+    onClick: () -> Unit = { },
+): Modifier = this
+    .solidButton(
+        colors = colors,
+        enabled = enabled,
+        shape = shape,
+        source = source,
+        onClick = onClick,
+    )
+    .widthIn(max = maxWidth)
     .padding(horizontal = 9.dp, vertical = 4.dp)
 
 @Composable

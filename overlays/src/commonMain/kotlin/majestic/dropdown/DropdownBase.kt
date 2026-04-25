@@ -45,7 +45,9 @@ internal fun <T> DropdownBase(
     selectedItems: List<T> = emptyList(),
     triggerShape: Shape,
     modifier: Modifier = Modifier,
-    triggerContent: @Composable (expanded: Boolean) -> Unit,
+    triggerContent: @Composable (expanded: Boolean) -> Unit = {},
+    customTrigger: (@Composable (expanded: Boolean, onToggle: () -> Unit) -> Unit)? = null,
+    customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     itemContent: @Composable (DropdownItem<T>) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -60,7 +62,12 @@ internal fun <T> DropdownBase(
         expanded = expanded,
         onDismissRequest = { expanded = false },
         inline = Inline {
-            Button(
+            if (customTrigger != null) {
+                customTrigger(expanded) {
+                    if (enabled && !loading) expanded = !expanded
+                }
+            }
+            else Button(
                 modifier = modifier
                     .let {
                         if (isListItem) {
@@ -111,7 +118,10 @@ internal fun <T> DropdownBase(
                                 if (mode != DropdownMode.Multi) expanded = false
                             }
                         ) {
-                            itemContent(item)
+                            if (customItemRow != null) {
+                                customItemRow(item)
+                            }
+                            else itemContent(item)
                         }
                     }
                 }

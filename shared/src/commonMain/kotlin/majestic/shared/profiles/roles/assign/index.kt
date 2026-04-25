@@ -1,6 +1,5 @@
 package majestic.shared.profiles.roles.assign
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,24 +11,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
 import majestic.dialogs.DialogColors
-import majestic.shared.profiles.roles.assign.form.Actions
-import majestic.shared.profiles.roles.assign.form.HeadingsColor
 import majestic.shared.profiles.roles.assign.form.Item
 import majestic.shared.profiles.roles.assign.form.ItemColors
 import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
-
+import majestic.shared.tools.modal.ModalColors
+import majestic.shared.tools.modal.ModalFooter
+import majestic.shared.tools.modal.ModalFooterColors
+import majestic.shared.tools.modal.ModalFooterLabels
+import majestic.shared.tools.modal.modalFooterStyle
 
 data class FormColors(
     val background: Color,
-    val headings: HeadingsColor,
-    val confirmButton: ColorPair,
-    val cancelButton: ColorPair,
+    val header: ModalColors,
     val divider: Color,
     val modal: DialogColors,
-    val bottomBar: Color,
+    val modalFooter: ModalFooterColors,
     val item: ItemColors
 )
 
@@ -62,13 +60,14 @@ fun RoleAssignment(
             )
         }
     }
-    Actions(
-        modifier = Modifier
-            .background(colors.bottomBar)
-            .fillMaxWidth()
-            .padding(16.dp),
-        labels = labels,
-        colors = colors,
-        controller = controller
+    ModalFooter(
+        modifier = Modifier.modalFooterStyle(this),
+        labels = ModalFooterLabels(
+            primary = labels.assignSelected,
+            secondary = labels.cancel
+        ),
+        colors = colors.modalFooter,
+        onSubmit = { controller.close() },
+        onClose = { controller.close() }
     )
 }

@@ -9,17 +9,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.dialogs.flexible.FlexibleDialog
 import majestic.shared.profiles.roles.RoleColors
-import majestic.shared.profiles.roles.assign.form.Headings
+import majestic.shared.profiles.roles.assign.form.Header
 import majestic.shared.profiles.roles.assign.tools.AssignmentController
 import majestic.shared.profiles.roles.data.RoleLabels
-
 
 @Composable
 internal fun PromptWrapper(
@@ -40,21 +38,14 @@ internal fun PromptWrapper(
                 .size(700.dp, 800.dp)
         },
         bar = {
-            Headings(
+            Header(
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-                    .background(
-                        color = if (orientation is Landscape) colors.form.headings.background else Color.Transparent,
-                        shape = RoundedCornerShape(
-                            topStart = if (orientation is Landscape) 12.dp else 0.dp,
-                            topEnd = if (orientation is Landscape) 12.dp else 0.dp
-                        )
-                    )
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 labels = labels.assignment,
                 controller = controller,
-                colors = colors.form.headings,
+                colors = colors.form.header,
                 onDismiss = { controller.close() },
                 orientation = orientation
             )

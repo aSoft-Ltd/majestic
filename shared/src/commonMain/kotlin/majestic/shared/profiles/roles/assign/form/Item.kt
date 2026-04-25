@@ -1,26 +1,15 @@
 package majestic.shared.profiles.roles.assign.form
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.hoverable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -28,7 +17,9 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.editor.tools.StateColors
+import majestic.ColorPair
+import majestic.button.appearence.cardButton
+import majestic.button.basic.CardButton
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.data.RoleAssignmentLabels
 import majestic.tooling.onClick
@@ -40,8 +31,8 @@ data class ButtonColor(
 )
 
 data class StatusColors(
-    val foreground: StateColors,
-    val background: StateColors
+    val default: ColorPair,
+    val selected: Color
 )
 
 data class ItemColors(
@@ -51,23 +42,6 @@ data class ItemColors(
     val button: StatusColors,
     val setupButton: ButtonColor
 )
-
-@Composable
-private fun Modifier.action(
-    interaction: MutableInteractionSource,
-    hovered: Boolean,
-    colors: ItemColors
-) = this
-    .hoverable(interaction)
-    .clip(RoundedCornerShape(18.dp))
-    .width(125.dp)
-    .background(
-        color = when (hovered) {
-            true -> colors.button.background.focused
-            false -> colors.button.background.unfocused
-        }
-    )
-    .padding(horizontal = 24.dp, vertical = 8.dp)
 
 @Composable
 internal fun Item(
@@ -85,8 +59,7 @@ internal fun Item(
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
     val buttonText = if (isSelected) labels.unassign else labels.assign
-    val interaction = remember { MutableInteractionSource() }
-    val hovered by interaction.collectIsHoveredAsState()
+
     Column(
         modifier = Modifier.fillMaxWidth(if (orientation is Landscape) .8f else 1f),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -117,27 +90,16 @@ internal fun Item(
                     fontWeight = FontWeight.Bold
                 )
             }
-            if (orientation is Portrait) Text(
+
+            if (orientation is Portrait) CardButton(
                 text = buttonText,
-                color = when (isSelected) {
-                    true -> colors.button.foreground.focused
-                    false -> colors.button.foreground.unfocused
-                },
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .hoverable(interaction)
-                    .clip(RoundedCornerShape(18.dp))
-                    .width(112.dp)
-                    .background(
-                        color = when (hovered) {
-                            true -> colors.button.background.focused
-                            false -> colors.button.background.unfocused
-                        }
-                    )
-                    .padding(horizontal = 24.dp, vertical = 8.dp)
-                    .onClick { onToggle() },
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Medium,
+                modifier = if (isSelected) {
+                    Modifier.cardButton(color = colors.button.selected, maxWidth = 175.dp, onClick = onToggle)
+                }
+                else {
+                    Modifier.cardButton(colors = colors.button.default, maxWidth = 175.dp, onClick = onToggle)
+                }
             )
         }
         Text(
@@ -156,18 +118,14 @@ internal fun Item(
         )
     }
 
-
-    if (orientation is Landscape) Text(
+    if (orientation is Landscape) CardButton(
         text = buttonText,
-        color = when (isSelected) {
-            true -> colors.button.foreground.focused
-            false -> colors.button.foreground.unfocused
-        },
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .action(interaction, hovered, colors)
-            .onClick { onToggle() },
-        fontSize = 14.sp,
-        fontWeight = FontWeight.SemiBold
+        fontWeight = FontWeight.Medium,
+        modifier = if (isSelected) {
+            Modifier.cardButton(color = colors.button.selected, maxWidth = 175.dp, onClick = onToggle)
+        }
+        else {
+            Modifier.cardButton(colors = colors.button.default, maxWidth = 175.dp, onClick = onToggle)
+        }
     )
 }

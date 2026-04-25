@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -15,14 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
 import majestic.icons.Res
 import majestic.icons.ic_google_gemini
 import majestic.loaders.RevolvingLoader
-import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.vectorResource
 
 data class LoaderColors(
     val revolver: ColorPair,
@@ -51,7 +52,20 @@ fun Loader(
     colors: LoaderColors,
     title: String,
     subtitle: String,
-    modifier: Modifier = Modifier
+    resource: DrawableResource? = null,
+    modifier: Modifier = Modifier,
+    icon: @Composable () -> Unit = {
+        Icon(
+            imageVector = vectorResource(resource ?: Res.drawable.ic_google_gemini),
+            contentDescription = null,
+            tint = colors.icon.foreground,
+            modifier = Modifier
+                .clip(CircleShape)
+                .fillMaxSize()
+                .background(color = colors.icon.background, shape = CircleShape)
+                .padding(16.dp)
+        )
+    },
 ) = Column(
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,16 +80,7 @@ fun Loader(
             background = colors.revolver.background
         )
     ) {
-        Icon(
-            painter = painterResource(Res.drawable.ic_google_gemini),
-            contentDescription = null,
-            tint = colors.icon.foreground,
-            modifier = Modifier
-                .clip(CircleShape)
-                .fillMaxSize()
-                .background(color = colors.icon.background, shape = CircleShape)
-                .padding(16.dp)
-        )
+        icon()
     }
     Text(
         text = title,
@@ -86,9 +91,9 @@ fun Loader(
     Text(
         text = subtitle,
         fontSize = 14.sp,
-        lineHeight = 16.sp,
+        lineHeight = 20.sp,
         textAlign = TextAlign.Center,
-        overflow = TextOverflow.Clip,
-        color = colors.subtitle
+        color = colors.subtitle,
+        modifier = Modifier.widthIn(350.dp)
     )
 }

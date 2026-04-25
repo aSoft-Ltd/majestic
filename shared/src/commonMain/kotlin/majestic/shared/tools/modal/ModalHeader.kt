@@ -31,6 +31,7 @@ import majestic.button.basic.CloseModalButton
 fun ModalHeader(
     icon: ImageVector? = null,
     iconPainter: Painter? = null,
+    avatar: @Composable (() -> Unit)? = null,
     title: String,
     orientation: ScreenOrientation,
     colors: ModalColors,
@@ -54,6 +55,8 @@ fun ModalHeader(
                     .background(colors.headerIconBg)
                     .padding(10.dp)
             )
+
+            avatar != null -> avatar()
 
             iconPainter != null -> Icon(
                 painter = iconPainter,

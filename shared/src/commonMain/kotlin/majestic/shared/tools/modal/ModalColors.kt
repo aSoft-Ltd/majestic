@@ -1,6 +1,7 @@
 package majestic.shared.tools.modal
 
 import androidx.compose.ui.graphics.Color
+import majestic.SearchColors
 
 data class ModalColors(
     val body: Color,
@@ -12,6 +13,7 @@ data class ModalColors(
     val headerIconBg: Color,
     val headerIconTint: Color,
     val text: Color,
+    val search: SearchColors,
     val closeButton: Color,
     val icons: Color,
 )

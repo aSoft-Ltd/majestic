@@ -1,0 +1,126 @@
+package majestic.shared.notifications
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import captain.Navigator
+import composex.screen.orientation.ScreenOrientation
+import majestic.shared.menu.PanelMenu
+import majestic.shared.tools.modal.Size
+import majestic.shared.tools.modal.dialog
+import majestic.tooling.onClick
+import majestic.tooling.separator
+
+data class AppBarNotificationsColors(
+    val foreground: Color,
+    val appBarBackground: Color,
+    val panelBackground: Color,
+    val viewNotificationColors: ViewNotificationColors,
+)
+
+data class AppBarNotificationsLabels(
+    val title: String,
+    val markAllAsRead: String,
+    val viewAll: String,
+)
+
+@Composable
+fun AppBarNotifications(
+    notifications: List<NotificationItem>,
+    colors: AppBarNotificationsColors,
+    labels: AppBarNotificationsLabels,
+    notificationLabels: NotificationLabels,
+    navigator: Navigator,
+    viewAllPath: String,
+    orientation: ScreenOrientation,
+    trigger: @Composable ((onToggle: () -> Unit) -> Unit),
+    modifier: Modifier = Modifier,
+) {
+    var notificationState by remember { mutableStateOf<NotificationItem?>(null) }
+
+    ViewNotification(
+        notification = notificationState,
+        onSetNotification = { notification -> notificationState = notification },
+        labels = notificationLabels,
+        orientation = orientation,
+        colors = colors.viewNotificationColors,
+        onSubmit = { notificationState = null },
+        onCancel = { notificationState = null },
+        modifier = Modifier.dialog(
+            orientation = orientation,
+            background = colors.viewNotificationColors.modal.body,
+            size = Size(width = 604.dp, height = 304.dp)
+        )
+    )
+
+    PanelMenu(
+        modifier = modifier,
+        trigger = { _, onToggle -> trigger(onToggle) },
+        content = { onToggle ->
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(43.dp)
+                    .separator(colors.foreground.copy(0.1f))
+                    .padding(horizontal = 13.dp, vertical = 7.dp),
+            ) {
+                Text(text = labels.title, fontWeight = FontWeight.Medium, fontSize = 11.sp, color = colors.foreground)
+                Text(
+                    text = labels.markAllAsRead,
+                    fontSize = 11.sp,
+                    color = colors.foreground.copy(0.5f),
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                )
+            }
+
+            Column(modifier = Modifier.height(363.dp).verticalScroll(rememberScrollState())) {
+                notifications.forEach { notification ->
+                    AppBarNotificationItem(
+                        notification = notification,
+                        colors = colors,
+                        modifier = Modifier.appBarNotificationItem(
+                            colors = colors,
+                            onClick = { notificationState = notification })
+                    )
+                }
+            }
+
+            Text(
+                text = labels.viewAll,
+                fontSize = 11.sp,
+                color = colors.foreground.copy(0.7f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 9.dp, horizontal = 7.dp)
+                    .wrapContentWidth(Alignment.CenterHorizontally)
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .onClick {
+                        navigator.navigate(viewAllPath)
+                        onToggle()
+                    }
+            )
+        }
+    )
+}

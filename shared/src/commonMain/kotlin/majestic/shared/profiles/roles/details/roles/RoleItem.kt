@@ -1,12 +1,7 @@
 package majestic.shared.profiles.roles.details.roles
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,10 +10,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -27,40 +21,36 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.ColorPair
+import majestic.dropdown.Dropdown
+import majestic.dropdown.DropdownColors
 import majestic.editor.tools.StateColors
 import majestic.icons.Res
 import majestic.icons.ic_arrow_right
-import majestic.icons.ic_more_vertical
+import majestic.icons.ic_more_horizontal
 import majestic.shared.profiles.roles.data.Role
 import majestic.shared.profiles.roles.details.roles.tools.actions
-import majestic.shared.tools.menu.MenuOption
-import majestic.shared.tools.menu.MenuOptionColors
+import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.tools.rememberHoverBackground
 import org.jetbrains.compose.resources.vectorResource
 
 data class RoleItemColors(
-    val background: StateColors,
+    val background: Color,
+    val foreground: Color,
     val icon: ColorPair,
     val title: StateColors,
     val subtitle: Color,
     val trail: Color,
-    val action: MenuOptionColors
+    val dropdown: DropdownColors
 )
 
 @Composable
 internal fun Modifier.roleItem(
-    interaction: MutableInteractionSource = remember { MutableInteractionSource() },
     index: Int,
     roles: List<Role>,
     orientation: ScreenOrientation,
     colors: RoleItemColors
 ): Modifier {
-    val hovered by interaction.collectIsHoveredAsState()
-
-    val animatedAlpha by animateFloatAsState(
-        targetValue = if (hovered) 1f else 0f,
-        animationSpec = tween(450, easing = FastOutSlowInEasing),
-        label = "hoverOverlayAlpha"
-    )
+    val (background, interaction) = rememberHoverBackground(colors.background, colors.foreground)
 
     val shape = RoundedCornerShape(
         topStart = 0.dp,
@@ -73,16 +63,8 @@ internal fun Modifier.roleItem(
         .pointerHoverIcon(PointerIcon.Hand)
         .fillMaxWidth()
         .hoverable(interaction)
-        .background(
-            color = when (hovered) {
-                true -> colors
-                    .background
-                    .focused.copy(alpha = colors.background.focused.alpha * animatedAlpha)
-
-                false -> colors.background.unfocused
-            },
-            shape = shape
-        )
+        .clip(shape)
+        .background(background)
         .padding(if (orientation is Landscape) 20.dp else 10.dp)
 }
 
@@ -116,24 +98,18 @@ internal fun RoleItem(
             modifier = Modifier.size(14.dp)
         )
 
-        is Portrait -> MenuOption(
-            colors = colors.action,
-            icon = {
-                Icon(
-                    imageVector = vectorResource(Res.drawable.ic_more_vertical),
-                    modifier = Modifier.size(20.dp),
-                    tint = colors.action.icon.foreground,
-                    contentDescription = null
-                )
-            },
-            orientation = orientation,
-            actions = labels.actions(),
+        is Portrait -> Dropdown(
+            items = labels.actions().toDropdownItems(),
             onAction = { action ->
                 when (action) {
                     RoleAction.View -> onView()
                     RoleAction.Unassign -> onUnassign()
                 }
             },
+            colors = colors.dropdown,
+            icon = vectorResource(Res.drawable.ic_more_horizontal),
+            rotationTarget = 90f,
+            isListItem = true
         )
     }
 }
