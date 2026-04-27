@@ -70,7 +70,7 @@ fun <T> Dropdown(
             DropdownTriggerContent(
                 label = label,
                 leadingIcon = icon,
-                colors = colors,
+                colors = colors.copy(triggerText = colors.triggerText.copy(if(selectedItem == null) .4f else 1f)),
                 loading = loading,
                 expanded = expanded,
                 fontSize = fontSize,
