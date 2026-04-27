@@ -36,10 +36,9 @@ internal fun DropdownTriggerContent(
     expanded: Boolean = false,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
-    arrowTint: Color? = null,
+    arrowTint: Color? = null
 ) {
-    val foregroundColor = colors.triggerText.copy(alpha = 1f)
-    val resolvedArrowTint = arrowTint ?: foregroundColor
+    val resolvedArrowTint = arrowTint ?: colors.triggerText
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -49,14 +48,14 @@ internal fun DropdownTriggerContent(
             Icon(
                 imageVector = leadingIcon,
                 contentDescription = label,
-                tint = foregroundColor.copy(alpha = 0.7f),
+                tint =  colors.triggerText.copy(alpha = 0.7f),
                 modifier = Modifier.size(18.dp)
             )
         }
 
         Text(
             text = label,
-            color = foregroundColor,
+            color =  colors.triggerText,
             fontWeight = fontWeight,
             fontSize = fontSize,
             maxLines = 1,
@@ -69,7 +68,7 @@ internal fun DropdownTriggerContent(
         if (loading) {
             CircularProgressIndicator(
                 modifier = Modifier.size(14.dp),
-                color = foregroundColor,
+                color =  colors.triggerText,
                 strokeWidth = 2.dp
             )
         } else {
