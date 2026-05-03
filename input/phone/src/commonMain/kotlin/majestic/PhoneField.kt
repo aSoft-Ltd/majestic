@@ -90,6 +90,8 @@ fun PhoneField(
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = colors.focused.border,
                 unfocusedIndicatorColor = if (hasFeedback) color else colors.blurred.border,
+                cursorColor = colors.focused.text,
+                focusedLabelColor = colors.focused.text
             ),
             shape = RoundedCornerShape(8.dp),
             onValueChange = {
