@@ -3,6 +3,7 @@ package majestic.dropdown
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,20 +26,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.icons.Res
 import majestic.icons.ic_arrow_down
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
 
-// dropdown trigger content composable similar to BasicButtonContent
 @Composable
-internal fun DropdownTriggerContent(
+fun DropdownTriggerContent(
     label: String,
-    leadingIcon: ImageVector?,
     colors: DropdownColors,
     loading: Boolean = false,
     expanded: Boolean = false,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     iconSize: Dp = 18.dp,
-    arrowTint: Color? = null
+    arrowTint: Color? = null,
+    leadingIcon: ImageVector? = null,
+    leadingImage: DrawableResource? = null
 ) {
     val resolvedArrowTint = arrowTint ?: colors.triggerText
 
@@ -55,6 +58,14 @@ internal fun DropdownTriggerContent(
             )
         }
 
+        if (leadingImage != null) {
+            Image(
+                painter = painterResource(leadingImage),
+                contentDescription = label,
+                modifier = Modifier.size(iconSize)
+            )
+        }
+
         Text(
             text = label,
             color = colors.triggerText,
@@ -67,7 +78,6 @@ internal fun DropdownTriggerContent(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // trailing icon area - either loading spinner or arrow
         if (loading) {
             CircularProgressIndicator(
                 modifier = Modifier.size(14.dp),
