@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +37,7 @@ internal fun DropdownTriggerContent(
     expanded: Boolean = false,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
+    iconSize: Dp = 18.dp,
     arrowTint: Color? = null
 ) {
     val resolvedArrowTint = arrowTint ?: colors.triggerText
@@ -48,17 +50,18 @@ internal fun DropdownTriggerContent(
             Icon(
                 imageVector = leadingIcon,
                 contentDescription = label,
-                tint =  colors.triggerText.copy(alpha = 0.7f),
-                modifier = Modifier.size(18.dp)
+                tint = colors.triggerText.copy(alpha = 0.7f),
+                modifier = Modifier.size(iconSize)
             )
         }
 
         Text(
             text = label,
-            color =  colors.triggerText,
+            color = colors.triggerText,
             fontWeight = fontWeight,
             fontSize = fontSize,
             maxLines = 1,
+            lineHeight = 1.sp,
             overflow = TextOverflow.Ellipsis,
         )
 
@@ -68,7 +71,7 @@ internal fun DropdownTriggerContent(
         if (loading) {
             CircularProgressIndicator(
                 modifier = Modifier.size(14.dp),
-                color =  colors.triggerText,
+                color = colors.triggerText,
                 strokeWidth = 2.dp
             )
         } else {
