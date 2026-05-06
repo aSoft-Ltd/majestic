@@ -85,7 +85,7 @@ internal fun DropdownTriggerContent(
                 contentDescription = "Toggle",
                 tint = resolvedArrowTint,
                 modifier = Modifier
-                    .size(14.dp)
+                    .size(12.dp)
                     .graphicsLayer { rotationZ = rotation }
             )
         }
