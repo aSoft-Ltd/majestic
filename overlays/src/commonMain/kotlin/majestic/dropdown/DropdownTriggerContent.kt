@@ -39,6 +39,7 @@ fun DropdownTriggerContent(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     iconSize: Dp = 18.dp,
+    spacedBy: Dp = 8.dp,
     arrowTint: Color? = null,
     leadingIcon: ImageVector? = null,
     leadingImage: DrawableResource? = null
@@ -47,7 +48,7 @@ fun DropdownTriggerContent(
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(spacedBy)
     ) {
         if (leadingIcon != null) {
             Icon(
