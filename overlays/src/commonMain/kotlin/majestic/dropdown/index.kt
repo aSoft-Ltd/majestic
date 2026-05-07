@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.icons.Res
 import majestic.icons.ic_circle
@@ -45,6 +46,7 @@ fun <T> Dropdown(
     popupWidth: Dp? = null,
     intrinsicWidth: Boolean = false,
     arrowTint: Color? = null,
+    iconSize: Dp = 18.dp,
     triggerShape: Shape = RoundedCornerShape(percent = 50),
     customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     modifier: Modifier = Modifier,
@@ -70,10 +72,11 @@ fun <T> Dropdown(
             DropdownTriggerContent(
                 label = label,
                 leadingIcon = icon,
-                colors = colors.copy(triggerText = colors.triggerText.copy(if(selectedItem == null) .4f else 1f)),
+                colors = colors.copy(triggerText = colors.triggerText.copy(if (selectedItem == null) .4f else 1f)),
                 loading = loading,
                 expanded = expanded,
                 fontSize = fontSize,
+                iconSize = iconSize,
                 fontWeight = fontWeight,
                 arrowTint = arrowTint
             )
