@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +30,7 @@ fun <T> NoticeBar(
     items: List<DropdownItem<T>> = emptyList(),
     onNotify: (T) -> Unit = {},
     notify: String,
+    intrinsicWidth: Boolean = true,
     modifier: Modifier = Modifier,
     onClose: () -> Unit = {},
     header: @Composable () -> Unit = {
@@ -48,6 +48,7 @@ fun <T> NoticeBar(
         onAction = onNotify,
         colors = colors.dropdownColors,
         label = notify,
+        intrinsicWidth = intrinsicWidth,
         leadingIcon = vectorResource(Res.drawable.ic_megaphone),
         modifier = Modifier.width(IntrinsicSize.Max)
     )
