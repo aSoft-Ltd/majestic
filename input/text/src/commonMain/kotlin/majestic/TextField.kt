@@ -184,6 +184,7 @@ fun TextField(
         )
     },
     modifier: Modifier = Modifier,
+    basicTextFieldModifier: Modifier = Modifier.fillMaxWidth(),
     contentPadding: PaddingValues = PaddingValues(vertical = 14.dp, horizontal = 14.dp),
     readOnly: Boolean = false,
     singleLine: Boolean = true,
@@ -213,7 +214,7 @@ fun TextField(
             onValueChange = {
                 onChange?.invoke(it)
             },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = basicTextFieldModifier,
             visualTransformation = visualTransformation,
             interactionSource = interactionSource,
             enabled = enabled,
