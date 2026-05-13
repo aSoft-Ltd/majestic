@@ -213,7 +213,6 @@ fun TextField(
             onValueChange = {
                 onChange?.invoke(it)
             },
-            modifier = Modifier.fillMaxWidth(),
             visualTransformation = visualTransformation,
             interactionSource = interactionSource,
             enabled = enabled,
