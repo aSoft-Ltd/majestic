@@ -23,8 +23,11 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
-internal fun GradientIcon(icon: DrawableResource, colors: EmptyStateColors, modifier: Modifier = Modifier) =
-    Box(
+internal fun GradientIcon(
+    icon: DrawableResource,
+    colors: EmptyStateColors,
+    modifier: Modifier = Modifier
+) = Box(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
