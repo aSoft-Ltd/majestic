@@ -224,6 +224,7 @@ fun TextField(
             keyboardActions = keyboardActions,
             maxLines = maxLines,
             minLines = minLines,
+            modifier = Modifier.fillMaxWidth()
         ) { innerTextField ->
             // places leading icon, text field with label and placeholder, trailing icon
             OutlinedTextFieldDefaults.DecorationBox(
