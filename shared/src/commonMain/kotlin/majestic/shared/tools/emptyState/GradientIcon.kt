@@ -28,59 +28,59 @@ internal fun GradientIcon(
     colors: EmptyStateColors,
     modifier: Modifier = Modifier
 ) = Box(
-        modifier = modifier,
+    modifier = modifier,
+    contentAlignment = Alignment.Center
+) {
+    val ellipseSize = 56.dp
+    val blurRadius = 32.dp
+    val blurLayerSize = ellipseSize + blurRadius * 6
+    val blurAlpha = 0.3f
+
+    Box(
+        modifier = Modifier
+            .requiredSize(blurLayerSize)
+            .offset(x = 0.dp, y = (-4).dp)
+            .graphicsLayer {
+                compositingStrategy = CompositingStrategy.Offscreen
+            }
+            .blur(
+                radius = blurRadius,
+                edgeTreatment = BlurredEdgeTreatment.Unbounded
+            ),
         contentAlignment = Alignment.Center
     ) {
-        val ellipseSize = 56.dp
-        val blurRadius = 32.dp
-        val blurLayerSize = ellipseSize + blurRadius * 6
-        val blurAlpha = 0.3f
-
         Box(
             modifier = Modifier
-                .requiredSize(blurLayerSize)
-                .offset(x = 0.dp, y = (-4).dp)
-                .graphicsLayer {
-                    compositingStrategy = CompositingStrategy.Offscreen
-                }
-                .blur(
-                    radius = blurRadius,
-                    edgeTreatment = BlurredEdgeTreatment.Unbounded
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(ellipseSize)
-                    .background(
-                        color = colors.iconBlur.copy(alpha = blurAlpha),
-                        shape = CircleShape
-                    )
-            )
-        }
-
-        Image(
-            imageVector = vectorResource(icon),
-            contentDescription = null,
-            modifier = Modifier
-                .size(83.dp)
-                .graphicsLayer {
-                    compositingStrategy = CompositingStrategy.Offscreen
-                }
-                .drawWithContent {
-                    drawContent()
-
-                    drawRect(
-                        brush = Brush.linearGradient(
-                            colors = listOf(
-                                colors.gradient.first,
-                                colors.gradient.second
-                            ),
-                            start = Offset(0f, 0f),
-                            end = Offset(size.width, size.height)
-                        ),
-                        blendMode = BlendMode.SrcIn
-                    )
-                }
+                .size(ellipseSize)
+                .background(
+                    color = colors.iconBlur.copy(alpha = blurAlpha),
+                    shape = CircleShape
+                )
         )
     }
+
+    Image(
+        imageVector = vectorResource(icon),
+        contentDescription = null,
+        modifier = Modifier
+            .size(83.dp)
+            .graphicsLayer {
+                compositingStrategy = CompositingStrategy.Offscreen
+            }
+            .drawWithContent {
+                drawContent()
+
+                drawRect(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            colors.gradient.first,
+                            colors.gradient.second
+                        ),
+                        start = Offset(0f, 0f),
+                        end = Offset(size.width, size.height)
+                    ),
+                    blendMode = BlendMode.SrcIn
+                )
+            }
+    )
+}
