@@ -9,7 +9,10 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.rememberWindowState
 import java.awt.Toolkit
 
-private fun StartWindow.toDpSize() = DpSize(width.dp, height.dp)
+private fun StartWindow.toDpSize(): DpSize {
+    val screen = Toolkit.getDefaultToolkit().screenSize
+    return DpSize(width.coerceIn(0, screen.width).dp, height.coerceIn(0, screen.height).dp)
+}
 
 private fun ClientConfig.toDpSize() = window?.toDpSize() ?: DpSize.Unspecified
 
