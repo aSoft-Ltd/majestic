@@ -1,5 +1,6 @@
 package majestic.shared.menu
 
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -20,7 +21,7 @@ import majestic.popup.Overlay
 @Composable
 fun PanelMenu(
     modifier: Modifier = Modifier,
-    trigger: @Composable (expanded: Boolean, onToggle: () -> Unit) -> Unit,
+    trigger: @Composable BoxScope.(expanded: Boolean, onToggle: () -> Unit) -> Unit,
     content: @Composable ColumnScope.(onClose: () -> Unit) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
