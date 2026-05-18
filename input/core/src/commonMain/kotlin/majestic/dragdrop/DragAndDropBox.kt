@@ -34,8 +34,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import majestic.NoRippleInteractionSource
 import majestic.ColorPair
+import majestic.NoRippleInteractionSource
 
 class DragAndBorderColors(
     val hovered: Color,
@@ -90,7 +90,8 @@ fun DragAndDropBox(
                             }
                         }
                     },
-                ),
+                )
+                .padding(vertical = 12.dp),
             contentAlignment = Alignment.Center
         ) {
             Column(

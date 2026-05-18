@@ -140,8 +140,9 @@ fun Modifier.transparentIconButton(
 fun Modifier.iconButton(
     color: Color,
     alpha: Float = 0.03f,
+    shape: Shape = RoundedCornerShape(percent = 50),
     onClick: () -> Unit = { },
-): Modifier = translucentButton(color = color, onClick = onClick, alpha = alpha)
+): Modifier = translucentButton(color = color, onClick = onClick, alpha = alpha, shape = shape)
 
 @Composable
 fun Modifier.securityTabItemButton(
