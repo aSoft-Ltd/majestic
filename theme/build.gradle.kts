@@ -29,23 +29,6 @@ android {
 }
 
 kotlin {
-//    applyHierarchyTemplate {
-//        sourceSetTrees(KotlinSourceSetTree.main, KotlinSourceSetTree.test)
-//        common {
-//            withAndroidTarget()
-//            group("skiko") {
-//                withJvm()
-//                withJs()
-//                withWasmJs()
-//                withIosX64()
-//                withIosArm64()
-//                withIosSimulatorArm64()
-//                withMacosX64()
-//                withMacosArm64()
-//            }
-//        }
-//    }
-
     androidTarget {
         // compilations.all {
         //    compileTaskProvider {
@@ -76,6 +59,15 @@ kotlin {
             api(compose.runtime)
             api(compose.foundation)
             api(libs.cinematic.live.compose)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.kommander.core)
+        }
+
+        jvmTest.dependencies {
+            implementation(kotlin("test-junit5"))
         }
     }
 }
