@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,8 +19,8 @@ import majestic.dropdown.DropdownColors
 import majestic.icons.Res
 import majestic.icons.ic_more_horizontal
 import majestic.icons.ic_more_vertical
-import majestic.shared.tools.menu.OptionMenu
 import majestic.shared.tools.dropdown.toDropdownItems
+import majestic.shared.tools.menu.OptionMenu
 import org.jetbrains.compose.resources.vectorResource
 
 data class DetailHeaderColors(
@@ -92,7 +91,7 @@ internal fun <T> DetailHeader(
         }
         Row(
             modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(28.dp),
+            horizontalArrangement = Arrangement.spacedBy(30.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             for (detail in details) InfoEntry(
