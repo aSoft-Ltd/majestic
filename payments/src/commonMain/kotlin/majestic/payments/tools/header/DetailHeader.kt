@@ -92,7 +92,7 @@ internal fun <T> DetailHeader(
         }
         Row(
             modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(28.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             for (detail in details) InfoEntry(
@@ -100,7 +100,6 @@ internal fun <T> DetailHeader(
                 icon = detail.icon,
                 title = detail.title,
                 description = detail.description,
-                modifier = Modifier.widthIn(min = 120.dp)
             )
         }
     }
