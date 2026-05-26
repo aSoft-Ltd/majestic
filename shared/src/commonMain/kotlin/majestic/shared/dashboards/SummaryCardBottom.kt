@@ -19,7 +19,6 @@ import composex.screen.orientation.ScreenOrientation
 import majestic.tooling.animateAsState
 import majestic.tools.graphVector
 
-
 @Composable
 internal fun SummaryCardBottom(
     modifier: Modifier,
