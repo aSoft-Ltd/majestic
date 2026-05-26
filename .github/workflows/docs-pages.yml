@@ -6,7 +6,6 @@ on:
     paths:
       - "documentation/**"
       - ".github/workflows/docs-pages.yml"
-      - ".gitmodules"
   workflow_dispatch:
 
 permissions:
@@ -26,8 +25,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
