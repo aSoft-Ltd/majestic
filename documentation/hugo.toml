@@ -1,0 +1,11 @@
+defaultContentLanguage = 'en'
+title = 'Majestic Documentation'
+theme = 'hugo-book'
+
+disableKinds = ['taxonomy', 'term']
+
+[params]
+  BookTheme = 'eva-dark'
+  BookToC = true
+  BookSection = 'docs'
+  BookSearch = true
