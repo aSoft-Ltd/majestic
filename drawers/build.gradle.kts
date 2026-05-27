@@ -64,16 +64,3 @@ kotlin {
         }
     }
 }
-
-
-dokka {
-    dokkaPublications.html {
-        suppressInheritedMembers.set(true)
-        failOnWarning.set(true)
-        includes.from("Module.md", "README.md")
-    }
-
-    pluginsConfiguration.html {
-        footerMessage.set("Copyright ⓒ aSoft Limited")
-    }
-}

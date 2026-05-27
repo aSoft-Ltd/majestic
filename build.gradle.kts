@@ -31,6 +31,9 @@ allprojects {
 
     dokka {
         moduleName.set(p.name)
+        dokkaSourceSets.configureEach {
+            includes.from("Module.md", "README.md")
+        }
         dokkaPublications.html {
             suppressInheritedMembers.set(true)
             failOnWarning.set(true)
@@ -41,60 +44,6 @@ allprojects {
             footerMessage.set("Copyright ⓒ aSoft Limited")
         }
     }
-
-//    p.tasks.dokkaHtml {
-//        dokkaSourceSets {
-//            val commonMain by getting {
-//                // used as project name in the header
-////                moduleName.set("Majestic")
-//
-//                // contains descriptions for the module and the packages
-//                if (p.file("Module.md").exists()) {
-//                    includes.from(p.file("Module.md"))
-//                }
-//
-//                // adds source links that lead to this repository, allowing readers
-//                // to easily find source code for inspected declarations
-////                sourceLink {
-////                    localDirectory.set(file("src/main/kotlin"))
-////                    remoteUrl.set(
-////                        URL(
-////                            "https://github.com/Kotlin/dokka/tree/master/" +
-////                                    "examples/gradle/dokka-gradle-example/src/main/kotlin"
-////                        )
-////                    )
-////                    remoteLineSuffix.set("#L")
-////                }
-//            }
-//        }
-//    }
-//    tasks.withType<DokkaTask>().configureEach {
-//        dokkaSourceSets {
-//
-//            val main by creating {
-//                // used as project name in the header
-//                moduleName.set("Majestic")
-//
-//                // contains descriptions for the module and the packages
-//                if (p.file("Module.md").exists()) {
-//                    includes.from(p.file("Module.md"))
-//                }
-//
-//                // adds source links that lead to this repository, allowing readers
-//                // to easily find source code for inspected declarations
-////                sourceLink {
-////                    localDirectory.set(file("src/main/kotlin"))
-////                    remoteUrl.set(
-////                        URL(
-////                            "https://github.com/Kotlin/dokka/tree/master/" +
-////                                    "examples/gradle/dokka-gradle-example/src/main/kotlin"
-////                        )
-////                    )
-////                    remoteLineSuffix.set("#L")
-////                }
-//            }
-//        }
-//    }
 }
 
 subprojects {
