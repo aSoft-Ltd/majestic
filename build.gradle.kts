@@ -18,23 +18,91 @@ group = "tz.co.asoft"
 version = v
 
 repositories {
-	publicRepos()
+    publicRepos()
 }
 
 allprojects {
     group = "tz.co.asoft"
     version = v
-}
+    val p = this
 
-subprojects {
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "com.vanniktech.maven.publish")
 
+    dokka {
+        moduleName.set(p.name)
+        dokkaPublications.html {
+            suppressInheritedMembers.set(true)
+            failOnWarning.set(true)
+            includes.from("Module.md", "README.md")
+        }
+
+        pluginsConfiguration.html {
+            footerMessage.set("Copyright ⓒ aSoft Limited")
+        }
+    }
+
+//    p.tasks.dokkaHtml {
+//        dokkaSourceSets {
+//            val commonMain by getting {
+//                // used as project name in the header
+////                moduleName.set("Majestic")
+//
+//                // contains descriptions for the module and the packages
+//                if (p.file("Module.md").exists()) {
+//                    includes.from(p.file("Module.md"))
+//                }
+//
+//                // adds source links that lead to this repository, allowing readers
+//                // to easily find source code for inspected declarations
+////                sourceLink {
+////                    localDirectory.set(file("src/main/kotlin"))
+////                    remoteUrl.set(
+////                        URL(
+////                            "https://github.com/Kotlin/dokka/tree/master/" +
+////                                    "examples/gradle/dokka-gradle-example/src/main/kotlin"
+////                        )
+////                    )
+////                    remoteLineSuffix.set("#L")
+////                }
+//            }
+//        }
+//    }
+//    tasks.withType<DokkaTask>().configureEach {
+//        dokkaSourceSets {
+//
+//            val main by creating {
+//                // used as project name in the header
+//                moduleName.set("Majestic")
+//
+//                // contains descriptions for the module and the packages
+//                if (p.file("Module.md").exists()) {
+//                    includes.from(p.file("Module.md"))
+//                }
+//
+//                // adds source links that lead to this repository, allowing readers
+//                // to easily find source code for inspected declarations
+////                sourceLink {
+////                    localDirectory.set(file("src/main/kotlin"))
+////                    remoteUrl.set(
+////                        URL(
+////                            "https://github.com/Kotlin/dokka/tree/master/" +
+////                                    "examples/gradle/dokka-gradle-example/src/main/kotlin"
+////                        )
+////                    )
+////                    remoteLineSuffix.set("#L")
+////                }
+//            }
+//        }
+//    }
+}
+
+subprojects {
     val p = this
     version = v
 
     configure<MavenPublishBaseExtension> {
-        publishToMavenCentral(SonatypeHost.DEFAULT,automaticRelease = true)
+        publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
 
         signAllPublications()
 
@@ -67,12 +135,9 @@ subprojects {
     }
 }
 
-tasks.dokkaHtmlMultiModule {
-    moduleName.set("majestic")
-    outputDirectory.set(rootDir.resolve("docs"))
-	moduleVersion.set(libs.versions.asoft.get())
-    includes.from("ReadMe.md")
-}
-
 group = "tz.co.asoft"
 version = libs.versions.asoft.get()
+
+dependencies {
+    dokka(projects.majesticDrawers)
+}
