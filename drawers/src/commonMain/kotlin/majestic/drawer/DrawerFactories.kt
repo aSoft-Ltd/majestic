@@ -9,42 +9,42 @@ import androidx.compose.ui.unit.Dp
 /**
  * Remembers an overlay drawer whose size is calculated as a ratio of the host.
  *
- * Overlay drawers are rendered above the host content. The [background] value is
- * the overlay backdrop color behind the drawer, not the drawer body's own
- * background. Style the drawer body from inside [content].
+ * Overlay drawers are rendered above the host content. The backdrop is drawn
+ * behind the drawer and does not replace the drawer body's own background.
+ * Style the drawer body from inside [content].
  *
  * @param ratio fraction of the host width or height used as the drawer span.
  * @param position edge from which the drawer opens. Defaults to [DrawerPosition.Left].
- * @param background overlay backdrop color. Defaults to [Color.Transparent].
+ * @param backdrop overlay backdrop color. Defaults to [Color.Transparent].
  * @param content drawer body content.
  */
 @Composable
 fun rememberOverlayDrawer(
     ratio: Float,
     position: DrawerPosition = DrawerPosition.Left,
-    background: Color = Color.Transparent,
-    content: @Composable BoxScope.(DrawerContext) -> Unit
-): Drawer = rememberDrawer(RatioSpan(ratio), position, DrawerDisplay.Overlay, background, content)
+    backdrop: Color = Color.Transparent,
+    content: @Composable BoxScope.(DrawerContext) -> Unit,
+): Drawer = rememberDrawer(RatioSpan(ratio), position, DrawerDisplay.Overlay, backdrop, content)
 
 /**
  * Remembers an overlay drawer with a fixed [Dp] span.
  *
- * Overlay drawers are rendered above the host content. The [background] value is
- * the overlay backdrop color behind the drawer, not the drawer body's own
- * background. Style the drawer body from inside [content].
+ * Overlay drawers are rendered above the host content. The backdrop is drawn
+ * behind the drawer and does not replace the drawer body's own background.
+ * Style the drawer body from inside [content].
  *
  * @param span fixed drawer width for horizontal drawers, or height for vertical drawers.
  * @param position edge from which the drawer opens. Defaults to [DrawerPosition.Left].
- * @param background overlay backdrop color. Defaults to [Color.Transparent].
+ * @param backdrop overlay backdrop color. Defaults to [Color.Transparent].
  * @param content drawer body content.
  */
 @Composable
 fun rememberOverlayDrawer(
     span: Dp,
     position: DrawerPosition = DrawerPosition.Left,
-    background: Color = Color.Transparent,
-    content: @Composable BoxScope.(DrawerContext) -> Unit
-): Drawer = rememberDrawer(DpSpan(span), position, DrawerDisplay.Overlay, background, content)
+    backdrop: Color = Color.Transparent,
+    content: @Composable BoxScope.(DrawerContext) -> Unit,
+): Drawer = rememberDrawer(DpSpan(span), position, DrawerDisplay.Overlay, backdrop, content)
 
 /**
  * Remembers an inline drawer whose size is calculated as a ratio of the host.
@@ -61,7 +61,7 @@ fun rememberOverlayDrawer(
 fun rememberInlineDrawer(
     ratio: Float,
     position: DrawerPosition = DrawerPosition.Left,
-    content: @Composable BoxScope.(DrawerContext) -> Unit
+    content: @Composable BoxScope.(DrawerContext) -> Unit,
 ): Drawer = rememberDrawer(RatioSpan(ratio), position, DrawerDisplay.Inline, Color.Transparent, content)
 
 /**
@@ -79,7 +79,7 @@ fun rememberInlineDrawer(
 fun rememberInlineDrawer(
     span: Dp,
     position: DrawerPosition = DrawerPosition.Left,
-    content: @Composable BoxScope.(DrawerContext) -> Unit
+    content: @Composable BoxScope.(DrawerContext) -> Unit,
 ): Drawer = rememberDrawer(DpSpan(span), position, DrawerDisplay.Inline, Color.Transparent, content)
 
 @Composable
@@ -87,8 +87,8 @@ private fun rememberDrawer(
     span: DrawerSpan,
     position: DrawerPosition,
     display: DrawerDisplay,
-    background: Color,
-    content: @Composable BoxScope.(DrawerContext) -> Unit
-): Drawer = remember(span, position, display, background, content) {
-    Drawer(span, position, display, background, content)
+    backdrop: Color,
+    content: @Composable BoxScope.(DrawerContext) -> Unit,
+): Drawer = remember(span, position, display, backdrop, content) {
+    Drawer(span, position, display, backdrop, content)
 }

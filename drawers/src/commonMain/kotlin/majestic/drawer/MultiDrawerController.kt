@@ -66,8 +66,8 @@ interface MultiDrawerController : SingleDrawerController {
         ratio: Float,
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
-        background: Color = Color.Transparent,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color = Color.Transparent,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): Drawer
 
     /**
@@ -81,8 +81,8 @@ interface MultiDrawerController : SingleDrawerController {
         ratio: Float,
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
-        background: Color = Color.Transparent,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color = Color.Transparent,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): ReadOnlyProperty<Any?, Drawer>
 
     /**
@@ -96,8 +96,8 @@ interface MultiDrawerController : SingleDrawerController {
         span: Dp,
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
-        background: Color = Color.Transparent,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color = Color.Transparent,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): Drawer
 
     /**
@@ -111,8 +111,8 @@ interface MultiDrawerController : SingleDrawerController {
         span: Dp,
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
-        background: Color = Color.Transparent,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color = Color.Transparent,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): ReadOnlyProperty<Any?, Drawer>
 
     /** Returns the current state of [drawer]. Unknown drawers are treated as [DrawerState.Closed]. */

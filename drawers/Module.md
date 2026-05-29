@@ -42,7 +42,7 @@ A `Drawer` is a remembered description of one drawer:
 - size, stored internally as a span
 - position: `Left`, `Right`, `Top`, or `Bottom`
 - display mode: `Inline` or `Overlay`
-- background color for overlay mode
+- backdrop color for overlay mode
 - drawer content
 
 You normally do not construct it directly. Use:
@@ -69,8 +69,8 @@ Important defaults:
 
 - `rememberInlineDrawer(...)` defaults `position` to `DrawerPosition.Left`
 - `rememberOverlayDrawer(...)` defaults `position` to `DrawerPosition.Left`
-- `rememberOverlayDrawer(...)` defaults `background` to `Color.Transparent`
-- `rememberInlineDrawer(...)` does not expose a `background` parameter
+- `rememberOverlayDrawer(...)` defaults `backdrop` to `Color.Transparent`
+- inline drawers do not use a backdrop because they participate in layout instead of floating above content
 
 If a drawer should open from a non-default side, pass `position` explicitly:
 
@@ -93,7 +93,7 @@ Use inline drawers when the layout should visibly reflow around the drawer.
 
 ### Overlay
 
-Overlay drawers sit on top of the content. When open, they animate in from their edge and can tint the background using the drawer's `background` color.
+Overlay drawers sit on top of the content. When open, they animate in from their edge and can tint the area behind the drawer using the drawer's `backdrop` color.
 
 Use overlay drawers when the main content should remain laid out underneath.
 
@@ -136,12 +136,12 @@ val sideMenu = rememberOverlayDrawer(span = 400.dp) {
 
 ### Overlay backdrop background
 
-Overlay drawers also support a separate `background` parameter:
+Overlay drawers also support a separate `backdrop` parameter:
 
 ```kotlin
 val sideMenu = rememberOverlayDrawer(
     span = 400.dp,
-    background = Color.Black.copy(alpha = 0.35f)
+    backdrop = Color.Black.copy(alpha = 0.35f)
 ) {
     Column(
         Modifier
@@ -153,7 +153,7 @@ val sideMenu = rememberOverlayDrawer(
 }
 ```
 
-This `background` is the backdrop or overlay tint drawn behind the drawer while it is open. It is not the same thing as the drawer body's own background.
+This `backdrop` is the overlay tint drawn behind the drawer while it is open. It is not the same thing as the drawer body's own background.
 
 Inline drawers do not expose this backdrop parameter because they participate in layout instead of floating above the content.
 
@@ -430,7 +430,7 @@ Important defaults for `add(...)` differ from the drawer factory helpers:
 
 - runtime `add(...)` defaults `position` to `DrawerPosition.Right`
 - runtime `add(...)` defaults `display` to `DrawerDisplay.Overlay`
-- runtime `add(...)` defaults `background` to `Color.Transparent`
+- runtime `add(...)` defaults `backdrop` to `Color.Transparent`
 
 This is different from `rememberInlineDrawer(...)` and `rememberOverlayDrawer(...)`, which default `position` to `DrawerPosition.Left`.
 
@@ -501,7 +501,7 @@ Overlay drawers:
 
 - are rendered on top of the content after inline layout is placed
 - animate into view with offset changes
-- can tint the host background with the drawer `background`
+- can tint the host background with the drawer `backdrop`
 - do not force the content area to reflow
 
 This distinction is the most important design decision when adopting the package.
@@ -572,4 +572,4 @@ Set `position` explicitly in production code unless the default is a deliberate 
 
 # Package majestic.drawer
 
-This is the core drawer package that handles everything drawer related
+Composable drawer APIs for hosting inline and overlay drawers in shared Compose screens.
