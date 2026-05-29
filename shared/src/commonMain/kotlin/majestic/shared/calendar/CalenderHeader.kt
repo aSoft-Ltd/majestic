@@ -22,7 +22,7 @@ import majestic.calendar.CalendarPickerColors
 import majestic.icons.Res
 import majestic.icons.ic_arrow_down
 import majestic.icons.ic_arrow_left_01
-import majestic.icons.ic_arrow_right_01
+import majestic.icons.ic_arrow_right_02
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.painterResource
 
@@ -57,7 +57,7 @@ fun CalenderHeader(
     )
     Icon(
         modifier = Modifier.onClick { manager.nextMonth() },
-        painter = painterResource(Res.drawable.ic_arrow_right_01),
+        painter = painterResource(Res.drawable.ic_arrow_right_02),
         contentDescription = "Next Month",
         tint = colors.surface.foreground.copy(0.8f)
     )
