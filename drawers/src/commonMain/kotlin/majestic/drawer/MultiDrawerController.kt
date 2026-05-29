@@ -37,16 +37,16 @@ interface MultiDrawerController : SingleDrawerController {
         ratio: Float,
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
-        background: Color = Color.Transparent,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color = Color.Transparent,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): Drawer
 
     fun add(
         ratio: Float,
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
-        background: Color = Color.Transparent,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color = Color.Transparent,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): ReadOnlyProperty<Any?, Drawer>
 
     fun add(
@@ -54,16 +54,16 @@ interface MultiDrawerController : SingleDrawerController {
         span: Dp,
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
-        background: Color = Color.Transparent,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color = Color.Transparent,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): Drawer
 
     fun add(
         span: Dp,
         position: DrawerPosition = DrawerPosition.Right,
         display: DrawerDisplay = DrawerDisplay.Overlay,
-        background: Color = Color.Transparent,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color = Color.Transparent,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): ReadOnlyProperty<Any?, Drawer>
 
     fun state(drawer: Drawer): DrawerState
