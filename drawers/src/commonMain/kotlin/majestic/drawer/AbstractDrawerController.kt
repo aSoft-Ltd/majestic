@@ -23,7 +23,7 @@ internal abstract class AbstractDrawerController : MultiDrawerController {
 
     abstract fun open(
         drawer: Drawer,
-        span: DrawerSpan?
+        span: DrawerSpan?,
     )
 
     override fun close(drawer: Any) = find(drawer).forEach { close(it) }
@@ -58,26 +58,26 @@ internal abstract class AbstractDrawerController : MultiDrawerController {
         ratio: Float,
         position: DrawerPosition,
         display: DrawerDisplay,
-        background: Color,
-        content: @Composable (BoxScope.(DrawerContext) -> Unit)
-    ) = add(drawer, RatioSpan(ratio), position, display, background, content)
+        backdrop: Color,
+        content: @Composable (BoxScope.(DrawerContext) -> Unit),
+    ) = add(drawer, RatioSpan(ratio), position, display, backdrop, content)
 
     override fun add(
         key: Any,
         span: Dp,
         position: DrawerPosition,
         display: DrawerDisplay,
-        background: Color,
-        content: @Composable (BoxScope.(DrawerContext) -> Unit)
-    ) = add(key, DpSpan(span), position, display, background, content)
+        backdrop: Color,
+        content: @Composable (BoxScope.(DrawerContext) -> Unit),
+    ) = add(key, DpSpan(span), position, display, backdrop, content)
 
     abstract fun add(
         key: Any,
         span: DrawerSpan,
         position: DrawerPosition,
         display: DrawerDisplay,
-        background: Color,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): Drawer
 
     abstract fun find(key: Any): Set<Drawer>
