@@ -12,6 +12,25 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
+/**
+ * Simple header helper for legacy navigation drawer content.
+ *
+ * Renders a close affordance aligned to the end of the header, then composes
+ * [content] below it.
+ *
+ * @param modifier modifier applied to the outer column.
+ * @param onClose invoked when the close affordance is clicked.
+ * @param content header content below the close affordance.
+ */
+@Deprecated(
+    message = "The NavigationDrawer API is deprecated. Build drawer headers inside DrawerHost drawer content instead.",
+    replaceWith = ReplaceWith(
+        imports = arrayOf(
+            "androidx.compose.foundation.layout.Column"
+        ),
+        expression = "Column(modifier) { content() }",
+    )
+)
 @Composable
 fun NavigationDrawerHeader(
     modifier: Modifier = Modifier,

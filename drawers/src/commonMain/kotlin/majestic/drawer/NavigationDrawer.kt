@@ -12,14 +12,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+/**
+ * Legacy single navigation drawer composable.
+ *
+ * Prefer [InlineDrawerHost] or [OverlayDrawerHost] for new single-drawer code.
+ *
+ * @param controller legacy drawer controller. Defaults to [rememberDrawerController].
+ * @param modifier modifier applied to the drawer container.
+ * @param drawer drawer body content.
+ * @param content main content displayed with or behind the drawer.
+ */
 @Deprecated(
-    message = "In favor of DrawerHost",
+    message = "The NavigationDrawer API is deprecated. Use InlineDrawerHost or OverlayDrawerHost with rememberSingleDrawerController instead.",
     replaceWith = ReplaceWith(
         imports = arrayOf(
-            "majestic.drawer.DrawerHost",
-            "majestic.drawer.rememberDrawerController"
+            "majestic.drawer.OverlayDrawerHost",
+            "majestic.drawer.rememberSingleDrawerController"
         ),
-        expression = "DrawerHost",
+        expression = "OverlayDrawerHost(controller = rememberSingleDrawerController(), span = 0.85f, drawer = drawer, content = content)",
     )
 )
 @Composable

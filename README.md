@@ -1,5 +1,3 @@
-# majestic
-
 Majestic is a Kotlin Multiplatform Compose UI library for building shared product interfaces across supported platforms.
 
 ## Documentation
