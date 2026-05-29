@@ -18,23 +18,40 @@ group = "tz.co.asoft"
 version = v
 
 repositories {
-	publicRepos()
+    publicRepos()
 }
 
 allprojects {
     group = "tz.co.asoft"
     version = v
-}
+    val p = this
 
-subprojects {
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "com.vanniktech.maven.publish")
 
+    dokka {
+        moduleName.set(p.name)
+        dokkaSourceSets.configureEach {
+            includes.from("Module.md", "README.md")
+        }
+        dokkaPublications.html {
+            suppressInheritedMembers.set(true)
+            failOnWarning.set(true)
+            includes.from("Module.md", "README.md")
+        }
+
+        pluginsConfiguration.html {
+            footerMessage.set("Copyright ⓒ aSoft Limited")
+        }
+    }
+}
+
+subprojects {
     val p = this
     version = v
 
     configure<MavenPublishBaseExtension> {
-        publishToMavenCentral(SonatypeHost.DEFAULT,automaticRelease = true)
+        publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
 
         signAllPublications()
 
@@ -67,12 +84,9 @@ subprojects {
     }
 }
 
-tasks.dokkaHtmlMultiModule {
-    moduleName.set("majestic")
-    outputDirectory.set(rootDir.resolve("docs"))
-	moduleVersion.set(libs.versions.asoft.get())
-    includes.from("ReadMe.md")
-}
-
 group = "tz.co.asoft"
 version = libs.versions.asoft.get()
+
+dependencies {
+    dokka(projects.majesticDrawers)
+}

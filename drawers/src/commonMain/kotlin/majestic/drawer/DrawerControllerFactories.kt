@@ -9,7 +9,29 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.rememberScreenOrientation
 
-
+/**
+ * Remembers a controller for the deprecated [NavigationDrawer] API.
+ *
+ * New code should prefer [rememberSingleDrawerController] with [InlineDrawerHost]
+ * or [OverlayDrawerHost].
+ *
+ * @param overlap whether the drawer should float over content. Defaults to
+ * `true` in portrait and `false` in landscape.
+ * @param ratio size of the drawer as a fraction of the host. Defaults to `0.85`
+ * in portrait and `0.35` in landscape.
+ * @param animation animation used by the deprecated drawer implementation.
+ * @param state initial drawer state.
+ * @param direction direction used by the deprecated drawer implementation.
+ */
+@Deprecated(
+    message = "The NavigationDrawer API is deprecated. Use rememberSingleDrawerController with InlineDrawerHost or OverlayDrawerHost instead.",
+    replaceWith = ReplaceWith(
+        imports = arrayOf(
+            "majestic.drawer.rememberSingleDrawerController"
+        ),
+        expression = "rememberSingleDrawerController()",
+    )
+)
 @Composable
 fun rememberDrawerController(
     overlap: Boolean? = null,
