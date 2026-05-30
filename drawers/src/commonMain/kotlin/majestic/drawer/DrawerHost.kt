@@ -3,20 +3,15 @@ package majestic.drawer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocal
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onPlaced
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import majestic.drawer.host.InlineDrawer
@@ -25,9 +20,18 @@ import majestic.drawer.host.display
 import majestic.drawer.host.toDp
 
 /**
- * Set a Host of different drawers
+ * Hosts one or more inline and overlay drawers around [content].
  *
- * Create a controller by calling [rememberDrawerHostController]
+ * Create drawers with [rememberInlineDrawer] or [rememberOverlayDrawer], register
+ * them with [rememberDrawerHostController], then pass that controller here. Inline
+ * drawers are rendered as part of layout, while overlay drawers are rendered
+ * above the content.
+ *
+ * @param controller controller that owns the drawer registrations and state.
+ * Defaults to [LocalDrawerHostControllerContext], which is mainly useful for
+ * nested drawer-aware composition.
+ * @param modifier modifier applied to the host container.
+ * @param content main screen content wrapped by the drawer host.
  */
 @Composable
 fun DrawerHost(
@@ -51,6 +55,18 @@ fun DrawerHost(
     }
 }
 
+/**
+ * Hosts a single inline drawer with a fixed [Dp] span.
+ *
+ * Inline drawers participate in layout and reflow the host content while open.
+ *
+ * @param controller controller returned by [rememberSingleDrawerController].
+ * @param span fixed drawer width for left/right drawers, or height for top/bottom drawers.
+ * @param position edge from which the drawer opens. Defaults to [DrawerPosition.Left].
+ * @param modifier modifier applied to the host container.
+ * @param drawer drawer body content.
+ * @param content main screen content.
+ */
 @Composable
 fun InlineDrawerHost(
     controller: SingleDrawerController,
@@ -61,6 +77,18 @@ fun InlineDrawerHost(
     content: @Composable () -> Unit
 ) = InlineDrawerHost(controller, DpSpan(span), position, modifier, drawer, content)
 
+/**
+ * Hosts a single inline drawer whose size is calculated as a ratio of the host.
+ *
+ * Inline drawers participate in layout and reflow the host content while open.
+ *
+ * @param controller controller returned by [rememberSingleDrawerController].
+ * @param span fraction of the host width or height used as the drawer span.
+ * @param position edge from which the drawer opens. Defaults to [DrawerPosition.Left].
+ * @param modifier modifier applied to the host container.
+ * @param drawer drawer body content.
+ * @param content main screen content.
+ */
 @Composable
 fun InlineDrawerHost(
     controller: SingleDrawerController,
@@ -85,6 +113,20 @@ private fun InlineDrawerHost(
     content = content
 )
 
+/**
+ * Hosts a single overlay drawer with a fixed [Dp] span.
+ *
+ * Overlay drawers float above the host content. The [background] value controls
+ * the overlay backdrop behind the drawer.
+ *
+ * @param controller controller returned by [rememberSingleDrawerController].
+ * @param span fixed drawer width for left/right drawers, or height for top/bottom drawers.
+ * @param position edge from which the drawer opens. Defaults to [DrawerPosition.Left].
+ * @param background overlay backdrop color. Defaults to [Color.Transparent].
+ * @param modifier modifier applied to the host container.
+ * @param drawer drawer body content.
+ * @param content main screen content.
+ */
 @Composable
 fun OverlayDrawerHost(
     controller: SingleDrawerController,
@@ -100,6 +142,20 @@ fun OverlayDrawerHost(
     content = content
 )
 
+/**
+ * Hosts a single overlay drawer whose size is calculated as a ratio of the host.
+ *
+ * Overlay drawers float above the host content. The [background] value controls
+ * the overlay backdrop behind the drawer.
+ *
+ * @param controller controller returned by [rememberSingleDrawerController].
+ * @param ratio fraction of the host width or height used as the drawer span.
+ * @param position edge from which the drawer opens. Defaults to [DrawerPosition.Left].
+ * @param background overlay backdrop color. Defaults to [Color.Transparent].
+ * @param modifier modifier applied to the host container.
+ * @param drawer drawer body content.
+ * @param content main screen content.
+ */
 @Composable
 fun OverlayDrawerHost(
     controller: SingleDrawerController,

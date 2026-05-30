@@ -3,6 +3,8 @@ package majestic.drawer.host
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -29,10 +32,22 @@ internal fun OverlayDrawer(
     controller: MultiDrawerController,
     drawer: Drawer,
     size: DpSize,
-    state: HostedDrawerState
+    state: HostedDrawerState,
 ) {
     val overlay by animateColorAsState(targetValue = if (state is OpenedDrawer) drawer.background else Color.Transparent)
-    Box(modifier = Modifier.fillMaxSize().background(color = overlay)) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+            .background(color = overlay)
+            .then(
+                other = if (state is OpenedDrawer) {
+                    Modifier.clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) {
+                        controller.close(drawer)
+                    }
+                } else Modifier
+            )) {
         Box(modifier = Modifier.drawer(drawer, state, size)) { drawer.content(this, DrawerContext(controller, drawer)) }
     }
 }
