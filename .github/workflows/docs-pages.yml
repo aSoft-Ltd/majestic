@@ -27,11 +27,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          repository: asoft-ltd/home
+          token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+          fetch-depth: 1
+          submodules: true
+          path: home
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: corretto
           java-version: "21"
 
       - name: Setup Gradle
@@ -43,12 +49,13 @@ jobs:
           enablement: true
 
       - name: Generate Dokka site
+        working-directory: home/majestic
         run: ./gradlew :dokkaGeneratePublicHtml
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/dokka/html
+          path: home/majestic/build/dokka/html
 
   deploy:
     environment:
