@@ -9,14 +9,14 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 internal class MultiDrawerHostController internal constructor(
-    internal val state: SnapshotStateMap<Drawer, HostedDrawerState>
+    internal val state: SnapshotStateMap<Drawer, HostedDrawerState>,
 ) : AbstractDrawerController() {
 
     override fun all() = state.keys
 
     override fun open(
         drawer: Drawer,
-        span: DrawerSpan?
+        span: DrawerSpan?,
     ) {
         if (state[drawer] is OpenedDrawer) return
         state[drawer] = drawer.toOpened(span)
@@ -26,14 +26,14 @@ internal class MultiDrawerHostController internal constructor(
 
     private fun Drawer.cleanKey(): Any {
         val key = key()
-        val existing = state.entries.filter { (d, s) -> s.key == key }.map { it.key }
+        val existing = state.entries.filter { (_, s) -> s.key == key }.map { it.key }
         existing.forEach { state.remove(it) }
         return key
     }
 
     private fun Drawer.toOpened(span: DrawerSpan?): OpenedDrawer {
         val key = key()
-        val existing = state.entries.filter { (d, s) -> s.key == key }
+        val existing = state.entries.filter { (_, s) -> s.key == key }
         existing.map { it.key }.forEach { state.remove(it) }
         return OpenedDrawer(key = key, span = span ?: this.span, display = this.display)
     }
@@ -63,10 +63,10 @@ internal class MultiDrawerHostController internal constructor(
         span: DrawerSpan,
         position: DrawerPosition,
         display: DrawerDisplay,
-        background: Color,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ): Drawer {
-        val drawer = Drawer(span, position, display, background, content)
+        val drawer = Drawer(span, position, display, backdrop, content)
         state[drawer] = ClosedDrawer(key)
         return drawer
     }
@@ -92,20 +92,20 @@ internal class MultiDrawerHostController internal constructor(
         ratio: Float,
         position: DrawerPosition,
         display: DrawerDisplay,
-        background: Color,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ) = ReadOnlyProperty<Any?, Drawer> { _, property ->
-        property.getOrCreate { Drawer(RatioSpan(ratio), position, display, background, content) }
+        property.getOrCreate { Drawer(RatioSpan(ratio), position, display, backdrop, content) }
     }
 
     override fun add(
         span: Dp,
         position: DrawerPosition,
         display: DrawerDisplay,
-        background: Color,
-        content: @Composable BoxScope.(DrawerContext) -> Unit
+        backdrop: Color,
+        content: @Composable BoxScope.(DrawerContext) -> Unit,
     ) = ReadOnlyProperty<Any?, Drawer> { _, property ->
-        property.getOrCreate { Drawer(DpSpan(span), position, display, background, content) }
+        property.getOrCreate { Drawer(DpSpan(span), position, display, backdrop, content) }
     }
 
     private fun checkState(drawer: Any) = when (state[drawer]) {
