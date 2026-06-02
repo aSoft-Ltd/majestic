@@ -90,3 +90,10 @@ version = libs.versions.asoft.get()
 dependencies {
     dokka(projects.majesticDrawers)
 }
+
+val dokkaGeneratePublicationHtml by tasks.getting
+val docs by tasks.creating(Copy::class.java) {
+    dependsOn(dokkaGeneratePublicationHtml)
+    from(layout.buildDirectory.dir("dokka/html"))
+    into("docs")
+}
