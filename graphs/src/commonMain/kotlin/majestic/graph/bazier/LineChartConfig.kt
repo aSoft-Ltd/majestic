@@ -6,7 +6,10 @@ import androidx.compose.ui.unit.dp
 
 data class GridConfig(
     val showHorizontalLines: Boolean = false,
-    val showVerticalLines: Boolean = false
+    val showVerticalLines: Boolean = false,
+    val showXAxisLine: Boolean = true,
+    val showYAxisLine: Boolean = true,
+    val isDashed: Boolean = false
 )
 
 data class ChartPadding(

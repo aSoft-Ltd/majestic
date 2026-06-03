@@ -18,33 +18,38 @@ private fun Float.snapToStrokeCenter(strokeWidth: Float = 1f): Float {
     xTickLength: Float
 ) {
     val strokeWidth = 1f
+    val axisColor = config.colors.axisLabel.copy(alpha = 0.3f)
     val originX = layout.chartLeft.snapToStrokeCenter(strokeWidth)
     val originY = layout.chartBottom.snapToStrokeCenter(strokeWidth)
     val topY = layout.chartTop.snapToStrokeCenter(strokeWidth)
     val rightX = layout.chartRight.snapToStrokeCenter(strokeWidth)
 
-    drawLine(
-        color = config.colors.axisLabel,
-        start = Offset(originX, topY),
-        end = Offset(originX, originY),
-        strokeWidth = strokeWidth
-    )
-
-    drawLine(
-        color = config.colors.axisLabel,
-        start = Offset(originX, originY),
-        end = Offset(rightX, originY),
-        strokeWidth = strokeWidth
-    )
-
-    config.xLabels.forEachIndexed { i, _ ->
-        if (i == 0) return@forEachIndexed
-        val x = (layout.chartLeft + (i.toFloat() / xDivisor) * layout.chartWidth).snapToStrokeCenter(strokeWidth)
+    if (config.grid.showYAxisLine) {
         drawLine(
-            color = config.colors.axisLabel,
-            start = Offset(x, originY),
-            end = Offset(x, originY + xTickLength),
+            color = axisColor,
+            start = Offset(originX, topY),
+            end = Offset(originX, originY),
             strokeWidth = strokeWidth
         )
+    }
+
+    if (config.grid.showXAxisLine) {
+        drawLine(
+            color = axisColor,
+            start = Offset(originX, originY),
+            end = Offset(rightX, originY),
+            strokeWidth = strokeWidth
+        )
+
+        config.xLabels.forEachIndexed { i, _ ->
+            if (i == 0) return@forEachIndexed
+            val x = (layout.chartLeft + (i.toFloat() / xDivisor) * layout.chartWidth).snapToStrokeCenter(strokeWidth)
+            drawLine(
+                color = axisColor,
+                start = Offset(x, originY),
+                end = Offset(x, originY + xTickLength),
+                strokeWidth = strokeWidth
+            )
+        }
     }
 }
