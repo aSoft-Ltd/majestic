@@ -56,7 +56,7 @@ fun StackedBarChart(
             Text(
                 text = config.title,
                 style = titleStyle,
-                modifier = Modifier.padding(start = config.padding.left - 12.dp, top = 5.dp)
+                modifier = Modifier.padding(start = 12.dp, top = 5.dp)
             )
         }
 
