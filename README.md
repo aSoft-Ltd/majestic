@@ -1,23 +1,29 @@
+# majestic
+
 Majestic is a Kotlin Multiplatform Compose UI library for building shared product interfaces across supported platforms.
 
 ## Documentation
 
-Majestic documentation is generated with Dokka.
+Majestic documentation is generated with Dokka and published into the repository's `docs` directory.
 
-For local documentation work, run one of these commands from the `majestic` root:
+From the `majestic` root, run:
 
 ```bash
-./gradlew :dokkaGenerate
+./gradlew :docs
 ```
 
-or, when you specifically want the public HTML site:
+This task generates the Dokka HTML site and copies the built files to:
+
+```text
+docs
+```
+
+Open `docs/index.html` to inspect the generated documentation locally.
+
+If you only need Dokka's raw generated output, use:
 
 ```bash
 ./gradlew :dokkaGeneratePublicHtml
 ```
 
-The generated site is written to:
-
-```text
-build/dokka/html
-```
+That writes the intermediate site to `build/dokka/html`.
