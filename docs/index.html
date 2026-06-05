@@ -79,30 +79,27 @@
   <div class="cover ">
     <div class="cover ">
       <h1 class="">Module majestic</h1>
-      <h1 class="">majestic</h1>
       <p class="paragraph">Majestic is a Kotlin Multiplatform Compose UI library for building shared product interfaces across supported platforms.</p>
       <h2 class="">Documentation</h2>
-      <p class="paragraph">Majestic documentation is generated with Dokka and published into the repository's <code class="lang-kotlin">docs</code> directory.</p>
-      <p class="paragraph">From the <code class="lang-kotlin">majestic</code> root, run:</p>
+      <p class="paragraph">Majestic documentation is generated with Dokka.</p>
+      <p class="paragraph">For local documentation work, run one of these commands from the <code class="lang-kotlin">majestic</code> root:</p>
       <div class="sample-container">
-        <pre><code class="block lang-bash" theme="idea">./gradlew :docs</code></pre>
+        <pre><code class="block lang-bash" theme="idea">./gradlew :dokkaGenerate</code></pre>
 <span class="copy-tooltip">
           <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
 <span class="copy-icon"></span></span></div>
-      <p class="paragraph">This task generates the Dokka HTML site and copies the built files to:</p>
-      <div class="sample-container">
-        <pre><code class="block lang-text" theme="idea">docs</code></pre>
-<span class="copy-tooltip">
-          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
-<span class="copy-icon"></span></span></div>
-      <p class="paragraph">Open <code class="lang-kotlin">docs/index.html</code> to inspect the generated documentation locally.</p>
-      <p class="paragraph">If you only need Dokka's raw generated output, use:</p>
+      <p class="paragraph">or, when you specifically want the public HTML site:</p>
       <div class="sample-container">
         <pre><code class="block lang-bash" theme="idea">./gradlew :dokkaGeneratePublicHtml</code></pre>
 <span class="copy-tooltip">
           <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
 <span class="copy-icon"></span></span></div>
-      <p class="paragraph">That writes the intermediate site to <code class="lang-kotlin">build/dokka/html</code>.</p>
+      <p class="paragraph">The generated site is written to:</p>
+      <div class="sample-container">
+        <pre><code class="block lang-text" theme="idea">build/dokka/html</code></pre>
+<span class="copy-tooltip">
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+<span class="copy-icon"></span></span></div>
     </div>
     <h2 class="">All modules:</h2>
     <div class="table"><a data-name="1825621718%2FMain%2F0" anchor-label="majestic-drawers" id="1825621718%2FMain%2F0" data-filterable-set=""></a>
@@ -114,7 +111,7 @@
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div><span class="brief-comment">
-              <p class="paragraph">Majestic drawers are meant to be used accross all compose supported platforms</p>
+              <p class="paragraph">This library lets you declare one or more drawers, attach them to a host, and then open, close, toggle, add, or remove them through a controller.</p>
             </span></div>
         </div>
       </div>
