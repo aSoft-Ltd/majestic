@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
@@ -31,6 +32,7 @@ fun EmptyState(
     title: String,
     description: String,
     colors: EmptyStateColors,
+    width: Dp = 224.dp,
     action: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
@@ -63,7 +65,7 @@ fun EmptyState(
                     fontSize = 10.sp,
                     lineHeight = 13.sp,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.width(224.dp)
+                    modifier = Modifier.width(width)
                 )
             }
         }
