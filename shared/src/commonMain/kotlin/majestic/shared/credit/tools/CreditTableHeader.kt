@@ -23,9 +23,9 @@ data class CreditTableWeights(
     val recipient: Float = 2.0f,
     val payer: Float = 2.0f,
     val ref: Float = 1.2f,
-    val purchased: Float = 2.0f,
-    val amount: Float = 0.8f,
-    val actions: Float = 0.4f
+    val purchased: Float = 2.6f,
+    val amount: Float = 1.0f,
+    val actions: Float = 0.5f
 )
 
 @Composable
