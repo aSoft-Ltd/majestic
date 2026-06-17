@@ -37,15 +37,9 @@ fun CreditPurchasedCell(
     colors: CreditTableColors,
     modifier: Modifier = Modifier
 ) = Row(modifier = modifier) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(end = 10.dp)
-    ) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(end = 10.dp)) {
         Box(
-            modifier = Modifier
-                .size(22.dp)
-                .clip(RoundedCornerShape(6.dp))
-                .background(credit.itemColor.copy(alpha = 0.2f)),
+            modifier = Modifier.size(22.dp).clip(RoundedCornerShape(6.dp)).background(credit.itemColor.copy(alpha = 0.2f)),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -57,27 +51,22 @@ fun CreditPurchasedCell(
                 modifier = Modifier.align(Alignment.Center)
             )
         }
-        Box(
-            modifier = Modifier
-                .padding(top = 10.dp)
-                .size(12.dp)
-                .clip(CircleShape)
-                .background(credit.itemColor)
-        )
+        Box(modifier = Modifier.padding(top = 10.dp).size(12.dp).clip(CircleShape).background(credit.itemColor))
     }
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = credit.itemName,
                 color = credit.itemColor,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Medium
+                fontSize = 14.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Box(Modifier.weight(1f))
             Text(
                 text = "${credit.used}/${credit.total} • ${credit.date}",
                 color = colors.surfaceColor.foreground.copy(alpha = 0.5f),
-                fontSize = 13.sp,
+                fontSize = 12.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -90,10 +79,7 @@ fun CreditPurchasedCell(
             label = "Progress Animation"
         )
         Box(
-            modifier = Modifier
-                .padding(top = 13.dp)
-                .fillMaxWidth()
-                .height(6.dp)
+            modifier = Modifier.padding(top = 13.dp).fillMaxWidth().height(6.dp)
                 .clip(RoundedCornerShape(100))
                 .background(credit.itemColor.copy(alpha = 0.2f))
         ) {
