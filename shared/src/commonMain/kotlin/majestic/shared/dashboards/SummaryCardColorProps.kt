@@ -1,7 +1,7 @@
 package majestic.shared.dashboards
 
-import majestic.shared.tools.DashboardCardColors
+import majestic.ColorPair
 
 data class SummaryCardColorProps(
-    val colors: DashboardCardColors
+    val colors: ColorPair
 )
