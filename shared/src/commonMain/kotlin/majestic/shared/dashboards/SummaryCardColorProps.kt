@@ -1,11 +1,7 @@
 package majestic.shared.dashboards
 
-import androidx.compose.ui.graphics.Color
-import majestic.ColorPair
+import majestic.shared.tools.DashboardCardColors
 
 data class SummaryCardColorProps(
-    val colors: ColorPair = ColorPair(
-        foreground = Color.White,
-        background = Color.Black
-    )
+    val colors: DashboardCardColors
 )

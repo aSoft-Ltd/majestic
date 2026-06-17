@@ -20,10 +20,10 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
-import majestic.ColorPair
 import majestic.editor.toolbar.underline
 import majestic.filters.FilterDefault
 import majestic.shared.dashboards.StickyBar
+import majestic.shared.tools.DashboardCardColors
 import majestic.shared.tools.StickyBarColors
 import majestic.shared.users.UsersLabels
 import majestic.users.dashboard.summary.SummaryCardList
@@ -33,7 +33,7 @@ data class UserDashboardProps(
     val filterDefaults: FilterDefault,
     val view: TableViewProps,
     val background: Color,
-    val summaryCard: ColorPair,
+    val summaryCard: DashboardCardColors,
     val foreground: Color,
     val stickyBarColors: StickyBarColors
 )
