@@ -34,6 +34,7 @@ fun EmptyState(
     colors: EmptyStateColors,
     width: Dp = 224.dp,
     action: (() -> Unit)? = null,
+    iconSize: Dp = 83.dp,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -45,7 +46,7 @@ fun EmptyState(
             verticalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            GradientIcon(icon = icon, colors = colors, modifier = Modifier.size(83.dp))
+            GradientIcon(icon = icon, colors = colors, modifier = Modifier.size(iconSize))
 
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
