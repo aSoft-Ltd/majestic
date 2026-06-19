@@ -199,6 +199,7 @@ fun Search(
             modifier = Modifier,
             text = it ?: "Search",
             color = colors.placeholder,
+            maxLines = 1,
             style = LocalTextStyle.current,
         )
     },
