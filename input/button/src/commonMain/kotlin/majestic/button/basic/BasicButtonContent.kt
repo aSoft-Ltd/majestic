@@ -62,6 +62,7 @@ fun BasicButtonContent(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Medium,
     alpha: Float = 1f,
+    lineHeight: TextUnit = TextUnit.Unspecified,
 ) = LoadingWrapper(
         loading = loading,
         color = colors.foreground
@@ -71,6 +72,7 @@ fun BasicButtonContent(
             color = colors.foreground.copy(alpha = alpha),
             fontWeight = fontWeight,
             fontSize = fontSize,
+            lineHeight = lineHeight,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
@@ -150,6 +152,7 @@ fun BasicButtonContent(
     fontWeight: FontWeight = FontWeight.Medium,
     leadingIconAlpha: Float = 1f,
     textAlpha: Float = 1f,
+    lineHeight: TextUnit = TextUnit.Unspecified,
 ) {
     val fontSizeInDp = with(LocalDensity.current) {
         fontSize.toDp()
@@ -177,6 +180,7 @@ fun BasicButtonContent(
                 color = colors.foreground.copy(alpha = textAlpha),
                 fontWeight = fontWeight,
                 fontSize = fontSize,
+                lineHeight = lineHeight,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -206,6 +210,7 @@ fun BasicButtonContent(
     fontWeight: FontWeight = FontWeight.Medium,
     leadingIconAlpha: Float = 1f,
     textAlpha: Float = 1f,
+    lineHeight: TextUnit = TextUnit.Unspecified,
 ) {
     val fontSizeInDp = with(LocalDensity.current) {
         fontSize.toDp()
@@ -238,6 +243,7 @@ fun BasicButtonContent(
                 color = colors.foreground.copy(alpha = textAlpha),
                 fontWeight = fontWeight,
                 fontSize = fontSize,
+                lineHeight = lineHeight,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -265,6 +271,7 @@ fun BasicButtonContent(
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Medium,
     textAlpha: Float = 1f,
+    lineHeight: TextUnit = TextUnit.Unspecified,
 ) = LoadingWrapper(
     loading = loading,
     color = colors.foreground
@@ -278,6 +285,7 @@ fun BasicButtonContent(
             color = colors.foreground.copy(alpha = textAlpha),
             fontWeight = fontWeight,
             fontSize = fontSize,
+            lineHeight = lineHeight,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )

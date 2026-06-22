@@ -128,7 +128,7 @@ fun Modifier.stickyButton(
     onClick: () -> Unit = { },
 ): Modifier = this
     .translucentButton(color = color, onClick = onClick, alpha = 0.05f)
-    .padding(horizontal = 20.dp, vertical = 2.5.dp)
+    .padding(horizontal = 20.dp, vertical = 7.dp)
 
 @Composable
 fun Modifier.transparentIconButton(
