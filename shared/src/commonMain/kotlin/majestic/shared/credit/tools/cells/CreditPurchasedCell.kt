@@ -35,8 +35,11 @@ import majestic.shared.credit.tools.CreditTableColors
 fun CreditPurchasedCell(
     credit: CreditUsage,
     colors: CreditTableColors,
-    modifier: Modifier = Modifier
-) = Row(modifier = modifier) {
+    modifier: Modifier = Modifier,
+) = Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically
+) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(end = 10.dp)) {
         Box(
             modifier = Modifier.size(22.dp).clip(RoundedCornerShape(6.dp)).background(credit.itemColor.copy(alpha = 0.2f)),
