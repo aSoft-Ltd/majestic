@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -51,7 +52,8 @@ fun <T> PageSelection(
     onSelect: (T) -> Unit,
     label: (T) -> String,
     theme: ThemeColor,
-    modifier: Modifier = Modifier
+    drawerContainerColor: Color = theme.surface.actual.color,
+    modifier: Modifier = Modifier,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
@@ -74,7 +76,7 @@ fun <T> PageSelection(
         value = selected,
         onChange = { it?.let(onSelect) },
         onExpanded = { isExpanded = it },
-        drawerContainerColor = theme.surface.actual.color,
+        drawerContainerColor = drawerContainerColor,
         shape = RoundedCornerShape(12.dp),
         dropDownShape = RoundedCornerShape(12.dp)
     )
@@ -84,7 +86,7 @@ fun <T> PageSelection(
 private fun SelectedItemView(
     theme: ThemeColor,
     text: String,
-    isExpanded: Boolean = false
+    isExpanded: Boolean = false,
 ) {
     val animateRotation by animateFloatAsState(
         targetValue = if (isExpanded) -180f else 0f,
@@ -121,7 +123,7 @@ private fun SelectedItemView(
 private fun SelectionItemRow(
     color: ColorPair,
     text: String,
-    isSelected: Boolean
+    isSelected: Boolean,
 ) = Row(
     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp, horizontal = 4.dp),
     horizontalArrangement = Arrangement.spacedBy(10.dp),

@@ -24,6 +24,7 @@ import majestic.ColorPair
 import majestic.editor.toolbar.underline
 import majestic.filters.FilterDefault
 import majestic.shared.dashboards.StickyBar
+import majestic.shared.tools.DashboardCardColors
 import majestic.shared.tools.StickyBarColors
 import majestic.shared.users.UsersLabels
 import majestic.users.dashboard.summary.SummaryCardList

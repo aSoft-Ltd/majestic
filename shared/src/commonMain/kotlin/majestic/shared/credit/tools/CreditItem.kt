@@ -39,13 +39,13 @@ fun CreditItem(
     schoolName: String,
     amount: String,
     avatar: DrawableResource,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(space = 6.dp)
 ) {
     val color = colors.surfaceColor.foreground
-    
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(3.dp)
@@ -85,6 +85,8 @@ fun CreditItem(
             text = badgeText,
             color = badgeColor,
             fontSize = 12.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Medium
         )
     }
