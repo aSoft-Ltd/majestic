@@ -3,6 +3,7 @@ package majestic
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +24,11 @@ fun HueBar(
     onChange: ((hue: Float) -> Unit)? = null
 ) {
     var state by remember { mutableFloatStateOf(hue) }
+
+    LaunchedEffect(hue) {
+        state = hue
+    }
+
     Canvas(
         modifier = modifier.pointerInput(Unit) {
             detectDragGestures { change, _ ->
