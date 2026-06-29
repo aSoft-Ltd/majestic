@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import majestic.format.fromHex
 
+@Deprecated("Use PickerValue for editable color value display.")
 @Composable
 fun PickerButton(
     pickerColor: String,
@@ -55,7 +56,7 @@ fun PickerButton(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(color = Color.Companion.fromHex(pickerColor))
+                    .background(color = Color.fromHex(pickerColor))
             )
             Text(
                 text = pickerColor,

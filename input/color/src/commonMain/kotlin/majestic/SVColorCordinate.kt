@@ -5,6 +5,7 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -41,16 +42,19 @@ fun SVColorCoordinate(
     var saturationState by remember { mutableFloatStateOf(saturation) }
     var valueState by remember { mutableFloatStateOf(value) }
 
+    LaunchedEffect(saturation, value) {
+        saturationState = saturation
+        valueState = value
+    }
+
     Canvas(
         modifier = Modifier.fillMaxSize()
             .pointerInput(Unit) {
                 detectDragGestures { change, _ ->
                     val it = change.position
-                    saturationState = clamp(0f, it.x, size.width.toFloat())
-                    valueState = clamp(0f, it.y, size.height.toFloat())
-                    val s = saturationState / size.width
-                    val v = valueState / size.height
-                    onChange?.invoke(s, 1f - v)
+                    saturationState = clamp(0f, it.x / size.width, 1f)
+                    valueState = 1f - clamp(0f, it.y / size.height, 1f)
+                    onChange?.invoke(saturationState, valueState)
                 }
             }
     ) {
@@ -67,7 +71,10 @@ fun SVColorCoordinate(
             cy = 0f
             cx += cellSize
         }
-        val sv = Offset(saturationState, valueState)
+        val sv = Offset(
+            x = saturationState * size.width,
+            y = (1f - valueState) * size.height
+        )
         drawCircle(Color.Black.copy(alpha = 0.6f), radius = cueSize.toPx() + 1, center = sv)
         drawCircle(Color.White, radius = cueSize.toPx(), center = sv)
     }

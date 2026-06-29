@@ -31,6 +31,7 @@ data class ButtonColors(
 )
 
 @Composable
+@Deprecated("Use majestic.button.Button or majestic.button.basic.FormButton with the new button appearance modifiers.")
 fun ActionButton(
     text: String,
     modifier: Modifier = Modifier,
@@ -71,6 +72,7 @@ fun ActionButton(
 }
 
 @Composable
+@Deprecated("Use majestic.button.Button or majestic.button.basic.FormButton with the new button appearance modifiers.")
 fun ActionButton(
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonColors(),
