@@ -25,44 +25,7 @@ import androidx.compose.ui.unit.sp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.ScreenOrientation
 import majestic.button.appearence.closeModalIconButton
-import majestic.button.appearence.headerIconButton
 import majestic.button.basic.CloseModalButton
-import majestic.button.basic.HeaderIconButton
-
-@Composable
-fun ModalHeader(
-    icon: ImageVector? = null,
-    iconPainter: Painter? = null,
-    avatar: @Composable (() -> Unit)? = null,
-    title: String,
-    orientation: ScreenOrientation,
-    colors: ModalColors,
-    subtitle: String? = null,
-    rightIcon: ImageVector,
-    onRightIconClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    extraContent: @Composable (() -> Unit)? = null,
-) = ModalHeader(
-    icon = icon,
-    iconPainter = iconPainter,
-    avatar = avatar,
-    title = title,
-    orientation = orientation,
-    colors = colors,
-    subtitle = subtitle,
-    onClose = onRightIconClick,
-    modifier = modifier,
-    extraContent = extraContent,
-    rightButton = {
-        HeaderIconButton(
-            icon = rightIcon,
-            modifier = Modifier.headerIconButton(
-                color = colors.closeButton,
-                onClick = onRightIconClick
-            )
-        )
-    }
-)
 
 @Composable
 fun ModalHeader(
