@@ -39,6 +39,14 @@ fun ModalHeader(
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
     extraContent: @Composable (() -> Unit)? = null,
+    rightButton: @Composable () -> Unit = {
+        CloseModalButton(
+            modifier = Modifier.closeModalIconButton(
+                color = colors.closeButton,
+                onClick = onClose
+            )
+        )
+    },
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -99,13 +107,7 @@ fun ModalHeader(
 
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
             extraContent?.invoke()
-            CloseModalButton(
-                modifier = Modifier
-                    .closeModalIconButton(
-                        color = colors.closeButton,
-                        onClick = onClose
-                    )
-            )
+            rightButton()
         }
     }
 }
