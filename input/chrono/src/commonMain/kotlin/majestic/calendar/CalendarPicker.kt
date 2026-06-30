@@ -39,6 +39,7 @@ fun CalendarPicker(
     labels: CalendarPickerLabels = CalendarPickerLabels.Default,
     colors: CalendarPickerColors = CalendarPickerColors.Default,
     spacing: Dp = 12.dp,
+    onClick: () -> Unit = {},
     weekStart: WeekStart = WeekStart.SUNDAY,
     day: @Composable RowScope.(CellContext<LocalDate>) -> Unit = { },
 ) = CalendarPicker(
@@ -47,6 +48,7 @@ fun CalendarPicker(
     labels = labels,
     colors = colors,
     day = day,
+    onClick = onClick,
     weekStart = weekStart,
     arrangement = CalendarArrangement(
         vertical = Arrangement.spacedBy(spacing),
@@ -61,8 +63,9 @@ fun CalendarPicker(
     labels: CalendarPickerLabels = CalendarPickerLabels.Default,
     colors: CalendarPickerColors = CalendarPickerColors.Default,
     arrangement: CalendarArrangement,
+    onClick: () -> Unit = {},
     weekStart: WeekStart = WeekStart.SUNDAY,
-    day: @Composable RowScope.(CellContext<LocalDate>) -> Unit = { }
+    day: @Composable RowScope.(CellContext<LocalDate>) -> Unit = { },
 ) {
     Column(
         modifier = Modifier.background(colors.surface.background).then(modifier),
@@ -103,6 +106,7 @@ fun CalendarPicker(
                 },
                 onClick = {
                     manager.select(it)
+                    onClick()
                 }
             )
 
@@ -110,7 +114,10 @@ fun CalendarPicker(
                 modifier = Modifier.size(size.toDpSize(LocalDensity.current)),//.padding(16.dp),
                 colors = colors.day,
                 selected = { manager.view.month == it },
-                onClick = { manager.select(it) },
+                onClick = {
+                    manager.select(it)
+                    onClick()
+                },
                 month = { context ->
                     Text(
                         modifier = Modifier.cell(context),
@@ -125,7 +132,10 @@ fun CalendarPicker(
                 modifier = Modifier.size(size.toDpSize(LocalDensity.current)),//.padding(16.dp),
                 colors = colors.day,
                 selected = { manager.view.year == it },
-                onClick = { manager.select(it) },
+                onClick = {
+                    manager.select(it)
+                    onClick()
+                },
                 height = size.height,
                 mid = manager.view.year,
                 year = { context ->
