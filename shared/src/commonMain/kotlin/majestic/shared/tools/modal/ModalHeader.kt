@@ -100,11 +100,10 @@ fun ModalHeader(
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
             extraContent?.invoke()
             CloseModalButton(
-                modifier = Modifier
-                    .closeModalIconButton(
-                        color = colors.closeButton,
-                        onClick = onClose
-                    )
+                modifier = Modifier.closeModalIconButton(
+                    color = colors.closeButton,
+                    onClick = onClose
+                )
             )
         }
     }
