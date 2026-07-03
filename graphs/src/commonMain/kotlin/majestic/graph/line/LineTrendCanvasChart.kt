@@ -9,6 +9,8 @@ fun LineTrendCanvasChart(
     colors: LineTrendChartColors,
     isLandscape: Boolean,
     series: List<LineTrendSeries>,
+    minV: Float = 0f,
+    maxV: Float = 12f,
     yTitle: String? = "# of",
     xTitle: String? = "Months",
     modifier: Modifier = Modifier
@@ -20,8 +22,8 @@ fun LineTrendCanvasChart(
         isLandscape = isLandscape,
         series = series,
         xLabels = months,
-        minV = 0f,
-        maxV = 12f,
+        minV = minV,
+        maxV = maxV,
         yTitle = yTitle,
         xTitle = xTitle,
         modifier = modifier

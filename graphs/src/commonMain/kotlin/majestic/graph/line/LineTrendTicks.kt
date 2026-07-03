@@ -34,7 +34,7 @@ fun DrawScope.drawXTicks(
         )
         val textLayout = measurer.measure(AnnotatedString(label), style = labelStyle)
         val labelX = (x - textLayout.size.width / 2f).coerceIn(0f, (maxX - textLayout.size.width).coerceAtLeast(0f))
-        val labelY = (bottom + 12.dp.toPx())
+        val labelY = (bottom + 20.dp.toPx())
         
         drawText(
             textMeasurer = measurer,
@@ -71,7 +71,8 @@ fun DrawScope.drawYTicks(
     for (i in 0..yTicks) {
         val t = i.toFloat() / yTicks.toFloat()
         val y = (bottom - plotH * t).coerceIn(0f, maxY)
-        val v = (minV + (maxV - minV) * t).roundToInt().toString()
+        val vRaw = (minV + (maxV - minV) * t).roundToInt()
+        val v = if (vRaw >= 1000) "${vRaw / 1000}K" else vRaw.toString()
         val style = TextStyle(color = labelColor, fontSize = 11.sp)
         val textLayout = measurer.measure(AnnotatedString(v), style = style)
         

@@ -97,7 +97,7 @@ fun LineTrendCanvas(
                 with(density) {
                     IntOffset(
                         x = (left + plotW / 2f - xTitleW / 2f).toInt(),
-                        y = (bottom + 20.dp.toPx()).toInt()
+                        y = (bottom + 36.dp.toPx()).toInt()
                     )
                 }
             }
