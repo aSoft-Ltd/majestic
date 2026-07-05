@@ -39,6 +39,7 @@ fun <T> DumbSelect(
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
     dropdownModifier: Modifier = Modifier,
+    matchAnchorWidth: Boolean = true,
     onClick: ((T) -> Unit)? = null,
     onExpanded: ((Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier,

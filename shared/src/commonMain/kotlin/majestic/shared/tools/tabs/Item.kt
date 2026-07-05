@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
@@ -18,15 +19,17 @@ internal fun Modifier.item(selected: Boolean, isHovered: Boolean, colors: TabIte
     .fillMaxHeight()
     .then(
         if (selected || isHovered) Modifier.drawBehind {
-            val strokeWidth = 3.dp.toPx()
+            val strokeWidth = 2.5.dp.toPx()
+            val inset = 10.dp.toPx()
             drawLine(
                 color = when (selected) {
                     true -> colors.underline.background
                     false -> colors.underline.foreground.copy(0.2f)
                 },
-                start = Offset(0f, size.height - strokeWidth / 2),
-                end = Offset(size.width, size.height - strokeWidth / 2),
-                strokeWidth = strokeWidth
+                start = Offset(inset, size.height - strokeWidth / 2),
+                end = Offset(size.width - inset, size.height - strokeWidth / 2),
+                strokeWidth = strokeWidth,
+                cap = StrokeCap.Round
             )
         } else Modifier
     )
