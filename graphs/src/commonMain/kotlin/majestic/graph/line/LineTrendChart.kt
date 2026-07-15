@@ -20,6 +20,9 @@ fun LineTrendChart(
     maxV: Float = 12f,
     yTitle: String? = "# of",
     xTitle: String? = "Months",
+    xLabels: List<String>? = null,
+    yTicks: List<Float>? = null,
+    xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) = Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
     val visibleSeries = remember(series, visibleSeriesNames) {
@@ -33,10 +36,13 @@ fun LineTrendChart(
         colors = colors,
         isLandscape = isLandscape,
         series = visibleSeries,
+        xLabels = xLabels,
         minV = minV,
         maxV = maxV,
         yTitle = yTitle,
         xTitle = xTitle,
+        yTicks = yTicks,
+        xInsetFraction = xInsetFraction,
         modifier = Modifier.fillMaxSize().padding(bottom = 10.dp)
     )
 }

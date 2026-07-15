@@ -31,6 +31,8 @@ fun LineTrendCanvas(
     maxV: Float,
     yTitle: String? = "# of",
     xTitle: String? = "Months",
+    yTicks: List<Float>? = null,
+    xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) = BoxWithConstraints(modifier = modifier) {
     val w = constraints.maxWidth.toFloat()
@@ -56,10 +58,12 @@ fun LineTrendCanvas(
     val top = padT
     val right = left + plotW
     val bottom = top + plotH
+    val xInset = (plotW * xInsetFraction.coerceIn(0f, 0.45f)).coerceAtLeast(0f)
+    val xRange = (plotW - xInset * 2f).coerceAtLeast(1f)
 
     fun xAt(idx: Int): Float {
         val t = idx.toFloat() / (count - 1).toFloat()
-        return left + plotW * t
+        return left + xInset + xRange * t
     }
 
     // Y-axis title
@@ -109,7 +113,7 @@ fun LineTrendCanvas(
         drawLine(colors.axis, Offset(left, top), Offset(left, bottom), strokeWidth = 1.5.dp.toPx())
         drawLine(colors.axis, Offset(left, bottom), Offset(right, bottom), strokeWidth = 1.5.dp.toPx())
 
-        drawYTicks(measurer, isLandscape, colors.label, left, bottom, plotH, minV, maxV)
+        drawYTicks(measurer, isLandscape, colors.label, left, bottom, plotH, minV, maxV, yTicks)
 
         val dash = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 6.dp.toPx()), 0f)
         for (i in 0 until count) {
@@ -126,7 +130,18 @@ fun LineTrendCanvas(
         drawXTicks(measurer, xLabels, colors.foreground, colors.label, bottom, ::xAt)
 
         series.forEach { s ->
-            drawTrendLine(s.points, minV, maxV, ::xAt, top, plotH, s.color)
+            drawTrendLine(
+                points = s.points,
+                minV = minV,
+                maxV = maxV,
+                xAt = ::xAt,
+                plotTop = top,
+                plotH = plotH,
+                color = s.color,
+                pathEffect = if (s.dashed) dash else null,
+                showPoints = s.showPoints,
+                pointFill = s.pointFill
+            )
         }
     }
 }

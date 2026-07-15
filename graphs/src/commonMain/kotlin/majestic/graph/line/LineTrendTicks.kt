@@ -62,16 +62,23 @@ fun DrawScope.drawYTicks(
     bottom: Float,
     plotH: Float,
     minV: Float,
-    maxV: Float
+    maxV: Float,
+    ticks: List<Float>? = null
 ) {
-    val yTicks = if (!isLandscape) 4 else 6
     val maxY = (size.height - 1f).coerceAtLeast(0f)
     val margin = 12.dp.toPx()
+    val values = ticks ?: run {
+        val yTicks = if (!isLandscape) 4 else 6
+        (0..yTicks).map { i ->
+            val t = i.toFloat() / yTicks.toFloat()
+            minV + (maxV - minV) * t
+        }
+    }
 
-    for (i in 0..yTicks) {
-        val t = i.toFloat() / yTicks.toFloat()
+    values.forEach { value ->
+        val t = ((value - minV) / (maxV - minV)).coerceIn(0f, 1f)
         val y = (bottom - plotH * t).coerceIn(0f, maxY)
-        val vRaw = (minV + (maxV - minV) * t).roundToInt()
+        val vRaw = value.roundToInt()
         val v = if (vRaw >= 1000) "${vRaw / 1000}K" else vRaw.toString()
         val style = TextStyle(color = labelColor, fontSize = 11.sp)
         val textLayout = measurer.measure(AnnotatedString(v), style = style)
