@@ -13,19 +13,25 @@ fun LineTrendCanvasChart(
     maxV: Float = 12f,
     yTitle: String? = "# of",
     xTitle: String? = "Months",
+    xLabels: List<String>? = null,
+    yTicks: List<Float>? = null,
+    xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) {
     val months = remember { listOf("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL") }
+    val labels = xLabels ?: months
 
     LineTrendCanvas(
         colors = colors,
         isLandscape = isLandscape,
         series = series,
-        xLabels = months,
+        xLabels = labels,
         minV = minV,
         maxV = maxV,
         yTitle = yTitle,
         xTitle = xTitle,
+        yTicks = yTicks,
+        xInsetFraction = xInsetFraction,
         modifier = modifier
     )
 }
