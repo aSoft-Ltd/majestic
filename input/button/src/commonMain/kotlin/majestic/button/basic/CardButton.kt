@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import majestic.button.Button
@@ -31,10 +32,12 @@ fun CardButton(
 @Composable
 fun CardButton(
     icon: ImageVector = vectorResource(Res.drawable.ic_angle_right),
+    size: Dp? = null,
     modifier: Modifier = Modifier
 ) = Button(modifier = modifier) { colors ->
         BasicButtonContent(
             icon = icon,
+            size = size,
             colors = colors
         )
     }
