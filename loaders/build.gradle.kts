@@ -66,10 +66,10 @@ kotlin {
     }
 
     wasmJs { browser() } // until coil and kotlinx-datetime supports this, we ain't gonna
-    iosX64()
+
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
+
     macosArm64()
 
     sourceSets {
