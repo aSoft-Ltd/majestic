@@ -116,7 +116,7 @@ fun <T> Select(
     },
     onSelect: ((T) -> Unit)? = null,
     option: @Composable (T) -> Unit = { Text("$it") },
-    selected: @Composable (T) -> Unit = { ItemSelect(colors, expanded, icon) { option(it) } },
+    selected: @Composable (T) -> Unit = { ItemSelect(colors, expanded, icon, height) { option(it) } },
 ) {
     var candidate by remember(value) { mutableStateOf(value) }
 
