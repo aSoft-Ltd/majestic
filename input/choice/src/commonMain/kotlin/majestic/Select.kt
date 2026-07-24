@@ -40,7 +40,7 @@ import symphony.SingleChoiceField
 class SelectMicroColors(
     val border: Color,
     val placeholder: Color,
-    val text: Color
+    val text: Color,
 )
 
 class SelectColors(
@@ -71,7 +71,7 @@ fun <T> Select(
     onClick: ((T) -> Unit)? = null,
     onSelected: ((T) -> Unit)? = null,
     onUnSelected: ((T) -> Unit)? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val state = field.state.watchAsState()
     DumbSelect(
@@ -110,12 +110,13 @@ fun <T> Select(
     dropDownShape: Shape = RoundedCornerShape(14.dp),
     shadowElevation: Dp = 16.dp,
     tonalElevation: Dp = 1.dp,
+    height: Dp = 52.dp,
     placeholder: @Composable (Boolean) -> Unit = { isExpanded ->
-        Placeholder(icon, colors, isExpanded, hint)
+        Placeholder(icon, colors, isExpanded, hint, height)
     },
     onSelect: ((T) -> Unit)? = null,
     option: @Composable (T) -> Unit = { Text("$it") },
-    selected: @Composable (T) -> Unit = { ItemSelect(colors, expanded, icon) { option(it) } }
+    selected: @Composable (T) -> Unit = { ItemSelect(colors, expanded, icon) { option(it) } },
 ) {
     var candidate by remember(value) { mutableStateOf(value) }
 
@@ -142,8 +143,8 @@ fun <T> Select(
 }
 
 @Composable
-private fun Placeholder(icon: ImageVector, colors: SelectColors, expanded: Boolean, hint: String) {
-    ItemSelect(colors, expanded, icon) { Text(hint, color = colors.blurred.text) }
+private fun Placeholder(icon: ImageVector, colors: SelectColors, expanded: Boolean, hint: String, height: Dp) {
+    ItemSelect(colors, expanded, icon, height) { Text(hint, color = colors.blurred.text) }
 }
 
 @Composable
@@ -151,12 +152,13 @@ fun ItemSelect(
     colors: SelectColors,
     isExpanded: Boolean = false,
     icon: ImageVector,
+    height: Dp = 52.dp,
     modifier: Modifier = Modifier
         .fillMaxWidth()
-        .height(52.dp)
+        .height(height)
         .border(1.dp, color = if (isExpanded) colors.focused.border else colors.blurred.border, RoundedCornerShape(8.dp))
         .padding(horizontal = 16.dp),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val animateRotation by animateFloatAsState(
         targetValue = if (isExpanded) -180f else 0f,
@@ -187,7 +189,7 @@ fun <T> Select(
     placeholder: Inline = Inline(modifier = Modifier.fillMaxWidth()) {
         Text("Select", modifier = Modifier.fillMaxWidth())
     },
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
     val inline = remember(value) {
