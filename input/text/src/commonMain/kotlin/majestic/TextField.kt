@@ -46,7 +46,7 @@ fun TextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     shape: RoundedCornerShape = RoundedCornerShape(8.dp),
-    hintSize: TextUnit = 17.sp
+    hintSize: TextUnit = 17.sp,
 ) = TextField(
     modifier = modifier,
     field = field,
@@ -90,7 +90,7 @@ fun TextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     shape: RoundedCornerShape = RoundedCornerShape(8.dp),
-    hintSize: TextUnit = 17.sp
+    hintSize: TextUnit = 17.sp,
 ) {
     val state = field.state.watchAsState()
     val feedbacks = state.feedbacks.warnings + state.feedbacks.errors
@@ -138,7 +138,7 @@ fun TextField(
 class TextFieldMicroColors(
     val border: Color,
     val placeholder: Color,
-    val text: Color
+    val text: Color,
 )
 
 class TextFieldColors(
@@ -156,7 +156,7 @@ class TextFieldColors(
         border = Color.Red.copy(alpha = 0.8f),
         placeholder = Color.Red.copy(alpha = 0.8f),
         text = Color.Red.copy(0.8f)
-    )
+    ),
 )
 
 /**
@@ -272,7 +272,8 @@ fun TextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     shape: RoundedCornerShape = RoundedCornerShape(8.dp),
     textStyle: TextStyle = TextStyle.Default.copy(color = colors.focused.text),
-    hintSize: TextUnit = 17.sp
+    hintSize: TextUnit = 17.sp,
+    contentPadding: PaddingValues = PaddingValues(vertical = 14.dp, horizontal = 14.dp),
 ) {
     TextField(
         value = value,
@@ -297,7 +298,8 @@ fun TextField(
         shape = shape,
         readOnly = readOnly,
         textStyle = textStyle,
-        hintSize = hintSize
+        hintSize = hintSize,
+        contentPadding = contentPadding
     )
 }
 
