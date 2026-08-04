@@ -22,6 +22,8 @@ fun LineTrendChart(
     xTitle: String? = "Months",
     xLabels: List<String>? = null,
     yTicks: List<Float>? = null,
+    showXTicks: Boolean = false,
+    showYTicks: Boolean = false,
     xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) = Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -42,6 +44,8 @@ fun LineTrendChart(
         yTitle = yTitle,
         xTitle = xTitle,
         yTicks = yTicks,
+        showXTicks = showXTicks,
+        showYTicks = showYTicks,
         xInsetFraction = xInsetFraction,
         modifier = Modifier.fillMaxSize().padding(bottom = 10.dp)
     )
