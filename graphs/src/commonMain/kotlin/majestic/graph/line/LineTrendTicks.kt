@@ -19,7 +19,9 @@ fun DrawScope.drawXTicks(
     labels: List<String>,
     fg: Color,
     labelColor: Color,
+    axisColor: Color,
     bottom: Float,
+    showTicks: Boolean,
     xAt: (Int) -> Float
 ) {
     if (labels.isEmpty()) return
@@ -35,14 +37,23 @@ fun DrawScope.drawXTicks(
         val textLayout = measurer.measure(AnnotatedString(label), style = labelStyle)
         val labelX = (x - textLayout.size.width / 2f).coerceIn(0f, (maxX - textLayout.size.width).coerceAtLeast(0f))
         val labelY = (bottom + 20.dp.toPx())
-        
+
         drawText(
             textMeasurer = measurer,
             text = AnnotatedString(label),
             topLeft = Offset(labelX, labelY),
             style = labelStyle
         )
-        
+
+        if (showTicks) {
+            drawLine(
+                color = axisColor,
+                start = Offset(x, bottom),
+                end = Offset(x, bottom + 6.dp.toPx()),
+                strokeWidth = 1.5.dp.toPx()
+            )
+        }
+
         if (isLast) {
             drawCircle(
                 color = fg,
@@ -58,12 +69,14 @@ fun DrawScope.drawYTicks(
     measurer: TextMeasurer,
     isLandscape: Boolean,
     labelColor: Color,
+    axisColor: Color,
     left: Float,
     bottom: Float,
     plotH: Float,
     minV: Float,
     maxV: Float,
-    ticks: List<Float>? = null
+    ticks: List<Float>? = null,
+    showTicks: Boolean = false
 ) {
     val maxY = (size.height - 1f).coerceAtLeast(0f)
     val margin = 12.dp.toPx()
@@ -82,16 +95,25 @@ fun DrawScope.drawYTicks(
         val v = if (vRaw >= 1000) "${vRaw / 1000}K" else vRaw.toString()
         val style = TextStyle(color = labelColor, fontSize = 11.sp)
         val textLayout = measurer.measure(AnnotatedString(v), style = style)
-        
+
         // Calculate X so the text ends 8dp before the axis (left)
         val labelX = (left - textLayout.size.width - margin).coerceAtLeast(0f)
         val labelY = (y - textLayout.size.height / 2f).coerceIn(0f, (maxY - textLayout.size.height).coerceAtLeast(0f))
-        
+
         drawText(
             textMeasurer = measurer,
             text = AnnotatedString(v),
             topLeft = Offset(labelX, labelY),
             style = style
         )
+
+        if (showTicks) {
+            drawLine(
+                color = axisColor,
+                start = Offset(left - 6.dp.toPx(), y),
+                end = Offset(left, y),
+                strokeWidth = 1.5.dp.toPx()
+            )
+        }
     }
 }

@@ -32,6 +32,8 @@ fun LineTrendCanvas(
     yTitle: String? = "# of",
     xTitle: String? = "Months",
     yTicks: List<Float>? = null,
+    showXTicks: Boolean = false,
+    showYTicks: Boolean = false,
     xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) = BoxWithConstraints(modifier = modifier) {
@@ -113,7 +115,7 @@ fun LineTrendCanvas(
         drawLine(colors.axis, Offset(left, top), Offset(left, bottom), strokeWidth = 1.5.dp.toPx())
         drawLine(colors.axis, Offset(left, bottom), Offset(right, bottom), strokeWidth = 1.5.dp.toPx())
 
-        drawYTicks(measurer, isLandscape, colors.label, left, bottom, plotH, minV, maxV, yTicks)
+        drawYTicks(measurer, isLandscape, colors.label, colors.axis, left, bottom, plotH, minV, maxV, yTicks, showYTicks)
 
         val dash = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 6.dp.toPx()), 0f)
         for (i in 0 until count) {
@@ -127,7 +129,7 @@ fun LineTrendCanvas(
             )
         }
 
-        drawXTicks(measurer, xLabels, colors.foreground, colors.label, bottom, ::xAt)
+        drawXTicks(measurer, xLabels, colors.foreground, colors.label, colors.axis, bottom, showXTicks, ::xAt)
 
         series.forEach { s ->
             drawTrendLine(

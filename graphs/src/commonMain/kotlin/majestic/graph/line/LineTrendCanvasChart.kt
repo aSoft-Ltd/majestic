@@ -15,6 +15,8 @@ fun LineTrendCanvasChart(
     xTitle: String? = "Months",
     xLabels: List<String>? = null,
     yTicks: List<Float>? = null,
+    showXTicks: Boolean = false,
+    showYTicks: Boolean = false,
     xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) {
@@ -31,6 +33,8 @@ fun LineTrendCanvasChart(
         yTitle = yTitle,
         xTitle = xTitle,
         yTicks = yTicks,
+        showXTicks = showXTicks,
+        showYTicks = showYTicks,
         xInsetFraction = xInsetFraction,
         modifier = modifier
     )
