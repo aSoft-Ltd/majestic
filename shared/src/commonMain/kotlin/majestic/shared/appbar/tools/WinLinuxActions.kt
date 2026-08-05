@@ -25,6 +25,7 @@ import majestic.icons.ic_mini_48
 import majestic.shared.appbar.colors.toAppBarActionColors
 import majestic.shared.appbar.colors.toAppBarColors
 import majestic.tooling.onClick
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
@@ -39,50 +40,51 @@ fun WinLinuxActions(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically
 ) {
-    val minInteraction = remember { MutableInteractionSource() }
-    val isMinHovered by minInteraction.collectIsHoveredAsState()
-    val minColors = theme.toAppBarActionColors(isHovered = isMinHovered)
+    IconAction(
+        theme = theme,
+        orientation = orientation,
+        icon = Res.drawable.ic_mini_48,
+        onClick = onMinimize
+    )
+
+    IconAction(
+        theme = theme,
+        orientation = orientation,
+        icon = Res.drawable.ic_expand_48,
+        onClick = onMaximize
+    )
+
+    IconAction(
+        theme = theme,
+        orientation = orientation,
+        icon = Res.drawable.ic_close_48,
+        onClick = onClose,
+        isClose = true
+    )
+}
+
+@Composable
+private fun IconAction(
+    theme: ThemeColor,
+    orientation: ScreenOrientation,
+    isClose: Boolean = false,
+    onClick: () -> Unit,
+    icon: DrawableResource
+) {
+    val interaction = remember { MutableInteractionSource() }
+    val isHovered by interaction.collectIsHoveredAsState()
     val barColors = theme.toAppBarColors(orientation)
+    val colors = theme.toAppBarActionColors(isHovered = isHovered, isClose = isClose)
 
     Icon(
-        imageVector = vectorResource(Res.drawable.ic_mini_48),
+        imageVector = vectorResource(icon),
         contentDescription = null,
-        tint = barColors.foreground,
+        tint = if (isHovered && isClose) colors.foreground else barColors.foreground,
         modifier = Modifier.fillMaxHeight()
             .padding(vertical = 1.dp)
-            .background(color = minColors.background)
-            .hoverable(minInteraction)
+            .background(color = colors.background)
+            .hoverable(interaction)
             .pointerHoverIcon(PointerIcon.Hand)
-            .onClick(onMinimize)
-    )
-
-    val maxInteraction = remember { MutableInteractionSource() }
-    val isMaxHovered by maxInteraction.collectIsHoveredAsState()
-    val maxColors = theme.toAppBarActionColors(isHovered = isMaxHovered)
-    Icon(
-        imageVector = vectorResource(Res.drawable.ic_expand_48),
-        contentDescription = null,
-        tint = barColors.foreground,
-        modifier = Modifier.fillMaxHeight()
-            .padding(vertical = 1.dp)
-            .background(color = maxColors.background)
-            .hoverable(maxInteraction)
-            .pointerHoverIcon(PointerIcon.Hand)
-            .onClick(onMaximize)
-    )
-
-    val closeInteraction = remember { MutableInteractionSource() }
-    val isCloseHovered by closeInteraction.collectIsHoveredAsState()
-    val closeColors = theme.toAppBarActionColors(isHovered = isCloseHovered, isClose = true)
-    Icon(
-        imageVector = vectorResource(Res.drawable.ic_close_48),
-        contentDescription = null,
-        tint = if (isCloseHovered) closeColors.foreground else barColors.foreground,
-        modifier = Modifier.fillMaxHeight()
-            .padding(vertical = 1.dp)
-            .background(color = closeColors.background)
-            .hoverable(closeInteraction)
-            .pointerHoverIcon(PointerIcon.Hand)
-            .onClick(onClose)
+            .onClick(onClick)
     )
 }
