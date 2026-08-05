@@ -42,11 +42,13 @@ fun DropdownTriggerContent(
     spacedBy: Dp = 8.dp,
     arrowTint: Color? = null,
     leadingIcon: ImageVector? = null,
-    leadingImage: DrawableResource? = null
+    leadingImage: DrawableResource? = null,
+    modifier: Modifier = Modifier,
 ) {
     val resolvedArrowTint = arrowTint ?: colors.triggerText
 
     Row(
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(spacedBy)
     ) {
