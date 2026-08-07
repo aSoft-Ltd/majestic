@@ -16,22 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
-import composex.screen.orientation.ScreenOrientation
-import majestic.ThemeColor
 import majestic.icons.Res
 import majestic.icons.ic_close_48
 import majestic.icons.ic_expand_48
 import majestic.icons.ic_mini_48
-import majestic.shared.appbar.colors.toAppBarActionColors
-import majestic.shared.appbar.colors.toAppBarColors
 import majestic.tooling.onClick
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun WinLinuxActions(
-    theme: ThemeColor,
-    orientation: ScreenOrientation,
+    colors: AppBarColors,
     onMinimize: () -> Unit = {},
     onMaximize: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -41,22 +36,19 @@ fun WinLinuxActions(
     verticalAlignment = Alignment.CenterVertically
 ) {
     IconAction(
-        theme = theme,
-        orientation = orientation,
+        colors = colors,
         icon = Res.drawable.ic_mini_48,
         onClick = onMinimize
     )
 
     IconAction(
-        theme = theme,
-        orientation = orientation,
+        colors = colors,
         icon = Res.drawable.ic_expand_48,
         onClick = onMaximize
     )
 
     IconAction(
-        theme = theme,
-        orientation = orientation,
+        colors = colors,
         icon = Res.drawable.ic_close_48,
         onClick = onClose,
         isClose = true
@@ -65,24 +57,26 @@ fun WinLinuxActions(
 
 @Composable
 private fun IconAction(
-    theme: ThemeColor,
-    orientation: ScreenOrientation,
+    colors: AppBarColors,
     isClose: Boolean = false,
     onClick: () -> Unit,
     icon: DrawableResource
 ) {
     val interaction = remember { MutableInteractionSource() }
     val isHovered by interaction.collectIsHoveredAsState()
-    val barColors = theme.toAppBarColors(orientation)
-    val colors = theme.toAppBarActionColors(isHovered = isHovered, isClose = isClose)
+    val actionColors = when {
+        isClose && isHovered -> colors.action.close
+        isHovered -> colors.action.hovered
+        else -> colors.action.default
+    }
 
     Icon(
         imageVector = vectorResource(icon),
         contentDescription = null,
-        tint = if (isHovered && isClose) colors.foreground else barColors.foreground,
+        tint = if (isHovered && isClose) actionColors.foreground else colors.foreground,
         modifier = Modifier.fillMaxHeight()
             .padding(vertical = 1.dp)
-            .background(color = colors.background)
+            .background(color = actionColors.background)
             .hoverable(interaction)
             .pointerHoverIcon(PointerIcon.Hand)
             .onClick(onClick)
