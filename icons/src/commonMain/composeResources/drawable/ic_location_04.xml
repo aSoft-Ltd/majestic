@@ -6,7 +6,6 @@
   <path
       android:strokeWidth="1"
       android:pathData="M12,12C12.83,12.283 13.333,12.655 13.333,13.062C13.333,13.948 10.945,14.667 8,14.667C5.054,14.667 2.667,13.948 2.667,13.062C2.667,12.655 3.17,12.283 4,12"
-      android:strokeAlpha="0.5"
       android:fillColor="#00000000"
       android:strokeColor="#ffffff"
       android:fillAlpha="0.5"
@@ -14,14 +13,12 @@
   <path
       android:strokeWidth="1"
       android:pathData="M10,6.336C10,7.441 9.105,8.336 8,8.336C6.895,8.336 6,7.441 6,6.336C6,5.231 6.895,4.336 8,4.336C9.105,4.336 10,5.231 10,6.336Z"
-      android:strokeAlpha="0.5"
       android:fillColor="#00000000"
       android:strokeColor="#ffffff"
       android:fillAlpha="0.5"/>
   <path
       android:strokeWidth="1"
       android:pathData="M8,1.336C10.706,1.336 13,3.621 13,6.394C13,9.211 10.668,11.187 8.515,12.531C8.358,12.622 8.181,12.669 8,12.669C7.819,12.669 7.642,12.622 7.485,12.531C5.335,11.174 3,9.22 3,6.394C3,3.621 5.294,1.336 8,1.336Z"
-      android:strokeAlpha="0.5"
       android:fillColor="#00000000"
       android:strokeColor="#ffffff"
       android:fillAlpha="0.5"/>
