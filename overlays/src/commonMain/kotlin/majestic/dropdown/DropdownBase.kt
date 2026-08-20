@@ -4,11 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -52,11 +49,6 @@ internal fun <T> DropdownBase(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
-    val overlayWidthModifier = when {
-        popupWidth != null -> Modifier.width(popupWidth)
-        intrinsicWidth -> Modifier.width(IntrinsicSize.Max)
-        else -> Modifier
-    }
 
     Popup(
         expanded = expanded,
@@ -91,11 +83,18 @@ internal fun <T> DropdownBase(
             shape = RoundedCornerShape(14.dp),
             shadowElevation = 16.dp,
             tonalElevation = 16.dp,
-            modifier = overlayWidthModifier
+            modifier = Modifier.overlayWidth(
+                popupWidth = popupWidth,
+                intrinsicWidth = intrinsicWidth
+            )
         ) {
             Box(
-                modifier = overlayWidthModifier
-                    .heightIn(max = 300.dp)
+                modifier = Modifier
+                    .overlayModifier(
+                        popupWidth = popupWidth,
+                        intrinsicWidth = intrinsicWidth,
+                        popupMaxHeight = modifier.popupMaxHeight()
+                    )
                     .clip(RoundedCornerShape(14.dp))
                     .background(colors.dropdown)
             ) {
