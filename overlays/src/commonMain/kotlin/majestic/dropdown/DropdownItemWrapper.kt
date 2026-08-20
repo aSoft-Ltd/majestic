@@ -28,6 +28,9 @@ private fun <T> Modifier.dropdownItemInteraction(
     hoverable(interactionSource = interactionSource)
         .onClick(onClick)
         .pointerHoverIcon(PointerIcon.Hand)
+} else if (item.clickable) {
+    onClick(onClick)
+        .pointerHoverIcon(PointerIcon.Hand)
 } else this
 
 @Composable
