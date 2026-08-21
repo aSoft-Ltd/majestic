@@ -24,6 +24,7 @@ fun LineTrendChart(
     yTicks: List<Float>? = null,
     showXTicks: Boolean = false,
     showYTicks: Boolean = false,
+    grid: LineTrendGridSetup = LineTrendGridSetup(),
     xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) = Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -46,6 +47,7 @@ fun LineTrendChart(
         yTicks = yTicks,
         showXTicks = showXTicks,
         showYTicks = showYTicks,
+        grid = grid,
         xInsetFraction = xInsetFraction,
         modifier = Modifier.fillMaxSize().padding(bottom = 10.dp)
     )

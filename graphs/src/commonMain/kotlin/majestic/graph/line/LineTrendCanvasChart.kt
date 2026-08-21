@@ -17,6 +17,7 @@ fun LineTrendCanvasChart(
     yTicks: List<Float>? = null,
     showXTicks: Boolean = false,
     showYTicks: Boolean = false,
+    grid: LineTrendGridSetup = LineTrendGridSetup(),
     xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) {
@@ -35,6 +36,7 @@ fun LineTrendCanvasChart(
         yTicks = yTicks,
         showXTicks = showXTicks,
         showYTicks = showYTicks,
+        grid = grid,
         xInsetFraction = xInsetFraction,
         modifier = modifier
     )
