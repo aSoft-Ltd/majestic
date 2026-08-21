@@ -29,3 +29,10 @@ data class LineTrendChartColors(
     val tick: Color,
     val label: Color
 )
+
+@Immutable
+data class LineTrendGridSetup(
+    val showGrid: Boolean = false,
+    val showHorizontal: Boolean = false,
+    val showVertical: Boolean = false
+)

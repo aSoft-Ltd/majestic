@@ -34,6 +34,7 @@ fun LineTrendCanvas(
     yTicks: List<Float>? = null,
     showXTicks: Boolean = false,
     showYTicks: Boolean = false,
+    grid: LineTrendGridSetup = LineTrendGridSetup(),
     xInsetFraction: Float = 0f,
     modifier: Modifier = Modifier
 ) = BoxWithConstraints(modifier = modifier) {
@@ -49,7 +50,7 @@ fun LineTrendCanvas(
     val rightDp = if (!isLandscape) 20.dp else 30.dp
     val padL = with(density) { min(leftDp.toPx(), w * 0.2f) }
     val padR = with(density) { min(rightDp.toPx(), w * 0.1f) }
-    val topDp = if (!isLandscape) 32.dp else 40.dp
+    val topDp = if (!isLandscape) 24.dp else 32.dp
     val bottomDp = if (!isLandscape) 56.dp else 50.dp
     val padT = with(density) { min(topDp.toPx(), h * 0.2f) }
     val padB = with(density) { min(bottomDp.toPx(), h * 0.2f) }
@@ -79,7 +80,7 @@ fun LineTrendCanvas(
                 with(density) {
                     IntOffset(
                         x = (left - 38.dp.toPx()).toInt(),
-                        y = (top - 32.dp.toPx()).toInt()
+                        y = (top - 24.dp.toPx()).toInt()
                     )
                 }
             }
@@ -115,18 +116,45 @@ fun LineTrendCanvas(
         drawLine(colors.axis, Offset(left, top), Offset(left, bottom), strokeWidth = 1.5.dp.toPx())
         drawLine(colors.axis, Offset(left, bottom), Offset(right, bottom), strokeWidth = 1.5.dp.toPx())
 
-        drawYTicks(measurer, isLandscape, colors.label, colors.axis, left, bottom, plotH, minV, maxV, yTicks, showYTicks)
-
         val dash = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 6.dp.toPx()), 0f)
-        for (i in 0 until count) {
-            val x = xAt(i)
-            drawLine(
-                color = colors.grid,
-                start = Offset(x, top),
-                end = Offset(x, bottom),
-                strokeWidth = 1.dp.toPx(),
-                pathEffect = dash
-            )
+
+        val yValues = yTicks ?: run {
+            val intervals = if (!isLandscape) 4 else 6
+            (0..intervals).map { i ->
+                val t = i.toFloat() / intervals.toFloat()
+                minV + (maxV - minV) * t
+            }
+        }
+
+        // Draw Horizontal Grid Lines
+        if (grid.showGrid && grid.showHorizontal) {
+            yValues.forEach { value ->
+                val t = ((value - minV) / (maxV - minV)).coerceIn(0f, 1f)
+                val y = (bottom - plotH * t).coerceIn(0f, size.height)
+                drawLine(
+                    color = colors.grid,
+                    start = Offset(left, y),
+                    end = Offset(right, y),
+                    strokeWidth = 1.dp.toPx(),
+                    pathEffect = dash
+                )
+            }
+        }
+
+        drawYTicks(measurer, isLandscape, colors.label, colors.axis, left, bottom, plotH, minV, maxV, yValues, showYTicks)
+
+        // Draw Vertical Grid Lines
+        if (grid.showGrid && grid.showVertical) {
+            for (i in 0 until count) {
+                val x = xAt(i)
+                drawLine(
+                    color = colors.grid,
+                    start = Offset(x, top),
+                    end = Offset(x, bottom),
+                    strokeWidth = 1.dp.toPx(),
+                    pathEffect = dash
+                )
+            }
         }
 
         drawXTicks(measurer, xLabels, colors.foreground, colors.label, colors.axis, bottom, showXTicks, ::xAt)
