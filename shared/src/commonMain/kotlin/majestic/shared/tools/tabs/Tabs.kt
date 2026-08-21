@@ -10,6 +10,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import captain.Navigator
 import majestic.tooling.onClick
@@ -55,6 +57,7 @@ fun <T> Tabs(
         Item(
             modifier = Modifier
                 .hoverable(interactionSource)
+                .pointerHoverIcon(PointerIcon.Hand)
                 .item(selected = isSelected, isHovered = isHovered, colors = colors)
                 .onClick { onSelect(item) },
             label = label(item),
