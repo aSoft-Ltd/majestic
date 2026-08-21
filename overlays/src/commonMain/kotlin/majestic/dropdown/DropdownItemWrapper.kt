@@ -19,6 +19,20 @@ import androidx.compose.ui.unit.dp
 import majestic.tooling.onClick
 
 // wrapper for hover effects
+
+private fun <T> Modifier.dropdownItemInteraction(
+    item: DropdownItem<T>,
+    interactionSource: MutableInteractionSource,
+    onClick: () -> Unit
+) = if (item.interactive) {
+    hoverable(interactionSource = interactionSource)
+        .onClick(onClick)
+        .pointerHoverIcon(PointerIcon.Hand)
+} else if (item.clickable) {
+    onClick(onClick)
+        .pointerHoverIcon(PointerIcon.Hand)
+} else this
+
 @Composable
 internal fun <T> DropdownItemWrapper(
     item: DropdownItem<T>,
@@ -31,6 +45,7 @@ internal fun <T> DropdownItemWrapper(
     val interactionSource = remember { MutableInteractionSource() }
     val hovered by interactionSource.collectIsHoveredAsState()
     val backgroundColor = when {
+        !item.interactive -> Color.Transparent
         mode == DropdownMode.Action && item.isDestructive && hovered -> Color(0xFFEF5350).copy(alpha = 0.07f)
         hovered || isSelected -> color.itemsHovered
         else -> Color.Transparent
@@ -41,9 +56,7 @@ internal fun <T> DropdownItemWrapper(
             .fillMaxWidth()
             .clip(RoundedCornerShape(7.dp))
             .background(backgroundColor)
-            .hoverable(interactionSource = interactionSource)
-            .onClick(onClick)
-            .pointerHoverIcon(PointerIcon.Hand)
+            .dropdownItemInteraction(item, interactionSource, onClick)
     ) {
         content()
     }

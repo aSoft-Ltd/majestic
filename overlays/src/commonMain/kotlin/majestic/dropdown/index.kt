@@ -22,7 +22,9 @@ data class DropdownItem<T>(
     val label: String,
     val image: DrawableResource? = null,
     val leadingIcon: ImageVector? = null,
-    val isDestructive: Boolean = false
+    val isDestructive: Boolean = false,
+    val interactive: Boolean = true,
+    val clickable: Boolean = interactive
 )
 
 internal enum class DropdownMode { Single, Multi, Action }
