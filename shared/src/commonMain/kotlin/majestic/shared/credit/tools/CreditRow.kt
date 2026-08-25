@@ -1,6 +1,8 @@
 package majestic.shared.credit.tools
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
@@ -35,10 +37,18 @@ private fun RowScope.creditCellModifier(
     height: Dp,
     colors: CreditTableColors,
     isLast: Boolean,
+    interactionSource: MutableInteractionSource? = null,
     onClick: (() -> Unit)? = null,
 ) = Modifier
     .weight(weight)
     .height(height)
+    .let {
+        if (interactionSource != null) {
+            it.hoverable(interactionSource)
+        } else {
+            it
+        }
+    }
     .pointerHoverIcon(PointerIcon.Hand)
     .let { if (onClick != null) it.onClick(onClick) else it }
     .background(colors.body)
@@ -52,6 +62,7 @@ fun <T> RowScope.CreditRow(
     weights: Map<Column<CreditUsage>, Float>,
     colors: CreditTableColors,
     actions: List<OptionMenu<T>>,
+    interactionSource: MutableInteractionSource? = null,
     onClick: (String) -> Unit = {},
     cellHeight: Dp = 70.dp,
     isLast: Boolean = false,
@@ -62,6 +73,7 @@ fun <T> RowScope.CreditRow(
         height = cellHeight,
         colors = colors,
         isLast = isLast,
+        interactionSource = interactionSource,
         onClick = { onClick(cell.row.item.id) }
     )
 
