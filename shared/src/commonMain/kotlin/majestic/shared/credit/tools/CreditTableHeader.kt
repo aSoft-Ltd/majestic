@@ -47,7 +47,7 @@ fun RowScope.CreditTableHeader(
                 .weight(weights.getValue(column))
                 .height(cellHeight)
                 .background(colors.header)
-                .separator(colors.body)
+                .separator(colors.separator)
                 .padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
