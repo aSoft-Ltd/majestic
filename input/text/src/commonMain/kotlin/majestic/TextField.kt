@@ -1,6 +1,7 @@
 package majestic
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -70,7 +71,6 @@ fun TextField(
     shape = shape,
     hintSize = hintSize
 )
-
 
 // Why do we have two different implementations
 @Composable
@@ -184,7 +184,10 @@ fun TextField(
         )
     },
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(vertical = 14.dp, horizontal = 14.dp),
+    contentPadding: PaddingValues = PaddingValues(
+        vertical = 14.dp,
+        horizontal = 14.dp
+    ),
     readOnly: Boolean = false,
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
@@ -230,14 +233,20 @@ fun TextField(
             OutlinedTextFieldDefaults.DecorationBox(
                 value = value,
                 visualTransformation = visualTransformation,
-                innerTextField = innerTextField,
+                innerTextField = {
+                    if (singleLine) innerTextField()
+                    else Box {
+                        if (value.isEmpty()) hint()
+                        innerTextField()
+                    }
+                },
                 singleLine = singleLine,
                 enabled = enabled,
                 interactionSource = interactionSource,
                 contentPadding = contentPadding,
                 trailingIcon = trailingIcon,
                 leadingIcon = leadingIcon,
-                placeholder = hint,
+                placeholder = if (singleLine) hint else null,
                 colors = materialColors,
                 container = {
                     OutlinedTextFieldDefaults.Container(
@@ -252,7 +261,6 @@ fun TextField(
         }
     }
 }
-
 
 @Composable
 fun TextField(
@@ -273,7 +281,10 @@ fun TextField(
     shape: RoundedCornerShape = RoundedCornerShape(8.dp),
     textStyle: TextStyle = TextStyle.Default.copy(color = colors.focused.text),
     hintSize: TextUnit = 17.sp,
-    contentPadding: PaddingValues = PaddingValues(vertical = 14.dp, horizontal = 14.dp),
+    contentPadding: PaddingValues = PaddingValues(
+        vertical = 14.dp,
+        horizontal = 14.dp
+    ),
 ) {
     TextField(
         value = value,
@@ -312,7 +323,6 @@ private fun TextFieldColors.toMaterialTextFieldColors() = TextFieldDefaults.colo
     focusedIndicatorColor = focused.border,
     unfocusedIndicatorColor = blurred.border,
 )
-
 
 // TODO: Seek out other arguments of OutlinedTextDefaults.colors to fill up
 @Composable
