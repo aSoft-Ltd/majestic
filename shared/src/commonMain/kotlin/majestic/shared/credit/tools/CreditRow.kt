@@ -63,7 +63,7 @@ fun <T> RowScope.CreditRow(
     colors: CreditTableColors,
     actions: List<OptionMenu<T>>,
     interactionSource: MutableInteractionSource? = null,
-    onClick: (String) -> Unit = {},
+    onClick: (CreditUsage) -> Unit = {},
     cellHeight: Dp = 70.dp,
     isLast: Boolean = false,
 ) {
@@ -74,7 +74,7 @@ fun <T> RowScope.CreditRow(
         colors = colors,
         isLast = isLast,
         interactionSource = interactionSource,
-        onClick = { onClick(cell.row.item.id) }
+        onClick = { onClick(cell.row.item) }
     )
 
     when (cell.column.index) {
