@@ -92,9 +92,14 @@ fun Modifier.translucentFormIconButton(
 @Composable
 fun Modifier.constructiveFormButton(
     colors: ColorPair,
+    enabled: Boolean = true,
     onClick: () -> Unit = { },
 ): Modifier = this
-    .solidButton(colors = colors, onClick = onClick)
+    .solidButton(
+        colors = colors,
+        enabled = enabled,
+        onClick = onClick
+    )
     .padding(horizontal = 20.dp, vertical = 7.dp)
 
 @Composable
