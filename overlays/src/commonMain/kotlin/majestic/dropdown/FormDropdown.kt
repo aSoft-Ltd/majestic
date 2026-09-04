@@ -31,7 +31,7 @@ fun FormDropdown(
     onDismissRequest: () -> Unit = {},
     popupBackground: Color,
     enabled: Boolean = true,
-    inlinePadding: PaddingValues = PaddingValues(vertical = 8.dp),
+    inlinePadding: PaddingValues = PaddingValues(bottom = 8.dp),
     contentPadding: PaddingValues = PaddingValues(horizontal = 8.dp),
     popupMaxHeight: Dp = 300.dp,
     popupShape: Shape = RoundedCornerShape(10.dp),

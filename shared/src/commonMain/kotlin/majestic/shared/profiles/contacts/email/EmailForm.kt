@@ -35,6 +35,7 @@ data class EmailFormColors(
 )
 
 @Composable
+@Deprecated("Use EmailFormFields inside CompactFormDialog")
 fun EmailForm(
     colors: EmailFormColors,
     labels: DedicatedFormLabels,
