@@ -2,6 +2,7 @@ package majestic.shared.profiles.contacts.phone.form
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
@@ -14,34 +15,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import majestic.CountryDialingCodeSelector
 import majestic.NoRippleInteractionSource
-import majestic.PhoneField
-import majestic.shared.profiles.contacts.ContactForm
+import majestic.CompactPhoneField
 import majestic.shared.profiles.contacts.phone.PhoneFormColors
 import majestic.shared.tools.DialingCodePreview
 import majestic.shared.users.label.contacts.DedicatedFormLabels
-import nation.Country
+import symphony.PhoneField
 
 @Composable
 internal fun Form(
-    modifier: Modifier,
+    field: PhoneField,
     labels: DedicatedFormLabels,
-    colors: PhoneFormColors
+    colors: PhoneFormColors,
+    contentPadding: PaddingValues = PaddingValues(16.dp),
+    textSize: TextUnit = 17.sp,
+    modifier: Modifier = Modifier
 ) {
-    val form = ContactForm()
-    form.phone.setCountry(Country.TZ)
-    PhoneField(
-        field = form.phone,
+    CompactPhoneField(
+        field = field,
         modifier = modifier,
         hint = labels.input.placeholder,
         colors = colors.phoneField,
+        contentPadding = contentPadding,
+        textSize = textSize,
         label = {
             Text(
                 modifier = Modifier.padding(bottom = 8.dp),
                 text = labels.input.label,
                 color = colors.label,
+                fontSize = 13.sp,
+                lineHeight = 16.sp
             )
         },
         leadingIcon = {
@@ -56,7 +63,7 @@ internal fun Form(
                     ) { expanded = !expanded }
                     .pointerHoverIcon(PointerIcon.Hand)
                     .width(100.dp),
-                field = form.phone,
+                field = field,
                 colors = colors.leadingIcon,
                 searchColors = colors.search,
                 selected = {

@@ -7,6 +7,7 @@ import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
@@ -39,6 +41,9 @@ internal fun ButtonChoice(
         background = Color.Black
     ),
     onClick: () -> Unit = {},
+    contentPadding: PaddingValues = PaddingValues(10.dp),
+    textSize: TextUnit = 16.sp,
+    lineHeight: TextUnit = 18.sp,
     icon: @Composable () -> Unit = {}
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -70,7 +75,7 @@ internal fun ButtonChoice(
             .background(bgColor)
             .pointerHoverIcon(PointerIcon.Hand)
             .hoverable(interactionSource = interactionSource)
-            .padding(10.dp)
+            .padding(contentPadding)
             .clickable(
                 interactionSource = NoRippleInteractionSource,
                 indication = null,
@@ -83,7 +88,8 @@ internal fun ButtonChoice(
         Text(
             text = label,
             color = textColor,
-            lineHeight = 18.sp
+            fontSize = textSize,
+            lineHeight = lineHeight
         )
         if (selected) Icon(
             modifier = Modifier.size(18.dp),

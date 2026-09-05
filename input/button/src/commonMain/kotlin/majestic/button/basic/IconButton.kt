@@ -12,12 +12,14 @@ fun IconButton(
     icon: ImageVector,
     alpha: Float = 1f,
     size: Dp? = null,
+    rotation: Float? = null,
     modifier: Modifier = Modifier
 ) = Button(modifier = modifier) { colors ->
     BasicButtonContent(
         icon = icon,
         alpha = alpha,
         size = size,
+        rotation = rotation,
         colors = colors
     )
 }
@@ -27,12 +29,14 @@ fun IconButton(
     icon: Painter,
     alpha: Float = 1f,
     size: Dp? = null,
+    rotation: Float? = null,
     modifier: Modifier = Modifier
 ) = Button(modifier = modifier) { colors ->
     BasicButtonContent(
         icon = icon,
         alpha = alpha,
         size = size,
+        rotation = rotation,
         colors = colors
     )
 }
