@@ -38,6 +38,7 @@ data class PhoneFormColors(
 )
 
 @Composable
+@Deprecated("Use PhoneFormFields inside CompactFormDialog")
 fun PhoneForm(
     colors: PhoneFormColors,
     labels: DedicatedFormLabels,
@@ -53,6 +54,8 @@ fun PhoneForm(
     },
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
+    val state = rememberPhoneFormState()
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = when (orientation) {
@@ -72,6 +75,7 @@ fun PhoneForm(
         }
 
         Form(
+            field = state.field,
             modifier = Modifier
                 .then(
                     other = when (orientation) {
