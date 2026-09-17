@@ -27,5 +27,10 @@ class ClientConfig(
     /**
      * The database file name
      */
-    val database: String = "database.db"
+    val database: String = "database.db",
+
+    /**
+     * The delay (in seconds) for loading items
+     */
+    val lag: Int = 0
 )
