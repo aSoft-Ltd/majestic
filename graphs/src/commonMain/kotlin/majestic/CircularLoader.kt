@@ -65,6 +65,5 @@ fun CircularLoader(
             stroke = strokeWidth,
             startAngle = startAngle
         )
-
     }
 }
