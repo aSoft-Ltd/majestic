@@ -48,7 +48,7 @@ fun ToggleSwitch(
     shape: Shape = CircleShape,
     colors: ToggleSwitchColors = ToggleSwitchColors(),
 ) {
-    val sizePx = with(LocalDensity.current) { (width - height - (circlePadding * 2)).toPx() }
+    val sizePx = with(LocalDensity.current) { (width - circleSize - (circlePadding * 2)).toPx() }
     val animateTranslation by animateFloatAsState(
         targetValue = if (checked) sizePx else 0f,
         animationSpec = tween(durationMillis = 300)
