@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.ColorPair
@@ -35,6 +36,8 @@ fun EmptyState(
     width: Dp = 224.dp,
     action: (() -> Unit)? = null,
     iconSize: Dp = 83.dp,
+    descriptionFontSize: TextUnit = 10.sp,
+    descriptionLineHeight: TextUnit = 13.sp,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -63,8 +66,8 @@ fun EmptyState(
                 Text(
                     text = description,
                     color = colors.foreground.copy(alpha = 0.5f),
-                    fontSize = 10.sp,
-                    lineHeight = 13.sp,
+                    fontSize = descriptionFontSize,
+                    lineHeight = descriptionLineHeight,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.width(width)
                 )
