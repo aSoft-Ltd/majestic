@@ -71,6 +71,13 @@ fun ActionButton(
         )
 }
 
+class Button(
+    val text: String,
+    val enabled: Boolean,
+    val onClick: () -> Unit
+)
+
+
 @Composable
 @Deprecated("Use majestic.button.Button or majestic.button.basic.FormButton with the new button appearance modifiers.")
 fun ActionButton(
