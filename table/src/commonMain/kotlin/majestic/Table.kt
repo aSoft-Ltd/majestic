@@ -1,6 +1,7 @@
 package majestic
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.width
@@ -78,6 +79,17 @@ fun <D> LazyTable(
             }
         }
     }
+//    Column(
+//        modifier.onPlaced { width = with(density) { (it.parentCoordinates?.size?.width ?: 300).toDp() } },
+//    ) {
+//        if (columns.renderer != null) Row(modifier = columns.modifier.width(width)) {
+//            for (column in columns.data) columns.renderer.invoke(this, column)
+//        }
+//
+//        for (row in rows) Row(modifier = Modifier.width(width)) {
+//            for (column in columns.data) cell(this, Cell(column, row))
+//        }
+//    }
 }
 
 @Composable
