@@ -29,6 +29,7 @@ import kotlin.jvm.JvmName
 @Composable
 fun <D> LazyTable(
     table: Table<D>,
+    key: ((D) -> Any)? = null,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     columns: (@Composable RowScope.(Column<D>) -> Unit)? = { Text(it.name, modifier = Modifier.weight(1f)) },
@@ -40,6 +41,7 @@ fun <D> LazyTable(
     LazyTable(
         rows = rows,
         columns = Columns(cols, renderer = columns),
+        key = key,
         modifier = modifier,
         state = state,
         cell = cell
@@ -52,6 +54,7 @@ fun <D> LazyTable(
 fun <D> LazyTable(
     rows: List<Row<D>>,
     columns: Columns<D>,
+    key: ((D) -> Any)? = null,
     state: LazyListState = rememberLazyListState(),
     modifier: Modifier = Modifier,
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
@@ -69,7 +72,7 @@ fun <D> LazyTable(
                 for (column in columns.data) columns.renderer.invoke(this, column)
             }
         }
-        items(rows) { row ->
+        items(rows, key = if (key == null) null else { { key(it.item) } }) { row ->
             Row(modifier = Modifier.width(width)) {
                 for (column in columns.data) cell(this, Cell(column, row))
             }
