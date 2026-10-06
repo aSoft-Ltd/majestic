@@ -39,6 +39,7 @@ fun <D> LazyTable(
     table as LinearTable
     val cols = table.columns.current.watchAsState().filter { it.visibility == VisibleVisibility }
     val rows = table.paginator.current.watchAsState().data?.items ?: emptyList()
+
     LazyTable(
         rows = rows,
         columns = Columns(cols, renderer = columns),
@@ -79,17 +80,6 @@ fun <D> LazyTable(
             }
         }
     }
-//    Column(
-//        modifier.onPlaced { width = with(density) { (it.parentCoordinates?.size?.width ?: 300).toDp() } },
-//    ) {
-//        if (columns.renderer != null) Row(modifier = columns.modifier.width(width)) {
-//            for (column in columns.data) columns.renderer.invoke(this, column)
-//        }
-//
-//        for (row in rows) Row(modifier = Modifier.width(width)) {
-//            for (column in columns.data) cell(this, Cell(column, row))
-//        }
-//    }
 }
 
 @Composable
