@@ -10,7 +10,10 @@ internal fun ColorPair.toButtonParams(): ButtonParams<ColorPair> {
         hovered = pair,
         pressed = pair,
         disabled = ColorPair(
-            background = background.copy(alpha = if (background == Color.Transparent) 1f else 0.4f),
+            background = if (background == Color.Transparent)
+                Color.Transparent
+            else
+                background.copy(alpha = 0.4f),
             foreground = foreground.copy(alpha = 0.4f)
         )
     )
