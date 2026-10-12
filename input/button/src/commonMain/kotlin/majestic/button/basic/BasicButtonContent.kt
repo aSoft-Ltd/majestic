@@ -69,7 +69,7 @@ fun BasicButtonContent(
     ) {
         Text(
             text = text,
-            color = colors.foreground.copy(alpha = alpha),
+            color = colors.foreground.copy(alpha = alpha * colors.foreground.alpha),
             fontWeight = fontWeight,
             fontSize = fontSize,
             lineHeight = lineHeight,
@@ -101,7 +101,7 @@ fun BasicButtonContent(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = colors.foreground.copy(alpha = alpha),
+            tint = colors.foreground.copy(alpha = alpha * colors.foreground.alpha),
             modifier = Modifier
                 .padding(8.dp)
                 .size(finalSize)
@@ -132,7 +132,7 @@ fun BasicButtonContent(
     Icon(
         painter = icon,
         contentDescription = null,
-        tint = colors.foreground.copy(alpha = alpha),
+        tint = colors.foreground.copy(alpha = alpha * colors.foreground.alpha),
         modifier = Modifier
             .padding(8.dp)
             .size(finalSize)
@@ -170,14 +170,14 @@ fun BasicButtonContent(
                     imageVector = it,
                     contentDescription = null,
                     modifier = Modifier.size(finalIconSize),
-                    tint = colors.foreground.copy(alpha = leadingIconAlpha)
+                    tint = colors.foreground.copy(alpha = leadingIconAlpha * colors.foreground.alpha)
                 )
                 Spacer(Modifier.width(8.dp))
             }
 
             Text(
                 text = text,
-                color = colors.foreground.copy(alpha = textAlpha),
+                color = colors.foreground.copy(alpha = textAlpha * colors.foreground.alpha),
                 fontWeight = fontWeight,
                 fontSize = fontSize,
                 lineHeight = lineHeight,
@@ -233,14 +233,14 @@ fun BasicButtonContent(
                     painter = it,
                     contentDescription = null,
                     modifier = Modifier.size(finalIconSize),
-                    tint = colors.foreground.copy(alpha = leadingIconAlpha)
+                    tint = colors.foreground.copy(alpha = leadingIconAlpha * colors.foreground.alpha)
                 )
                 Spacer(Modifier.width(8.dp))
             }
 
             Text(
                 text = text,
-                color = colors.foreground.copy(alpha = textAlpha),
+                color = colors.foreground.copy(alpha = textAlpha * colors.foreground.alpha),
                 fontWeight = fontWeight,
                 fontSize = fontSize,
                 lineHeight = lineHeight,
@@ -282,7 +282,7 @@ fun BasicButtonContent(
     ) {
         Text(
             text = text,
-            color = colors.foreground.copy(alpha = textAlpha),
+            color = colors.foreground.copy(alpha = textAlpha * colors.foreground.alpha),
             fontWeight = fontWeight,
             fontSize = fontSize,
             lineHeight = lineHeight,

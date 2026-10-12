@@ -25,7 +25,10 @@ fun Modifier.translucentButton(
     val disabledAlpha = maxOf(alpha - 0.04f, 0.01f)
 
     val alphaState = ButtonParams(alpha, hoveredAlpha, hoveredAlpha, disabledAlpha)
-    val pair = ColorPair(foreground = color, background = Color.Transparent)
+    val pair = ColorPair(
+        foreground = color.copy(alpha = 1f),
+        background = Color.Transparent
+    )
 
     return this
         .button(
