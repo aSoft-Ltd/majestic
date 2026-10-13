@@ -30,6 +30,11 @@ data class EmptyStateColors(
 
 enum class EmptyStateIconStyle { Gradient, Halo }
 
+data class DescriptionText(
+    val fontSize: TextUnit = 10.sp,
+    val lineHeight: TextUnit = 13.sp
+)
+
 @Composable
 fun EmptyState(
     icon: DrawableResource,
@@ -39,8 +44,7 @@ fun EmptyState(
     width: Dp = 224.dp,
     action: (() -> Unit)? = null,
     iconSize: Dp = 83.dp,
-    descriptionFontSize: TextUnit = 10.sp,
-    descriptionLineHeight: TextUnit = 13.sp,
+    descriptionText: DescriptionText = DescriptionText(),
     iconStyle: EmptyStateIconStyle = EmptyStateIconStyle.Gradient,
     modifier: Modifier = Modifier,
     actionContent: @Composable (() -> Unit)? = null,
@@ -83,8 +87,8 @@ fun EmptyState(
                 Text(
                     text = description,
                     color = colors.foreground.copy(alpha = 0.5f),
-                    fontSize = descriptionFontSize,
-                    lineHeight = descriptionLineHeight,
+                    fontSize = descriptionText.fontSize,
+                    lineHeight = descriptionText.lineHeight,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.width(width)
                 )
