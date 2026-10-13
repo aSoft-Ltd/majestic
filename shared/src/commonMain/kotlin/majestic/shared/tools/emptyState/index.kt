@@ -43,6 +43,7 @@ fun EmptyState(
     descriptionLineHeight: TextUnit = 13.sp,
     iconStyle: EmptyStateIconStyle = EmptyStateIconStyle.Gradient,
     modifier: Modifier = Modifier,
+    actionContent: @Composable (() -> Unit)? = null,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterVertically),
@@ -90,7 +91,9 @@ fun EmptyState(
             }
         }
 
-        if (action != null) {
+        if (actionContent != null)
+            actionContent()
+        else if (action != null) {
             PlusButton(
                 modifier = Modifier.plusButton(
                     colors = colors.button,
