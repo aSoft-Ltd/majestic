@@ -25,7 +25,10 @@ data class EmptyStateColors(
     val button: ColorPair,
     val iconBlur: Color,
     val gradient: Pair<Color, Color>,
+    val iconBackdrop: Color = Color.Transparent,
 )
+
+enum class EmptyStateIconStyle { Gradient, Halo }
 
 @Composable
 fun EmptyState(
@@ -38,7 +41,9 @@ fun EmptyState(
     iconSize: Dp = 83.dp,
     descriptionFontSize: TextUnit = 10.sp,
     descriptionLineHeight: TextUnit = 13.sp,
+    iconStyle: EmptyStateIconStyle = EmptyStateIconStyle.Gradient,
     modifier: Modifier = Modifier,
+    actionContent: @Composable (() -> Unit)? = null,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterVertically),
@@ -49,7 +54,19 @@ fun EmptyState(
             verticalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            GradientIcon(icon = icon, colors = colors, modifier = Modifier.size(iconSize))
+            when (iconStyle) {
+                EmptyStateIconStyle.Gradient -> GradientIcon(
+                    icon = icon,
+                    colors = colors,
+                    modifier = Modifier.size(iconSize)
+                )
+
+                EmptyStateIconStyle.Halo -> HaloGradientIcon(
+                    icon = icon,
+                    colors = colors,
+                    modifier = Modifier.size(iconSize)
+                )
+            }
 
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
@@ -74,7 +91,9 @@ fun EmptyState(
             }
         }
 
-        if (action != null) {
+        if (actionContent != null)
+            actionContent()
+        else if (action != null) {
             PlusButton(
                 modifier = Modifier.plusButton(
                     colors = colors.button,
