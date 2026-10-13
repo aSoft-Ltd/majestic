@@ -32,3 +32,25 @@ fun Color.withOverlay(overlay: Color, alpha: Float): Color {
     val blended = applyOverlayBlend(base = this, overlay = overlay)
     return this.mix(blended, alpha)
 }
+
+/** Blends RGB channels at [alpha] strength, preserving the base alpha, like [withOverlay]. */
+fun Color.withScreen(overlay: Color, alpha: Float): Color {
+    val blended = Color(
+        red = 1f - (1f - red) * (1f - overlay.red),
+        green = 1f - (1f - green) * (1f - overlay.green),
+        blue = 1f - (1f - blue) * (1f - overlay.blue),
+        alpha = this.alpha
+    )
+    return mix(blended, alpha)
+}
+
+/** Hard Light is Overlay with the channel threshold taken from the overlay, not the base. */
+fun Color.withHardLight(overlay: Color, alpha: Float): Color {
+    val blended = Color(
+        red = overlayChannel(overlay.red, red),
+        green = overlayChannel(overlay.green, green),
+        blue = overlayChannel(overlay.blue, blue),
+        alpha = this.alpha
+    )
+    return mix(blended, alpha)
+}
