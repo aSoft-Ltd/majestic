@@ -18,4 +18,6 @@ data class ColorPack(
             vivid = ActualColor(NeutralColors.black.color),
         )
     }
+
+    fun toColorPair() = ColorPair(foreground = contra.color, background = actual.color)
 }
