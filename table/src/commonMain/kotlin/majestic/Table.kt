@@ -1,7 +1,6 @@
 package majestic
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.width
@@ -20,12 +19,39 @@ import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import cinematic.watchAsState
+import majestic.table.Cell
+import majestic.table.GenericCell
 import symphony.LinearTable
 import symphony.Row
-import symphony.Table
+import symphony.Table as OldTable
+import symphony.table.Table
 import symphony.VisibleVisibility
 import symphony.columns.Column
 import kotlin.jvm.JvmName
+import majestic.Cell as OldCell
+
+@Composable
+fun <D> LazyTable(
+    table: OldTable<D>,
+    key: ((D) -> Any)? = null,
+    modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
+    columns: (@Composable RowScope.(Column<D>) -> Unit)? = { Text(it.name, modifier = Modifier.weight(1f)) },
+    cell: @Composable RowScope.(OldCell<D>) -> Unit = { GenericCell(it) }
+) {
+    table as LinearTable
+    val cols = table.columns.current.watchAsState().filter { it.visibility == VisibleVisibility }
+    val rows = table.paginator.current.watchAsState().data?.items ?: emptyList()
+
+    OldLazyTable(
+        rows = rows,
+        columns = Columns(cols, renderer = columns),
+        key = key,
+        modifier = modifier,
+        state = state,
+        cell = cell
+    )
+}
 
 @Composable
 fun <D> LazyTable(
@@ -36,9 +62,8 @@ fun <D> LazyTable(
     columns: (@Composable RowScope.(Column<D>) -> Unit)? = { Text(it.name, modifier = Modifier.weight(1f)) },
     cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
 ) {
-    table as LinearTable
     val cols = table.columns.current.watchAsState().filter { it.visibility == VisibleVisibility }
-    val rows = table.paginator.current.watchAsState().data?.items ?: emptyList()
+    val rows = table.paginator.state.watchAsState().items.content
 
     LazyTable(
         rows = rows,
@@ -50,11 +75,10 @@ fun <D> LazyTable(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @JvmName("LazyTableRow")
 @Composable
 fun <D> LazyTable(
-    rows: List<Row<D>>,
+    rows: List<D>,
     columns: Columns<D>,
     key: ((D) -> Any)? = null,
     state: LazyListState = rememberLazyListState(),
@@ -74,9 +98,40 @@ fun <D> LazyTable(
                 for (column in columns.data) columns.renderer.invoke(this, column)
             }
         }
-        items(rows, key = if (key == null) null else { { key(it.item) } }) { row ->
+        items(rows, key = if (key == null) null else { { key(it) } }) { row ->
             Row(modifier = Modifier.width(width)) {
                 for (column in columns.data) cell(this, Cell(column, row))
+            }
+        }
+    }
+}
+
+@JvmName("LazyOldTableRow")
+@Composable
+internal fun <D> OldLazyTable(
+    rows: List<Row<D>>,
+    columns: Columns<D>,
+    key: ((D) -> Any)? = null,
+    state: LazyListState = rememberLazyListState(),
+    modifier: Modifier = Modifier,
+    cell: @Composable RowScope.(OldCell<D>) -> Unit = { GenericCell(it) }
+) {
+    var width by remember { mutableStateOf(300.dp) }
+
+    val density = LocalDensity.current
+
+    LazyColumn(
+        modifier.onPlaced { width = with(density) { (it.parentCoordinates?.size?.width ?: 300).toDp() } },
+        state = state
+    ) {
+        if (columns.renderer != null) stickyHeader {
+            Row(modifier = columns.modifier.width(width)) {
+                for (column in columns.data) columns.renderer.invoke(this, column)
+            }
+        }
+        items(rows, key = if (key == null) null else { { key(it.item) } }) { row ->
+            Row(modifier = Modifier.width(width)) {
+                for (column in columns.data) cell(this, OldCell(column, row))
             }
         }
     }
@@ -88,8 +143,8 @@ fun <D> LazyTable(
     columns: Columns<D>,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
-    cell: @Composable RowScope.(Cell<D>) -> Unit = { GenericCell(it) }
-) = LazyTable(
+    cell: @Composable RowScope.(OldCell<D>) -> Unit = { GenericCell(it) }
+) = OldLazyTable(
     rows = data.mapIndexed { index, item -> Row(index, item) },
     columns = columns,
     state = state,
