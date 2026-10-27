@@ -37,6 +37,7 @@ fun ModalHeader(
     colors: ModalColors,
     subtitle: String? = null,
     onClose: () -> Unit,
+    subtitleMaxLines: Int = 1,
     modifier: Modifier = Modifier,
     extraContent: @Composable (() -> Unit)? = null,
 ) {
@@ -89,9 +90,9 @@ fun ModalHeader(
                 Text(
                     text = subtitle,
                     fontSize = if (orientation is Landscape) 14.sp else 12.sp,
-                    lineHeight = 2.sp,
+                    lineHeight = if (subtitleMaxLines == 1) 2.sp else 18.sp,
                     color = colors.text.copy(0.4f),
-                    maxLines = 1,
+                    maxLines = subtitleMaxLines,
                     overflow = TextOverflow.Ellipsis,
                 )
             }
