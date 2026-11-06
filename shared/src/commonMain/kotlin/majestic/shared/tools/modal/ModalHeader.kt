@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -18,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -72,40 +69,28 @@ fun ModalHeader(
             )
         }
 
-        Column(
-            modifier = Modifier.weight(1f).wrapContentHeight(),
-            verticalArrangement = Arrangement.Center
-        ) {
+        Column(modifier = Modifier.weight(1f).wrapContentHeight(), verticalArrangement = Arrangement.Center) {
             Text(
                 text = title,
                 fontSize = if (orientation is Landscape) 16.sp else 14.sp,
-                lineHeight = 2.sp,
-                fontWeight = FontWeight.Medium,
+                lineHeight = 1.sp,
                 color = colors.text,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            if (subtitle != null) {
-                Spacer(Modifier.height(5.dp))
-                Text(
-                    text = subtitle,
-                    fontSize = if (orientation is Landscape) 14.sp else 12.sp,
-                    lineHeight = if (subtitleMaxLines == 1) 2.sp else 18.sp,
-                    color = colors.text.copy(0.4f),
-                    maxLines = subtitleMaxLines,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
+            if (subtitle != null) Text(
+                text = subtitle,
+                fontSize = if (orientation is Landscape) 14.sp else 12.sp,
+                lineHeight = if (subtitleMaxLines == 1) 1.sp else 18.sp,
+                color = colors.text.copy(0.4f),
+                maxLines = subtitleMaxLines,
+                overflow = TextOverflow.Ellipsis,
+            )
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
             extraContent?.invoke()
-            CloseModalButton(
-                modifier = Modifier.closeModalIconButton(
-                    color = colors.closeButton,
-                    onClick = onClose
-                )
-            )
+            CloseModalButton(modifier = Modifier.closeModalIconButton(color = colors.closeButton, onClick = onClose))
         }
     }
 }
