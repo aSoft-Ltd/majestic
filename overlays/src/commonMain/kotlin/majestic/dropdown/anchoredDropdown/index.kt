@@ -6,6 +6,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +35,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import kotlinx.coroutines.delay
 import majestic.dropdown.DropdownColors
 import majestic.dropdown.DropdownItem
 import majestic.dropdown.DropdownItemRow
@@ -38,7 +43,7 @@ import majestic.dropdown.DropdownItemWrapper
 import majestic.dropdown.DropdownMode
 import majestic.dropdown.overlayModifier
 
-enum class DropdownAlignment { Auto, Start, Center, End }
+enum class DropdownAlignment { Auto, Start, Center, End, SideAuto }
 
 @Composable
 fun <T> AnchoredDropdown(
@@ -50,31 +55,40 @@ fun <T> AnchoredDropdown(
     popupWidth: Dp? = null,
     popupAlignment: DropdownAlignment = DropdownAlignment.Auto,
     popupGap: Dp = 8.dp,
+    focusable: Boolean = true,
+    openOnHover: Boolean = false,
     modifier: Modifier = Modifier,
     customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     customTrigger: @Composable (expanded: Boolean, onToggle: () -> Unit) -> Unit
 ) = Box(modifier = modifier) {
     val visibility = remember { MutableTransitionState(false) }
+    val triggerInteraction = remember { MutableInteractionSource() }
+    val popupInteraction = remember { MutableInteractionSource() }
+    val triggerHovered by triggerInteraction.collectIsHoveredAsState()
+    val popupHovered by popupInteraction.collectIsHoveredAsState()
     val shadowPadding = 16.dp
     val density = LocalDensity.current
     val position = remember(popupAlignment, popupGap, density) {
-        with(density) {
-            DropdownPositionProvider(popupAlignment, popupGap.roundToPx(), shadowPadding.roundToPx())
+        with(density) { DropdownPositionProvider(popupAlignment, popupGap.roundToPx(), shadowPadding.roundToPx()) }
+    }
+    Box(modifier = Modifier.hoverable(triggerInteraction)) {
+        customTrigger(visibility.targetState) { if (enabled && !loading) visibility.targetState = !visibility.targetState }
+    }
+    LaunchedEffect(enabled, loading) { if (!enabled || loading) visibility.targetState = false }
+    LaunchedEffect(openOnHover, triggerHovered, popupHovered) {
+        if (!openOnHover || !enabled || loading) return@LaunchedEffect
+        if (triggerHovered) visibility.targetState = true
+        else if (!popupHovered) {
+            delay(150)
+            if (!triggerHovered && !popupHovered) visibility.targetState = false
         }
-    }
-
-    customTrigger(visibility.targetState) {
-        if (enabled && !loading) visibility.targetState = !visibility.targetState
-    }
-    LaunchedEffect(enabled, loading) {
-        if (!enabled || loading) visibility.targetState = false
     }
 
     if (visibility.currentState || visibility.targetState) {
         Popup(
             popupPositionProvider = position,
             onDismissRequest = { visibility.targetState = false },
-            properties = PopupProperties(focusable = true)
+            properties = PopupProperties(focusable = focusable)
         ) {
             val focus = LocalFocusManager.current
             AnimatedVisibility(
@@ -97,6 +111,7 @@ fun <T> AnchoredDropdown(
                                 shape = shape
                             )
                             .clip(shape)
+                            .hoverable(popupInteraction)
                             .onPreviewKeyEvent {
                                 when {
                                     it.type != KeyEventType.KeyDown -> false

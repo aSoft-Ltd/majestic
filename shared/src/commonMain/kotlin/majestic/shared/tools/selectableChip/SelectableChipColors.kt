@@ -5,7 +5,8 @@ import androidx.compose.ui.graphics.Color
 data class SelectableChipStateColors(
     val text: Color,
     val background: Color,
-    val indicator: Color
+    val indicator: Color,
+    val border: Color = Color.Transparent
 )
 
 data class SelectableChipColors(
