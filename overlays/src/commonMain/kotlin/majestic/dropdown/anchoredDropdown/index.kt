@@ -38,7 +38,7 @@ import majestic.dropdown.DropdownItemWrapper
 import majestic.dropdown.DropdownMode
 import majestic.dropdown.overlayModifier
 
-enum class DropdownAlignment { Auto, Start, Center, End }
+enum class DropdownAlignment { Auto, Start, Center, End, SideAuto }
 
 @Composable
 fun <T> AnchoredDropdown(
@@ -50,6 +50,7 @@ fun <T> AnchoredDropdown(
     popupWidth: Dp? = null,
     popupAlignment: DropdownAlignment = DropdownAlignment.Auto,
     popupGap: Dp = 8.dp,
+    focusable: Boolean = true,
     modifier: Modifier = Modifier,
     customItemRow: @Composable ((DropdownItem<T>) -> Unit)? = null,
     customTrigger: @Composable (expanded: Boolean, onToggle: () -> Unit) -> Unit
@@ -58,23 +59,16 @@ fun <T> AnchoredDropdown(
     val shadowPadding = 16.dp
     val density = LocalDensity.current
     val position = remember(popupAlignment, popupGap, density) {
-        with(density) {
-            DropdownPositionProvider(popupAlignment, popupGap.roundToPx(), shadowPadding.roundToPx())
-        }
+        with(density) { DropdownPositionProvider(popupAlignment, popupGap.roundToPx(), shadowPadding.roundToPx()) }
     }
-
-    customTrigger(visibility.targetState) {
-        if (enabled && !loading) visibility.targetState = !visibility.targetState
-    }
-    LaunchedEffect(enabled, loading) {
-        if (!enabled || loading) visibility.targetState = false
-    }
+    customTrigger(visibility.targetState) { if (enabled && !loading) visibility.targetState = !visibility.targetState }
+    LaunchedEffect(enabled, loading) { if (!enabled || loading) visibility.targetState = false }
 
     if (visibility.currentState || visibility.targetState) {
         Popup(
             popupPositionProvider = position,
             onDismissRequest = { visibility.targetState = false },
-            properties = PopupProperties(focusable = true)
+            properties = PopupProperties(focusable = focusable)
         ) {
             val focus = LocalFocusManager.current
             AnimatedVisibility(

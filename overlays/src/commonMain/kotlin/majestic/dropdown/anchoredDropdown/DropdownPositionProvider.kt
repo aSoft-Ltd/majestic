@@ -33,12 +33,22 @@ internal class DropdownPositionProvider(
                 layoutDirection
             )
             DropdownAlignment.End -> end
+            DropdownAlignment.SideAuto -> {
+                val right = anchorBounds.right + gap
+                val left = anchorBounds.left - gap - width
+                when {
+                    right <= maxX -> right
+                    left >= minX -> left
+                    windowSize.width - anchorBounds.right >= anchorBounds.left -> right
+                    else -> left
+                }
+            }
         }.coerceIn(minX, maxX)
         val minY = shadowPadding
         val maxY = (windowSize.height - height - shadowPadding).coerceAtLeast(minY)
         val below = anchorBounds.bottom + gap
         val above = anchorBounds.top - gap - height
-        val top = when {
+        val top = if (alignment == DropdownAlignment.SideAuto) anchorBounds.top.coerceIn(minY, maxY) else when {
             below <= maxY -> below
             above >= minY -> above
             windowSize.height - anchorBounds.bottom >= anchorBounds.top -> below
