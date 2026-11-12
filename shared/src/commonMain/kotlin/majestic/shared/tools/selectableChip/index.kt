@@ -33,7 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import majestic.icons.Res
 import majestic.icons.ic_checkmark_circle_01
+import majestic.icons.ic_checkmark_circle_01_solid
 import org.jetbrains.compose.resources.painterResource
+
+enum class SelectableChipVariant { Filled, Outlined }
 
 @Composable
 fun SelectableChip(
@@ -43,6 +46,7 @@ fun SelectableChip(
     colors: SelectableChipColors,
     contentPadding: PaddingValues = PaddingValues(horizontal = 14.dp, vertical = 10.dp),
     textSize: TextUnit = 14.sp,
+    variant: SelectableChipVariant = SelectableChipVariant.Filled,
     modifier: Modifier = Modifier
 ) = Box(modifier = modifier, propagateMinConstraints = true) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -67,11 +71,24 @@ fun SelectableChip(
         animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing),
         label = "SelectableChipIndicator"
     )
+    val border by animateColorAsState(
+        targetValue = stateColors.border,
+        animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing),
+        label = "SelectableChipBorder"
+    )
 
     Row(
         modifier = Modifier
             .clip(CircleShape)
             .background(background)
+            .then(
+                if (variant == SelectableChipVariant.Outlined) Modifier.border(
+                    width = 1.dp,
+                    color = border,
+                    shape = CircleShape
+                )
+                else Modifier
+            )
             .pointerHoverIcon(PointerIcon.Hand)
             .hoverable(interactionSource = interactionSource)
             .toggleable(
@@ -86,22 +103,19 @@ fun SelectableChip(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (selected) Icon(
-            painter = painterResource(Res.drawable.ic_checkmark_circle_01),
+            painter = painterResource(
+                if (variant == SelectableChipVariant.Outlined) Res.drawable.ic_checkmark_circle_01_solid
+                else Res.drawable.ic_checkmark_circle_01
+            ),
             contentDescription = null,
             modifier = Modifier.size(20.dp),
             tint = indicator
         )
-        else Box(
+        else if (variant == SelectableChipVariant.Filled) Box(
             modifier = Modifier
                 .size(20.dp)
                 .border(width = 2.dp, color = indicator, shape = CircleShape)
         )
-        Text(
-            text = label,
-            color = text,
-            fontSize = textSize,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+        Text(text = label, color = text, fontSize = textSize, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }
