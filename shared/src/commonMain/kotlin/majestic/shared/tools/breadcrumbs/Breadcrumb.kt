@@ -1,8 +1,13 @@
 package majestic.shared.tools.breadcrumbs
 
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
@@ -45,14 +50,17 @@ fun Breadcrumb(
     color = color,
     items = items.mapIndexed { index, item ->
         {
+            val interaction = remember(item.url) { MutableInteractionSource() }
+            val hovered by interaction.collectIsHoveredAsState()
             Text(
                 text = item.label,
                 fontSize = 14.sp,
                 lineHeight = 1.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                color = if (index == items.lastIndex) color else color.copy(alpha = 0.5f),
+                color = if (index == items.lastIndex || hovered) color else color.copy(alpha = 0.5f),
                 modifier = Modifier
+                    .hoverable(interaction)
                     .pointerHoverIcon(PointerIcon.Hand)
                     .onClick { onClick(item) },
             )
