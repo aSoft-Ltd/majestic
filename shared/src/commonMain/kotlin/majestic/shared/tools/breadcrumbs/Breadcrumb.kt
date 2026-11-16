@@ -26,16 +26,14 @@ fun Breadcrumb(
 ) = Row(modifier = modifier) {
     for ((index, item) in items.withIndex()) {
         item()
-        if (index < items.lastIndex) {
-            Text(
-                text = " / ",
-                fontSize = 14.sp,
-                lineHeight = 1.sp,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = if (index == items.lastIndex - 1) color else color.copy(alpha = 0.5f)
-            )
-        }
+        if (index < items.lastIndex) Text(
+            text = " / ",
+            fontSize = 14.sp,
+            lineHeight = 1.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = if (index == items.lastIndex - 1) color else color.copy(alpha = 0.5f)
+        )
     }
 }
 
