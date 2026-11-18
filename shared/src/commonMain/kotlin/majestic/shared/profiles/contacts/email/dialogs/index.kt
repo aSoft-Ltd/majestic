@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import composex.screen.orientation.ScreenOrientation
 import majestic.dialogs.DialogColors
+import majestic.dialogs.LocalWindowShape
 import majestic.dialogs.flexible.FlexibleDialog
 import majestic.shared.profiles.contacts.tools.dialogs.BarColors
 import majestic.shared.profiles.contacts.tools.dialogs.None
@@ -32,7 +33,11 @@ fun EmailDialogs(
 
     FlexibleDialog(
         onDismiss = { state.dismiss() },
-        modifier = Modifier.modalPopupStyle(orientation, colors.modalColors),
+        modifier = Modifier.modalPopupStyle(
+            orientation = orientation,
+            colors = colors.modalColors,
+            shape = LocalWindowShape.current
+        ),
         bar = {
             ModalHeader(
                 title = state.active.getTitle(labels),

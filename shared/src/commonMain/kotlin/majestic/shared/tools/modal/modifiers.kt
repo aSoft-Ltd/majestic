@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
@@ -47,7 +49,8 @@ fun Modifier.modalPopupStyle(
     orientation: ScreenOrientation,
     colors: ModalColors,
     width: Dp = 500.dp,
-    heightIn: Pair<Dp, Dp> = Pair(300.dp, 600.dp)
+    heightIn: Pair<Dp, Dp> = Pair(300.dp, 600.dp),
+    shape: Shape = RectangleShape
 ) = when (orientation) {
     Landscape -> this
         .width(width)
@@ -57,7 +60,7 @@ fun Modifier.modalPopupStyle(
 
     Portrait -> this
         .fillMaxSize()
-        .clipToBounds()
+        .clip(shape)
         .background(colors.body)
 }
 
@@ -68,7 +71,8 @@ data class Size(val width: Dp, val height: Dp) {
 fun Modifier.dialog(
     orientation: ScreenOrientation,
     background: Color,
-    size: Size
+    size: Size,
+    shape: Shape = RectangleShape
 ) = when (orientation) {
     Landscape -> this
         .clip(RoundedCornerShape(20.dp))
@@ -81,5 +85,6 @@ fun Modifier.dialog(
 
     Portrait -> this
         .fillMaxSize()
+        .clip(shape)
         .background(background)
 }

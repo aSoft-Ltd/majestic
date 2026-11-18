@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import captain.Navigator
 import composex.screen.orientation.ScreenOrientation
+import majestic.dialogs.LocalWindowShape
 import majestic.shared.menu.PanelMenu
 import majestic.shared.tools.modal.Size
 import majestic.shared.tools.modal.dialog
@@ -69,7 +70,8 @@ fun AppBarNotifications(
         modifier = Modifier.dialog(
             orientation = orientation,
             background = colors.viewNotificationColors.modal.body,
-            size = Size(width = 604.dp, height = 304.dp)
+            size = Size(width = 604.dp, height = 304.dp),
+            shape = LocalWindowShape.current
         )
     )
 
