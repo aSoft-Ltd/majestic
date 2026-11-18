@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
+import majestic.dialogs.LocalWindowShape
 import majestic.shared.notifications.NotificationItem
 import majestic.shared.notifications.NotificationLabels
 import majestic.shared.notifications.ViewNotification
@@ -56,7 +57,8 @@ fun NotificationsList(
         modifier = Modifier.dialog(
             orientation = orientation,
             background = colors.modalBackground,
-            size = Size(width = 604.dp, height = 304.dp)
+            size = Size(width = 604.dp, height = 304.dp),
+            shape = LocalWindowShape.current
         )
     )
 
