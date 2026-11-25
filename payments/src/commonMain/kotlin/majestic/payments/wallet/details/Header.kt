@@ -1,5 +1,7 @@
 package majestic.payments.wallet.details
 
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -20,6 +23,7 @@ import composex.screen.orientation.Landscape
 import composex.screen.orientation.Portrait
 import composex.screen.orientation.ScreenOrientation
 import majestic.payments.labels.wallet.WalletLabels
+import majestic.payments.tools.header.COLLAPSE_MILLIS
 import majestic.payments.tools.header.DetailHeader
 import majestic.payments.tools.header.DetailHeaderColors
 import majestic.payments.tools.header.InfoEntryItem
@@ -39,6 +43,8 @@ fun Header(
     labels: WalletLabels,
     colors: DetailHeaderColors,
     orientation: ScreenOrientation,
+    collapsed: Boolean = false,
+    onToggleCollapsed: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val details = InfoEntryItem.wallet(labels.infoEntry)
@@ -49,13 +55,24 @@ fun Header(
             colors = colors,
             options = WalletDetailMenuAction.getMenus(labels.menu),
             details = details,
+            collapsed = collapsed,
+            onToggleCollapsed = onToggleCollapsed,
             modifier = modifier,
         ) {
+            val size by animateDpAsState(
+                targetValue = if (collapsed) 48.dp else 100.dp,
+                animationSpec = tween(COLLAPSE_MILLIS)
+            )
+            val padding by animateDpAsState(
+                targetValue = if (collapsed) 12.dp else 20.dp,
+                animationSpec = tween(COLLAPSE_MILLIS)
+            )
             Icon(
-                modifier = Modifier.size(100.dp)
+                modifier = Modifier
+                    .size(size)
                     .clip(RoundedCornerShape(10.dp))
                     .background(colors.icon.background)
-                    .padding(20.dp),
+                    .padding(padding),
                 painter = painterResource(Res.drawable.ic_wallet_02_solid),
                 tint = colors.icon.foreground,
                 contentDescription = null,
@@ -68,7 +85,8 @@ fun Header(
             options = WalletDetailMenuAction.getMenus(labels.menu),
             icon = {
                 Icon(
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier
+                        .size(40.dp)
                         .clip(RoundedCornerShape(5.dp))
                         .background(colors.icon.background)
                         .padding(8.dp),
