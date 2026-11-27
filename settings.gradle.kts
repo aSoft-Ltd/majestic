@@ -17,3 +17,17 @@ rootProject.name = "majestic"
 
 includeSubs("majestic", ".", "theme", "table", "graphs", "drawers", "screen", "loaders", "overlays", "users", "payments", "shared","icons","layouts")
 includeSubs("majestic-input", "input", "core", "text", "color", "choice", "phone", "chrono", "button")
+includeSubs(
+    "majestic-hugeicons",
+    "hugeicons",
+    "core",
+    "stroke-standard",
+    "stroke-rounded",
+    "stroke-sharp",
+    "solid-standard",
+    "solid-rounded",
+    "solid-sharp",
+    "bulk",
+    "duotone",
+    "twotone"
+)

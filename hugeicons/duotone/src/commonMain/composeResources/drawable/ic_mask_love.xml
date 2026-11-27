@@ -1,0 +1,37 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M3.16282 13.9796C4.32766 13.7566 6.47569 11.8124 5.99847 8C7.46436 7.38677 9.60909 7 11.9984 7C14.3878 7 16.5325 7.38677 17.9984 8C17.9984 10.5417 18.6009 12.1083 19.3256 13.0006C18.776 13.0158 18.3078 13.2193 17.9639 13.4744C17.7045 13.6668 17.5748 13.763 17.4984 13.763C17.4221 13.763 17.2924 13.6668 17.033 13.4744C16.4003 13.0051 15.347 12.7105 14.1403 13.4416C12.8414 14.2285 12.3667 16.4992 14.2535 18.7638C13.5274 18.9185 12.7728 19 11.9984 19C8.21402 19 4.90213 17.0526 3.08557 14.1422C3.04559 14.0781 3.08866 13.9938 3.16282 13.9796Z"
+      android:fillColor="#ffffff"
+      android:fillAlpha="0.4"/>
+  <path
+      android:pathData="M14.1418 13.4419C15.3486 12.7108 16.4018 13.0054 17.0345 13.4747C17.294 13.6671 17.4237 13.7633 17.5 13.7633C17.5763 13.7633 17.706 13.6671 17.9655 13.4747C18.5982 13.0054 19.6514 12.7108 20.8582 13.4419C22.4419 14.4013 22.8002 17.5666 19.1472 20.2371C18.4514 20.7457 18.1035 21 17.5 21C16.8965 21 16.5486 20.7457 15.8528 20.2371C12.1998 17.5666 12.5581 14.4013 14.1418 13.4419Z"
+      android:strokeColor="#ffffff"
+      android:strokeWidth="1.5"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="M6 8C7.46589 7.38677 9.61061 7 12 7C14.3894 7 16.5341 7.38677 18 8"
+      android:strokeColor="#ffffff"
+      android:strokeWidth="1.5"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="M6 9C6 12.2571 4.1688 13.9419 3.05731 13.9985C3.02153 14.0003 2.98891 13.9808 2.97139 13.9496C2.15656 12.4966 2 10.7879 2 9C2 5.68629 2.89543 3 4 3C5.10457 3 6 5.68629 6 9Z"
+      android:strokeColor="#ffffff"
+      android:strokeWidth="1.5"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"/>
+  <path
+      android:pathData="M18.06 10.02C18.0094 9.66713 18 9.40053 18 9C18 5.68629 18.8954 3 20 3C21.1046 3 22 5.68629 22 9C22 9.38088 22 10.14 21.948 10.52"
+      android:strokeColor="#ffffff"
+      android:strokeWidth="1.5"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"/>
+  <path
+      android:pathData="M11 19C8.04 18.78 4.74 17.04 3 14"
+      android:strokeColor="#ffffff"
+      android:strokeWidth="1.5"
+      android:strokeLineCap="round"/>
+</vector>
